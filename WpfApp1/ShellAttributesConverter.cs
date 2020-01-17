@@ -1,36 +1,42 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
+using NLog;
 using Vanara.Windows.Shell;
 
 namespace WpfApp1
 {
-    public class ShellFolderContentsConverter : IValueConverter
+    public class ShellAttributesConverter : IValueConverter
     {
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is ShellFolder shf)
+            if (value is ShellItemAttribute att)
             {
-                Logger.Debug(targetType.ToString);
                 if (typeof(IEnumerable).IsAssignableFrom(targetType))
                 {
+                    var names = Enum.GetNames(typeof(ShellItemAttribute));
+                    uint iatt = (uint) att;
+                    List<ShellItemAttribute> r = new List<ShellItemAttribute>();
+                    foreach(var val in Enum.GetValues(typeof(ShellItemAttribute)))
                     {
-                        var enumerateChildren = shf.EnumerateChildren(FolderItemFilter.Folders | FolderItemFilter.NonFolders);
-                        var shellItems = enumerateChildren.ToList();
-                        Debug.Assert(shellItems.Any());
-                        return shellItems;
+                        Logger.Debug(val.GetType().ToString);
+                        uint ival = (uint) val;
+                        if ((iatt & ival) == ival)
+                        {
+                            r.Add((ShellItemAttribute) val);
+                        }
                     }
+
+                    return r;
                 }
             }
-
             throw new NotImplementedException();
         }
 

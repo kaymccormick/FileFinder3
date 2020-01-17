@@ -385,6 +385,7 @@
     <Compile Include="MyFileInfo.cs" />
     <Compile Include="PropertyView.cs" />
     <Compile Include="SerializableDictionary.cs" />
+    <Compile Include="ShellAttributesConverter.cs" />
     <Compile Include="ShellFolderContentsConverter.cs" />
     <Compile Include="ShellFun.xaml.cs">
       <DependentUpon>ShellFun.xaml</DependentUpon>

@@ -4,10 +4,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
+        xmlns:shell="clr-namespace:Vanara.Windows.Shell;assembly=Vanara.Windows.Shell"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
+        FontSize="20"
         Title="ShellFun" Height="450" Width="800"
         DataContext="{Binding ElementName=window,Path=CurrentShellFolder}">
     <Window.Resources>
+        <local:ShellAttributesConverter x:Key="ShellAttributesConverter"/>
+        <ObjectDataProvider x:Key="DesignShellFolder" ObjectType="shell:ShellFolder">
+            <ObjectDataProvider.ConstructorParameters>
+                <system:String>c:\</system:String>
+            </ObjectDataProvider.ConstructorParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider x:Key="Desktop" ObjectInstance="{x:Static shell:ShellFolder.Desktop}"/>
         <local:ShellFolderContentsConverter x:Key="ShellFolderContentsConverter"/>
         <Style x:Key="Bordered" TargetType="ContentControl">
             <Setter Property="BorderBrush" Value="Red"/>
@@ -21,21 +31,47 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <Grid>
+    <Grid d:DataContext="{StaticResource Desktop}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
             <Button Grid.Row="0" Grid.Column="0" Name="DesktopButton" Content="Desktop" Click="DesktopButton_OnClick"/>
             <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1" Content="{Binding Path=Name}"/>
-        <ListView Grid.Row="2" Grid.Column="0" Name="MainListView" ItemsSource="{Binding Converter={StaticResource ShellFolderContentsConverter}}">
+        <ListView Name="ContentsListView" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="0" ItemsSource="{Binding Converter={StaticResource ShellFolderContentsConverter}}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Name}"/>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Path=Name}"/>
+                    <GridViewColumn Header="FS Path" DisplayMemberBinding="{Binding Path=FileSystemPath}"/>
+                    <GridViewColumn Header="ParsingName" DisplayMemberBinding="{Binding Path=ParsingName}"/>
+                    <GridViewColumn Header="ToolTip" DisplayMemberBinding="{Binding Path=ToolTipText}"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Attributes}"></GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
+        <GroupBox d:DataContext="{Binding Source={StaticResource DesignShellFolder}}" DataContext="{Binding ElementName=ContentsListView,Path=SelectedItem}" Grid.Row="3" Header="Selected Item">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Content="Name"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=Nam\e}"></TextBlock>
+                <ListView Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Path=Attributes,Converter={StaticResource ShellAttributesConverter}}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=.}"></GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </GroupBox>
     </Grid>
 </Window>
