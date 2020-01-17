@@ -7,11 +7,11 @@
         xmlns:shell="clr-namespace:Vanara.Windows.Shell;assembly=Vanara.Windows.Shell"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        FontSize="20"
+        FontSize="16"
         Title="ShellFun" Height="450" Width="800"
         DataContext="{Binding ElementName=window,Path=CurrentShellFolder}">
     <Window.Resources>
-        <local:ShellAttributesConverter x:Key="ShellAttributesConverter"/>
+        <local:ShellItemAttributesConverter x:Key="ShellItemAttributesConverter"/>
         <ObjectDataProvider x:Key="DesignShellFolder" ObjectType="shell:ShellFolder">
             <ObjectDataProvider.ConstructorParameters>
                 <system:String>c:\</system:String>
@@ -31,7 +31,7 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <Grid d:DataContext="{StaticResource Desktop}">
+    <Grid d:DataContext="{StaticResource Desktop}" ShowGridLines="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -53,10 +53,10 @@
             </ListView.View>
         </ListView>
         <GroupBox d:DataContext="{Binding Source={StaticResource DesignShellFolder}}" DataContext="{Binding ElementName=ContentsListView,Path=SelectedItem}" Grid.Row="3" Header="Selected Item">
-            <Grid>
+            <Grid Margin="10" ShowGridLines="True">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -64,10 +64,10 @@
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="0" Grid.Column="0" Content="Name"/>
                 <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=Nam\e}"></TextBlock>
-                <ListView Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Path=Attributes,Converter={StaticResource ShellAttributesConverter}}">
+                <ListView x:Name="ShellItemAttributesListView" Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Path=Attributes,Converter={StaticResource ShellItemAttributesConverter}}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn DisplayMemberBinding="{Binding Path=.}"></GridViewColumn>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=ShellItemAttribute}"></GridViewColumn>
                         </GridView>
                     </ListView.View>
                 </ListView>

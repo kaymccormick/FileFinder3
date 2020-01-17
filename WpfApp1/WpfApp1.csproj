@@ -385,10 +385,14 @@
     <Compile Include="MyFileInfo.cs" />
     <Compile Include="PropertyView.cs" />
     <Compile Include="SerializableDictionary.cs" />
-    <Compile Include="ShellAttributesConverter.cs" />
+    <Compile Include="ShellItemAttributesConverter.cs" />
     <Compile Include="ShellFolderContentsConverter.cs" />
     <Compile Include="ShellFun.xaml.cs">
       <DependentUpon>ShellFun.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ShellItemAttributeListItem.cs" />
+    <Compile Include="ShellItemAttributesControl.xaml.cs">
+      <DependentUpon>ShellItemAttributesControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="TestWindow.xaml.cs">
       <DependentUpon>TestWindow.xaml</DependentUpon>
@@ -416,6 +420,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ShellFun.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ShellItemAttributesControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
