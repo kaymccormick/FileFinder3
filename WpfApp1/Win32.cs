@@ -11,7 +11,7 @@ namespace WpfApp1
     
     class Win32
     {
-        [DllImport("shell32.dll")]
-        static extern int SHGetDesktopFolder(ref IShellFolder ppshf);
+        // [DllImport("shell32.dll")]
+        // static extern int SHGetDesktopFolder(ref IShellFolder ppshf);
     }
 }
