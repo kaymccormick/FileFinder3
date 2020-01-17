@@ -1,4 +1,5 @@
 ﻿<Window Name="window" x:Class="WpfApp1.ShellFun"
+        xmlns:properties="clr-namespace:WpfApp1.Properties"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,10 +8,15 @@
         xmlns:shell="clr-namespace:Vanara.Windows.Shell;assembly=Vanara.Windows.Shell"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        FontSize="16"
+        FontSize="{Binding Source={x:Static properties:Settings.Default}, Path=DefaultFontSize}"
         Title="ShellFun" Height="450" Width="800"
         DataContext="{Binding ElementName=window,Path=CurrentShellFolder}">
     <Window.Resources>
+        <Style TargetType="Control" x:Key="HeaderStyle">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontFamily" Value="Lucida Sans Unicode"/>
+        </Style>
         <local:ShellItemAttributesConverter x:Key="ShellItemAttributesConverter"/>
         <ObjectDataProvider x:Key="DesignShellFolder" ObjectType="shell:ShellFolder">
             <ObjectDataProvider.ConstructorParameters>
@@ -40,7 +46,7 @@
         </Grid.RowDefinitions>
 
             <Button Grid.Row="0" Grid.Column="0" Name="DesktopButton" Content="Desktop" Click="DesktopButton_OnClick"/>
-            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1" Content="{Binding Path=Name}"/>
+            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1" Content="{Binding Path=Name}" Style="{Binding Mode=OneWay, Source={StaticResource HeaderStyle}}"/>
         <ListView Name="ContentsListView" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="0" ItemsSource="{Binding Converter={StaticResource ShellFolderContentsConverter}}">
             <ListView.View>
                 <GridView>

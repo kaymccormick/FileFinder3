@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
@@ -15,9 +16,25 @@ namespace WpfApp1
 {
     public class ShellItemAttributesConverter : IValueConverter
     {
+        public Type Type = typeof(ShellItemAttribute);
+        public HashSet<ShellItemAttribute> ProcessAttributes = new HashSet<ShellItemAttribute>();
         public Dictionary<string, string> SummaryDictionary = new Dictionary<string, string>();
         public ShellItemAttributesConverter()
         {
+            var fieldInfos = Type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.ExactBinding);
+            foreach (var f in fieldInfos)
+            {
+                Logger.Debug(f.Name);
+                var value = f.GetValue(null);
+                uint v = (uint) value;
+                if (NumOfSetBits(v) == 1)
+                {
+                    ProcessAttributes.Add((ShellItemAttribute) value);
+                }
+
+                ProcessAttributes.Remove(ShellItemAttribute.ContentsMask);
+            }
+            //Logger.Debug($"{String.Join(", ", fieldInfos)}");
             var xml = Path.ChangeExtension(typeof(ShellItemAttribute).Assembly.Location, ".xml");
             if (File.Exists(xml))
             {
@@ -41,6 +58,16 @@ namespace WpfApp1
             }
         }
 
+        public static uint NumOfSetBits(uint n)
+        {
+            uint count = 0;
+
+            for (; n != 0; n >>= 1)
+                count += (n & 1);   // check last bit
+
+            return count;
+        }
+
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -52,7 +79,9 @@ namespace WpfApp1
                     var names = Enum.GetNames(typeof(ShellItemAttribute));
                     uint iatt = (uint) att;
                     List<ShellItemAttributeListItem> r = new List<ShellItemAttributeListItem>();
-                    foreach(var val in Enum.GetValues(typeof(ShellItemAttribute)))
+                    var values = ProcessAttributes;
+                    Logger.Debug($"{String.Join(" ", values)}");
+                    foreach(var val in values)
                     {
                         Logger.Debug($"{val}");
                         uint ival = (uint) val;
