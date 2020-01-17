@@ -27,6 +27,7 @@ namespace FileFinder3
         }
 
         public DirectoryObjectInfo Root { get; set; }
+        public IObserver<FileInfo> Observer { get; set; }
 
         private void Recurse(DirectoryObjectInfo parent, DirectoryInfo dir, out DirectoryObjectInfo result)
         {
@@ -79,6 +80,7 @@ namespace FileFinder3
             {
                 foreach (var file in files)
                 {
+                    Observer.OnNext(file);
                     s.NumEntries++;
                     s.TotalSize += file.Length;
                     

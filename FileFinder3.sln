@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileFinder3Tests2", "FileFi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp1", "WpfApp1\WpfApp1.csproj", "{27E3139A-E525-4CE0-828D-53A58F161D0A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{088C87EC-4E42-4573-B1DC-F04CC763C6EB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{27E3139A-E525-4CE0-828D-53A58F161D0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27E3139A-E525-4CE0-828D-53A58F161D0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27E3139A-E525-4CE0-828D-53A58F161D0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{088C87EC-4E42-4573-B1DC-F04CC763C6EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{088C87EC-4E42-4573-B1DC-F04CC763C6EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{088C87EC-4E42-4573-B1DC-F04CC763C6EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{088C87EC-4E42-4573-B1DC-F04CC763C6EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
