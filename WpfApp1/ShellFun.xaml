@@ -1,0 +1,41 @@
+﻿<Window Name="window" x:Class="WpfApp1.ShellFun"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="ShellFun" Height="450" Width="800"
+        DataContext="{Binding ElementName=window,Path=CurrentShellFolder}">
+    <Window.Resources>
+        <local:ShellFolderContentsConverter x:Key="ShellFolderContentsConverter"/>
+        <Style x:Key="Bordered" TargetType="ContentControl">
+            <Setter Property="BorderBrush" Value="Red"/>
+            <Setter Property="BorderThickness" Value="3"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                <ControlTemplate>
+                    <Border><ContentPresenter></ContentPresenter></Border>
+                </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+            <Button Grid.Row="0" Grid.Column="0" Name="DesktopButton" Content="Desktop" Click="DesktopButton_OnClick"/>
+            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1" Content="{Binding Path=Name}"/>
+        <ListView Grid.Row="2" Grid.Column="0" Name="MainListView" ItemsSource="{Binding Converter={StaticResource ShellFolderContentsConverter}}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Name}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>
