@@ -42,7 +42,7 @@ namespace WpfApp1
             var observable = Observable.Create<FileSystemInfo>(observer =>
             {
                 Logger.Debug("herehere");
-                FileFinderImpl f = new FileFinderImpl
+                var f = new FileFinderImpl3
                 {
                     FindDir = @"e:\",
                     Observer = observer,
