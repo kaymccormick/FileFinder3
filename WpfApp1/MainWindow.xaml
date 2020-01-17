@@ -12,7 +12,7 @@
     <Window.Resources>
         <HierarchicalDataTemplate DataType="{x:Type local:MyFileFileInfo}">
             <StackPanel Orientation="Horizontal" Height="32">
-                <Image Source="{Binding Path=SmallThumbNailBitmapSource}"></Image>
+                <Image Source="{Binding Path=SmallThumbnailBitmapSource}"></Image>
                 <TextBlock Text="{Binding Path=Name}"></TextBlock>
             </StackPanel>
             
