@@ -33,7 +33,8 @@ namespace WpfApp1
     public partial class MainWindow2 : Window
     {
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
-        public InfoCollection Collection { get; set; }= new InfoCollection();
+        public InfoCollection Collection { get; set; } = new InfoCollection();
+
         public MainWindow2()
         {
             InitializeComponent();
@@ -47,7 +48,7 @@ namespace WpfApp1
                 Logger.Debug("herehere");
                 var f = new FileFinderImpl3
                 {
-                    FindDir = @"e:\",
+                    FindDir = @"c:\temp",
                     Observer = observer,
                 };
                 f.FindFiles();
@@ -56,47 +57,63 @@ namespace WpfApp1
             }).SubscribeOn(ThreadPoolScheduler.Instance).ObserveOnDispatcher(DispatcherPriority.ApplicationIdle);
             observable.Subscribe(info =>
             {
-                
                 Logger.Debug($"hi {info}");
                 MyFileInfo myInfo = null;
-                
+
+                ShellObject sho = null;
                 switch (info)
                 {
                     case FileInfo f:
                         myInfo = new MyFileFileInfo() {FileInfo = f};
                         ShellFile f2 = ShellFile.FromFilePath(info.FullName);
+                        sho = f2;
                         var bitmap = f2.Thumbnail.SmallBitmapSource;
                         myInfo.SmallThumbnailBitmapSource = bitmap;
                         myInfo.IsLink = f2.IsLink;
                         myInfo.ParsingName = f2.ParsingName;
-                        var props = f2.Properties.DefaultPropertyCollection;
-                        myInfo.PropertyDict = new SerializableDictionary<string, string>( props.Where(property => property.CanonicalName != null).ToDictionary(property => property.CanonicalName,
-                            property =>
-                            {
-
-                                try
-                                {
-                                    return property.FormatForDisplay(PropertyDescriptionFormatOptions.None);
-                                }
-                                catch (Exception ex)
-                                {
-                                    return ex.Message;
-                                }
-                                
-                            }));
                         XmlSerializer x = new XmlSerializer(myInfo.GetType());
                         var xx = new StringWriter();
                         x.Serialize(xx, myInfo);
                         Console.WriteLine(xx.ToString());
                         break;
                     case DirectoryInfo d:
-                        myInfo = new MyDirectoryFileInfo() { DirectoryInfo = d };
+                        myInfo = new MyDirectoryFileInfo() {DirectoryInfo = d};
                         ShellFileSystemFolder folder = ShellFileSystemFolder.FromFolderPath(d.FullName);
+                        sho = folder;
                         myInfo.SmallThumbnailBitmapSource = folder.Thumbnail.SmallBitmapSource;
                         // ShellFile f22 = ShellFile.FromFilePath(info.FullName);
                         // var bitmap2 = f22.Thumbnail.SmallBitmapSource;
                         // myInfo.SmallThumbnailBitmapSource = bitmap2;
                         break;
+                }
+
+                if (sho != null)
+                {
+                    var props = sho.Properties.DefaultPropertyCollection;
+                    foreach (var q in props)
+                    {
+                        var desc = q.Description.DisplayName ?? q.CanonicalName;
+                        var formatForDisplay = q.FormatForDisplay(PropertyDescriptionFormatOptions.None);
+                        Logger.Debug($"{info.Name} {desc} {formatForDisplay}");
+                    }
+
+                    if (false)
+                    {
+                        myInfo.PropertyDict = new SerializableDictionary<string, string>(props
+                            .Where(property => property.CanonicalName != null).ToDictionary(
+                                property => property.Description.DisplayName,
+                                property =>
+                                {
+                                    try
+                                    {
+                                        return property.FormatForDisplay(PropertyDescriptionFormatOptions.None);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        return ex.Message;
+                                    }
+                                }));
+                    }
                 }
 
                 if (myInfo != null)

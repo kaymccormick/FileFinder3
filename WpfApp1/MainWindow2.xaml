@@ -10,6 +10,8 @@
         Title="MainWindow" Height="450" Width="800"
         DataContext="{Binding ElementName=window, Path=Collection}">
     <Window.Resources>
+        <local:MyFileInfo x:Key="designInfo"></local:MyFileInfo>
+        <CollectionViewSource x:Key="ViewSource" Source="{Binding Collection, ElementName=window}"></CollectionViewSource>
         <DataTemplate x:Key="Prop">
             <TextBlock Text="{Binding Path=Key}"></TextBlock>
         </DataTemplate>
@@ -50,10 +52,14 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
         <StackPanel Orientation="Horizontal">
             <Button Click="StartButton_OnClick" Name="StartButton" Content="Start" Margin="0,0,0,0.2"/>
         </StackPanel>
-<ListView HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" ItemsSource="{Binding .}">
+<ListView Name="MainListView" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" ItemsSource="{Binding Mode=OneWay, Source={StaticResource ViewSource}}">
     <ListView.View>
         <GridView>
                     <GridViewColumn CellTemplate="{StaticResource FileIcon}"></GridViewColumn>
@@ -69,7 +75,17 @@
         </GridView>
     </ListView.View>
 </ListView>
-
+        <StackPanel d:DataContext="{StaticResource designInfo}" Grid.Column="1" Grid.Row="1" DataContext="{Binding SelectedItem, ElementName=MainListView}" Orientation="Vertical">
+            <TextBlock Text="{Binding Path=FileSystemInfo.FullName}"></TextBlock>
+            <ListView ItemsSource="{Binding Path=PropertyDict}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Key}"></GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Value}"></GridViewColumn>
+                    </GridView>
+            </ListView.View>
+        </ListView>
+        </StackPanel>
 
 
     </Grid>
