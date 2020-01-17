@@ -92,8 +92,11 @@ namespace WpfApp1
                     var props = sho.Properties.DefaultPropertyCollection;
                     foreach (var q in props)
                     {
-                        var desc = q.Description.DisplayName ?? q.CanonicalName;
+                        var propdesc = q.Description;
+                        var d = propdesc.DisplayName;
+                        var desc = d ?? q.CanonicalName;
                         var formatForDisplay = q.FormatForDisplay(PropertyDescriptionFormatOptions.None);
+
                         Logger.Debug($"{info.Name} {desc} {formatForDisplay}");
                     }
 
@@ -132,5 +135,13 @@ namespace WpfApp1
         }
 
         public CancellationToken Token { get; set; }
+
+        private void MainWindow2_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            TestWindow test = new TestWindow();
+            test.VerticalAlignment = VerticalAlignment.Stretch;
+            test.HorizontalAlignment = HorizontalAlignment.Stretch;
+            test.Show();
+        }
     }
 }
