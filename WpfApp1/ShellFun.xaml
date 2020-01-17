@@ -30,9 +30,11 @@
             <Setter Property="BorderThickness" Value="3"></Setter>
             <Setter Property="Template">
                 <Setter.Value>
-                <ControlTemplate>
-                    <Border><ContentPresenter></ContentPresenter></Border>
-                </ControlTemplate>
+                    <ControlTemplate>
+                        <Border>
+                            <ContentPresenter></ContentPresenter>
+                        </Border>
+                    </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
@@ -41,13 +43,18 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
-            <Button Grid.Row="0" Grid.Column="0" Name="DesktopButton" Content="Desktop" Click="DesktopButton_OnClick"/>
-            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1" Content="{Binding Path=Name}" Style="{Binding Mode=OneWay, Source={StaticResource HeaderStyle}}"/>
-        <ListView Name="ContentsListView" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="0" ItemsSource="{Binding Converter={StaticResource ShellFolderContentsConverter}}">
+        <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1">
+            <MenuItem Header="Tools">
+                <MenuItem Header="Settings" Command="local:MyAppCommands.AppSettings"/>
+            </MenuItem>
+        </Menu>
+        <Button Grid.Row="1" Grid.Column="0" Name="DesktopButton" Content="Desktop" Click="DesktopButton_OnClick"/>
+        <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="1" Content="{Binding Path=Name}" Style="{Binding Mode=OneWay, Source={StaticResource HeaderStyle}}"/>
+        <ListView Name="ContentsListView" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="0" ItemsSource="{Binding Converter={StaticResource ShellFolderContentsConverter}}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Path=Name}"/>
@@ -58,7 +65,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <GroupBox d:DataContext="{Binding Source={StaticResource DesignShellFolder}}" DataContext="{Binding ElementName=ContentsListView,Path=SelectedItem}" Grid.Row="3" Header="Selected Item">
+        <GroupBox d:DataContext="{Binding Source={StaticResource DesignShellFolder}}" DataContext="{Binding ElementName=ContentsListView,Path=SelectedItem}" Grid.Row="4" Header="Selected Item">
             <Grid Margin="10" ShowGridLines="True">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>

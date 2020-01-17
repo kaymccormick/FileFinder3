@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Diagnostics;
@@ -22,13 +23,25 @@ namespace WpfApp1
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            var shellFolder = ShellFolder.Desktop;
+/*            var shellFolder = ShellFolder.Desktop;
             Logger.Debug(shellFolder.GetDisplayName(ShellItemDisplayString.NormalDisplay));
             var enumerateChildren = shellFolder.EnumerateChildren(FolderItemFilter.NonFolders);
             Logger.Debug(enumerateChildren.Count());
             foreach(var item in enumerateChildren)
             {
                 Logger.Debug(item.Name);
+            }
+	    */
+            if (e.Args.Any())
+            {
+                var windowName = e.Args[0];
+                var xaml = windowName + '.xaml';
+                TypeConverter converter = TypeDescriptor.GetConverter(typeof(Uri));
+                if (converter.CanConvertFrom(typeof(string)))
+                {
+                    StartupUri = (Uri) converter.ConvertFrom(xaml);
+                    Logger.Debug("Startup URI is {startupUri}", StartupUri);
+                }
             }
         }
     }

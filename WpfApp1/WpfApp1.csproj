@@ -438,6 +438,7 @@
     <Compile Include="MainWindow2.xaml.cs">
       <DependentUpon>MainWindow2.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MyAppCommands.cs" />
     <Compile Include="MyFileInfo.cs" />
     <Compile Include="PropertyView.cs" />
     <Compile Include="SerializableDictionary.cs" />
