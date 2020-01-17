@@ -411,9 +411,6 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="WindowsFormsIntegration" />
-    <Reference Include="WpfColorFontDialog, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\WpfColorFontDialog.1.0.7\lib\net40\WpfColorFontDialog.dll</HintPath>
-    </Reference>
     <Reference Include="Xceed.Wpf.AvalonDock, Version=3.7.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
       <HintPath>e:\installed_packages\Extended.Wpf.Toolkit.3.7.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
     </Reference>
@@ -541,6 +538,10 @@
     <ProjectReference Include="..\FileFinder3\FileFinder3.csproj">
       <Project>{5f5ba27f-9ada-4137-b4e8-2108edcac3ef}</Project>
       <Name>FileFinder3</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WpfColorFont\WpfColorFontDialog\WpfColorFontDialog.csproj">
+      <Project>{6c301b62-352a-4053-9b06-e148a85d47aa}</Project>
+      <Name>WpfColorFontDialog</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,3 @@
+[submodule "WpfColorFont"]
+	path = WpfColorFont
+	url = git@github.com:kaymccormick/WpfColorFont.git

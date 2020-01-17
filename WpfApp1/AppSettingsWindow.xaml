@@ -4,12 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
+        xmlns:wpfColorFontDialog="clr-namespace:WpfColorFontDialog;assembly=WpfColorFontDialog"
         mc:Ignorable="d"
         Title="Application Settings" Height="450" Width="800">
     <DockPanel>
 <TabControl>
     <TabItem Header="Fonts">
-        <DockPanel></DockPanel>
+        <DockPanel>
+            <wpfColorFontDialog:ColorFontChooser/>
+
+        </DockPanel>
     </TabItem>
 
 </TabControl>
