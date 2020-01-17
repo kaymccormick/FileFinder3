@@ -35,6 +35,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>e:\installed_packages\WindowsAPICodePack-Core.1.1.2\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>e:\installed_packages\WindowsAPICodePack-Shell.1.1.1\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.ShellExtensions, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>e:\installed_packages\WindowsAPICodePack-ShellExtensions.1.1.1\lib\Microsoft.WindowsAPICodePack.ShellExtensions.dll</HintPath>
+    </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>e:\installed_packages\NLog.4.6.8\lib\net45\NLog.dll</HintPath>
     </Reference>
@@ -95,6 +104,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Wrapper.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -144,6 +154,56 @@
       <Project>{5f5ba27f-9ada-4137-b4e8-2108edcac3ef}</Project>
       <Name>FileFinder3</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="explorer_252.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="folder_Closed_16xLG.png" />
+    <Resource Include="folder_Closed_16xMD.png" />
+    <Resource Include="folder_Closed_16xSM.png" />
+    <Resource Include="folder_Closed_32xLG.png" />
+    <Resource Include="folder_Closed_32xMD.png" />
+    <Resource Include="folder_Closed_32xSM.png" />
+    <Resource Include="folder_Open_16xLG.png" />
+    <Resource Include="folder_Open_16xMD.png" />
+    <Resource Include="folder_Open_16xSM.png" />
+    <Resource Include="folder_Open_32xLG.png" />
+    <Resource Include="folder_Open_32xMD.png" />
+    <Resource Include="folder_Open_32xSM.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Document_Blank.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Document_Text.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Snippet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="HTML_Webpage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DataTables.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Database.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Computer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Checkmark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assembly.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="document.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Generic_Document.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

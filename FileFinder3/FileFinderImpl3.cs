@@ -35,6 +35,7 @@ namespace FileFinder3
         {
             Logger.Trace($"{dir.FullName}");
             IEnumerable<DirectoryInfo> dirs;
+
             Observer.OnNext(dir);
             
             try

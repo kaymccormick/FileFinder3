@@ -21,6 +21,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using FileFinder3;
+using Microsoft.WindowsAPICodePack.Shell;
 
 namespace WpfApp1
 {
@@ -54,6 +55,8 @@ namespace WpfApp1
             observable.Subscribe(info =>
             {
                 Logger.Debug($"hi {info}");
+                //ShellFile f = ShellFile.FromFilePath(info.FullName);
+                //f.Thumbnail.SmallBitmap
                 Collection.Add(info);
                 //TreeView1.Items.Add(info);
             });
