@@ -54,10 +54,29 @@ namespace WpfApp1
             }).SubscribeOn(ThreadPoolScheduler.Instance).ObserveOnDispatcher(DispatcherPriority.ApplicationIdle);
             observable.Subscribe(info =>
             {
+                
                 Logger.Debug($"hi {info}");
-                //ShellFile f = ShellFile.FromFilePath(info.FullName);
-                //f.Thumbnail.SmallBitmap
-                Collection.Add(info);
+                MyFileInfo myInfo = null;
+                
+                switch (info)
+                {
+                    case FileInfo f:
+                        myInfo = new MyFileFileInfo() {FileInfo = f};
+                        ShellFile f2 = ShellFile.FromFilePath(info.FullName);
+                        var bitmap = f2.Thumbnail.SmallBitmapSource;
+                        myInfo.SmallThumbNailBitmapSource = bitmap;
+
+                        break;
+                    case DirectoryInfo d:
+                        myInfo = new MyDirectoryFileInfo() {DirectoryInfo = d};
+                        break;
+                }
+
+                if (myInfo != null)
+                {
+                    Collection.Add(myInfo);
+                }
+
                 //TreeView1.Items.Add(info);
             });
             Logger.Warn("Here");

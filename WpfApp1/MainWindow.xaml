@@ -10,15 +10,15 @@
         Title="MainWindow" Height="450" Width="800"
         DataContext="{Binding ElementName=window, Path=Collection}">
     <Window.Resources>
-        <HierarchicalDataTemplate DataType="{x:Type io:FileInfo}">
-            <StackPanel Orientation="Horizontal">
-                <Image Source="Generic_Document.ico"></Image>
+        <HierarchicalDataTemplate DataType="{x:Type local:MyFileFileInfo}">
+            <StackPanel Orientation="Horizontal" Height="32">
+                <Image Source="{Binding Path=SmallThumbNailBitmapSource}"></Image>
                 <TextBlock Text="{Binding Path=Name}"></TextBlock>
             </StackPanel>
             
         </HierarchicalDataTemplate>
-        <HierarchicalDataTemplate DataType="{x:Type io:DirectoryInfo}">
-            <StackPanel Orientation="Horizontal">
+        <HierarchicalDataTemplate DataType="{x:Type local:MyDirectoryFileInfo}">
+            <StackPanel Orientation="Horizontal" Height="32">
                 <Image Source="explorer_252.ico"></Image>
                 <TextBlock Text="{Binding Path=Name}"></TextBlock>
                 
@@ -34,7 +34,6 @@
             <Button Click="StartButton_OnClick" Name="StartButton" Content="Start" Margin="0,0,0,0.2"/>
         </StackPanel>
 <TreeView HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" ItemsSource="{Binding .}">
-
 </TreeView>
 
 

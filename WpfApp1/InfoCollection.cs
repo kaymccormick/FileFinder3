@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace WpfApp1
 {
-    public class InfoCollection : ObservableCollection<FileSystemInfo>
+    public class InfoCollection : ObservableCollection<MyFileInfo>
     {
     }
 }
