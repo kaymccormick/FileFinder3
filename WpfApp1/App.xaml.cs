@@ -35,7 +35,7 @@ namespace WpfApp1
             if (e.Args.Any())
             {
                 var windowName = e.Args[0];
-                var xaml = windowName + '.xaml';
+                var xaml = windowName + ".xaml";
                 TypeConverter converter = TypeDescriptor.GetConverter(typeof(Uri));
                 if (converter.CanConvertFrom(typeof(string)))
                 {

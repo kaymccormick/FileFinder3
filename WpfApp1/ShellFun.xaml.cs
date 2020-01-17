@@ -60,5 +60,11 @@ namespace WpfApp1
         {
             CurrentShellFolder = ShellFolder.Desktop;
         }
+
+        private void AppSettingsOnExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            AppSettingsWindow appSettings = new AppSettingsWindow();
+            appSettings.ShowDialog();
+        }
     }
 }

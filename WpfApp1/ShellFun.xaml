@@ -8,8 +8,7 @@
         xmlns:shell="clr-namespace:Vanara.Windows.Shell;assembly=Vanara.Windows.Shell"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        FontSize="{Binding Source={x:Static properties:Settings.Default}, Path=DefaultFontSize}"
-        Title="ShellFun" Height="450" Width="800"
+        Title="Shell Fun" Height="450" Width="800"
         DataContext="{Binding ElementName=window,Path=CurrentShellFolder}">
     <Window.Resources>
         <Style TargetType="Control" x:Key="HeaderStyle">
@@ -39,6 +38,9 @@
             </Setter>
         </Style>
     </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="local:MyAppCommands.AppSettings" Executed="AppSettingsOnExecuted"></CommandBinding>
+    </Window.CommandBindings>
     <Grid d:DataContext="{StaticResource Desktop}" ShowGridLines="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
