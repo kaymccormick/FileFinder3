@@ -124,11 +124,25 @@ namespace WpfApp1
             }
         }
 
-        private void CommandBinding_OnExecuted(object sender, ExecutedRoutedEventArgs e)
+        private void NavigateOnExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             RoutedUICommand c = e.Command as RoutedUICommand;
-            CurrentShellFolder = (ShellFolder) ContentsListView.SelectedItem;
+
+            var item = ContentsListView.SelectedItem;
+            if (item is ShellFolder folder)
+            {
+                History.Push(CurrentShellFolder);
+                CurrentShellFolder = folder;
+            }
+            
             //Logger.Debug("orig = " + e.OriginalSource);
+        }
+
+        public Stack<ShellItem> History { get; set; } = new Stack<ShellItem>();
+
+        private void CommandBinding_OnExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            CurrentShellFolder = History.Pop() as ShellFolder;
         }
     }
 }
