@@ -14,7 +14,7 @@ namespace ConsoleApp1
     {
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
-        static void Main(string[] args)
+        static async Task Main()
         {
             ReplaySubject<FileSystemInfo> subject = new ReplaySubject<FileSystemInfo>();
             subject.Subscribe(info => { Logger.Debug($"got {info}"); });
@@ -27,8 +27,7 @@ namespace ConsoleApp1
                 };
                 finder.FindFiles();
             });
-
-            task.Wait();
+            await task;
 
         }
     }

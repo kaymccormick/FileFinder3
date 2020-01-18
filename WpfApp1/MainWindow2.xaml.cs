@@ -100,8 +100,7 @@ namespace WpfApp1
                         Logger.Debug($"{info.Name} {desc} {formatForDisplay}");
                     }
 
-                    if (false)
-                    {
+#if DOPROP
                         myInfo.PropertyDict = new SerializableDictionary<string, string>(props
                             .Where(property => property.CanonicalName != null).ToDictionary(
                                 property => property.Description.DisplayName,
@@ -116,7 +115,7 @@ namespace WpfApp1
                                         return ex.Message;
                                     }
                                 }));
-                    }
+#endif
                 }
 
                 if (myInfo != null)
@@ -138,9 +137,12 @@ namespace WpfApp1
 
         private void MainWindow2_OnLoaded(object sender, RoutedEventArgs e)
         {
-            TestWindow test = new TestWindow();
-            test.VerticalAlignment = VerticalAlignment.Stretch;
-            test.HorizontalAlignment = HorizontalAlignment.Stretch;
+            TestWindow test = new TestWindow
+                              {
+                                  VerticalAlignment = VerticalAlignment.Stretch,
+                                  HorizontalAlignment =
+                                      HorizontalAlignment.Stretch
+                              };
             test.Show();
         }
     }

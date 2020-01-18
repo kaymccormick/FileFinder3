@@ -25,15 +25,8 @@
         <Style TargetType="Menu">
             <Setter Property="ItemsSource" Value="{DynamicResource MyMenuItemList}" />
         </Style>
-        <system:String x:Key="DefaultFontSize">
-            <Binding Source="{x:Static properties:Settings.Default}" Path="DefaultFontSize" />
-        </system:String>
         <Style TargetType="Window">
-            <Setter Property="FontSize" Value="{StaticResource DefaultFontSize}" />
+            <Setter Property="FontSize" Value="18" />
         </Style>
-        <x:Array x:Key="FontSettingsNames" x:Type="system:String">
-            <system:String>Heading</system:String>
-            <system:String>Base</system:String>
-        </x:Array>
     </Application.Resources>
 </Application>
