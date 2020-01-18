@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="e:\installed_packages\Microsoft.CodeAnalysis.BannedApiAnalyzers.2.9.8\build\Microsoft.CodeAnalysis.BannedApiAnalyzers.props" Condition="Exists('e:\installed_packages\Microsoft.CodeAnalysis.BannedApiAnalyzers.2.9.8\build\Microsoft.CodeAnalysis.BannedApiAnalyzers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -623,54 +623,54 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="explorer_252.ico" />
+    <Resource Include="Assets\explorer_252.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="folder_Closed_16xLG.png" />
-    <Resource Include="folder_Closed_16xMD.png" />
-    <Resource Include="folder_Closed_16xSM.png" />
-    <Resource Include="folder_Closed_32xLG.png" />
-    <Resource Include="folder_Closed_32xMD.png" />
-    <Resource Include="folder_Closed_32xSM.png" />
-    <Resource Include="folder_Open_16xLG.png" />
-    <Resource Include="folder_Open_16xMD.png" />
-    <Resource Include="folder_Open_16xSM.png" />
-    <Resource Include="folder_Open_32xLG.png" />
-    <Resource Include="folder_Open_32xMD.png" />
-    <Resource Include="folder_Open_32xSM.png" />
+    <Resource Include="Assets\folder_Closed_16xLG.png" />
+    <Resource Include="Assets\folder_Closed_16xMD.png" />
+    <Resource Include="Assets\folder_Closed_16xSM.png" />
+    <Resource Include="Assets\folder_Closed_32xLG.png" />
+    <Resource Include="Assets\folder_Closed_32xMD.png" />
+    <Resource Include="Assets\folder_Closed_32xSM.png" />
+    <Resource Include="Assets\folder_Open_16xLG.png" />
+    <Resource Include="Assets\folder_Open_16xMD.png" />
+    <Resource Include="Assets\folder_Open_16xSM.png" />
+    <Resource Include="Assets\folder_Open_32xLG.png" />
+    <Resource Include="Assets\folder_Open_32xMD.png" />
+    <Resource Include="Assets\folder_Open_32xSM.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Document_Blank.png" />
+    <Resource Include="Assets\Document_Blank.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Document_Text.png" />
+    <Resource Include="Assets\Document_Text.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Snippet.png" />
+    <Resource Include="Assets\Snippet.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="HTML_Webpage.png" />
+    <Resource Include="Assets\HTML_Webpage.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="DataTables.png" />
+    <Resource Include="Assets\DataTables.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Database.png" />
+    <Resource Include="Assets\Database.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Computer.png" />
+    <Resource Include="Assets\Computer.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Checkmark.png" />
+    <Resource Include="Assets\Checkmark.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assembly.png" />
+    <Resource Include="Assets\Assembly.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="document.ico" />
+    <Resource Include="Assets\document.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Generic_Document.ico" />
+    <Resource Include="Assets\Generic_Document.ico" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Shell32">
@@ -693,6 +693,7 @@
     <Analyzer Include="E:\installed_packages\WpfAnalyzers.2.4.4\analyzers\dotnet\cs\Gu.Roslyn.Extensions.dll" />
     <Analyzer Include="E:\installed_packages\WpfAnalyzers.2.4.4\analyzers\dotnet\cs\WpfAnalyzers.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
