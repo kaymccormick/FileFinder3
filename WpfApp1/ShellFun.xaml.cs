@@ -25,7 +25,7 @@ namespace WpfApp1
 
         public static readonly DependencyProperty CurrentShellFolderProperty = DependencyProperty.Register(
             "CurrentShellFolder", typeof(ShellFolder), typeof(ShellFun),
-            new FrameworkPropertyMetadata(ShellFolder.Desktop,
+            new FrameworkPropertyMetadata(null,
                 FrameworkPropertyMetadataOptions.None,
                 new PropertyChangedCallback(OnCurrentShellFolderChanged),
                 null, true,

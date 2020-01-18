@@ -24,7 +24,7 @@ namespace WpfApp1
             var fieldInfos = Type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.ExactBinding);
             foreach (var f in fieldInfos)
             {
-                Logger.Debug(f.Name);
+                Logger.Trace(f.Name);
                 var value = f.GetValue(null);
                 uint v = (uint) value;
                 if (NumOfSetBits(v) == 1)
@@ -34,7 +34,7 @@ namespace WpfApp1
 
                 ProcessAttributes.Remove(ShellItemAttribute.ContentsMask);
             }
-            //Logger.Debug($"{String.Join(", ", fieldInfos)}");
+            //Logger.Trace($"{String.Join(", ", fieldInfos)}");
             var xml = Path.ChangeExtension(typeof(ShellItemAttribute).Assembly.Location, ".xml");
             if (File.Exists(xml))
             {
@@ -44,7 +44,7 @@ namespace WpfApp1
 
                 XmlNode xmlDocu = docuDoc.SelectSingleNode(
                     "//member[starts-with(@name, '" + path + "')]/summary");
-                Logger.Debug(xmlDocu.InnerText);
+                Logger.Trace(xmlDocu.InnerText);
 
                 foreach (var name in Enum.GetNames(typeof(ShellItemAttribute)))
                 {
@@ -80,16 +80,16 @@ namespace WpfApp1
                     uint iatt = (uint) att;
                     List<ShellItemAttributeListItem> r = new List<ShellItemAttributeListItem>();
                     var values = ProcessAttributes;
-                    Logger.Debug($"{String.Join(" ", values)}");
+                    Logger.Trace($"{String.Join(" ", values)}");
                     foreach(var val in values)
                     {
-                        Logger.Debug($"{val}");
+                        Logger.Trace($"{val}");
                         uint ival = (uint) val;
-			            Logger.Debug($"{iatt:X} & {ival:X} = {iatt & ival:X}");
+			            Logger.Trace($"{iatt:X} & {ival:X} = {iatt & ival:X}");
                         if ((iatt & ival) == ival)
                         {
                             var valStr = val.ToString();
-                            Logger.Debug(valStr);
+                            Logger.Trace(valStr);
                             string summary = null;
                             SummaryDictionary.TryGetValue(valStr, out summary);
                             r.Add(new ShellItemAttributeListItem((ShellItemAttribute) val, summary));

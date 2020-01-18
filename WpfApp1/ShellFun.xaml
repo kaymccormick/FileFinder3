@@ -93,10 +93,10 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <GroupBox d:DataContext="{Binding Source={StaticResource DesignShellFolder}}"
-                  DataContext="{Binding ElementName=ContentsListView,Path=SelectedItem}" Grid.Row="4"
-                  Header="Selected Item">
-            <Grid Margin="10" ShowGridLines="True">
+        <TabControl d:DataContext="{Binding Source={StaticResource DesignShellFolder}}"
+                  DataContext="{Binding ElementName=ContentsListView,Path=SelectedItem}" Grid.Row="4">
+            <TabItem Header="Attributes">
+                <Grid Margin="10" ShowGridLines="True">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -117,6 +117,15 @@
                     </ListView.View>
                 </ListView>
             </Grid>
-        </GroupBox>
+            </TabItem>
+            <TabItem Header="Properties">
+                <ListView ItemsSource="{Binding Path=Properties}">
+                    <ListView.View><GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Key}"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Value}"/>
+                        </GridView></ListView.View>
+                </ListView>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
