@@ -7,7 +7,7 @@ using NLog;
 
 namespace WpfApp1
 {
-    public class Menu_ItemTemplateSelector : DataTemplateSelector
+    public class MenuMenuItemTemplateSelector : DataTemplateSelector
 
     {
         private static readonly Logger Logger =

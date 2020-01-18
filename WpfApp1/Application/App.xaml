@@ -5,7 +5,7 @@
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:properties="clr-namespace:WpfApp1.Properties"
 
-             Startup="Application_Startup">
+             Startup="ApplicationStartup">
     <Application.Resources>
         <local:MenuTemplateSelector x:Key="MenuTemplateSelector" />
         <local:MenuItemContainerStyleSelector x:Key="MenuItemContainerStyleSelector" />
@@ -25,7 +25,7 @@
         <Style x:Key="MenuItemNoChildren" TargetType="MenuItem">
             <Setter Property="HeaderTemplate" Value="{StaticResource MenuItemDataTemplateNoChildren}" />
         </Style>
-        <local:Menu_ItemTemplateSelector x:Key="Menu_ItemTemplateSelector" />
+        <local:MenuMenuItemTemplateSelector x:Key="MenuMenuItemTemplateSelector" />
         <Style TargetType="Menu">
             <Setter Property="ItemsSource" Value="{DynamicResource MyMenuItemList}" />
             <Setter Property="ItemTemplateSelector" Value="{StaticResource Menu_ItemTemplateSelector}" />

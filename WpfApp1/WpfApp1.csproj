@@ -489,86 +489,39 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <ApplicationDefinition Include="Application\App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AppSettingsWindow.xaml.cs">
+    <Compile Include="Util\MyInterceptor.cs" />
+    <Compile Include="Util\ProxyGenerationHook.cs" />
+    <Compile Include="Windows\AppSettingsWindow.xaml.cs">
       <DependentUpon>AppSettingsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BlendWindow.xaml.cs">
-      <DependentUpon>BlendWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="ISettingsPanel.cs" />
-    <Compile Include="ItemWrapper.cs" />
-    <Compile Include="ITopLevelMenu.cs" />
-    <Compile Include="MainWindow2.xaml.cs">
-      <DependentUpon>MainWindow2.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MenuItemContainerStyleSelector.cs" />
-    <Compile Include="MenuItemList.cs" />
-    <Compile Include="MenuTemplateSelector.cs" />
-    <Compile Include="Menu_ItemTemplateSelector.cs" />
-    <Compile Include="MyAppCommands.cs" />
-    <Compile Include="MyFileInfo.cs" />
-    <Compile Include="PropertyView.cs" />
-    <Compile Include="SerializableDictionary.cs" />
-    <Compile Include="SystemParametersControl.xaml.cs">
+    <Compile Include="Util\ContainerHelper.cs" />
+    <Compile Include="Interfaces\ISettingsPanel.cs" />
+    <Compile Include="Interfaces\ITopLevelMenu.cs" />
+    <Compile Include="Menus\MenuItemContainerStyleSelector.cs" />
+    <Compile Include="Menus\MenuItemList.cs" />
+    <Compile Include="Menus\MenuTemplateSelector.cs" />
+    <Compile Include="Menus\MenuMenuItemTemplateSelector.cs" />
+    <Compile Include="Commands\MyAppCommands.cs" />
+    <Compile Include="Util\SerializableDictionary.cs" />
+    <Compile Include="Controls\SystemParametersControl.xaml.cs">
       <DependentUpon>SystemParametersControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TestWindow.xaml.cs">
-      <DependentUpon>TestWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="TestWindow2.xaml.cs">
-      <DependentUpon>TestWindow2.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="TestWindow3.xaml.cs">
-      <DependentUpon>TestWindow3.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Win32.cs" />
-    <Compile Include="WindowsTopLevelMenu.cs" />
-    <Compile Include="Wrapper.cs" />
-    <Compile Include="XCommand.cs" />
-    <Compile Include="XMenuItem.cs" />
-    <Page Include="AppSettingsWindow.xaml">
+    <Compile Include="Menus\WindowsTopLevelMenu.cs" />
+    <Compile Include="Commands\XCommand.cs" />
+    <Compile Include="Menus\XMenuItem.cs" />
+    <Page Include="Windows\AppSettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="BlendWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="MainWindow2.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="App.xaml.cs">
+    <Compile Include="Application\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="InfoCollection.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="SystemParametersControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="TestWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="TestWindow2.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="TestWindow3.xaml">
+    <Page Include="Controls\SystemParametersControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -591,6 +544,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -607,10 +561,6 @@
     <ProjectReference Include="..\FileFinder3\FileFinder3.csproj">
       <Project>{5f5ba27f-9ada-4137-b4e8-2108edcac3ef}</Project>
       <Name>FileFinder3</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WpfColorFont\WpfColorFontDialog\WpfColorFontDialog.csproj">
-      <Project>{6c301b62-352a-4053-9b06-e148a85d47aa}</Project>
-      <Name>WpfColorFontDialog</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

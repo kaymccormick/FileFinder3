@@ -9,18 +9,9 @@
         Title="Application Settings" Height="450" Width="800">
     <DockPanel>
         <TabControl>
-            <TabItem Header="Fonts">
-                <DockPanel>
-                    <ComboBox DockPanel.Dock="Top" />
-                    <wpfColorFontDialog:ColorFontChooser AllowArbitraryFontSizes="True" />
-
-                </DockPanel>
-            </TabItem>
             <TabItem Header="System Parameters">
                 <local:SystemParametersControl />
             </TabItem>
-
-
         </TabControl>
     </DockPanel>
 </Window>
