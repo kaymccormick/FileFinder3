@@ -496,6 +496,7 @@
     <Compile Include="MenuItemContainerStyleSelector.cs" />
     <Compile Include="MenuItemList.cs" />
     <Compile Include="MenuTemplateSelector.cs" />
+    <Compile Include="Menu_ItemTemplateSelector.cs" />
     <Compile Include="MyAppCommands.cs" />
     <Compile Include="MyFileInfo.cs" />
     <Compile Include="PropertyView.cs" />

@@ -12,6 +12,7 @@ namespace WpfApp1
     {
         public override DataTemplate SelectTemplate(object item, ItemsControl parentItemsControl)
         {
+
             throw new NotImplementedException();            
         }
     }
