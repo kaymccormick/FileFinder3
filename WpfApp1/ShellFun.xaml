@@ -40,6 +40,7 @@
     </Window.Resources>
     <Window.CommandBindings>
         <CommandBinding Command="local:MyAppCommands.AppSettings" Executed="AppSettingsOnExecuted"></CommandBinding>
+        <CommandBinding Command="local:MyAppCommands.NavigateShellItem" Executed="CommandBinding_OnExecuted"/>
     </Window.CommandBindings>
     <Grid d:DataContext="{StaticResource Desktop}" ShowGridLines="True">
         <Grid.RowDefinitions>
@@ -57,6 +58,10 @@
         <Button Grid.Row="1" Grid.Column="0" Name="DesktopButton" Content="Desktop" Click="DesktopButton_OnClick"/>
         <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="1" Content="{Binding Path=Name}" Style="{Binding Mode=OneWay, Source={StaticResource HeaderStyle}}"/>
         <ListView Name="ContentsListView" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="0" ItemsSource="{Binding Converter={StaticResource ShellFolderContentsConverter}}">
+            <ListView.InputBindings>
+                <KeyBinding Command="local:MyAppCommands.NavigateShellItem" Gesture="Enter"></KeyBinding>
+                <MouseBinding Gesture="LeftDoubleClick" Command="local:MyAppCommands.NavigateShellItem"></MouseBinding>
+            </ListView.InputBindings>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Path=Name}"/>
@@ -78,7 +83,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="0" Grid.Column="0" Content="Name"/>
-                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=Nam\e}"></TextBlock>
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=Name}"></TextBlock>
                 <ListView x:Name="ShellItemAttributesListView" Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Path=Attributes,Converter={StaticResource ShellItemAttributesConverter}}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                     <ListView.View>
                         <GridView>

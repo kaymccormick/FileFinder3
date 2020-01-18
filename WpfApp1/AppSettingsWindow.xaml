@@ -11,7 +11,8 @@
 <TabControl>
     <TabItem Header="Fonts">
         <DockPanel>
-            <wpfColorFontDialog:ColorFontChooser/>
+            <ComboBox DockPanel.Dock="Top" ItemsSource="{Binding Source={StaticResource FontSettingsNames}}"></ComboBox>
+            <wpfColorFontDialog:ColorFontChooser AllowArbitraryFontSizes="True"/>
 
         </DockPanel>
     </TabItem>

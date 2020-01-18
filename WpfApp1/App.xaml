@@ -10,5 +10,9 @@
         <Style TargetType="Window">
             <Setter Property="FontSize" Value="{StaticResource DefaultFontSize}"/>
         </Style>
+        <x:Array x:Key="FontSettingsNames" x:Type="system:String">
+            <system:String>Heading</system:String>
+            <system:String>Base</system:String>
+        </x:Array>
     </Application.Resources>
 </Application>
