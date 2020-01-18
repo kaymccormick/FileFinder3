@@ -52,8 +52,9 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1">
-            <MenuItem Header="Tools">
-                <MenuItem Header="Settings" Command="local:MyAppCommands.AppSettings" />
+            <MenuItem>
+                <MenuItem.Header>_Tools</MenuItem.Header>
+                <MenuItem Header="Settings" Command="local:MyAppCommands.AppSettings" InputGestureText="Ctrl-Alt-S"/>
             </MenuItem>
         </Menu>
         <Button Grid.Row="1" Grid.Column="0" Name="DesktopButton" Content="Desktop" Click="DesktopButton_OnClick" />

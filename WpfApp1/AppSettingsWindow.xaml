@@ -16,7 +16,11 @@
 
         </DockPanel>
     </TabItem>
+            <TabItem Header="System Parameters">
+<local:SystemParametersControl></local:SystemParametersControl>
+            </TabItem>
 
-</TabControl>
+
+        </TabControl>
     </DockPanel>
 </Window>

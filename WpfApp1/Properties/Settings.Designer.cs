@@ -34,5 +34,41 @@ namespace WpfApp1.Properties {
                 this["DefaultFontSize"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string UserFullName {
+            get {
+                return ((string)(this["UserFullName"]));
+            }
+            set {
+                this["UserFullName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string UserEmailAddress {
+            get {
+                return ((string)(this["UserEmailAddress"]));
+            }
+            set {
+                this["UserEmailAddress"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string UserCompany {
+            get {
+                return ((string)(this["UserCompany"]));
+            }
+            set {
+                this["UserCompany"] = value;
+            }
+        }
     }
 }

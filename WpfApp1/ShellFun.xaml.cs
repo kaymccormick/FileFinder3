@@ -22,9 +22,8 @@ namespace WpfApp1
     {
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
-
         public static readonly DependencyProperty CurrentShellFolderProperty = DependencyProperty.Register(
-            "CurrentShellFolder", typeof(ShellFolder), typeof(ShellFun),
+            nameof(CurrentShellFolder), typeof(ShellFolder), typeof(ShellFun),
             new FrameworkPropertyMetadata(null,
                 FrameworkPropertyMetadataOptions.None,
                 new PropertyChangedCallback(OnCurrentShellFolderChanged),
@@ -32,7 +31,7 @@ namespace WpfApp1
                 UpdateSourceTrigger.PropertyChanged));
 
         public static readonly RoutedEvent CurrentShellFolderChangedEvent = EventManager.RegisterRoutedEvent(
-            "CurrentShellFolderChanged",
+            nameof(CurrentShellFolderChanged),
             RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<ShellFolder>),
             typeof(ShellFun));
 

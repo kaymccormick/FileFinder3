@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Autofac;
 using SharpShell.Interop;
 using Shell32;
 using Vanara.Windows.Shell;
@@ -20,6 +21,13 @@ namespace WpfApp1
     public partial class App : Application
     {
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
+
+        public App()
+        {
+            ContainerBuilder builder = new ContainerBuilder();
+            builder.RegisterType<SystemParametersControl>().As<ISettingsPanel>();
+
+        }
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
