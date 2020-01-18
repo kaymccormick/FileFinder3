@@ -77,7 +77,7 @@ namespace WpfApp1
 
         public App()
         {
-            SetupContainer();
+            AppContainer = SetupContainer();
         }
 
         public XMenuItem XMenuItemProxy { get; set; }
@@ -103,7 +103,7 @@ namespace WpfApp1
             Logger.Info( $"{sender} {e.Parameter}" );
         }
 
-        private void SetupContainer()
+        private static IContainer SetupContainer()
         {
             var builder = new ContainerBuilder();
             builder.RegisterType < SystemParametersControl >()
@@ -120,7 +120,7 @@ namespace WpfApp1
             builder.RegisterType < MenuItemList >().EnableClassInterceptors();
             builder.Register( C => new MyInterceptor() );
             builder.RegisterType < XMenuItem >().EnableClassInterceptors();
-            AppContainer = builder.Build();
+            return builder.Build();
         }
 
         private void Application_Startup(
@@ -131,8 +131,8 @@ namespace WpfApp1
             if ( e.Args.Any() )
             {
                 var windowName = e.Args[0];
-                var xaml       = windowName + ".xaml";
-                var converter  = TypeDescriptor.GetConverter( typeof(Uri) );
+                var xaml = windowName + ".xaml";
+                var converter = TypeDescriptor.GetConverter( typeof(Uri) );
                 if ( converter.CanConvertFrom( typeof(string) ) )
                 {
                     StartupUri = (Uri)converter.ConvertFrom( xaml );
@@ -140,65 +140,22 @@ namespace WpfApp1
                 }
             }
 
-            Dispatcher.BeginInvoke(
-                                   DispatcherPriority.Send,
-                                   (DispatcherOperationCallback)delegate
-
-                                                                {
-                                                                    var windows
-                                                                        = AppContainer
-                                                                           .Resolve
-                                                                            < IEnumerable
-                                                                                < Lazy
-                                                                                    < Window
-                                                                                    > >
-                                                                            >();
-                                                                    windows
-                                                                       .Select(
-                                                                               (
-                                                                                   lazy,
-                                                                                   i
-                                                                               ) =>
-                                                                               {
-                                                                                   var
-                                                                                       cmdBinding
-                                                                                           = new
-                                                                                               CommandBinding(
-                                                                                                              MyAppCommands
-                                                                                                                 .OpenWindow,
-                                                                                                              OpenWindowExecuted
-                                                                                                             );
-                                                                                   CommandManager
-                                                                                      .RegisterClassCommandBinding(
-                                                                                                                   typeof
-                                                                                                                   (Window
-                                                                                                                   ),
-                                                                                                                   cmdBinding
-                                                                                                                  );
-                                                                                   return
-                                                                                       true;
-                                                                               }
-                                                                              );
-                                                                    var
-                                                                        menuItemList
-                                                                            = AppContainer
-                                                                               .Resolve
-                                                                                < MenuItemList
-                                                                                >();
-
-                                                                    Resources
-                                                                            ["MyMenuItemList"]
-                                                                        = menuItemList;
-
-                                                                    var
-                                                                        mainWindow
-                                                                            = new
-                                                                                MainWindow();
-                                                                    mainWindow
-                                                                       .Show();
-                                                                    return null;
-                                                                }, null
-                                  );
+            Dispatcher.BeginInvoke( DispatcherPriority.Send, (DispatcherOperationCallback)delegate {
+                var windows = AppContainer.Resolve < IEnumerable < Lazy < Window > > >();
+                windows.Select( (
+                                    lazy,
+                                    i
+                                ) => {
+                                    var cmdBinding = new CommandBinding( MyAppCommands.OpenWindow, OpenWindowExecuted );
+                                    CommandManager.RegisterClassCommandBinding( typeof(Window), cmdBinding );
+                                    return true;
+                                } );
+                var menuItemList = AppContainer.Resolve < MenuItemList >();
+                Resources["MyMenuItemList"] = menuItemList;
+                var mainWindow = new MainWindow();
+                mainWindow.Show();
+                return null;
+            }, null );
         }
     }
 }

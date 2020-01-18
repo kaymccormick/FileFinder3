@@ -59,7 +59,7 @@ namespace WpfApp1
             XmlReader reader
         )
         {
-            var keySerializer   = new XmlSerializer( typeof(TKey) );
+            var keySerializer = new XmlSerializer( typeof(TKey) );
             var valueSerializer = new XmlSerializer( typeof(TValue) );
 
             var wasEmpty = reader.IsEmptyElement;
@@ -95,7 +95,7 @@ namespace WpfApp1
             XmlWriter writer
         )
         {
-            var keySerializer   = new XmlSerializer( typeof(TKey) );
+            var keySerializer = new XmlSerializer( typeof(TKey) );
             var valueSerializer = new XmlSerializer( typeof(TValue) );
 
             foreach ( var key in Keys )

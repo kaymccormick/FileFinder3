@@ -13,7 +13,8 @@ namespace WpfApp1
         //public Bitmap SmallThumbNailBitmap { get; set; }
         [ XmlIgnore ] public BitmapSource SmallThumbnailBitmapSource { get; set; }
 
-        public bool   IsLink      { get; set; }
+        public bool IsLink { get; set; }
+
         public string ParsingName { get; set; }
 
         public SerializableDictionary < string, string > PropertyDict

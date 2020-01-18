@@ -30,18 +30,17 @@ namespace WpfApp1
                                                  (
                                                      lazy,
                                                      i
-                                                 ) =>
-                                                     {
-                                                         var m =
-                                                             _xMenuItemCreator();
-                                                         m.Header =
-                                                             lazy.GetType().Name;
-                                                         m.Command =
-                                                             MyAppCommands
-                                                                .OpenWindow;
-                                                         m.CommandParameter = lazy;
-                                                         return m;
-                                                     }
+                                                 ) => {
+                                                     var m =
+                                                         _xMenuItemCreator();
+                                                     m.Header =
+                                                         lazy.GetType().Name;
+                                                     m.Command =
+                                                         MyAppCommands
+                                                            .OpenWindow;
+                                                     m.CommandParameter = lazy;
+                                                     return m;
+                                                 }
                                                 ).ToList();
             return root;
         }

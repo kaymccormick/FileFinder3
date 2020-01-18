@@ -17,7 +17,7 @@ namespace FileFinder3
         {
             var driveInfos =
                 DriveInfo.GetDrives().ToDictionary( info => info.Name );
-            var x  = new Regex( "([\"\\\\])", RegexOptions.Compiled );
+            var x = new Regex( "([\"\\\\])", RegexOptions.Compiled );
             var p2 = x.Replace( path, "\\$1" );
             //Console.WriteLine(p2);
 

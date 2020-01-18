@@ -38,29 +38,28 @@ namespace WpfApp1
         {
             Collection.CollectionChanged += CollectionOnCollectionChanged;
             var observable = Observable.Create < FileSystemInfo >(
-                                                                  observer =>
-                                                                      {
-                                                                          Logger
-                                                                             .Debug(
-                                                                                    "herehere"
-                                                                                   );
-                                                                          var f =
-                                                                              new
-                                                                              FileFinderImpl3
-                                                                              {
-                                                                                  FindDir
-                                                                                      = @"c:\temp",
-                                                                                  Observer
-                                                                                      = observer
-                                                                              };
-                                                                          f.FindFiles();
-                                                                          Logger
-                                                                             .Info(
-                                                                                   "done"
-                                                                                  );
-                                                                          return
-                                                                              () => { };
-                                                                      }
+                                                                  observer => {
+                                                                      Logger
+                                                                         .Debug(
+                                                                                "herehere"
+                                                                               );
+                                                                      var f =
+                                                                          new
+                                                                          FileFinderImpl3
+                                                                          {
+                                                                              FindDir
+                                                                                  = @"c:\temp",
+                                                                              Observer
+                                                                                  = observer
+                                                                          };
+                                                                      f.FindFiles();
+                                                                      Logger
+                                                                         .Info(
+                                                                               "done"
+                                                                              );
+                                                                      return
+                                                                          () => { };
+                                                                  }
                                                                  ).SubscribeOn(
                                                                                ThreadPoolScheduler
                                                                                   .Instance
@@ -69,82 +68,75 @@ namespace WpfApp1
                                                                                                        .ApplicationIdle
                                                                                                    );
             observable.Subscribe(
-                                 info =>
+                                 info => {
+                                     Logger.Debug( $"hi {info}" );
+                                     MyFileInfo myInfo = null;
+
+                                     ShellObject sho = null;
+                                     switch ( info )
                                      {
-                                         Logger.Debug( $"hi {info}" );
-                                         MyFileInfo myInfo = null;
-
-                                         ShellObject sho = null;
-                                         switch ( info )
-                                         {
-                                             case FileInfo f:
-                                                 myInfo = new MyFileFileInfo
-                                                          {
-                                                              FileInfo = f
-                                                          };
-                                                 var f2 =
-                                                     ShellFile.FromFilePath(
-                                                                            info
-                                                                               .FullName
-                                                                           );
-                                                 sho = f2;
-                                                 var bitmap =
-                                                     f2.Thumbnail.SmallBitmapSource;
-                                                 myInfo.SmallThumbnailBitmapSource =
-                                                     bitmap;
-                                                 myInfo.IsLink = f2.IsLink;
-                                                 myInfo.ParsingName =
-                                                     f2.ParsingName;
-                                                 var x = new XmlSerializer(
-                                                                           myInfo
-                                                                              .GetType()
-                                                                          );
-                                                 var xx = new StringWriter();
-                                                 x.Serialize( xx, myInfo );
-                                                 Console.WriteLine( xx.ToString() );
-                                                 break;
-                                             case DirectoryInfo d:
-                                                 myInfo = new MyDirectoryFileInfo
-                                                          {
-                                                              DirectoryInfo = d
-                                                          };
-                                                 var folder =
-                                                     ShellFileSystemFolder
-                                                        .FromFolderPath(
-                                                                        d.FullName
+                                         case FileInfo f:
+                                             myInfo = new MyFileFileInfo { FileInfo = f };
+                                             var f2 =
+                                                 ShellFile.FromFilePath(
+                                                                        info
+                                                                           .FullName
                                                                        );
-                                                 sho = folder;
-                                                 myInfo.SmallThumbnailBitmapSource =
-                                                     folder.Thumbnail
-                                                           .SmallBitmapSource;
-                                                 // ShellFile f22 = ShellFile.FromFilePath(info.FullName);
-                                                 // var bitmap2 = f22.Thumbnail.SmallBitmapSource;
-                                                 // myInfo.SmallThumbnailBitmapSource = bitmap2;
-                                                 break;
+                                             sho = f2;
+                                             var bitmap =
+                                                 f2.Thumbnail.SmallBitmapSource;
+                                             myInfo.SmallThumbnailBitmapSource =
+                                                 bitmap;
+                                             myInfo.IsLink = f2.IsLink;
+                                             myInfo.ParsingName =
+                                                 f2.ParsingName;
+                                             var x = new XmlSerializer(
+                                                                       myInfo
+                                                                          .GetType()
+                                                                      );
+                                             var xx = new StringWriter();
+                                             x.Serialize( xx, myInfo );
+                                             Console.WriteLine( xx.ToString() );
+                                             break;
+                                         case DirectoryInfo d:
+                                             myInfo = new MyDirectoryFileInfo { DirectoryInfo = d };
+                                             var folder =
+                                                 ShellFileSystemFolder
+                                                    .FromFolderPath(
+                                                                    d.FullName
+                                                                   );
+                                             sho = folder;
+                                             myInfo.SmallThumbnailBitmapSource =
+                                                 folder.Thumbnail
+                                                       .SmallBitmapSource;
+                                             // ShellFile f22 = ShellFile.FromFilePath(info.FullName);
+                                             // var bitmap2 = f22.Thumbnail.SmallBitmapSource;
+                                             // myInfo.SmallThumbnailBitmapSource = bitmap2;
+                                             break;
+                                     }
+
+                                     if ( sho != null )
+                                     {
+                                         var props = sho
+                                                    .Properties
+                                                    .DefaultPropertyCollection;
+                                         foreach ( var q in props )
+                                         {
+                                             var propdesc = q.Description;
+                                             var d =
+                                                 propdesc.DisplayName;
+                                             var desc =
+                                                 d ?? q.CanonicalName;
+                                             var formatForDisplay =
+                                                 q.FormatForDisplay(
+                                                                    PropertyDescriptionFormatOptions
+                                                                       .None
+                                                                   );
+
+                                             Logger.Debug(
+                                                          $"{info.Name} {desc} {formatForDisplay}"
+                                                         );
                                          }
-
-                                         if ( sho != null )
-                                         {
-                                             var props = sho
-                                                        .Properties
-                                                        .DefaultPropertyCollection;
-                                             foreach ( var q in props )
-                                             {
-                                                 var propdesc = q.Description;
-                                                 var d =
-                                                     propdesc.DisplayName;
-                                                 var desc =
-                                                     d ?? q.CanonicalName;
-                                                 var formatForDisplay =
-                                                     q.FormatForDisplay(
-                                                                        PropertyDescriptionFormatOptions
-                                                                           .None
-                                                                       );
-
-                                                 Logger.Debug(
-                                                              $"{info.Name} {desc} {formatForDisplay}"
-                                                             );
-                                             }
 
 #if DOPROP
                         myInfo.PropertyDict =
@@ -163,15 +155,15 @@ namespace WpfApp1
                                     }
                                 }));
 #endif
-                                         }
-
-                                         if ( myInfo != null )
-                                         {
-                                             Collection.Add( myInfo );
-                                         }
-
-                                         //TreeView1.Items.Add(info);
                                      }
+
+                                     if ( myInfo != null )
+                                     {
+                                         Collection.Add( myInfo );
+                                     }
+
+                                     //TreeView1.Items.Add(info);
+                                 }
                                 );
             Logger.Warn( "Here" );
         }

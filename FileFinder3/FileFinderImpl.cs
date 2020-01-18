@@ -16,7 +16,8 @@ namespace FileFinder3
 
         public string FindDir { get; set; }
 
-        public DirectoryObjectInfo    Root     { get; set; }
+        public DirectoryObjectInfo Root { get; set; }
+
         public IObserver < FileInfo > Observer { get; set; }
 
         public void FindFiles()
@@ -83,7 +84,7 @@ namespace FileFinder3
             }
 
             IList < FileInfo > files = dir.GetFiles();
-            var                s     = doi.SummaryInfo;
+            var s = doi.SummaryInfo;
             try
             {
                 foreach ( var file in files )
@@ -92,7 +93,7 @@ namespace FileFinder3
                     s.NumEntries++;
                     s.TotalSize += file.Length;
 
-                    var           extKey = file.Extension.ToLower();
+                    var extKey = file.Extension.ToLower();
                     ExtensionInfo ix;
                     if ( ! doi.Extensions.TryGetValue( extKey, out ix ) )
                     {

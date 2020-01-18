@@ -35,68 +35,30 @@ namespace WpfApp1
         )
         {
             Collection.CollectionChanged += CollectionOnCollectionChanged;
-            var observable = Observable.Create < FileSystemInfo >(
-                                                                  observer =>
-                                                                  {
-                                                                      Logger
-                                                                         .Debug(
-                                                                                "herehere"
-                                                                               );
-                                                                      var f =
-                                                                          new
-                                                                          FileFinderImpl3
-                                                                          {
-                                                                              FindDir
-                                                                                  = @"e:\",
-                                                                              Observer
-                                                                                  = observer
-                                                                          };
-                                                                      f.FindFiles();
-                                                                      Logger
-                                                                         .Info(
-                                                                               "done"
-                                                                              );
-                                                                      return
-                                                                          () =>
-                                                                          {
-                                                                          };
-                                                                  }
-                                                                 ).SubscribeOn(
-                                                                               ThreadPoolScheduler
-                                                                                  .Instance
-                                                                              ).ObserveOnDispatcher(
-                                                                                                    DispatcherPriority
-                                                                                                       .ApplicationIdle
-                                                                                                   );
-            observable.Subscribe(
-                                 info =>
-                                 {
+            var observable = Observable.Create < FileSystemInfo >( observer => {
+                Logger.Debug( "herehere" );
+                var f = new FileFinderImpl3
+                        {
+                            FindDir  = @"e:\",
+                            Observer = observer
+                        };
+                f.FindFiles();
+                Logger.Info( "done" );
+                return () => { };
+            } ).SubscribeOn( ThreadPoolScheduler.Instance ).ObserveOnDispatcher( DispatcherPriority.ApplicationIdle );
+            observable.Subscribe( info => {
                                      Logger.Debug( $"hi {info}" );
                                      MyFileInfo myInfo = null;
-
                                      switch ( info )
                                      {
                                          case FileInfo f:
-                                             myInfo = new MyFileFileInfo
-                                                      {
-                                                          FileInfo = f
-                                                      };
-                                             var f2 =
-                                                 ShellFile.FromFilePath(
-                                                                        info
-                                                                           .FullName
-                                                                       );
-                                             var bitmap =
-                                                 f2.Thumbnail.SmallBitmapSource;
-                                             myInfo.SmallThumbnailBitmapSource =
-                                                 bitmap;
-
+                                             myInfo = new MyFileFileInfo { FileInfo = f };
+                                             var f2 = ShellFile.FromFilePath( info.FullName );
+                                             var bitmap = f2.Thumbnail.SmallBitmapSource;
+                                             myInfo.SmallThumbnailBitmapSource = bitmap;
                                              break;
                                          case DirectoryInfo d:
-                                             myInfo = new MyDirectoryFileInfo
-                                                      {
-                                                          DirectoryInfo = d
-                                                      };
+                                             myInfo = new MyDirectoryFileInfo { DirectoryInfo = d };
                                              break;
                                      }
 

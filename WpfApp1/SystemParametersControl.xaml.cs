@@ -19,7 +19,9 @@ namespace WpfApp1
     /// <summary>
     /// Interaction logic for SystemParametersControl.xaml
     /// </summary>
-    public partial class SystemParametersControl : UserControl, ISettingsPanel
+    public partial class SystemParametersControl
+        : UserControl,
+            ISettingsPanel
     {
         private readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
@@ -30,38 +32,35 @@ namespace WpfApp1
             var sysProp = new SysProp();
             dynamic sysObj = new ExpandoObject();
             var t = typeof(SystemParameters);
-            var resKeyProps = t.GetProperties().Where(info => info.PropertyType == typeof(ResourceKey));
+            var resKeyProps = t.GetProperties().Where( info => info.PropertyType == typeof(ResourceKey) );
             var propertyDefinitionCollection = new PropertyDefinitionCollection();
-            foreach (var resKeyProp in resKeyProps)
+            foreach ( var resKeyProp in resKeyProps )
             {
-                var propertyInfo = typeof(SysProp).GetProperty(resKeyProp.Name);
-                Debug.Assert(propertyInfo != null);
-                propertyInfo.SetValue(sysProp, resKeyProp.GetValue(null));
+                var propertyInfo = typeof(SysProp).GetProperty( resKeyProp.Name );
+                Debug.Assert( propertyInfo != null );
+                propertyInfo.SetValue( sysProp, resKeyProp.GetValue( null ) );
 
 
-                var r = new Regex(@"Key$");
-                var barePropName = r.Replace(resKeyProp.Name, "");
+                var r = new Regex( @"Key$" );
+                var barePropName = r.Replace( resKeyProp.Name, "" );
 
                 var LabelStr = barePropName;
-                var bareProp = t.GetProperty(barePropName, BindingFlags.Static | BindingFlags.Public);
-                if (bareProp == null)
+                var bareProp = t.GetProperty( barePropName, BindingFlags.Static | BindingFlags.Public );
+                if ( bareProp == null )
                 {
-                    Logger.Warn("no prop for {resKeyProp.Name}");
+                    Logger.Warn( "no prop for {resKeyProp.Name}" );
                 }
                 else
                 {
-                    var propSysProp = typeof(SysProp).GetProperty(barePropName);
-                    Debug.Assert(propSysProp != null);
-                    propSysProp.SetValue(sysProp, bareProp.GetValue(null));
+                    var propSysProp = typeof(SysProp).GetProperty( barePropName );
+                    Debug.Assert( propSysProp != null );
+                    propSysProp.SetValue( sysProp, bareProp.GetValue( null ) );
 
-                    var p = new PropertyDefinition
-                            {
-                        TargetProperties = {barePropName}
-                    };
-                    propertyDefinitionCollection.Add(p);
+                    var p = new PropertyDefinition { TargetProperties = { barePropName } };
+                    propertyDefinitionCollection.Add( p );
 
-                    var dict = sysObj as IDictionary<string, object>;
-                    dict[barePropName] = bareProp.GetValue(null);
+                    var dict = sysObj as IDictionary < string, object >;
+                    dict[barePropName] = bareProp.GetValue( null );
                 }
             }
 
@@ -69,13 +68,13 @@ namespace WpfApp1
             var propertyGrid = new PropertyGrid
                                {
                                    AutoGenerateProperties = false,
-                                   SelectedObject = sysProp,
-                                   PropertyDefinitions = propertyDefinitionCollection
+                                   SelectedObject         = sysProp,
+                                   PropertyDefinitions    = propertyDefinitionCollection
                                };
-            Content = propertyGrid;
+            Content                          = propertyGrid;
             propertyGrid.HorizontalAlignment = HorizontalAlignment.Stretch;
-            propertyGrid.VerticalAlignment = VerticalAlignment.Stretch;
-            
+            propertyGrid.VerticalAlignment   = VerticalAlignment.Stretch;
+
             //Label label = new Label() {Content = LabelStr,};
         }
     }
@@ -84,19 +83,19 @@ namespace WpfApp1
     {
         /// <summary>Gets the width, in pixels, of the left and right edges of the focus rectangle.  </summary>
         /// <returns>The edge width.</returns>
-        [Category("Appearance")]
-        public double FocusBorderWidth { [SecurityCritical] get; set; }
+        [ Category( "Appearance" ) ]
+        public double FocusBorderWidth { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the height, in pixels, of the upper and lower edges of the focus rectangle.  </summary>
         /// <returns>The edge height.</returns>
-        [Category("Appearance")]
-        public double FocusBorderHeight { [SecurityCritical] get; set; }
+        [ Category( "Appearance" ) ]
+        public double FocusBorderHeight { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets information about the High Contrast accessibility feature. </summary>
         /// <returns>
         /// <see langword="true" /> if the HIGHCONTRASTON option is selected; otherwise,<see langword=" false" />.</returns>
-        [Category("Accessibility")]
-        public bool HighContrast { [SecurityCritical] get; set; }
+        [ Category( "Accessibility" ) ]
+        public bool HighContrast { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the <see cref="T:System.Windows.ResourceKey" /> for the <see cref="P:System.Windows.SystemParameters.FocusBorderWidth" /> property. </summary>
         /// <returns>A resource key.</returns>
@@ -114,19 +113,19 @@ namespace WpfApp1
         /// <returns>
         /// <see langword="true" /> if the drop shadow effect is enabled; otherwise, <see langword="false" />.</returns>
         /// 
-        [Category("Effects")]
-        public bool DropShadow { [SecurityCritical] get; set; }
+        [ Category( "Effects" ) ]
+        public bool DropShadow { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value indicating whether native menus appear as a flat menu.  </summary>
         /// <returns>
         /// <see langword="true" /> if the flat menu appearance is set; otherwise, <see langword="false" />.</returns>
         /// 
-        [Category("Appearance")]
-        public bool FlatMenu { [SecurityCritical] get; set; }
+        [ Category( "Appearance" ) ]
+        public bool FlatMenu { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the size of the work area on the primary display monitor. </summary>
         /// <returns>A <see langword="RECT" /> structure that receives the work area coordinates, expressed as virtual screen coordinates.</returns>
-        [Category("Layout")]
+        [ Category( "Layout" ) ]
         public Rect WorkArea { get; set; }
 
         /// <summary>Gets the <see cref="T:System.Windows.ResourceKey" /> for the <see cref="P:System.Windows.SystemParameters.DropShadow" /> property. </summary>
@@ -143,18 +142,18 @@ namespace WpfApp1
 
         /// <summary>Gets the width, in pixels, of an icon cell. The system uses this rectangle to arrange icons in large icon view. </summary>
         /// <returns>The width of an icon cell.</returns>
-        [Category("Layout")]
+        [ Category( "Layout" ) ]
         public double IconHorizontalSpacing { get; set; }
 
         /// <summary>Gets the height, in pixels, of an icon cell. The system uses this rectangle to arrange icons in large icon view. </summary>
         /// <returns>The height of an icon cell.</returns>
-        [Category("Layout")] 
+        [ Category( "Layout" ) ]
         public double IconVerticalSpacing { get; set; }
 
         /// <summary>Gets a value indicating whether icon-title wrapping is enabled. </summary>
         /// <returns>
         /// <see langword="true" /> if icon-title wrapping is enabled; otherwise <see langword="false" />.</returns>
-        [Category("Appearance")] 
+        [ Category( "Appearance" ) ]
         public bool IconTitleWrap { get; set; }
 
         /// <summary>Gets the <see cref="T:System.Windows.ResourceKey" /> for the <see cref="P:System.Windows.SystemParameters.IconHorizontalSpacing" /> property. </summary>
@@ -172,50 +171,50 @@ namespace WpfApp1
         /// <summary>Gets a value indicating whether menu access keys are always underlined. </summary>
         /// <returns>
         /// <see langword="true" /> if menu access keys are always underlined; <see langword="false" /> if they are underlined only when the menu is activated by the keyboard.</returns>
-        [Category("Input")]
-        public bool KeyboardCues { [SecurityCritical] get; set; }
+        [ Category( "Input" ) ]
+        public bool KeyboardCues { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the keyboard repeat-delay setting, which is a value in the range from 0 (approximately 250 milliseconds delay) through 3 (approximately 1 second delay). </summary>
         /// <returns>The keyboard repeat-delay setting.</returns>
-        [Category("Input")]
-        public int KeyboardDelay { [SecurityCritical] get; set; }
+        [ Category( "Input" ) ]
+        public int KeyboardDelay { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value indicating whether the user relies on the keyboard instead of the mouse, and whether the user wants applications to display keyboard interfaces that are typically hidden. </summary>
         /// <returns>
         /// <see langword="true" /> if the user relies on the keyboard; otherwise,<see langword=" false" />.</returns>
-        [Category("Input")]
-        public bool KeyboardPreference { [SecurityCritical] get; set; }
+        [ Category( "Input" ) ]
+        public bool KeyboardPreference { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the keyboard repeat-speed setting, which is a value in the range from 0 (approximately 2.5 repetitions per second) through 31 (approximately 30 repetitions per second). </summary>
         /// <returns>The keyboard repeat-speed setting.</returns>
-        [Category("Input")]
-        public int KeyboardSpeed { [SecurityCritical] get; set; }
+        [ Category( "Input" ) ]
+        public int KeyboardSpeed { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value indicating whether the snap-to-default button is enabled. If enabled, the mouse cursor automatically moves to the default button of a dialog box, such as OK or Apply.  </summary>
         /// <returns>
         /// <see langword="true" /> when the feature is enabled; otherwise, <see langword="false" />.</returns>
-        [Category("Input")]
-        public bool SnapToDefaultButton { [SecurityCritical] get; set; }
+        [ Category( "Input" ) ]
+        public bool SnapToDefaultButton { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the number of lines to scroll when the mouse wheel is rotated. </summary>
         /// <returns>The number of lines.</returns>
-        [Category("Input")]
-        public int WheelScrollLines { [SecurityCritical] get; set; }
+        [ Category( "Input" ) ]
+        public int WheelScrollLines { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the time, in milliseconds, that the mouse pointer must remain in the hover rectangle to generate a mouse-hover event.  </summary>
         /// <returns>The time, in milliseconds, that the mouse must be in the hover rectangle to generate a mouse-hover event.</returns>
-        [Category("Input")]
+        [ Category( "Input" ) ]
         public TimeSpan MouseHoverTime { get; set; }
 
         /// <summary>Gets the height, in pixels, of the rectangle within which the mouse pointer has to stay to generate a mouse-hover event. </summary>
         /// <returns>The height of a rectangle used for a mouse-hover event.</returns>
-        [Category("Input")]
-        public double MouseHoverHeight { [SecurityCritical] get; set; }
+        [ Category( "Input" ) ]
+        public double MouseHoverHeight { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the width, in pixels, of the rectangle within which the mouse pointer has to stay to generate a mouse-hover event.  </summary>
         /// <returns>The width of a rectangle used for a mouse-hover event.</returns>
-        [Category("Input")]
-        public double MouseHoverWidth { [SecurityCritical] get; set; }
+        [ Category( "Input" ) ]
+        public double MouseHoverWidth { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the <see cref="T:System.Windows.ResourceKey" /> for the <see cref="P:System.Windows.SystemParameters.KeyboardCues" /> property. </summary>
         /// <returns>A resource key.</returns>
@@ -256,20 +255,20 @@ namespace WpfApp1
         /// <summary>Gets a value indicating whether pop-up menus are left-aligned or right-aligned, relative to the corresponding menu item. </summary>
         /// <returns>
         /// <see langword="true" /> if left-aligned; otherwise, <see langword="false" />.</returns>
-        [Category("Appearance")]
-        public bool MenuDropAlignment { [SecurityCritical] get; set; }
+        [ Category( "Appearance" ) ]
+        public bool MenuDropAlignment { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value indicating whether menu fade animation is enabled. </summary>
         /// <returns>
         /// <see langword="true" /> when fade animation is enabled; otherwise, <see langword="false" />.</returns>
         /// 
-        [Category("Effects")]
-        public bool MenuFade { [SecurityCritical] get; set; }
+        [ Category( "Effects" ) ]
+        public bool MenuFade { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the time, in milliseconds, that the system waits before displaying a shortcut menu when the mouse cursor is over a submenu item.  </summary>
         /// <returns>The delay time.</returns>
-        [Category("Input")]
-        public int MenuShowDelay { [SecurityCritical] get; set; }
+        [ Category( "Input" ) ]
+        public int MenuShowDelay { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the <see cref="T:System.Windows.ResourceKey" /> for the <see cref="P:System.Windows.SystemParameters.MenuDropAlignment" /> property. </summary>
         /// <returns>A resource key.</returns>
@@ -285,86 +284,86 @@ namespace WpfApp1
 
         /// <summary>Gets the system value of the <see cref="P:System.Windows.Controls.Primitives.Popup.PopupAnimation" /> property for combo boxes. </summary>
         /// <returns>A pop-up animation value.</returns>
-        [Category("Effects")]
+        [ Category( "Effects" ) ]
         public PopupAnimation ComboBoxPopupAnimation { get; set; }
 
         /// <summary>Gets a value indicating whether the slide-open effect for combo boxes is enabled. </summary>
         /// <returns>
         /// <see langword="true" /> for enabled; otherwise, <see langword="false" />.</returns>
-        [Category("Effects")]
-        public bool ComboBoxAnimation { [SecurityCritical] get; set; }
+        [ Category( "Effects" ) ]
+        public bool ComboBoxAnimation { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value indicating whether the client area animation feature is enabled.</summary>
         /// <returns>A Boolean value; true if client area animation is enabled, false otherwise.</returns>
-        [Category("Effects")]
-        public bool ClientAreaAnimation { [SecurityCritical] get; set; }
+        [ Category( "Effects" ) ]
+        public bool ClientAreaAnimation { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value indicating whether the cursor has a shadow around it. </summary>
         /// <returns>
         /// <see langword="true" /> if the shadow is enabled; otherwise, <see langword="false" />.</returns>
-        public bool CursorShadow { [SecurityCritical] get; set; }
+        public bool CursorShadow { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value indicating whether the gradient effect for window title bars is enabled. </summary>
         /// <returns>
         /// <see langword="true" /> if the gradient effect is enabled; otherwise, <see langword="false" />.</returns>
-        [Category("Effects")]
-        public bool GradientCaptions { [SecurityCritical] get; set; }
+        [ Category( "Effects" ) ]
+        public bool GradientCaptions { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value indicating whether hot tracking of user-interface elements, such as menu names on menu bars, is enabled. </summary>
         /// <returns>
         /// <see langword="true" /> if hot tracking is enabled; otherwise, <see langword="false" />.</returns>
-        [Category("Effects")]
-        public bool HotTracking { [SecurityCritical] get; set; }
+        [ Category( "Effects" ) ]
+        public bool HotTracking { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value indicating whether the smooth-scrolling effect for list boxes is enabled. </summary>
         /// <returns>
         /// <see langword="true" /> if the smooth-scrolling effect is enabled; otherwise, <see langword="false" />.</returns>
-        [Category("Effects")]
-        public bool ListBoxSmoothScrolling { [SecurityCritical] get; set; }
+        [ Category( "Effects" ) ]
+        public bool ListBoxSmoothScrolling { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the system value of the <see cref="P:System.Windows.Controls.Primitives.Popup.PopupAnimation" /> property for menus. </summary>
         /// <returns>The pop-up animation property.</returns>
-        [Category("Effects")]
+        [ Category( "Effects" ) ]
         public PopupAnimation MenuPopupAnimation { get; set; }
 
         /// <summary>Gets a value indicating whether the menu animation feature is enabled. </summary>
         /// <returns>
         /// <see langword="true" /> if menu animation is enabled; otherwise, <see langword="false" />.</returns>
-        [Category("Effects")]
-        public bool MenuAnimation { [SecurityCritical] get; set; }
+        [ Category( "Effects" ) ]
+        public bool MenuAnimation { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value indicating whether the selection fade effect is enabled. </summary>
         /// <returns>
         /// <see langword="true" /> if the fade effect is enabled; otherwise, <see langword="false" />.</returns>
-        public bool SelectionFade { [SecurityCritical] get; set; }
+        public bool SelectionFade { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value indicating whether hot tracking of a stylus is enabled.  </summary>
         /// <returns>
         /// <see langword="true" /> if hot tracking of a stylus is enabled; otherwise <see langword="false" />.</returns>
-        [Category("Effects")]
-        public bool StylusHotTracking { [SecurityCritical] get; set; }
+        [ Category( "Effects" ) ]
+        public bool StylusHotTracking { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the system value of the <see cref="P:System.Windows.Controls.Primitives.Popup.PopupAnimation" /> property for ToolTips. </summary>
         /// <returns>A system value for the pop-up animation property.</returns>
-        [Category("Effects")]
+        [ Category( "Effects" ) ]
         public PopupAnimation ToolTipPopupAnimation { get; set; }
 
         /// <summary>Gets a value indicating whether <see cref="T:System.Windows.Controls.ToolTip" /> animation is enabled.  </summary>
         /// <returns>
         /// <see langword="true" /> if ToolTip animation is enabled; otherwise, <see langword="false" />.</returns>
-        public bool ToolTipAnimation { [SecurityCritical] get; set; }
+        public bool ToolTipAnimation { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value indicating whether ToolTip animation uses a fade effect or a slide effect.  </summary>
         /// <returns>
         /// <see langword="true" /> if a fade effect is used; <see langword="false" /> if a slide effect is used.</returns>
-        [Category("Effects")]
-        public bool ToolTipFade { [SecurityCritical] get; set; }
+        [ Category( "Effects" ) ]
+        public bool ToolTipFade { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates whether all user interface (UI) effects are enabled.   </summary>
         /// <returns>
         /// <see langword="true" /> if all UI effects are enabled; <see langword="false" /> if they are disabled.</returns>
-        [Category("Effects")]
-        public bool UIEffects { [SecurityCritical] get; set; }
+        [ Category( "Effects" ) ]
+        public bool UIEffects { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the <see cref="T:System.Windows.ResourceKey" /> for the <see cref="P:System.Windows.SystemParameters.ComboBoxAnimation" /> property. </summary>
         /// <returns>A resource key.</returns>
@@ -372,7 +371,7 @@ namespace WpfApp1
 
         /// <summary>Gets a <see cref="T:System.Windows.ResourceKey" /> for the <see cref="P:System.Windows.SystemParameters.ClientAreaAnimation" /> property.</summary>
         /// <returns>A resource key.</returns>
-        [Category("Effects")]
+        [ Category( "Effects" ) ]
         public ResourceKey ClientAreaAnimationKey { get; set; }
 
         /// <summary>Gets the <see cref="T:System.Windows.ResourceKey" /> for the <see cref="P:System.Windows.SystemParameters.CursorShadow" /> property. </summary>
@@ -381,7 +380,7 @@ namespace WpfApp1
 
         /// <summary>Gets the <see cref="T:System.Windows.ResourceKey" /> for the <see cref="P:System.Windows.SystemParameters.GradientCaptions" /> property. </summary>
         /// <returns>A resource key.</returns>
-        [Category("Effects")]
+        [ Category( "Effects" ) ]
         public ResourceKey GradientCaptionsKey { get; set; }
 
         /// <summary>Gets the <see cref="T:System.Windows.ResourceKey" /> for the <see cref="P:System.Windows.SystemParameters.HotTracking" /> property. </summary>
@@ -431,73 +430,73 @@ namespace WpfApp1
         /// <summary>Gets the animation effects associated with user actions. </summary>
         /// <returns>
         /// <see langword="true" /> if the minimize window animations feature is enabled; otherwise,<see langword=" false" />.</returns>
-        [Category("Effects")]
-        public bool MinimizeAnimation { [SecurityCritical] get; set; }
+        [ Category( "Effects" ) ]
+        public bool MinimizeAnimation { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the border multiplier factor that determines the width of a window's sizing border. </summary>
         /// <returns>A multiplier.</returns>
-        [Category("Appearance")]
-        public int Border { [SecurityCritical] get; set; }
+        [ Category( "Appearance" ) ]
+        public int Border { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the caret width, in pixels, for edit controls. </summary>
         /// <returns>The caret width.</returns>
-        [Category("Metrics")]
-        public double CaretWidth { [SecurityCritical] get; set; }
+        [ Category( "Metrics" ) ]
+        public double CaretWidth { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value indicating whether dragging of full windows is enabled. </summary>
         /// <returns>
         /// <see langword="true" /> if dragging of full windows is enabled; otherwise, <see langword="false" />.</returns>
-        [Category("Effects")]
-        public bool DragFullWindows { [SecurityCritical] get; set; }
+        [ Category( "Effects" ) ]
+        public bool DragFullWindows { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the number of times the Set Foreground Window flashes the taskbar button when rejecting a foreground switch request.</summary>
         /// <returns>A flash count.</returns>
-        [Category("Effects")]
-        public int ForegroundFlashCount { [SecurityCritical] get; set; }
+        [ Category( "Effects" ) ]
+        public int ForegroundFlashCount { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the metric that determines the border width of the nonclient area of a nonminimized window. </summary>
         /// <returns>A border width.</returns>
-        [Category("Metrics")]
+        [ Category( "Metrics" ) ]
         public double BorderWidth { get; set; }
 
         /// <summary>Gets the metric that determines the scroll width of the nonclient area of a nonminimized window. </summary>
         /// <returns>The scroll width, in pixels.</returns>
-        [Category("Metrics")]
+        [ Category( "Metrics" ) ]
         public double ScrollWidth { get; set; }
 
         /// <summary>Gets the metric that determines the scroll height of the nonclient area of a nonminimized window. </summary>
         /// <returns>The scroll height, in pixels.</returns>
-        [Category("Metrics")]
+        [ Category( "Metrics" ) ]
         public double ScrollHeight { get; set; }
 
         /// <summary>Gets the metric that determines the caption width for the nonclient area of a nonminimized window. </summary>
         /// <returns>The caption width.</returns>
-        [Category("Metrics")]
+        [ Category( "Metrics" ) ]
         public double CaptionWidth { get; set; }
 
         /// <summary>Gets the metric that determines the caption height for the nonclient area of a nonminimized window. </summary>
         /// <returns>The caption height.</returns>
-        [Category("Metrics")]
+        [ Category( "Metrics" ) ]
         public double CaptionHeight { get; set; }
 
         /// <summary>Gets the metric that determines the width of the small caption of the nonclient area of a nonminimized window. </summary>
         /// <returns>The caption width, in pixels.</returns>
-        [Category("Metrics")]
+        [ Category( "Metrics" ) ]
         public double SmallCaptionWidth { get; set; }
 
         /// <summary>Gets the metric that determines the height of the small caption of the nonclient area of a nonminimized window. </summary>
         /// <returns>The caption height, in pixels.</returns>
-        [Category("Metrics")]
+        [ Category( "Metrics" ) ]
         public double SmallCaptionHeight { get; set; }
 
         /// <summary>Gets the metric that determines the width of the menu. </summary>
         /// <returns>The menu width, in pixels.</returns>
-        [Category("Metrics")]
+        [ Category( "Metrics" ) ]
         public double MenuWidth { get; set; }
 
         /// <summary>Gets the metric that determines the height of the menu. </summary>
         /// <returns>The menu height.</returns>
-        [Category("Metrics")]
+        [ Category( "Metrics" ) ]
         public double MenuHeight { get; set; }
 
         /// <summary>Gets the <see cref="T:System.Windows.ResourceKey" /> for the <see cref="P:System.Windows.SystemParameters.MinimizeAnimation" /> property. </summary>
@@ -554,302 +553,302 @@ namespace WpfApp1
 
         /// <summary>Gets a value that indicates the height, in pixels, of a horizontal window border. </summary>
         /// <returns>The height of a border.</returns>
-        [Category("Metrics")]
-        public double ThinHorizontalBorderHeight { [SecurityCritical] get; set; }
+        [ Category( "Metrics" ) ]
+        public double ThinHorizontalBorderHeight { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the width, in pixels, of a vertical window border. </summary>
         /// <returns>The width of a border.</returns>
-        [Category("Metrics")]
-        public double ThinVerticalBorderWidth { [SecurityCritical] get; set; }
+        [ Category( "Metrics" ) ]
+        public double ThinVerticalBorderWidth { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the width, in pixels, of a cursor. </summary>
         /// <returns>The cursor width.</returns>
-        [Category("Metrics")]
-        public double CursorWidth { [SecurityCritical] get; set; }
+        [ Category( "Metrics" ) ]
+        public double CursorWidth { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the height, in pixels, of a cursor. </summary>
         /// <returns>The cursor height.</returns>
-        [Category("Metrics")]
-        public double CursorHeight { [SecurityCritical] get; set; }
+        [ Category( "Metrics" ) ]
+        public double CursorHeight { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the height, in pixels, of a 3-D border.   </summary>
         /// <returns>The height of a border.</returns>
-        [Category("Metrics")]
-        public double ThickHorizontalBorderHeight { [SecurityCritical] get; set; }
+        [ Category( "Metrics" ) ]
+        public double ThickHorizontalBorderHeight { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the width, in pixels, of a 3-D border.   </summary>
         /// <returns>The width of a border.</returns>
-        [Category("Metrics")]
-        public double ThickVerticalBorderWidth { [SecurityCritical] get; set; }
+        [ Category( "Metrics" ) ]
+        public double ThickVerticalBorderWidth { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the width of a rectangle centered on a drag point to allow for limited movement of the mouse pointer before a drag operation begins.  </summary>
         /// <returns>The width of the rectangle, in pixels.</returns>
-        public double MinimumHorizontalDragDistance { [SecurityCritical] get; set; }
+        public double MinimumHorizontalDragDistance { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the height of a rectangle centered on a drag point to allow for limited movement of the mouse pointer before a drag operation begins.  </summary>
         /// <returns>The height of the rectangle, in pixels.</returns>
-        public double MinimumVerticalDragDistance { [SecurityCritical] get; set; }
+        public double MinimumVerticalDragDistance { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the height of the horizontal border of the frame around a window. </summary>
         /// <returns>The border height.</returns>
-        public double FixedFrameHorizontalBorderHeight { [SecurityCritical] get; set; }
+        public double FixedFrameHorizontalBorderHeight { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the width of the vertical border of the frame around a window. </summary>
         /// <returns>The border width.</returns>
-        public double FixedFrameVerticalBorderWidth { [SecurityCritical] get; set; }
+        public double FixedFrameVerticalBorderWidth { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the height of the upper and lower edges of the focus rectangle.  </summary>
         /// <returns>The edge height.</returns>
-        public double FocusHorizontalBorderHeight { [SecurityCritical] get; set; }
+        public double FocusHorizontalBorderHeight { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the width of the left and right edges of the focus rectangle.  </summary>
         /// <returns>The edge width.</returns>
-        public double FocusVerticalBorderWidth { [SecurityCritical] get; set; }
+        public double FocusVerticalBorderWidth { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the width, in pixels, of the client area for a full-screen window on the primary display monitor.  </summary>
         /// <returns>The width of the client area.</returns>
-        public double FullPrimaryScreenWidth { [SecurityCritical] get; set; }
+        public double FullPrimaryScreenWidth { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the height, in pixels, of the client area for a full-screen window on the primary display monitor.  </summary>
         /// <returns>The height of the client area.</returns>
-        public double FullPrimaryScreenHeight { [SecurityCritical] get; set; }
+        public double FullPrimaryScreenHeight { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the width, in pixels, of the arrow bitmap on a horizontal scroll bar. </summary>
         /// <returns>The width of the arrow bitmap.</returns>
-        public double HorizontalScrollBarButtonWidth { [SecurityCritical] get; set; }
+        public double HorizontalScrollBarButtonWidth { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the height of a horizontal scroll bar, in pixels. </summary>
         /// <returns>The height of the scroll bar.</returns>
-        public double HorizontalScrollBarHeight { [SecurityCritical] get; set; }
+        public double HorizontalScrollBarHeight { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the width, in pixels, of the <see cref="T:System.Windows.Controls.Primitives.Thumb" /> in a horizontal scroll bar. </summary>
         /// <returns>The width of the thumb.</returns>
-        public double HorizontalScrollBarThumbWidth { [SecurityCritical] get; set; }
+        public double HorizontalScrollBarThumbWidth { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the default width of an icon. </summary>
         /// <returns>The icon width.</returns>
-        public double IconWidth { [SecurityCritical] get; set; }
+        public double IconWidth { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the default height of an icon. </summary>
         /// <returns>The icon height.</returns>
-        public double IconHeight { [SecurityCritical] get; set; }
+        public double IconHeight { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the width of a grid that a large icon will fit into. </summary>
         /// <returns>The grid width.</returns>
-        public double IconGridWidth { [SecurityCritical] get; set; }
+        public double IconGridWidth { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the height of a grid in which a large icon will fit. </summary>
         /// <returns>The grid height.</returns>
-        public double IconGridHeight { [SecurityCritical] get; set; }
+        public double IconGridHeight { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the width, in pixels, of a maximized top-level window on the primary display monitor.  </summary>
         /// <returns>The window width.</returns>
-        public double MaximizedPrimaryScreenWidth { [SecurityCritical] get; set; }
+        public double MaximizedPrimaryScreenWidth { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the height, in pixels, of a maximized top-level window on the primary display monitor.  </summary>
         /// <returns>The window height.</returns>
-        public double MaximizedPrimaryScreenHeight { [SecurityCritical] get; set; }
+        public double MaximizedPrimaryScreenHeight { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the maximum width, in pixels, of a window that has a caption and sizing borders.  </summary>
         /// <returns>The maximum window width.</returns>
-        public double MaximumWindowTrackWidth { [SecurityCritical] get; set; }
+        public double MaximumWindowTrackWidth { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the maximum height, in pixels, of a window that has a caption and sizing borders.  </summary>
         /// <returns>The maximum window height.</returns>
-        public double MaximumWindowTrackHeight { [SecurityCritical] get; set; }
+        public double MaximumWindowTrackHeight { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the width, in pixels, of the default menu check-mark bitmap.  </summary>
         /// <returns>The width of the bitmap.</returns>
-        public double MenuCheckmarkWidth { [SecurityCritical] get; set; }
+        public double MenuCheckmarkWidth { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the height, in pixels, of the default menu check-mark bitmap.  </summary>
         /// <returns>The height of a bitmap.</returns>
-        public double MenuCheckmarkHeight { [SecurityCritical] get; set; }
+        public double MenuCheckmarkHeight { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the width, in pixels, of a menu bar button.  </summary>
         /// <returns>The width of a menu bar button.</returns>
-        public double MenuButtonWidth { [SecurityCritical] get; set; }
+        public double MenuButtonWidth { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the height, in pixels, of a menu bar button.  </summary>
         /// <returns>The height of a menu bar button.</returns>
-        public double MenuButtonHeight { [SecurityCritical] get; set; }
+        public double MenuButtonHeight { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the minimum width, in pixels, of a window.  </summary>
         /// <returns>The minimum width of a window.</returns>
-        public double MinimumWindowWidth { [SecurityCritical] get; set; }
+        public double MinimumWindowWidth { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the minimum height, in pixels, of a window.  </summary>
         /// <returns>The minimum height of a window.</returns>
-        public double MinimumWindowHeight { [SecurityCritical] get; set; }
+        public double MinimumWindowHeight { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the width, in pixels, of a minimized window.  </summary>
         /// <returns>The width of a minimized window.</returns>
-        public double MinimizedWindowWidth { [SecurityCritical] get; set; }
+        public double MinimizedWindowWidth { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the height, in pixels, of a minimized window.  </summary>
         /// <returns>The height of a minimized window.</returns>
-        public double MinimizedWindowHeight { [SecurityCritical] get; set; }
+        public double MinimizedWindowHeight { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the width, in pixels, of a grid cell for a minimized window.  </summary>
         /// <returns>The width of a grid cell for a minimized window.</returns>
-        public double MinimizedGridWidth { [SecurityCritical] get; set; }
+        public double MinimizedGridWidth { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the height, in pixels, of a grid cell for a minimized window.  </summary>
         /// <returns>The height of a grid cell for a minimized window.</returns>
-        public double MinimizedGridHeight { [SecurityCritical] get; set; }
+        public double MinimizedGridHeight { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the minimum tracking width of a window, in pixels.   </summary>
         /// <returns>The minimum tracking width of a window.</returns>
-        public double MinimumWindowTrackWidth { [SecurityCritical] get; set; }
+        public double MinimumWindowTrackWidth { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the minimum tracking height of a window, in pixels.   </summary>
         /// <returns>The minimun tracking height of a window.</returns>
-        public double MinimumWindowTrackHeight { [SecurityCritical] get; set; }
+        public double MinimumWindowTrackHeight { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the screen width, in pixels, of the primary display monitor.   </summary>
         /// <returns>The width of the screen.</returns>
-        public double PrimaryScreenWidth { [SecurityCritical] get; set; }
+        public double PrimaryScreenWidth { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the screen height, in pixels, of the primary display monitor.   </summary>
         /// <returns>The height of the screen.</returns>
-        public double PrimaryScreenHeight { [SecurityCritical] get; set; }
+        public double PrimaryScreenHeight { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the width, in pixels, of a button in the title bar of a window.  </summary>
         /// <returns>The width of a caption button.</returns>
-        public double WindowCaptionButtonWidth { [SecurityCritical] get; set; }
+        public double WindowCaptionButtonWidth { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the height, in pixels, of a button in the title bar of a window.  </summary>
         /// <returns>The height of a caption button.</returns>
-        public double WindowCaptionButtonHeight { [SecurityCritical] get; set; }
+        public double WindowCaptionButtonHeight { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the height (thickness), in pixels, of the horizontal sizing border around the perimeter of a window that can be resized.   </summary>
         /// <returns>The height of the border.</returns>
-        public double ResizeFrameHorizontalBorderHeight { [SecurityCritical] get; set; }
+        public double ResizeFrameHorizontalBorderHeight { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the width (thickness), in pixels, of the vertical sizing border around the perimeter of a window that can be resized.   </summary>
         /// <returns>The width of the border.</returns>
-        public double ResizeFrameVerticalBorderWidth { [SecurityCritical] get; set; }
+        public double ResizeFrameVerticalBorderWidth { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the recommended width, in pixels, of a small icon. </summary>
         /// <returns>The width of the icon.</returns>
-        public double SmallIconWidth { [SecurityCritical] get; set; }
+        public double SmallIconWidth { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the recommended height, in pixels, of a small icon. </summary>
         /// <returns>The icon height.</returns>
-        public double SmallIconHeight { [SecurityCritical] get; set; }
+        public double SmallIconHeight { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the width, in pixels, of small caption buttons.  </summary>
         /// <returns>The width of the caption button.</returns>
-        public double SmallWindowCaptionButtonWidth { [SecurityCritical] get; set; }
+        public double SmallWindowCaptionButtonWidth { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the height, in pixels, of small caption buttons.  </summary>
         /// <returns>The height of the caption button.</returns>
-        public double SmallWindowCaptionButtonHeight { [SecurityCritical] get; set; }
+        public double SmallWindowCaptionButtonHeight { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the width, in pixels, of the virtual screen.   </summary>
         /// <returns>The width of the virtual screen.</returns>
-        public double VirtualScreenWidth { [SecurityCritical] get; set; }
+        public double VirtualScreenWidth { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the height, in pixels, of the virtual screen.   </summary>
         /// <returns>The height of the virtual screen.</returns>
-        public double VirtualScreenHeight { [SecurityCritical] get; set; }
+        public double VirtualScreenHeight { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the width, in pixels, of a vertical scroll bar.  </summary>
         /// <returns>The width of a scroll bar.</returns>
-        public double VerticalScrollBarWidth { [SecurityCritical] get; set; }
+        public double VerticalScrollBarWidth { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the height, in pixels, of the arrow bitmap on a vertical scroll bar.  </summary>
         /// <returns>The height of a bitmap.</returns>
-        public double VerticalScrollBarButtonHeight { [SecurityCritical] get; set; }
+        public double VerticalScrollBarButtonHeight { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the height, in pixels, of a caption area.  </summary>
         /// <returns>The height of a caption area.</returns>
-        public double WindowCaptionHeight { [SecurityCritical] get; set; }
+        public double WindowCaptionHeight { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the height, in pixels, of the kanji window at the bottom of the screen for systems that use double-byte characters.  </summary>
         /// <returns>The window height.</returns>
-        public double KanjiWindowHeight { [SecurityCritical] get; set; }
+        public double KanjiWindowHeight { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the height, in pixels, of a single-line menu bar.  </summary>
         /// <returns>The height of the menu bar.</returns>
-        public double MenuBarHeight { [SecurityCritical] get; set; }
+        public double MenuBarHeight { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the height, in pixels, of the thumb in a vertical scroll bar.  </summary>
         /// <returns>The height of the thumb.</returns>
-        public double VerticalScrollBarThumbHeight { [SecurityCritical] get; set; }
+        public double VerticalScrollBarThumbHeight { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates whether the system is ready to use a Unicode-based Input Method Editor (IME) on a Unicode application.  </summary>
         /// <returns>
         /// <see langword="true" /> if the Input Method Manager/Input Method Editor features are enabled; otherwise, <see langword="false" />.<see langword="" /></returns>
-        public bool IsImmEnabled { [SecurityCritical] get; set; }
+        public bool IsImmEnabled { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates whether the current operating system is the Microsoft Windows XP Media Center Edition. </summary>
         /// <returns>
         /// <see langword="true" /> if the current operating system is Windows XP Media Center Edition; otherwise, <see langword="false" />.</returns>
-        public bool IsMediaCenter { [SecurityCritical] get; set; }
+        public bool IsMediaCenter { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates whether drop-down menus are right-aligned with the corresponding menu item. </summary>
         /// <returns>
         /// <see langword="true" /> if drop-down menus are right-aligned; otherwise, <see langword="false" />.</returns>
-        public bool IsMenuDropRightAligned { [SecurityCritical] get; set; }
+        public bool IsMenuDropRightAligned { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates whether the system is enabled for Hebrew and Arabic languages. </summary>
         /// <returns>
         /// <see langword="true" /> if the system is enabled for Hebrew and Arabic languages; otherwise, <see langword="false" />.</returns>
-        public bool IsMiddleEastEnabled { [SecurityCritical] get; set; }
+        public bool IsMiddleEastEnabled { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates whether a mouse is installed. </summary>
         /// <returns>
         /// <see langword="true" /> if a mouse is installed; otherwise, <see langword="false" />.</returns>
-        public bool IsMousePresent { [SecurityCritical] get; set; }
+        public bool IsMousePresent { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates whether the installed mouse has a vertical scroll wheel. </summary>
         /// <returns>
         /// <see langword="true" /> if the installed mouse has a vertical scroll wheel; otherwise, <see langword="false" />.</returns>
-        public bool IsMouseWheelPresent { [SecurityCritical] get; set; }
+        public bool IsMouseWheelPresent { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates whether Microsoft Windows for Pen Computing extensions are installed. </summary>
         /// <returns>
         /// <see langword="true" /> if Pen Computing extensions are installed; otherwise, <see langword="false" />. </returns>
-        public bool IsPenWindows { [SecurityCritical] get; set; }
+        public bool IsPenWindows { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates whether the current session is remotely controlled. </summary>
         /// <returns>
         /// <see langword="true" /> if the current session is remotely controlled; otherwise, <see langword="false" />.</returns>
-        public bool IsRemotelyControlled { [SecurityCritical] get; set; }
+        public bool IsRemotelyControlled { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates whether the calling process is associated with a Terminal Services client session. </summary>
         /// <returns>
         /// <see langword="true" /> if the calling process is associated with a Terminal Services client session; <see langword="false" /> if the calling process is associated with the Terminal Server console session.</returns>
-        public bool IsRemoteSession { [SecurityCritical] get; set; }
+        public bool IsRemoteSession { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates whether the user requires information in visual format. </summary>
         /// <returns>
         /// <see langword="true" /> if the user requires an application to present information visually where it typically presents the information only in audible form; otherwise <see langword="false" />.</returns>
-        public bool ShowSounds { [SecurityCritical] get; set; }
+        public bool ShowSounds { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates whether the computer has a low-end (slow) processor. </summary>
         /// <returns>
         /// <see langword="true" /> if the computer has a low-end (slow) processor; otherwise, <see langword="false" />.</returns>
-        public bool IsSlowMachine { [SecurityCritical] get; set; }
+        public bool IsSlowMachine { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates whether the functionality of the left and right mouse buttons are swapped.  </summary>
         /// <returns>
         /// <see langword="true" /> if the functionality of the left and right mouse buttons are swapped; otherwise <see langword="false" />.</returns>
-        public bool SwapButtons { [SecurityCritical] get; set; }
+        public bool SwapButtons { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates whether the current operating system is Microsoft Windows XP Tablet PC Edition. </summary>
         /// <returns>
         /// <see langword="true" /> if the current operating system is Windows XP Tablet PC Edition; otherwise, <see langword="false" />.</returns>
-        public bool IsTabletPC { [SecurityCritical] get; set; }
+        public bool IsTabletPC { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the coordinate for the left side of the virtual screen.   </summary>
         /// <returns>A screen coordinate, in pixels.</returns>
-        public double VirtualScreenLeft { [SecurityCritical] get; set; }
+        public double VirtualScreenLeft { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a value that indicates the upper coordinate of the virtual screen. </summary>
         /// <returns>A screen coordinate, in pixels.</returns>
-        public double VirtualScreenTop { [SecurityCritical] get; set; }
+        public double VirtualScreenTop { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the <see cref="T:System.Windows.ResourceKey" /> for the <see cref="P:System.Windows.SystemParameters.ThinHorizontalBorderHeight" /> property. </summary>
         /// <returns>A resource key.</returns>
@@ -1141,7 +1140,7 @@ namespace WpfApp1
 
         /// <summary>Gets a value indicating whether the system power is online, or that the system power status is unknown.</summary>
         /// <returns>A value in the enumeration.</returns>
-        public PowerLineStatus PowerLineStatus { [SecurityCritical] get; set; }
+        public PowerLineStatus PowerLineStatus { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets a <see cref="T:System.Windows.ResourceKey" /> for the <see cref="P:System.Windows.SystemParameters.PowerLineStatus" /> property.</summary>
         /// <returns>A resource key.</returns>
@@ -1150,34 +1149,34 @@ namespace WpfApp1
         /// <summary>Gets a value that indicates whether glass window frames are being used.</summary>
         /// <returns>
         /// <see langword="true" /> if glass window frames are being used; otherwise, <see langword="false" />.</returns>
-        public bool IsGlassEnabled { [SecurityCritical] get; set; }
+        public bool IsGlassEnabled { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the theme name.</summary>
         /// <returns>The theme name.</returns>
-        public string UxThemeName { [SecurityCritical] get; set; }
+        public string UxThemeName { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the color theme name.</summary>
         /// <returns>The color theme name.</returns>
-        public string UxThemeColor { [SecurityCritical] get; set; }
+        public string UxThemeColor { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the radius of the corners for a window.</summary>
         /// <returns>The degree to which the corners of a window are rounded.</returns>
-        public CornerRadius WindowCornerRadius { [SecurityCritical] get; set; }
+        public CornerRadius WindowCornerRadius { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the color that is used to paint the glass window frame.</summary>
         /// <returns>The color that is used to paint the glass window frame.</returns>
-        public Color WindowGlassColor { [SecurityCritical] get; set; }
+        public Color WindowGlassColor { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the brush that paints the glass window frame.</summary>
         /// <returns>The brush that paints the glass window frame.</returns>
-        public Brush WindowGlassBrush { [SecurityCritical] get; set; }
+        public Brush WindowGlassBrush { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the size of the resizing border around the window.</summary>
         /// <returns>The size of the resizing border around the window, in device-independent units (1/96th of an inch).</returns>
-        public Thickness WindowResizeBorderThickness { [SecurityCritical] get; set; }
+        public Thickness WindowResizeBorderThickness { [ SecurityCritical ] get; set; }
 
         /// <summary>Gets the size of the non-client area of the window.</summary>
         /// <returns>The size of the non-client area of the window, in device-independent units (1/96th of an inch).</returns>
-        public Thickness WindowNonClientFrameThickness { [SecurityCritical] get; set; }
+        public Thickness WindowNonClientFrameThickness { [ SecurityCritical ] get; set; }
     }
 }

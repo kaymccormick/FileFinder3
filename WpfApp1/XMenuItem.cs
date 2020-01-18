@@ -34,9 +34,11 @@ namespace WpfApp1
             set => _children = value;
         }
 
-        public ICommand      Command          { get; set; }
-        public object        CommandParameter { get; set; }
-        public IInputElement CommandTarget    { get; set; }
+        public ICommand Command { get; set; }
+
+        public object CommandParameter { get; set; }
+
+        public IInputElement CommandTarget { get; set; }
 
         public override string ToString()
         {
