@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using Autofac;
+using Autofac.Extras.DynamicProxy;
 using Castle.DynamicProxy;
 using Microsoft.Scripting.Actions;
 using SharpShell.Interop;
@@ -72,6 +73,7 @@ namespace WpfApp1
 
         private XMenuItem CreateDynamixProxy()
         {
+            throw new NotImplementedException();
             // nop;
             var q = new ProxyGenerationOptions(new ProxyGenerationHook());
             XMenuItemProxy = Generator.CreateClassProxy<XMenuItem>(new MyInterceptor());
@@ -95,8 +97,10 @@ namespace WpfApp1
                     t => typeof(Window).IsAssignableFrom(t)).As<Window>();
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).Where(
                     t => typeof(ITopLevelMenu).IsAssignableFrom(t)).As<ITopLevelMenu>();
-            builder.Register(c => CreateDynamixProxy());
-            builder.RegisterType<MenuItemList>();
+            //builder.Register(c => CreateDynamixProxy());
+            builder.RegisterType<MenuItemList>().EnableClassInterceptors();
+            builder.Register(C => new MyInterceptor());
+            builder.RegisterType<XMenuItem>().EnableClassInterceptors();
             AppContainer = builder.Build();
         }
 

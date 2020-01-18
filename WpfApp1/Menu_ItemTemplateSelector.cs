@@ -25,7 +25,7 @@ namespace WpfApp1
                         Logger.Debug($"returning {key} {dataTemplate.DataTemplateKey}");
                         var sw = new StringWriter();
                         XamlWriter.Save(dataTemplate, sw);
-                        Logger.Info(sw.ToString());
+                        Logger.Trace(sw.ToString());
                         return dataTemplate;
                     }
                 }
@@ -38,7 +38,7 @@ namespace WpfApp1
                         Logger.Debug($"returning {key} {dataTemplate.DataTemplateKey}");
                         var sw = new StringWriter();
                         XamlWriter.Save(dataTemplate, sw);
-                        Logger.Info(sw.ToString());
+                        Logger.Trace(sw.ToString());
                         return dataTemplate;
                     }
                 }

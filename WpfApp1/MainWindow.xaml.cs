@@ -35,6 +35,7 @@ namespace WpfApp1
         public MainWindow()
         {
             InitializeComponent();
+            
         }
 
         private void StartButton_OnClick(object sender, RoutedEventArgs e)
