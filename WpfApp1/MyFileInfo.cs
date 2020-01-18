@@ -11,8 +11,7 @@ namespace WpfApp1
         public string Name => FileSystemInfo.Name;
 
         //public Bitmap SmallThumbNailBitmap { get; set; }
-        [ XmlIgnore ]
-        public BitmapSource SmallThumbnailBitmapSource { get; set; }
+        [ XmlIgnore ] public BitmapSource SmallThumbnailBitmapSource { get; set; }
 
         public bool   IsLink      { get; set; }
         public string ParsingName { get; set; }
@@ -33,8 +32,7 @@ namespace WpfApp1
 
     public class MyDirectoryFileInfo : MyFileInfo
     {
-        [ XmlIgnore ]
-        public override FileSystemInfo FileSystemInfo => DirectoryInfo;
+        [ XmlIgnore ] public override FileSystemInfo FileSystemInfo => DirectoryInfo;
 
         [ XmlIgnore ] public DirectoryInfo DirectoryInfo { get; set; }
     }

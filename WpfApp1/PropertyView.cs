@@ -14,7 +14,6 @@ namespace WpfApp1
             set => SetValue( ItemTemplateProperty, value );
         }
 
-        protected override object DefaultStyleKey =>
-            new ComponentResourceKey( GetType(), "myViewDSK" );
+        protected override object DefaultStyleKey => new ComponentResourceKey( GetType(), "myViewDSK" );
     }
 }

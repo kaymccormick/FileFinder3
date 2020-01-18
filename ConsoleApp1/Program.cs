@@ -18,14 +18,14 @@ namespace ConsoleApp1
             subject.Subscribe( info => {Logger.Debug( $"got {info}" );} );
             var task = Task.Run(
                                 () =>
-                                {
-                                    var finder = new FileFinderImpl3
-                                                 {
-                                                     FindDir  = @"c:\temp",
-                                                     Observer = subject
-                                                 };
-                                    finder.FindFiles();
-                                }
+                                    {
+                                        var finder = new FileFinderImpl3
+                                                     {
+                                                         FindDir  = @"c:\temp",
+                                                         Observer = subject
+                                                     };
+                                        finder.FindFiles();
+                                    }
                                );
             await task;
         }
