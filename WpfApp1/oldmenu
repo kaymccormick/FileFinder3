@@ -1,0 +1,3 @@
+	<MenuItem Header="File">
+	<MenuItem Header="Quit" InputGestureText="Ctrl-Q" Command="local:MyAppCommands.AppSettings"/>
+	</MenuItem>

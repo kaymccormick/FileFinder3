@@ -1,0 +1,8 @@
+        <HierarchicalDataTemplate x:Name="MenuItemDataTemplateWithChildren" DataType="{x:Type local:XMenuItem}" ItemsSource="{Binding Children}">
+            <MenuItem ItemContainerStyleSelector="{StaticResource MenuItemContainerStyleSelector}" Header="{Binding Path=Header}"/>
+        </HierarchicalDataTemplate>
+        <HierarchicalDataTemplate x:Name="MenuItemDataTemplateNoChildren" DataType="{x:Type local:XMenuItem}">
+            <MenuItem ItemContainerStyleSelector="{StaticResource MenuItemContainerStyleSelector}" Header="{Binding Path=Header}" Command="{Binding Command}"
+                      CommandParameter="{Binding CommandParameter}"
+                      CommandTarget="{Binding CommandTarget}"/>
+        </HierarchicalDataTemplate>

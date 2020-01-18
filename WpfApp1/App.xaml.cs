@@ -5,13 +5,17 @@ using System.Configuration;
 using System.Data;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
+using System.Windows.Threading;
 using Autofac;
 using SharpShell.Interop;
 using Shell32;
 using Vanara.Windows.Shell;
 using HWND = Vanara.PInvoke.HWND;
+using IContainer = Autofac.IContainer;
 
 namespace WpfApp1
 {
@@ -24,22 +28,31 @@ namespace WpfApp1
 
         public App()
         {
+            SetupContainer();
+        }
+
+        private void OpenWindowExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            Logger.Info($"{sender} {e.Parameter}");
+        }
+
+
+        public IContainer AppContainer { get; set; }
+        private void SetupContainer()
+        {
             ContainerBuilder builder = new ContainerBuilder();
             builder.RegisterType<SystemParametersControl>().As<ISettingsPanel>();
+            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).Where(
+                    t => typeof(Window).IsAssignableFrom(t)).As<Window>();
+            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).Where(
+                    t => typeof(ITopLevelMenu).IsAssignableFrom(t)).As<ITopLevelMenu>();
 
+            builder.RegisterType<MenuItemList>();
+            AppContainer = builder.Build();
         }
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-/*            var shellFolder = ShellFolder.Desktop;
-            Logger.Debug(shellFolder.GetDisplayName(ShellItemDisplayString.NormalDisplay));
-            var enumerateChildren = shellFolder.EnumerateChildren(FolderItemFilter.NonFolders);
-            Logger.Debug(enumerateChildren.Count());
-            foreach(var item in enumerateChildren)
-            {
-                Logger.Debug(item.Name);
-            }
-	    */
             if (e.Args.Any())
             {
                 var windowName = e.Args[0];
@@ -51,6 +64,26 @@ namespace WpfApp1
                     Logger.Debug("Startup URI is {startupUri}", StartupUri);
                 }
             }
+
+            Dispatcher.BeginInvoke(DispatcherPriority.Send,
+                (DispatcherOperationCallback) delegate(object unused)
+
+                {
+                    IEnumerable<Lazy<Window>> windows = AppContainer.Resolve<IEnumerable<Lazy<Window>>>();
+                    windows.Select((lazy, i) =>
+                    {
+                        var cmdBinding = new CommandBinding(MyAppCommands.OpenWindow, OpenWindowExecuted);
+                        CommandManager.RegisterClassCommandBinding(typeof(Window), cmdBinding);
+                        return true;
+                    });
+                    var menuItemList = AppContainer.Resolve<MenuItemList>();
+
+                    Resources["MyMenuItemList"] = menuItemList;
+
+                    MainWindow mainWindow = new MainWindow();
+                    mainWindow.Show();
+                    return null;
+                }, null);
         }
     }
 }

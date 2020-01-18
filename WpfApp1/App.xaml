@@ -4,11 +4,32 @@
              xmlns:local="clr-namespace:WpfApp1"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:properties="clr-namespace:WpfApp1.Properties"
-             StartupUri="MainWindow.xaml" Startup="Application_Startup">
+
+             Startup="Application_Startup">
     <Application.Resources>
-        <system:String x:Key="DefaultFontSize"><Binding Source="{x:Static properties:Settings.Default}" Path="DefaultFontSize"/></system:String>
+        <local:MenuTemplateSelector x:Key="MenuTemplateSelector"/>
+        <local:MenuItemContainerStyleSelector x:Key="MenuItemContainerStyleSelector" />
+        <DataTemplate x:Key="MenuItemWithChildrenHeaderTemplate" DataType="local:XMenuItem">
+            <MenuItem Header="{Binding Header}" ItemsSource="{Binding Children}"/>
+        </DataTemplate>
+
+        <DataTemplate x:Key="MenuItemNoChildrenHeaderTemplate" DataType="local:XMenuItem">
+            <MenuItem Header="{Binding Header}" ItemsSource="{Binding Children}"/>
+        </DataTemplate>
+<Style x:Key="MenuItemWithChildren" TargetType="MenuItem">
+	<Setter Property="HeaderTemplate" Value="{StaticResource MenuItemWithChildrenHeaderTemplate}"/>
+	</Style>
+	<Style x:Key="MenuItemNoChildren" TargetType="MenuItem">
+	<Setter Property="HeaderTemplate" Value="{StaticResource MenuItemDataTemplateNoChildren}"/>
+	</Style>
+        <Style TargetType="Menu">
+            <Setter Property="ItemsSource" Value="{DynamicResource MyMenuItemList}" />
+        </Style>
+        <system:String x:Key="DefaultFontSize">
+            <Binding Source="{x:Static properties:Settings.Default}" Path="DefaultFontSize" />
+        </system:String>
         <Style TargetType="Window">
-            <Setter Property="FontSize" Value="{StaticResource DefaultFontSize}"/>
+            <Setter Property="FontSize" Value="{StaticResource DefaultFontSize}" />
         </Style>
         <x:Array x:Key="FontSettingsNames" x:Type="system:String">
             <system:String>Heading</system:String>

@@ -15,5 +15,8 @@ namespace WpfApp1
         public static RoutedUICommand NavigateShellItem =
             new RoutedUICommand("Navigate", "NavigateShellItem", typeof(MyAppCommands));
 
+        public static RoutedUICommand OpenWindow =
+            new RoutedUICommand("Open Window", nameof(OpenWindow), typeof(MyAppCommands));
+
     }
 }
