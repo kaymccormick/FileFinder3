@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using NLog;
 
-namespace WpfApp1
+namespace WpfApp1.Menus
 {
     public class XMenuItem : ICommandSource
     {

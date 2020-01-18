@@ -1,20 +1,21 @@
-﻿<Application x:Class="WpfApp1.App"
+﻿<Application x:Class="WpfApp1.Application.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:WpfApp1"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:properties="clr-namespace:WpfApp1.Properties"
-
+             xmlns:menus="clr-namespace:WpfApp1.Menus"
+             StartupUri="../Windows/MainWindow.xaml"
              Startup="ApplicationStartup">
     <Application.Resources>
-        <local:MenuTemplateSelector x:Key="MenuTemplateSelector" />
-        <local:MenuItemContainerStyleSelector x:Key="MenuItemContainerStyleSelector" />
+        <menus:MenuTemplateSelector x:Key="MenuTemplateSelector" />
+        <menus:MenuItemContainerStyleSelector x:Key="MenuItemContainerStyleSelector" />
 
-        <DataTemplate x:Key="Menu_ItemTemplateChildren" DataType="local:XMenuItem">
+        <DataTemplate x:Key="Menu_ItemTemplateChildren" DataType="menus:XMenuItem">
             <MenuItem Header="{Binding Header}" ItemsSource="{Binding Children}" />
         </DataTemplate>
 
-        <DataTemplate x:Key="Menu_ItemTemplateNoChildren" DataType="local:XMenuItem">
+        <DataTemplate x:Key="Menu_ItemTemplateNoChildren" DataType="menus:XMenuItem">
             <MenuItem Header="{Binding Header}" Command="{Binding Command}"
                       CommandParameter="{Binding CommandParameter}"
                       CommandTarget="{Binding CommandTarget}" />
@@ -25,7 +26,7 @@
         <Style x:Key="MenuItemNoChildren" TargetType="MenuItem">
             <Setter Property="HeaderTemplate" Value="{StaticResource MenuItemDataTemplateNoChildren}" />
         </Style>
-        <local:MenuMenuItemTemplateSelector x:Key="MenuMenuItemTemplateSelector" />
+        <menus:MenuMenuItemTemplateSelector x:Key="MenuMenuItemTemplateSelector" />
         <Style TargetType="Menu">
             <Setter Property="ItemsSource" Value="{DynamicResource MyMenuItemList}" />
             <Setter Property="ItemTemplateSelector" Value="{StaticResource Menu_ItemTemplateSelector}" />

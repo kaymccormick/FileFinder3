@@ -17,7 +17,7 @@ using System.Reflection;
 using Castle.DynamicProxy;
 using NLog;
 
-namespace WpfApp1
+namespace WpfApp1.Util
 {
     public class ProxyGenerationHook : IProxyGenerationHook
     {

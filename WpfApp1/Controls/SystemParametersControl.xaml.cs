@@ -12,9 +12,10 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using NLog;
+using WpfApp1.Interfaces;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 
-namespace WpfApp1
+namespace WpfApp1.Controls
 {
     /// <summary>
     /// Interaction logic for SystemParametersControl.xaml
@@ -78,7 +79,10 @@ namespace WpfApp1
             //Label label = new Label() {Content = LabelStr,};
         }
     }
+}
 
+namespace WpfApp1
+{
     public class SysProp
     {
         /// <summary>Gets the width, in pixels, of the left and right edges of the focus rectangle.  </summary>

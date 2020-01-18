@@ -2,8 +2,11 @@ using System.Reflection;
 using System.Windows;
 using Autofac;
 using Autofac.Extras.DynamicProxy;
+using WpfApp1.Controls;
+using WpfApp1.Interfaces;
+using WpfApp1.Menus;
 
-namespace WpfApp1
+namespace WpfApp1.Util
 {
     public static class ContainerHelper
     {

@@ -2,8 +2,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using NLog;
+using WpfApp1.Interfaces;
 
-namespace WpfApp1
+namespace WpfApp1.Menus
 {
     public class MenuItemList : ObservableCollection < XMenuItem >
     {

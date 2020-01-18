@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Markup;
 using NLog;
 
-namespace WpfApp1
+namespace WpfApp1.Menus
 {
     public class MenuMenuItemTemplateSelector : DataTemplateSelector
 

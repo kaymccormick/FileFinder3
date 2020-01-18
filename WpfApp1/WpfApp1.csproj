@@ -511,8 +511,10 @@
       <DependentUpon>SystemParametersControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Menus\WindowsTopLevelMenu.cs" />
-    <Compile Include="Commands\XCommand.cs" />
     <Compile Include="Menus\XMenuItem.cs" />
+    <Compile Include="Windows\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Windows\AppSettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -522,6 +524,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Controls\SystemParametersControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

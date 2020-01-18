@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
-  <Class Name="WpfApp1.App" Collapsed="true">
+  <Class Name="WpfApp1.Application.App" Collapsed="true">
     <Position X="1" Y="0.5" Width="1.5" />
     <Members>
       <Field Name="Logger" Hidden="true" />
@@ -10,28 +10,28 @@
       <FileName>Application\App.xaml.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="WpfApp1.ContainerHelper" Collapsed="true">
+  <Class Name="WpfApp1.Util.ContainerHelper" Collapsed="true">
     <Position X="2.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
       <FileName>Util\ContainerHelper.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="WpfApp1.MyAppCommands" Collapsed="true">
+  <Class Name="WpfApp1.Commands.MyAppCommands" Collapsed="true">
     <Position X="1" Y="1.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAQAA=</HashCode>
       <FileName>Commands\MyAppCommands.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Interface Name="WpfApp1.ISettingsPanel" Collapsed="true">
+  <Interface Name="WpfApp1.Interfaces.ISettingsPanel" Collapsed="true">
     <Position X="1" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\ISettingsPanel.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="WpfApp1.ITopLevelMenu" Collapsed="true">
+  <Interface Name="WpfApp1.Interfaces.ITopLevelMenu" Collapsed="true">
     <Position X="2.75" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>

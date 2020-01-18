@@ -3,7 +3,7 @@ using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 
-namespace WpfApp1
+namespace WpfApp1.Util
 {
     [ XmlRoot( "dictionary" ) ]
     public class SerializableDictionary < TKey, TValue >

@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using WpfApp1.Commands;
+using WpfApp1.Interfaces;
 
-namespace WpfApp1
+namespace WpfApp1.Menus
 {
     public class WindowsTopLevelMenu : ITopLevelMenu
     {

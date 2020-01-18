@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace WpfApp1
+namespace WpfApp1.Menus
 {
     internal class MenuTemplateSelector : ItemContainerTemplateSelector
     {

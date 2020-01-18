@@ -1,4 +1,4 @@
-﻿namespace WpfApp1
+﻿namespace WpfApp1.Interfaces
 {
     public interface ISettingsPanel
     {

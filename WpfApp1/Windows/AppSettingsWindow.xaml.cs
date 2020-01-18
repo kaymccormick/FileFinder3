@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace WpfApp1
+namespace WpfApp1.Windows
 {
     /// <summary>
     ///     Interaction logic for AppSettingsWindow.xaml
