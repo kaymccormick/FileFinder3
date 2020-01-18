@@ -64,6 +64,12 @@
     <Reference Include="Autofac, Version=4.9.4.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>e:\installed_packages\Autofac.4.9.4\lib\net45\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="Castle.Core">
+      <HintPath>E:\Kay2020\source\castle.core\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Services.Logging.NLogIntegration">
+      <HintPath>E:\Kay2020\source\castle.core\net45\Castle.Services.Logging.NLogIntegration.dll</HintPath>
+    </Reference>
     <Reference Include="CustomMarshalers" />
     <Reference Include="DynamicData, Version=6.14.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>e:\installed_packages\DynamicData.6.14.3\lib\net461\DynamicData.dll</HintPath>

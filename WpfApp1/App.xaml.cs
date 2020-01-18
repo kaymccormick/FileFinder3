@@ -11,6 +11,8 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using Autofac;
+using Castle.DynamicProxy;
+using Microsoft.Scripting.Actions;
 using SharpShell.Interop;
 using Shell32;
 using Vanara.Windows.Shell;
@@ -19,17 +21,64 @@ using IContainer = Autofac.IContainer;
 
 namespace WpfApp1
 {
+    public class ProxyGenerationHook : IProxyGenerationHook
+    {
+        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
+
+        public void NonProxyableMemberNotification(Type type, MemberInfo memberInfo)
+        {
+        }
+
+        public bool ShouldInterceptMethod(Type type, MethodInfo memberInfo)
+        {
+            return memberInfo.Name.StartsWith("get_", StringComparison.Ordinal);
+        }
+
+        public void NonVirtualMemberNotification(Type type, MemberInfo memberInfo)
+        {
+        }
+
+        public void MethodsInspected()
+        {
+        }
+    }
+    public class MyInterceptor : IInterceptor
+    {
+        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
+
+        public void Intercept(IInvocation invocation)
+        {
+            invocation.Proceed();
+            if (invocation.Method.Name.StartsWith("get_"))
+            {
+                Logger.Debug(invocation.Method.Name);
+
+            }
+        }
+    }
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application
     {
+        private static readonly ProxyGenerator Generator = new ProxyGenerator();
+
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
         public App()
         {
             SetupContainer();
         }
+
+        private XMenuItem CreateDynamixProxy()
+        {
+            // nop;
+            var q = new ProxyGenerationOptions(new ProxyGenerationHook());
+            XMenuItemProxy = Generator.CreateClassProxy<XMenuItem>(new MyInterceptor());
+            return XMenuItemProxy;
+        }
+
+        public XMenuItem XMenuItemProxy { get; set; }
 
         private void OpenWindowExecuted(object sender, ExecutedRoutedEventArgs e)
         {
@@ -46,7 +95,7 @@ namespace WpfApp1
                     t => typeof(Window).IsAssignableFrom(t)).As<Window>();
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).Where(
                     t => typeof(ITopLevelMenu).IsAssignableFrom(t)).As<ITopLevelMenu>();
-
+            builder.Register(c => CreateDynamixProxy());
             builder.RegisterType<MenuItemList>();
             AppContainer = builder.Build();
         }

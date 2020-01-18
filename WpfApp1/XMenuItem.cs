@@ -8,6 +8,10 @@ namespace WpfApp1
 {
     public class XMenuItem : ICommandSource
     {
+        public XMenuItem()
+        {
+        }
+
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
         private IEnumerable<XMenuItem> _children;
 
@@ -18,14 +22,14 @@ namespace WpfApp1
             get
             {
                 
-                Logger.Debug($"here: {Environment.StackTrace}");
+                Logger.Trace($"here: {Environment.StackTrace}");
                 try
                 {
                     throw new Exception();
                 }
                 catch (Exception e)
                 {
-                    Logger.Debug(e, e.StackTrace);
+                    Logger.Trace(e, e.StackTrace);
                 }
 
                 return _children;
