@@ -64,6 +64,15 @@
     <Reference Include="Autofac, Version=4.9.4.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>e:\installed_packages\Autofac.4.9.4\lib\net45\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="Autofac.Extras.DynamicProxy, Version=4.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>e:\installed_packages\Autofac.Extras.DynamicProxy.4.5.0\lib\net45\Autofac.Extras.DynamicProxy.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>e:\installed_packages\Castle.Core.4.3.1\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Services.Logging.NLogIntegration">
+      <HintPath>E:\Kay2020\source\castle.core\net45\Castle.Services.Logging.NLogIntegration.dll</HintPath>
+    </Reference>
     <Reference Include="CustomMarshalers" />
     <Reference Include="DynamicData, Version=6.14.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>e:\installed_packages\DynamicData.6.14.3\lib\net461\DynamicData.dll</HintPath>
@@ -500,6 +509,7 @@
     <Compile Include="MenuItemContainerStyleSelector.cs" />
     <Compile Include="MenuItemList.cs" />
     <Compile Include="MenuTemplateSelector.cs" />
+    <Compile Include="Menu_ItemTemplateSelector.cs" />
     <Compile Include="MyAppCommands.cs" />
     <Compile Include="MyFileInfo.cs" />
     <Compile Include="PropertyView.cs" />
