@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="TestWindow2" Height="450" Width="800">
     <Grid>
-        <WindowsFormsHost HorizontalAlignment="Left" Height="410" VerticalAlignment="Top" Width="733"/>
+        <WindowsFormsHost HorizontalAlignment="Left" Height="410" VerticalAlignment="Top" Width="733" />
 
     </Grid>
 </Window>

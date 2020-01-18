@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WpfApp1
+﻿namespace WpfApp1
 {
-    class Wrapper
+    internal class Wrapper
     {
     }
 }

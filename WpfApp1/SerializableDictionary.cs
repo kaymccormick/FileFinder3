@@ -1,76 +1,88 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Xml;
+using System.Xml.Schema;
+using System.Xml.Serialization;
 
 namespace WpfApp1
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-    using System.Xml.Serialization;
-
-    [XmlRoot("dictionary")]
-    public class SerializableDictionary<TKey, TValue>
-        : Dictionary<TKey, TValue>, IXmlSerializable
+    [ XmlRoot( "dictionary" ) ]
+    public class SerializableDictionary < TKey, TValue >
+        : Dictionary < TKey, TValue >,
+            IXmlSerializable
     {
         public SerializableDictionary()
         {
         }
 
-        public SerializableDictionary(IDictionary<TKey, TValue> dictionary) : base(dictionary)
+        public SerializableDictionary(
+            IDictionary < TKey, TValue > dictionary
+        ) : base( dictionary )
         {
         }
 
-        public SerializableDictionary(IDictionary<TKey, TValue> dictionary, IEqualityComparer<TKey> comparer) : base(
-            dictionary, comparer)
+        public SerializableDictionary(
+            IDictionary < TKey, TValue > dictionary,
+            IEqualityComparer < TKey >   comparer
+        ) : base(
+                 dictionary, comparer
+                )
         {
         }
 
-        public SerializableDictionary(IEqualityComparer<TKey> comparer) : base(comparer)
+        public SerializableDictionary(
+            IEqualityComparer < TKey > comparer
+        ) : base( comparer )
         {
         }
 
-        public SerializableDictionary(int capacity) : base(capacity)
+        public SerializableDictionary(
+            int capacity
+        ) : base( capacity )
         {
         }
 
-        public SerializableDictionary(int capacity, IEqualityComparer<TKey> comparer) : base(capacity, comparer)
+        public SerializableDictionary(
+            int                        capacity,
+            IEqualityComparer < TKey > comparer
+        ) : base( capacity, comparer )
         {
         }
 
         #region IXmlSerializable Members
 
-        public System.Xml.Schema.XmlSchema GetSchema()
+        public XmlSchema GetSchema()
         {
             return null;
         }
 
-        public void ReadXml(System.Xml.XmlReader reader)
+        public void ReadXml(
+            XmlReader reader
+        )
         {
-            XmlSerializer keySerializer = new XmlSerializer(typeof(TKey));
-            XmlSerializer valueSerializer = new XmlSerializer(typeof(TValue));
+            var keySerializer   = new XmlSerializer( typeof(TKey) );
+            var valueSerializer = new XmlSerializer( typeof(TValue) );
 
-            bool wasEmpty = reader.IsEmptyElement;
+            var wasEmpty = reader.IsEmptyElement;
             reader.Read();
 
-            if (wasEmpty)
-                return;
-
-            while (reader.NodeType != System.Xml.XmlNodeType.EndElement)
+            if ( wasEmpty )
             {
-                reader.ReadStartElement("item");
+                return;
+            }
 
-                reader.ReadStartElement("key");
-                TKey key = (TKey) keySerializer.Deserialize(reader);
+            while ( reader.NodeType != XmlNodeType.EndElement )
+            {
+                reader.ReadStartElement( "item" );
+
+                reader.ReadStartElement( "key" );
+                var key = (TKey)keySerializer.Deserialize( reader );
                 reader.ReadEndElement();
 
-                reader.ReadStartElement("value");
-                TValue value = (TValue) valueSerializer.Deserialize(reader);
+                reader.ReadStartElement( "value" );
+                var value = (TValue)valueSerializer.Deserialize( reader );
                 reader.ReadEndElement();
 
-                this.Add(key, value);
+                Add( key, value );
 
                 reader.ReadEndElement();
                 reader.MoveToContent();
@@ -79,22 +91,24 @@ namespace WpfApp1
             reader.ReadEndElement();
         }
 
-        public void WriteXml(System.Xml.XmlWriter writer)
+        public void WriteXml(
+            XmlWriter writer
+        )
         {
-            XmlSerializer keySerializer = new XmlSerializer(typeof(TKey));
-            XmlSerializer valueSerializer = new XmlSerializer(typeof(TValue));
+            var keySerializer   = new XmlSerializer( typeof(TKey) );
+            var valueSerializer = new XmlSerializer( typeof(TValue) );
 
-            foreach (TKey key in this.Keys)
+            foreach ( var key in Keys )
             {
-                writer.WriteStartElement("item");
+                writer.WriteStartElement( "item" );
 
-                writer.WriteStartElement("key");
-                keySerializer.Serialize(writer, key);
+                writer.WriteStartElement( "key" );
+                keySerializer.Serialize( writer, key );
                 writer.WriteEndElement();
 
-                writer.WriteStartElement("value");
-                TValue value = this[key];
-                valueSerializer.Serialize(writer, value);
+                writer.WriteStartElement( "value" );
+                var value = this[key];
+                valueSerializer.Serialize( writer, value );
                 writer.WriteEndElement();
 
                 writer.WriteEndElement();

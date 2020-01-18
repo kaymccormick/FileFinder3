@@ -6,22 +6,13 @@ using System.Dynamic;
 using System.Linq;
 using System.Reflection;
 using System.Security;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Microsoft.Scripting.Utils;
+using NLog;
 using Xceed.Wpf.Toolkit.PropertyGrid;
-using Xceed.Wpf.Toolkit.PropertyGrid.Editors;
 
 namespace WpfApp1
 {
@@ -30,15 +21,15 @@ namespace WpfApp1
     /// </summary>
     public partial class SystemParametersControl : UserControl, ISettingsPanel
     {
-        private readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
+        private readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         public SystemParametersControl()
         {
             InitializeComponent();
 
-            SysProp sysProp = new SysProp();
+            var sysProp = new SysProp();
             dynamic sysObj = new ExpandoObject();
-            Type t = typeof(SystemParameters);
+            var t = typeof(SystemParameters);
             var resKeyProps = t.GetProperties().Where(info => info.PropertyType == typeof(ResourceKey));
             var propertyDefinitionCollection = new PropertyDefinitionCollection();
             foreach (var resKeyProp in resKeyProps)
@@ -48,7 +39,7 @@ namespace WpfApp1
                 propertyInfo.SetValue(sysProp, resKeyProp.GetValue(null));
 
 
-                Regex r = new Regex(@"Key$");
+                var r = new Regex(@"Key$");
                 var barePropName = r.Replace(resKeyProp.Name, "");
 
                 var LabelStr = barePropName;
@@ -63,24 +54,24 @@ namespace WpfApp1
                     Debug.Assert(propSysProp != null);
                     propSysProp.SetValue(sysProp, bareProp.GetValue(null));
 
-                    var p = new PropertyDefinition()
-                    {
-                        TargetProperties = {barePropName},
+                    var p = new PropertyDefinition
+                            {
+                        TargetProperties = {barePropName}
                     };
                     propertyDefinitionCollection.Add(p);
 
-                    var dict = sysObj as IDictionary<String, Object>;
+                    var dict = sysObj as IDictionary<string, object>;
                     dict[barePropName] = bareProp.GetValue(null);
                 }
             }
 
 
-            PropertyGrid propertyGrid = new PropertyGrid()
-            {
-                AutoGenerateProperties = false,
-                SelectedObject = sysProp,
-                PropertyDefinitions = propertyDefinitionCollection,
-            };
+            var propertyGrid = new PropertyGrid
+                               {
+                                   AutoGenerateProperties = false,
+                                   SelectedObject = sysProp,
+                                   PropertyDefinitions = propertyDefinitionCollection
+                               };
             Content = propertyGrid;
             propertyGrid.HorizontalAlignment = HorizontalAlignment.Stretch;
             propertyGrid.VerticalAlignment = VerticalAlignment.Stretch;

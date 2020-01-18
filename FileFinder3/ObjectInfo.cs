@@ -4,23 +4,27 @@ namespace FileFinder3
 {
     public class ObjectInfo
     {
-        public string Path { get; set; }
-
         public ObjectInfo()
         {
         }
 
-        public ObjectInfo(FileSystemInfo fsinfo)
+        public ObjectInfo(
+            FileSystemInfo fsinfo
+        )
         {
-            Path = fsinfo.FullName;
+            Path      = fsinfo.FullName;
             Component = fsinfo.Name;
         }
 
-        public string Component { get; set; }
-
-        public ObjectInfo(string path)
+        public ObjectInfo(
+            string path
+        )
         {
             Path = path;
         }
+
+        public string Path { get; set; }
+
+        public string Component { get; set; }
     }
 }

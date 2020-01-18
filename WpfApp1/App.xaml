@@ -7,28 +7,28 @@
 
              Startup="Application_Startup">
     <Application.Resources>
-        <local:MenuTemplateSelector x:Key="MenuTemplateSelector"/>
+        <local:MenuTemplateSelector x:Key="MenuTemplateSelector" />
         <local:MenuItemContainerStyleSelector x:Key="MenuItemContainerStyleSelector" />
 
         <DataTemplate x:Key="Menu_ItemTemplateChildren" DataType="local:XMenuItem">
-            <MenuItem Header="{Binding Header}" ItemsSource="{Binding Children}"/>
+            <MenuItem Header="{Binding Header}" ItemsSource="{Binding Children}" />
         </DataTemplate>
 
         <DataTemplate x:Key="Menu_ItemTemplateNoChildren" DataType="local:XMenuItem">
             <MenuItem Header="{Binding Header}" Command="{Binding Command}"
                       CommandParameter="{Binding CommandParameter}"
-                      CommandTarget="{Binding CommandTarget}"/>
+                      CommandTarget="{Binding CommandTarget}" />
         </DataTemplate>
         <Style x:Key="MenuItemWithChildren" TargetType="MenuItem">
-	<Setter Property="HeaderTemplate" Value="{StaticResource MenuItemWithChildrenHeaderTemplate}"/>
-	</Style>
-	<Style x:Key="MenuItemNoChildren" TargetType="MenuItem">
-	<Setter Property="HeaderTemplate" Value="{StaticResource MenuItemDataTemplateNoChildren}"/>
-	</Style>
+            <Setter Property="HeaderTemplate" Value="{StaticResource MenuItemWithChildrenHeaderTemplate}" />
+        </Style>
+        <Style x:Key="MenuItemNoChildren" TargetType="MenuItem">
+            <Setter Property="HeaderTemplate" Value="{StaticResource MenuItemDataTemplateNoChildren}" />
+        </Style>
         <local:Menu_ItemTemplateSelector x:Key="Menu_ItemTemplateSelector" />
         <Style TargetType="Menu">
             <Setter Property="ItemsSource" Value="{DynamicResource MyMenuItemList}" />
-            <Setter Property="ItemTemplateSelector" Value="{StaticResource Menu_ItemTemplateSelector}"></Setter>
+            <Setter Property="ItemTemplateSelector" Value="{StaticResource Menu_ItemTemplateSelector}" />
         </Style>
         <Style TargetType="Window">
             <Setter Property="FontSize" Value="18" />

@@ -1,48 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using NLog;
 using Vanara.Windows.Shell;
 
 namespace WpfApp1
 {
     public class ItemWrapper
     {
-        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
+        private static readonly Logger Logger =
+            LogManager.GetCurrentClassLogger();
 
-        public ItemWrapper(ShellItem item)
+        public ItemWrapper(
+            ShellItem item
+        )
         {
-            Name = item.Name;
+            Name        = item.Name;
             ParsingName = item.ParsingName;
             var store = item.Properties;
-            Attributes = item.Attributes;
-            Props = new Dictionary<object, object>();
-            FileInfo = item.FileInfo;
+            Attributes     = item.Attributes;
+            Props          = new Dictionary < object, object >();
+            FileInfo       = item.FileInfo;
             FileSystemPath = item.FileSystemPath;
-            IsFileSystem = item.IsFileSystem;
-            IsFolder = item.IsFolder;
-            IShellItem = item.IShellItem;
-            IsLink = item.IsLink;
-            Parent = item.Parent;
-            PIDL = item.PIDL;
-            ToolTipText = item.ToolTipText;
+            IsFileSystem   = item.IsFileSystem;
+            IsFolder       = item.IsFolder;
+            IShellItem     = item.IShellItem;
+            IsLink         = item.IsLink;
+            Parent         = item.Parent;
+            PIDL           = item.PIDL;
+            ToolTipText    = item.ToolTipText;
 
-            foreach (var key in store.Keys)
+            foreach ( var key in store.Keys )
             {
                 var propertyDescription = store.Descriptions[key];
                 try
                 {
-                    var propertyDescriptionList = item.GetPropertyDescriptionList(key);
-                    Debug.Assert(propertyDescriptionList != null);
-                    foreach(var v in propertyDescriptionList)
+                    var propertyDescriptionList =
+                        item.GetPropertyDescriptionList( key );
+                    Debug.Assert( propertyDescriptionList != null );
+                    foreach ( var v in propertyDescriptionList )
                     {
-                        Logger.Debug($"{v}");
+                        Logger.Debug( $"{v}" );
                     }
+
                     //.Where(description => description.PropertyKey == key).First();
                     //Props[propertyDescription.CanonicalName] = store[key];
                 }
-                catch (Exception e)
+                catch ( Exception e )
                 {
-                    Logger.Warn(e, $"{key} - {e.Message}");
+                    Logger.Warn( e, $"{key} - {e.Message}" );
                 }
             }
         }
@@ -67,7 +73,7 @@ namespace WpfApp1
 
         public ShellItemAttribute Attributes { get; set; }
 
-        public Dictionary<object, object> Props { get; set; }
+        public Dictionary < object, object > Props { get; set; }
 
         public string ParsingName { get; set; }
 

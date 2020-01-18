@@ -6,26 +6,31 @@ namespace WpfApp1
 {
     public class MenuItemContainerStyleSelector : StyleSelector
     {
-        public override Style SelectStyle(object item, DependencyObject container)
+        public override Style SelectStyle(
+            object           item,
+            DependencyObject container
+        )
         {
-            if (item is XMenuItem x)
+            if ( item is XMenuItem x )
             {
-                if (x.Children.Any())
+                if ( x.Children.Any() )
                 {
-                    if (container is FrameworkElement ic)
+                    if ( container is FrameworkElement ic )
                     {
-                        return ic.FindResource("MenuItemWithChildren") as Style;
+                        return ic.FindResource( "MenuItemWithChildren" ) as
+                                   Style;
                     }
                 }
                 else
                 {
-                    if (container is FrameworkElement ic)
+                    if ( container is FrameworkElement ic )
                     {
-                        return ic.FindResource("MenuItemNoChildren") as Style;
+                        return ic.FindResource( "MenuItemNoChildren" ) as Style;
                     }
                 }
             }
-            return base.SelectStyle(item, container);
+
+            return base.SelectStyle( item, container );
         }
     }
 }
