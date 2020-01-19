@@ -31,9 +31,11 @@ namespace WpfApp1.Menus
                         Logger.Debug(
                                      $"returning {key} {dataTemplate.DataTemplateKey}"
                                     );
+#if writexaml
                         var sw = new StringWriter();
                         XamlWriter.Save( dataTemplate, sw );
                         Logger.Trace( sw.ToString() );
+#endif
                         return dataTemplate;
                     }
                 }
@@ -47,9 +49,11 @@ namespace WpfApp1.Menus
                         Logger.Debug(
                                      $"returning {key} {dataTemplate.DataTemplateKey}"
                                     );
+#if writexaml
                         var sw = new StringWriter();
                         XamlWriter.Save( dataTemplate, sw );
                         Logger.Trace( sw.ToString() );
+#endif
                         return dataTemplate;
                     }
                 }

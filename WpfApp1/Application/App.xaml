@@ -1,14 +1,13 @@
 ﻿<Application x:Class="WpfApp1.Application.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:WpfApp1"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:properties="clr-namespace:WpfApp1.Properties"
              xmlns:menus="clr-namespace:WpfApp1.Menus"
              StartupUri="../Windows/MainWindow.xaml"
              Startup="ApplicationStartup">
     <Application.Resources>
-        <menus:MenuTemplateSelector x:Key="MenuTemplateSelector" />
+        <menus:MenuMenuItemTemplateSelector x:Key="MenuMenuItemTemplateSelector" />
         <menus:MenuItemContainerStyleSelector x:Key="MenuItemContainerStyleSelector" />
 
         <DataTemplate x:Key="Menu_ItemTemplateChildren" DataType="menus:XMenuItem">
@@ -26,10 +25,9 @@
         <Style x:Key="MenuItemNoChildren" TargetType="MenuItem">
             <Setter Property="HeaderTemplate" Value="{StaticResource MenuItemDataTemplateNoChildren}" />
         </Style>
-        <menus:MenuMenuItemTemplateSelector x:Key="MenuMenuItemTemplateSelector" />
         <Style TargetType="Menu">
             <Setter Property="ItemsSource" Value="{DynamicResource MyMenuItemList}" />
-            <Setter Property="ItemTemplateSelector" Value="{StaticResource Menu_ItemTemplateSelector}" />
+            <Setter Property="ItemTemplateSelector" Value="{StaticResource MenuMenuItemTemplateSelector}" />
         </Style>
         <Style TargetType="Window">
             <Setter Property="FontSize" Value="18" />

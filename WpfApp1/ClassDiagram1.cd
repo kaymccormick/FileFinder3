@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
-  <Class Name="WpfApp1.Application.App" Collapsed="true">
-    <Position X="1" Y="0.5" Width="1.5" />
+  <Class Name="WpfApp1.Application.App">
+    <Position X="6.75" Y="2.75" Width="5.25" />
     <Members>
       <Field Name="Logger" Hidden="true" />
     </Members>
@@ -11,28 +11,33 @@
     </TypeIdentifier>
   </Class>
   <Class Name="WpfApp1.Util.ContainerHelper" Collapsed="true">
-    <Position X="2.75" Y="0.5" Width="1.5" />
+    <Position X="6.25" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
       <FileName>Util\ContainerHelper.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WpfApp1.Commands.MyAppCommands" Collapsed="true">
-    <Position X="1" Y="1.5" Width="1.75" />
+    <Position X="8" Y="0.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAQAA=</HashCode>
       <FileName>Commands\MyAppCommands.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="System.Windows.Application">
+    <Position X="0.5" Y="2.5" Width="5.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
   <Interface Name="WpfApp1.Interfaces.ISettingsPanel" Collapsed="true">
-    <Position X="1" Y="2.75" Width="1.5" />
+    <Position X="8.5" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\ISettingsPanel.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="WpfApp1.Interfaces.ITopLevelMenu" Collapsed="true">
-    <Position X="2.75" Y="2.75" Width="1.5" />
+    <Position X="7.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\ITopLevelMenu.cs</FileName>
