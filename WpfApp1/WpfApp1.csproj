@@ -89,105 +89,14 @@
     <Reference Include="Microsoft.Scripting.Metadata, Version=1.2.2.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
       <HintPath>e:\installed_packages\DynamicLanguageRuntime.1.2.2\lib\net45\Microsoft.Scripting.Metadata.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.VisualStudio.CoreUtility, Version=16.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Microsoft.VisualStudio.CoreUtility.16.4.280\lib\net472\Microsoft.VisualStudio.CoreUtility.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Imaging.Interop.14.0.DesignTime, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Microsoft.VisualStudio.Imaging.Interop.14.0.DesignTime.14.3.26930\lib\net20\Microsoft.VisualStudio.Imaging.Interop.14.0.DesignTime.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Modeling.Sdk.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.VisualStudio.Modeling.Sdk.Diagrams.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.VisualStudio.Modeling.Sdk.Integration.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="microsoft.visualstudio.modeling.sdk.integration.shell.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.VisualStudio.Modeling.Sdk.Shell.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.VisualStudio.OLE.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <HintPath>e:\installed_packages\Microsoft.VisualStudio.OLE.Interop.7.10.6071\lib\Microsoft.VisualStudio.OLE.Interop.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Shell.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.VisualStudio.Shell.Framework, Version=16.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Microsoft.VisualStudio.Shell.Framework.16.4.29519.181\lib\net472\Microsoft.VisualStudio.Shell.Framework.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Shell.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <HintPath>e:\installed_packages\Microsoft.VisualStudio.Shell.Interop.7.10.6072\lib\net11\Microsoft.VisualStudio.Shell.Interop.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Shell.Interop.8.0, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-    <Reference Include="Microsoft.VisualStudio.Text.Data, Version=16.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Microsoft.VisualStudio.Text.Data.16.4.280\lib\net472\Microsoft.VisualStudio.Text.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Text.Logic, Version=16.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Microsoft.VisualStudio.Text.Logic.16.4.280\lib\net472\Microsoft.VisualStudio.Text.Logic.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Text.UI, Version=16.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Microsoft.VisualStudio.Text.UI.16.4.280\lib\net472\Microsoft.VisualStudio.Text.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Text.UI.Wpf, Version=16.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Microsoft.VisualStudio.Text.UI.Wpf.16.4.280\lib\net472\Microsoft.VisualStudio.Text.UI.Wpf.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.TextManager.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <HintPath>e:\installed_packages\Microsoft.VisualStudio.TextManager.Interop.7.10.6071\lib\net11\Microsoft.VisualStudio.TextManager.Interop.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Threading, Version=16.4.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Microsoft.VisualStudio.Threading.16.4.43\lib\net472\Microsoft.VisualStudio.Threading.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Utilities, Version=16.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Microsoft.VisualStudio.Utilities.16.4.29519.181\lib\net46\Microsoft.VisualStudio.Utilities.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Validation, Version=15.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Microsoft.VisualStudio.Validation.15.5.31\lib\netstandard2.0\Microsoft.VisualStudio.Validation.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.VSHelp, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
-      <Private>True</Private>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Win32.Registry, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Microsoft.Win32.Registry.4.7.0\lib\net461\Microsoft.Win32.Registry.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\WindowsAPICodePack-Core.1.1.2\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
-    </Reference>
-    <Reference Include="Nerdbank.Streams, Version=2.4.0.0, Culture=neutral, PublicKeyToken=cac503e1823ce71c, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Nerdbank.Streams.2.4.50\lib\netstandard2.0\Nerdbank.Streams.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>e:\installed_packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>e:\installed_packages\NLog.4.6.8\lib\net45\NLog.dll</HintPath>
     </Reference>
-    <Reference Include="OSIcon, Version=3.0.0.0, Culture=neutral, PublicKeyToken=2d4a153a84ea7847, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\OSIcon.3.0.0.0\lib\OSIcon.dll</HintPath>
-    </Reference>
-    <Reference Include="PInvoke.Kernel32, Version=0.6.0.0, Culture=neutral, PublicKeyToken=9e300f9f87f04a7a, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\PInvoke.Kernel32.0.6.6\lib\net45\PInvoke.Kernel32.dll</HintPath>
-    </Reference>
-    <Reference Include="PInvoke.Shell32, Version=0.6.0.0, Culture=neutral, PublicKeyToken=9e300f9f87f04a7a, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\PInvoke.Shell32.0.6.6\lib\net45\PInvoke.Shell32.dll</HintPath>
-    </Reference>
-    <Reference Include="PInvoke.Windows.Core, Version=0.6.0.0, Culture=neutral, PublicKeyToken=9e300f9f87f04a7a, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\PInvoke.Windows.Core.0.6.6\lib\net20\PInvoke.Windows.Core.dll</HintPath>
-    </Reference>
     <Reference Include="ServiceLocation, Version=1.3.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>e:\installed_packages\ServiceLocation.1.3.1\lib\net45\ServiceLocation.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpShell, Version=2.7.2.0, Culture=neutral, PublicKeyToken=f14dc899472fe6fb, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\SharpShell.2.7.2\lib\net40-client\SharpShell.dll</HintPath>
-    </Reference>
-    <Reference Include="StreamJsonRpc, Version=2.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\StreamJsonRpc.2.2.53\lib\netstandard2.0\StreamJsonRpc.dll</HintPath>
-    </Reference>
-    <Reference Include="Syncfusion.Licensing, Version=17.4460.0.43, Culture=neutral, PublicKeyToken=632609b4d040f6b4, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Syncfusion.Licensing.17.4.0.43\lib\net46\Syncfusion.Licensing.dll</HintPath>
-    </Reference>
-    <Reference Include="Syncfusion.Shared.WPF, Version=17.4460.0.43, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Syncfusion.Shared.WPF.17.4.0.43\lib\net46\Syncfusion.Shared.WPF.dll</HintPath>
-    </Reference>
-    <Reference Include="Syncfusion.Tools.WPF, Version=17.4460.0.43, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Syncfusion.Tools.WPF.17.4.0.43\lib\net46\Syncfusion.Tools.WPF.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -220,16 +129,6 @@
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>e:\installed_packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
     </Reference>
-    <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
-      <Private>True</Private>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Net.WebSockets, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\System.Net.WebSockets.4.3.0\lib\net46\System.Net.WebSockets.dll</HintPath>
-      <Private>True</Private>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Numerics" />
     <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>e:\installed_packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
@@ -237,21 +136,6 @@
     <Reference Include="System.Printing" />
     <Reference Include="System.Reactive, Version=4.3.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
       <HintPath>e:\installed_packages\System.Reactive.4.3.2\lib\net46\System.Reactive.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.Core, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\System.Reactive.Core.4.3.2\lib\net46\System.Reactive.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.Interfaces, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\System.Reactive.Interfaces.4.3.2\lib\net46\System.Reactive.Interfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.Linq, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\System.Reactive.Linq.4.3.2\lib\net46\System.Reactive.Linq.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.PlatformServices, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\System.Reactive.PlatformServices.4.3.2\lib\net46\System.Reactive.PlatformServices.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.Providers, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\System.Reactive.Providers.4.3.2\lib\net46\System.Reactive.Providers.dll</HintPath>
     </Reference>
     <Reference Include="System.Reactive.Windows.Threading, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
       <HintPath>e:\installed_packages\System.Reactive.Windows.Threading.4.3.2\lib\net46\System.Reactive.Windows.Threading.dll</HintPath>
@@ -265,32 +149,6 @@
       <HintPath>e:\installed_packages\System.Runtime.CompilerServices.Unsafe.4.7.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Security.AccessControl, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\System.Security.AccessControl.4.7.0\lib\net461\System.Security.AccessControl.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\System.Security.Cryptography.Algorithms.4.3.1\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
-      <Private>True</Private>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
-      <Private>True</Private>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
-      <Private>True</Private>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\System.Security.Cryptography.X509Certificates.4.3.2\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
-      <Private>True</Private>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Security.Principal.Windows, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\System.Security.Principal.Windows.4.7.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
-    </Reference>
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Threading.Tasks.Dataflow, Version=4.6.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -315,140 +173,6 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="UIAutomationProvider" />
-    <Reference Include="Vanara.BITS, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.BITS.3.1.9\lib\net45\Vanara.BITS.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.Core, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.Core.3.1.9\lib\net45\Vanara.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.PInvoke.Accessibility, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.PInvoke.Accessibility.3.1.9\lib\net45\Vanara.PInvoke.Accessibility.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.PInvoke.AclUI, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.PInvoke.AclUI.3.1.9\lib\net45\Vanara.PInvoke.AclUI.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.PInvoke.BITS, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.PInvoke.BITS.3.1.9\lib\net45\Vanara.PInvoke.BITS.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.PInvoke.Cabinet, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.PInvoke.Cabinet.3.1.9\lib\net45\Vanara.PInvoke.Cabinet.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.PInvoke.ComCtl32, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.PInvoke.ComCtl32.3.1.9\lib\net45\Vanara.PInvoke.ComCtl32.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.PInvoke.CredUI, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.PInvoke.CredUI.3.1.9\lib\net45\Vanara.PInvoke.CredUI.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.PInvoke.Cryptography, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.PInvoke.Cryptography.3.1.9\lib\net45\Vanara.PInvoke.Cryptography.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.PInvoke.DwmApi, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.PInvoke.DwmApi.3.1.9\lib\net45\Vanara.PInvoke.DwmApi.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.PInvoke.Gdi32, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.PInvoke.Gdi32.3.1.9\lib\net45\Vanara.PInvoke.Gdi32.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.PInvoke.IpHlpApi, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.PInvoke.IpHlpApi.3.1.9\lib\net45\Vanara.PInvoke.IpHlpApi.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.PInvoke.Kernel32, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.PInvoke.Kernel32.3.1.9\lib\net45\Vanara.PInvoke.Kernel32.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.PInvoke.KtmW32, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.PInvoke.KtmW32.3.1.9\lib\net45\Vanara.PInvoke.KtmW32.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.PInvoke.Mpr, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.PInvoke.Mpr.3.1.9\lib\net45\Vanara.PInvoke.Mpr.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.PInvoke.NetApi32, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.PInvoke.NetApi32.3.1.9\lib\net45\Vanara.PInvoke.NetApi32.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.PInvoke.NetListMgr, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.PInvoke.NetListMgr.3.1.9\lib\net45\Vanara.PInvoke.NetListMgr.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="Vanara.PInvoke.NtDll, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.PInvoke.NtDll.3.1.9\lib\net45\Vanara.PInvoke.NtDll.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.PInvoke.NTDSApi, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.PInvoke.NTDSApi.3.1.9\lib\net45\Vanara.PInvoke.NTDSApi.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.PInvoke.Ole, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.PInvoke.Ole.3.1.9\lib\net45\Vanara.PInvoke.Ole.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.PInvoke.Opc, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.PInvoke.Opc.3.1.9\lib\net45\Vanara.PInvoke.Opc.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.PInvoke.Pdh, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.PInvoke.Pdh.3.1.9\lib\net45\Vanara.PInvoke.Pdh.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.PInvoke.PowrProf, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.PInvoke.PowrProf.3.1.9\lib\net45\Vanara.PInvoke.PowrProf.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.PInvoke.Printing, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.PInvoke.Printing.3.1.9\lib\net45\Vanara.PInvoke.Printing.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.PInvoke.SearchApi, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.PInvoke.SearchApi.3.1.9\lib\net45\Vanara.PInvoke.SearchApi.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.PInvoke.Security, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.PInvoke.Security.3.1.9\lib\net45\Vanara.PInvoke.Security.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.PInvoke.Shared, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.PInvoke.Shared.3.1.9\lib\net45\Vanara.PInvoke.Shared.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.PInvoke.Shell32, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.PInvoke.Shell32.3.1.9\lib\net45\Vanara.PInvoke.Shell32.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.PInvoke.ShlwApi, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.PInvoke.ShlwApi.3.1.9\lib\net45\Vanara.PInvoke.ShlwApi.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.PInvoke.TaskSchd, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.PInvoke.TaskSchd.3.1.9\lib\net45\Vanara.PInvoke.TaskSchd.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.PInvoke.UrlMon, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.PInvoke.UrlMon.3.1.9\lib\net45\Vanara.PInvoke.UrlMon.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.PInvoke.User32, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.PInvoke.User32.3.1.9\lib\net45\Vanara.PInvoke.User32.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.PInvoke.UserEnv, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.PInvoke.UserEnv.3.1.9\lib\net45\Vanara.PInvoke.UserEnv.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.PInvoke.UxTheme, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.PInvoke.UxTheme.3.1.9\lib\net45\Vanara.PInvoke.UxTheme.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.PInvoke.VirtDisk, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.PInvoke.VirtDisk.3.1.9\lib\net45\Vanara.PInvoke.VirtDisk.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.PInvoke.Wer, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.PInvoke.Wer.3.1.9\lib\net45\Vanara.PInvoke.Wer.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.PInvoke.WinINet, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.PInvoke.WinINet.3.1.9\lib\net45\Vanara.PInvoke.WinINet.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.PInvoke.WinTrust, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.PInvoke.WinTrust.3.1.9\lib\net45\Vanara.PInvoke.WinTrust.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.PInvoke.Ws2_32, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.PInvoke.Ws2_32.3.1.9\lib\net45\Vanara.PInvoke.Ws2_32.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.Security, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.Security.3.1.9\lib\net45\Vanara.Security.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.SystemServices, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.SystemServices.3.1.9\lib\net45\Vanara.SystemServices.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.VirtualDisk, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.VirtualDisk.3.1.9\lib\net45\Vanara.VirtualDisk.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.Windows.Forms, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.Windows.Forms.3.1.9\lib\net45\Vanara.Windows.Forms.dll</HintPath>
-    </Reference>
-    <Reference Include="Vanara.Windows.Shell, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\Vanara.Windows.Shell.3.1.9\lib\net45\Vanara.Windows.Shell.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
