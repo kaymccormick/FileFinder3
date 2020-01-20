@@ -412,4 +412,6 @@
   <Import Project="e:\FF\installed_packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('e:\FF\installed_packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
   <Import Project="e:\FF\installed_packages\MSBuild.Extension.Pack.1.9.1\build\net40\MSBuild.Extension.Pack.targets" Condition="Exists('e:\FF\installed_packages\MSBuild.Extension.Pack.1.9.1\build\net40\MSBuild.Extension.Pack.targets')" />
   <Import Project="e:\FF\installed_packages\xunit.runner.msbuild.2.4.1\build\net452\xunit.runner.msbuild.targets" Condition="Exists('e:\FF\installed_packages\xunit.runner.msbuild.2.4.1\build\net452\xunit.runner.msbuild.targets')" />
+  <Target Name="test" DependsOnTargets="build">
+  </Target>
 </Project>

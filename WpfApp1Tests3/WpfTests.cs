@@ -71,58 +71,82 @@ namespace WpfApp1Tests3
                 var o =XamlReader.Load( baml2006Reader );
                 ///var o = Application.LoadComponent( uri );
                 var menuResources = o as ResourceDictionary;
+
+                var stack = new ContextStack < InfoContext >();
+                stack.Push(new InfoContext( nameof(menuResources), menuResources));
+
                 foreach ( var q in menuResources.Keys )
                 {
                     var resource = menuResources[q];
+                    stack.Push(new InfoContext( "key", q));
                     Logger.Debug($"{q}: {resource}"  );
-                    DumpResource( resource );
+                    var prefix = $"Resource[{q}]";
+                    DumpResource( stack, resource );
+                    stack.Pop();
                 }
 
 
             }
         }
 
+        public class ContextStack < T > : Stack < T > where T : InfoContext
+        {
+            /// <summary>Returns a string that represents the current object.</summary>
+            /// <returns>A string that represents the current object.</returns>
+            public override string ToString()
+            {
+                return $"{String.Join("/", this.Reverse()  )}";
+            }
+        }
         private void DumpResource(
+            ContextStack <InfoContext> context,
             object resource
         )
         {
+            context.Push(new InfoContext("resource", resource)  );
             if ( resource is Style style )
             {
-                Logger.Debug($"TargetType = {style.TargetType}"  );
+                Logger.Debug($"{{@context}} : TargetType = {style.TargetType}", new { Context = context });
                 foreach ( var setter in style.Setters )
                 {
                     switch ( setter )
                     {
                         case Setter s:
-                            Logger.Debug( $"Setter" );
-                            DumpDependencyProperty( s.Property );
+                            Logger.Debug( $"{context} : Setter" );
+                            DumpDependencyProperty(context, s.Property );
                         Logger.Debug($"TargetName = {s.TargetName}" );
                             Logger.Debug( $"Value = {s.Value}" );
-                            DumpValue(  s.Value );
+                            DumpValue(context, s.Value );
                             break;
                         case EventSetter eventSetter:
-                            Logger.Debug($"EventSetter.Event = {eventSetter.Event}"  );
-                            Logger.Debug($"HandledEventsToo = {eventSetter.HandledEventsToo}"  );
-                            Logger.Debug($"Method {eventSetter.Handler.Method}");
-                            Logger.Debug($"Target {eventSetter.Handler.Target}");
+                            Logger.Debug($"{context} : EventSetter.Event = {eventSetter.Event}"  );
+                            Logger.Debug($"{context} : HandledEventsToo = {eventSetter.HandledEventsToo}"  );
+                            Logger.Debug($"{context} : Method {eventSetter.Handler.Method}");
+                            Logger.Debug($"{context} : Target {eventSetter.Handler.Target}");
                             break;
                     }
                 }
             }
 
+            context.Pop();
+
         }
 
         private void DumpValue(
+            ContextStack <InfoContext> context,
             object sValue
         )
         {
+            context.Push(new InfoContext("value", sValue));
+
+            var prefix = context.ToString();
             switch ( sValue )
             {
                 case DynamicResourceExtension d:
-                    Logger.Debug($"Value Type {d.GetType()}"  );
-                    Logger.Debug($"Resource Key {d.ResourceKey}");
+                    Logger.Debug($"{prefix} : Value Type {d.GetType()}"  );
+                    Logger.Debug($"{prefix} : Resource Key {d.ResourceKey}");
                     var provideValue = d.ProvideValue(new ServiceProviderProxy());
-                    DumpProvidedValue( provideValue );
+                    DumpProvidedValue(context, provideValue );
                     
                     Logger.Debug($"ProvideValue is {provideValue}");
                     break;
@@ -130,40 +154,76 @@ namespace WpfApp1Tests3
                     Logger.Debug("Value: ");
                     break;
             }
-            
+
+            context.Pop();
         }
 
         private void DumpProvidedValue(
+            ContextStack <InfoContext> context,
             object provideValue
         )
         {
-            Logger.Debug($"type of provided value is {provideValue.GetType()}"  );
+            var prefix = context.ToString();
+            Logger.Debug($"{prefix} : type of provided value is {provideValue.GetType()}"  );
             var typeConverter = TypeDescriptor.GetConverter( provideValue );
-            
+            context.Push(new InfoContext("provideValue", provideValue)  );
             if ( typeConverter.CanConvertTo( typeof(string) ) )
             {
                 var convertTo = typeConverter.ConvertTo( provideValue, typeof(string) );
-                Logger.Debug($"converted to {convertTo}"  );
+                Logger.Debug($"{prefix} : converted to {convertTo}"  );
             }
 
             foreach (var p in provideValue.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance))
             {
-                Logger.Debug($"field {p.Name} = {p.GetValue(provideValue)}");
+                Logger.Debug($"{prefix} : field {p.Name} = {p.GetValue(provideValue)}");
             }
             foreach (var p in provideValue.GetType().GetProperties(BindingFlags.NonPublic | BindingFlags.Instance))
             {
-                Logger.Debug($"property {p.Name} = {p.GetValue(provideValue)}");
+                Logger.Debug($"{prefix} : property {p.Name} = {p.GetValue(provideValue)}");
             }
 
+            context.Pop();
         }
 
         private void DumpDependencyProperty(
+            ContextStack <InfoContext> context,
             DependencyProperty sProperty
         )
         {
-            Logger.Debug($"DependencyProperty: {sProperty.Name}");
-            Logger.Debug($"DependencyProperty.PropertyType: {sProperty.PropertyType}");
-            Logger.Debug($"DependencyProperty.OwnerType: {sProperty.OwnerType}");
+            context.Push(new InfoContext("DependencyProperty", sProperty)  );
+            var prefix = context.ToString();
+            Logger.Debug($"{prefix} : DependencyProperty: {sProperty.Name}");
+            Logger.Debug($"{prefix} : DependencyProperty.PropertyType: {sProperty.PropertyType}");
+            Logger.Debug($"{prefix} : DependencyProperty.OwnerType: {sProperty.OwnerType}");
+        }
+    }
+
+    public class InfoContext
+    {
+        public string Name { get; }
+
+        public object ObjectContext { get; }
+
+        public InfoContext(
+            string name,
+            object objectContext
+        )
+        {
+            Name = name;
+            ObjectContext = objectContext;
+        }
+
+        /// <summary>Returns a string that represents the current object.</summary>
+        /// <returns>A string that represents the current object.</returns>
+        public override string ToString()
+        {
+            var methodInfo = ObjectContext.GetType().GetMethod( "ToString", Type.EmptyTypes);//, BindingFlags.Public | BindingFlags.Instance);
+            string s;
+            s = methodInfo.DeclaringType == typeof(Object)
+                    ? ObjectContext.GetType().Name
+                    : ObjectContext.ToString();
+
+            return Name + "=" + s;
         }
     }
 

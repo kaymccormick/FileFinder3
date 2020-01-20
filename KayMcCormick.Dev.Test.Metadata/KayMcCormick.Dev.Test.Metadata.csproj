@@ -44,5 +44,7 @@
     <Compile Include="WpfTestApplicationAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <Target Name="test" DependsOnTargets="build">
+  </Target>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

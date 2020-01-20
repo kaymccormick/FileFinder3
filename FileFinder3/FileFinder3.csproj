@@ -119,5 +119,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <Target Name="test" DependsOnTargets="build">
+  </Target>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
