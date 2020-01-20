@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -10,12 +11,15 @@ using System.Windows.Markup;
 using Autofac;
 using JetBrains.Annotations;
 using NLog;
+using NLog.Config;
 using WpfApp1.Interfaces;
 using NLog.Fluent;
+using NLog.Targets;
 using WpfApp1Tests3.Attributes;
 using WpfApp1Tests3.Fixtures;
 using WpfApp1Tests3.Utils;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace WpfApp1Tests3
 {
@@ -43,11 +47,14 @@ namespace WpfApp1Tests3
 
         public ObjectIDFixture ObjectIdFixture { get; }
 
+        public ITestOutputHelper OutputHelper { get; }
+
         private readonly ContainerFixture          _containerFixture;
         private readonly UtilsContainerFixture _utilsContainerFixture;
         private MyServicesFixture _myServicesFixture;
         private long _id;
         private long _objectId;
+        private XunitTarget _myTarget;
 
         // ReSharper disable once MemberCanBePrivate.Global
         [ ContextStackInstance ] public ContextStack < InfoContext > MyStack { get; }
@@ -56,7 +63,7 @@ namespace WpfApp1Tests3
         public InfoContext.Factory InfoContextFactory
         {
             get => myServices.InfoContextFactory; }
-        public static HashSet < object > Instances { get; } = new HashSet < object >();
+        public static ConcurrentDictionary < object, long > Instances { get; } = new ConcurrentDictionary<object, long>();
 
         public ObjectIDFixture.GetObjectIdDelegate GetObjIdFunc { get => ObjectIdFixture.GetObjectId; }
         public ObjectIDGenerator Generator { get => ObjectIdFixture.Generator;  }
@@ -68,21 +75,38 @@ namespace WpfApp1Tests3
             WpfApplicationFixture fixture,
             ContainerFixture          containerFixture,
             ObjectIDFixture objectIdFixture,
-            UtilsContainerFixture utilsContainerFixture 
+            UtilsContainerFixture utilsContainerFixture ,
+            ITestOutputHelper outputHelper
         )
         {
+            MyTarget = new XunitTarget( outputHelper );
+            LogManager.Configuration.AddTarget( "xunit", MyTarget );
+            //LogManager.Configuration.AddRule( LogLevel.Debug, LogLevel.Fatal, MyTarget, "*" );
+            //LogManager.Configuration.LoggingRules.Add( new LoggingRule( "*", LogLevel.Debug, MyTarget ));
+            LogManager.Configuration.LoggingRules.Insert(0, new LoggingRule("*", LogLevel.FromString("Trace"), MyTarget));
+            LogManager.ReconfigExistingLoggers();
 
+            Logger.Debug( "test" );
+            MyTarget.Write( LogEventInfo.Create( LogLevel.Info, "test", "beep" ) );
             _myServicesFixture  = utilsContainerFixture.Container.Resolve < MyServicesFixture>();
             //ContextStack<InfoContext>.DefaultAllowDuplicateNames = false; Instances.Add( this );
             this.Fixture      = fixture;
             ObjectIdFixture = objectIdFixture;
+            OutputHelper = outputHelper;
             _containerFixture = containerFixture;
             _utilsContainerFixture = utilsContainerFixture;
             MyStack           = InstanceFactory.CreateContextStack < InfoContext >();
-            Instances.Add( this );
             bool firstTime;
             _id = Generator.GetId(this, out firstTime);
+            Instances[this] = _id;
+
             Assert.True(firstTime );
+        }
+
+        public XunitTarget MyTarget
+        {
+            get { return _myTarget; }
+            set => _myTarget = value;
         }
 
         public Factory InstanceFactory { get => ObjectIdFixture.InstanceFactory;  }
@@ -286,9 +310,14 @@ namespace WpfApp1Tests3
         /// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
         public void Dispose()
         {
-            Instances.Remove( this );
+            long myid;
+            Instances.TryRemove( this, out myid );
+            LogManager.Configuration.RemoveTarget( "xunit" );
+            //LogManager.Configuration.RemoveRuleByName())
+            
+
         }
-        
+
         public long ObjectId => _id;
     }
 
@@ -385,6 +414,35 @@ namespace WpfApp1Tests3
             Assert.NotEmpty( contextStack );
             Assert.True( Object.ReferenceEquals( _infoContext, contextStack.First() ) );
             contextStack.Pop();
+        }
+
+
+    }
+
+    [Target("Xunit")]
+    public class XunitTarget : TargetWithLayout
+    {
+        private readonly ITestOutputHelper _outputHelper;
+
+        public XunitTarget(
+            ITestOutputHelper outputHelper
+        )
+        {
+            _outputHelper = outputHelper;
+        }
+
+        /// <summary>
+        /// Writes logging event to the log target. Must be overridden in inheriting
+        /// classes.
+        /// </summary>
+        /// <param name="logEvent">Logging event to be written out.</param>
+        public new void Write(
+            LogEventInfo logEvent
+        )
+        {
+            var renderLogEvent = RenderLogEvent(Layout, logEvent);
+            _outputHelper.WriteLine(renderLogEvent);
+            
         }
     }
 }
