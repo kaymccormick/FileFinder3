@@ -36,7 +36,7 @@ namespace WpfApp1Tests3
             ContainerFixture containerFixture
         )
         {
-            Instances.Add( this );
+            //ContextStack<InfoContext>.DefaultAllowDuplicateNames = false; Instances.Add( this );
             this.fixture = fixture;
             _containerFixture = containerFixture;
             MyStack = new ContextStack<InfoContext>();
@@ -46,11 +46,12 @@ namespace WpfApp1Tests3
 
         }
 
-        [ Fact, Trait( "MSBuild", "Include" ), PushContext( "test1" ) ]
+        [ Fact, Trait( "MSBuild", "Include" ), 
+          PushContext( "my pushed context" ) ]
         public void Test2()
         {
-            using var c = C("testxx");
-            DoLog("test");
+            using var c = C("using context");
+            DoLog("This is my excellent log message.");
         }
 
         [Fact]
@@ -75,7 +76,12 @@ namespace WpfApp1Tests3
             string test
         )
         {
-            Log.Warn(test).Property("stack", MyStack).Write();
+            var logBuilder =
+                    Log.Warn().Message( test );
+                logBuilder = logBuilder.Property("stack", MyStack);
+                //.Property( "context", MyStack.ToOrderedDictionary()) //.Property("stack", MyStack)
+                
+            logBuilder.Write();
         }
 
         [Fact]
@@ -256,7 +262,7 @@ namespace WpfApp1Tests3
             LogManager.GetCurrentClassLogger();
 
         private InfoContext _context;
-        private Stack < object > _stack;
+        private ContextStack < InfoContext > _stack;
 
 
         /// <summary>Initializes a new instance of the <see cref="T:System.Attribute" /> class.</summary>
@@ -299,15 +305,13 @@ namespace WpfApp1Tests3
             {
                 Logger.Debug( $"{q.Prop} {q.Att}" );
                 var value = q.Prop.GetValue( instance );
-                var t = typeof(WpfTests.ContextStack <InfoContext>);
-                if ( t.IsInstanceOfType(value)) {
-                    {
-                        // thread safe?
+                if ( value is ContextStack < InfoContext > stack )
+                {
+                    // thread safe?
                         _context = new InfoContext( "test1", Context );
-                        _stack = value as Stack < object >;
-                        Assert.NotNull(_stack);
+                        _stack = stack;
                         _stack.Push( _context );
-                    }
+                    
                 }
             }
 
@@ -317,35 +321,6 @@ namespace WpfApp1Tests3
             {
                 
             }
-        }
-    }
-
-    public class InfoContext
-    {
-        public string Name { get; }
-
-        public object ObjectContext { get; }
-
-        public InfoContext(
-            string name,
-            object objectContext
-        )
-        {
-            Name = name;
-            ObjectContext = objectContext;
-        }
-
-        /// <summary>Returns a string that represents the current object.</summary>
-        /// <returns>A string that represents the current object.</returns>
-        public override string ToString()
-        {
-            var methodInfo = ObjectContext.GetType().GetMethod("ToString", Type.EmptyTypes);//, BindingFlags.Public | BindingFlags.Instance);
-            string s;
-            s = methodInfo.DeclaringType == typeof(Object)
-                    ? ObjectContext.GetType().Name
-                    : ObjectContext.ToString();
-
-            return Name + "=" + s;
         }
     }
 
@@ -398,11 +373,11 @@ namespace WpfApp1Tests3
 
     public class AttachedContext : IDisposable
     {
-        private WpfTests.ContextStack<InfoContext> contextStack;
+        private ContextStack<InfoContext> contextStack;
         private object test;
         private InfoContext _infoContext;
 
-        public AttachedContext(WpfTests.ContextStack<InfoContext> contextStack, object test)
+        public AttachedContext(ContextStack<InfoContext> contextStack, object test)
         {
             this.contextStack = contextStack;
             this.test = test;
