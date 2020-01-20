@@ -31,6 +31,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -39,6 +40,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac, Version=4.9.4.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
@@ -142,6 +144,7 @@
     <Compile Include="GenericApplicationFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WindowWrap.cs" />
+    <Compile Include="WpfTests.ContextStack.cs" />
     <Compile Include="WpfTests.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -209,7 +212,7 @@
   -->
   <Target Name="test" DependsOnTargets="build">
     <!-- $(OutputPath)/$(AssemblyName)$(TargetExt)" -->
-    <xunit Assemblies="$(TargetPath)" IgnoreFailures="true" Html="$(OutputPath)\TestResults.html" Xml="$(OutputPath)\TestResults.xml" />
+    <xunit Assemblies="$(TargetPath)" IgnoreFailures="true" IncludeTraits="MSBuild=Include" Html="$(OutputPath)\TestResults.html" Xml="$(OutputPath)\TestResults.xml" />
   </Target>
   <Target Name="ViewTestResult" AfterTargets="test">
     <exec command="$(OutputPath)\TestResults.html" />
