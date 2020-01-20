@@ -39,6 +39,7 @@ namespace WpfApp1.Application
             Logger.Info( $"{sender} {e.Parameter}" );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "VSTHRD001:Avoid legacy thread switching APIs", Justification = "<Pending>")]
         private void ApplicationStartup(
             object           sender,
             StartupEventArgs e
