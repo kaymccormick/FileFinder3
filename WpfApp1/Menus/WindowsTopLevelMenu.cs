@@ -9,12 +9,12 @@ namespace WpfApp1.Menus
 {
     public class WindowsTopLevelMenu : ITopLevelMenu
     {
-        private readonly XMenuItem          _xMenuItem;
-        private readonly Func < XMenuItem > _xMenuItemCreator;
+        private readonly IMenuItem          _xMenuItem;
+        private readonly Func < IMenuItem > _xMenuItemCreator;
 
         public WindowsTopLevelMenu(
             IEnumerable < Lazy < Window > > windows,
-            Func < XMenuItem >              xMenuItemCreator
+            Func < IMenuItem >              xMenuItemCreator
         )
         {
             _xMenuItemCreator = xMenuItemCreator;
@@ -24,7 +24,7 @@ namespace WpfApp1.Menus
 
         public IEnumerable < Lazy < Window > > Windows { get; }
 
-        public XMenuItem GetXMenuItem()
+        public IMenuItem GetXMenuItem()
         {
             var root = _xMenuItem;
             _xMenuItem.Header = "Windows";

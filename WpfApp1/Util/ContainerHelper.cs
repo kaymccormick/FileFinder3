@@ -1,3 +1,5 @@
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Reflection;
 using System.Windows;
 using Autofac;
@@ -6,6 +8,7 @@ using NLog;
 using WpfApp1.Controls;
 using WpfApp1.Interfaces;
 using WpfApp1.Menus;
+using IContainer = Autofac.IContainer;
 
 namespace WpfApp1.Util
 {
@@ -28,9 +31,13 @@ namespace WpfApp1.Util
                           t => typeof(ITopLevelMenu).IsAssignableFrom( t )
                          ).As < ITopLevelMenu >();
             //builder.Register(c => CreateDynamixProxy());
-            builder.Register(C => new MyInterceptor());
-            builder.RegisterType < MenuItemList >().EnableClassInterceptors().InterceptedBy(typeof(MyInterceptor));
-            builder.RegisterType < XMenuItem >().EnableClassInterceptors().InterceptedBy( typeof(MyInterceptor) );
+            builder.Register( C => new MyInterceptor() );
+            builder.RegisterType < MenuItemList >().AsImplementedInterfaces()
+                   .WithMetadata<ResourceMetadata>(m => m.For(rn => rn.ResourceName, "MenuItemList"))
+                   .PreserveExistingDefaults() // As<INotifyCollectionChanged>().As<INotifyPropertyChanged>().As<>()
+                   .EnableInterfaceInterceptors().InterceptedBy( typeof(MyInterceptor) );
+            builder.RegisterType < XMenuItem >().AsImplementedInterfaces().PreserveExistingDefaults()
+                   .EnableInterfaceInterceptors().InterceptedBy( typeof(MyInterceptor) );
             builder.RegisterBuildCallback( container => Logger.Info( "Container built." ) );
 
             return builder.Build();

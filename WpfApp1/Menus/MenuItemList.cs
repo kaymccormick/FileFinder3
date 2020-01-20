@@ -6,7 +6,7 @@ using WpfApp1.Interfaces;
 
 namespace WpfApp1.Menus
 {
-    public class MenuItemList : ObservableCollection < XMenuItem >
+    public class MenuItemList : ObservableCollection < IMenuItem >, IMenuItemList
     {
         private static readonly Logger Logger =
             LogManager.GetCurrentClassLogger();

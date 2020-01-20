@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 using NLog;
+using WpfApp1.Interfaces;
 
 namespace WpfApp1.Menus
 {
-    public class XMenuItem : ICommandSource
+    public class XMenuItem : IMenuItem, ICommandSource
     {
         private static readonly Logger Logger =
             LogManager.GetCurrentClassLogger();
 
-        private IEnumerable < XMenuItem > _children;
+        private IEnumerable < IMenuItem > _children;
 
         public string Header { get; set; }
 
-        public IEnumerable < XMenuItem > Children
+        public IEnumerable < IMenuItem > Children
         {
             get
             {

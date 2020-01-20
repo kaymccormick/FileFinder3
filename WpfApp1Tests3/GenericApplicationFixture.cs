@@ -20,6 +20,12 @@ namespace WpfApp1Tests3
 
         private readonly WpfApplicationHelper _wpfApplicationHelper;
 
+        public Uri BasePackUri
+        {
+            get => _wpfApplicationHelper.BasePackUri;
+            set => _wpfApplicationHelper.BasePackUri = value;
+        }
+
         public Application MyApp
         {
             get => _wpfApplicationHelper.MyApp;

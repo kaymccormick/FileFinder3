@@ -26,7 +26,13 @@ namespace WpfApp1.Util
             IInvocation invocation
         )
         {
-            Logger.Debug($"{nameof(Intercept)}"  );
+            var q = invocation.InvocationTarget.ToString();
+            var s = invocation.InvocationTarget.GetType().ToString();
+            if ( q != s )
+            {
+                q += $" [{s}]";
+            }
+            Logger.Info($"{q}.{invocation.Method.Name}"  );
             invocation.Proceed();
             if ( invocation.Method.Name.StartsWith( "get_" ) )
             {

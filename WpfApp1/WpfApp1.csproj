@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="e:\FF\installed_packages\xunit.runner.msbuild.2.4.1\build\net452\xunit.runner.msbuild.props" Condition="Exists('e:\FF\installed_packages\xunit.runner.msbuild.2.4.1\build\net452\xunit.runner.msbuild.props')" />
   <Import Project="e:\installed_packages\Microsoft.CodeAnalysis.BannedApiAnalyzers.2.9.8\build\Microsoft.CodeAnalysis.BannedApiAnalyzers.props" Condition="Exists('e:\installed_packages\Microsoft.CodeAnalysis.BannedApiAnalyzers.2.9.8\build\Microsoft.CodeAnalysis.BannedApiAnalyzers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -84,6 +85,18 @@
     <Reference Include="DynamicData, Version=6.14.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>e:\installed_packages\DynamicData.6.14.3\lib\net461\DynamicData.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Build, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>e:\FF\installed_packages\Microsoft.Build.14.3.0\lib\net45\Microsoft.Build.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Build.Framework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>e:\FF\installed_packages\Microsoft.Build.Framework.14.3.0\lib\net45\Microsoft.Build.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Build.Tasks.Core, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>e:\FF\installed_packages\Microsoft.Build.Tasks.Core.14.3.0\lib\net45\Microsoft.Build.Tasks.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Build.Utilities.Core, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>e:\FF\installed_packages\Microsoft.Build.Utilities.Core.14.3.0\lib\net45\Microsoft.Build.Utilities.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Dynamic, Version=1.2.2.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
       <HintPath>e:\installed_packages\DynamicLanguageRuntime.1.2.2\lib\net45\Microsoft.Dynamic.dll</HintPath>
     </Reference>
@@ -102,8 +115,14 @@
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>e:\installed_packages\NLog.4.6.8\lib\net45\NLog.dll</HintPath>
     </Reference>
+    <Reference Include="saxon9he-api, Version=9.9.1.6, Culture=neutral, PublicKeyToken=e1fdd002d5083fe6, processorArchitecture=MSIL">
+      <HintPath>e:\FF\installed_packages\Saxon-HE.9.9.1.6\lib\net40\saxon9he-api.dll</HintPath>
+    </Reference>
     <Reference Include="ServiceLocation, Version=1.3.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>e:\installed_packages\ServiceLocation.1.3.1\lib\net45\ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="StructuredLogger, Version=2.0.174.0, Culture=neutral, PublicKeyToken=d4c7181801cb6448, processorArchitecture=MSIL">
+      <HintPath>e:\FF\installed_packages\MSBuild.StructuredLogger.2.0.174\lib\net46\StructuredLogger.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -158,6 +177,11 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>e:\installed_packages\System.Runtime.CompilerServices.Unsafe.4.7.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.InteropServices, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>e:\FF\installed_packages\System.Runtime.InteropServices.4.1.0\lib\net462\System.Runtime.InteropServices.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceProcess" />
@@ -209,8 +233,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Interfaces\IMenuItem.cs" />
+    <Compile Include="Interfaces\IMenuItemList.cs" />
     <Compile Include="Util\MyInterceptor.cs" />
     <Compile Include="Util\ProxyGenerationHook.cs" />
+    <Compile Include="Util\ResourceMetadata.cs" />
     <Compile Include="Windows\AppSettingsWindow.xaml.cs">
       <DependentUpon>AppSettingsWindow.xaml</DependentUpon>
     </Compile>
@@ -231,6 +258,10 @@
     <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Resources\MenuResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\AppSettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -370,8 +401,15 @@
     <Error Condition="!Exists('e:\installed_packages\Microsoft.CodeAnalysis.BannedApiAnalyzers.2.9.8\build\Microsoft.CodeAnalysis.BannedApiAnalyzers.props')" Text="$([System.String]::Format('$(ErrorText)', 'e:\installed_packages\Microsoft.CodeAnalysis.BannedApiAnalyzers.2.9.8\build\Microsoft.CodeAnalysis.BannedApiAnalyzers.props'))" />
     <Error Condition="!Exists('e:\installed_packages\Microsoft.VisualStudio.SDK.EmbedInteropTypes.15.0.27\build\Microsoft.VisualStudio.SDK.EmbedInteropTypes.targets')" Text="$([System.String]::Format('$(ErrorText)', 'e:\installed_packages\Microsoft.VisualStudio.SDK.EmbedInteropTypes.15.0.27\build\Microsoft.VisualStudio.SDK.EmbedInteropTypes.targets'))" />
     <Error Condition="!Exists('e:\installed_packages\Microsoft.VisualStudio.Threading.Analyzers.16.4.43\build\Microsoft.VisualStudio.Threading.Analyzers.targets')" Text="$([System.String]::Format('$(ErrorText)', 'e:\installed_packages\Microsoft.VisualStudio.Threading.Analyzers.16.4.43\build\Microsoft.VisualStudio.Threading.Analyzers.targets'))" />
+    <Error Condition="!Exists('e:\FF\installed_packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" Text="$([System.String]::Format('$(ErrorText)', 'e:\FF\installed_packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets'))" />
+    <Error Condition="!Exists('e:\FF\installed_packages\MSBuild.Extension.Pack.1.9.1\build\net40\MSBuild.Extension.Pack.targets')" Text="$([System.String]::Format('$(ErrorText)', 'e:\FF\installed_packages\MSBuild.Extension.Pack.1.9.1\build\net40\MSBuild.Extension.Pack.targets'))" />
+    <Error Condition="!Exists('e:\FF\installed_packages\xunit.runner.msbuild.2.4.1\build\net452\xunit.runner.msbuild.props')" Text="$([System.String]::Format('$(ErrorText)', 'e:\FF\installed_packages\xunit.runner.msbuild.2.4.1\build\net452\xunit.runner.msbuild.props'))" />
+    <Error Condition="!Exists('e:\FF\installed_packages\xunit.runner.msbuild.2.4.1\build\net452\xunit.runner.msbuild.targets')" Text="$([System.String]::Format('$(ErrorText)', 'e:\FF\installed_packages\xunit.runner.msbuild.2.4.1\build\net452\xunit.runner.msbuild.targets'))" />
   </Target>
   <Import Project="e:\installed_packages\Microsoft.VisualStudio.SDK.Analyzers.16.3.14\build\Microsoft.VisualStudio.SDK.Analyzers.targets" Condition="Exists('e:\installed_packages\Microsoft.VisualStudio.SDK.Analyzers.16.3.14\build\Microsoft.VisualStudio.SDK.Analyzers.targets')" />
   <Import Project="e:\installed_packages\Microsoft.VisualStudio.SDK.EmbedInteropTypes.15.0.27\build\Microsoft.VisualStudio.SDK.EmbedInteropTypes.targets" Condition="Exists('e:\installed_packages\Microsoft.VisualStudio.SDK.EmbedInteropTypes.15.0.27\build\Microsoft.VisualStudio.SDK.EmbedInteropTypes.targets')" />
   <Import Project="e:\installed_packages\Microsoft.VisualStudio.Threading.Analyzers.16.4.43\build\Microsoft.VisualStudio.Threading.Analyzers.targets" Condition="Exists('e:\installed_packages\Microsoft.VisualStudio.Threading.Analyzers.16.4.43\build\Microsoft.VisualStudio.Threading.Analyzers.targets')" />
+  <Import Project="e:\FF\installed_packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('e:\FF\installed_packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
+  <Import Project="e:\FF\installed_packages\MSBuild.Extension.Pack.1.9.1\build\net40\MSBuild.Extension.Pack.targets" Condition="Exists('e:\FF\installed_packages\MSBuild.Extension.Pack.1.9.1\build\net40\MSBuild.Extension.Pack.targets')" />
+  <Import Project="e:\FF\installed_packages\xunit.runner.msbuild.2.4.1\build\net452\xunit.runner.msbuild.targets" Condition="Exists('e:\FF\installed_packages\xunit.runner.msbuild.2.4.1\build\net452\xunit.runner.msbuild.targets')" />
 </Project>

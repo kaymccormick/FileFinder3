@@ -4,6 +4,6 @@ namespace WpfApp1.Interfaces
 {
     public interface ITopLevelMenu
     {
-        XMenuItem GetXMenuItem();
+        IMenuItem GetXMenuItem();
     }
 }

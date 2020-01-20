@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="e:\FF\installed_packages\xunit.runner.msbuild.2.4.1\build\net452\xunit.runner.msbuild.props" Condition="Exists('e:\FF\installed_packages\xunit.runner.msbuild.2.4.1\build\net452\xunit.runner.msbuild.props')" />
   <Import Project="e:\installed_packages\xunit.runner.visualstudio.2.4.1\build\net20\xunit.runner.visualstudio.props" Condition="Exists('e:\installed_packages\xunit.runner.visualstudio.2.4.1\build\net20\xunit.runner.visualstudio.props')" />
   <Import Project="e:\installed_packages\xunit.core.2.4.1\build\xunit.core.props" Condition="Exists('e:\installed_packages\xunit.core.2.4.1\build\xunit.core.props')" />
   <PropertyGroup>
@@ -58,12 +59,30 @@
     <Reference Include="JetBrains.Annotations, Version=2019.1.3.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
       <HintPath>e:\FF\installed_packages\JetBrains.Annotations.2019.1.3\lib\net20\JetBrains.Annotations.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Build, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>e:\FF\installed_packages\Microsoft.Build.14.3.0\lib\net45\Microsoft.Build.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Build.Framework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>e:\FF\installed_packages\Microsoft.Build.Framework.14.3.0\lib\net45\Microsoft.Build.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Build.Tasks.Core, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>e:\FF\installed_packages\Microsoft.Build.Tasks.Core.14.3.0\lib\net45\Microsoft.Build.Tasks.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Build.Utilities.Core, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>e:\FF\installed_packages\Microsoft.Build.Utilities.Core.14.3.0\lib\net45\Microsoft.Build.Utilities.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>e:\installed_packages\NLog.4.6.8\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="saxon9he-api, Version=9.9.1.6, Culture=neutral, PublicKeyToken=e1fdd002d5083fe6, processorArchitecture=MSIL">
+      <HintPath>e:\FF\installed_packages\Saxon-HE.9.9.1.6\lib\net40\saxon9he-api.dll</HintPath>
+    </Reference>
+    <Reference Include="StructuredLogger, Version=2.0.174.0, Culture=neutral, PublicKeyToken=d4c7181801cb6448, processorArchitecture=MSIL">
+      <HintPath>e:\FF\installed_packages\MSBuild.StructuredLogger.2.0.174\lib\net46\StructuredLogger.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>e:\FF\installed_packages\System.ComponentModel.Annotations.4.7.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
@@ -73,10 +92,22 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Runtime, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>e:\FF\installed_packages\System.Runtime.4.1.0\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>e:\FF\installed_packages\System.Runtime.InteropServices.4.1.0\lib\net462\System.Runtime.InteropServices.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WindowsBase" />
     <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <HintPath>e:\installed_packages\xunit.abstractions.2.0.3\lib\net35\xunit.abstractions.dll</HintPath>
@@ -89,6 +120,9 @@
     </Reference>
     <Reference Include="xunit.execution.desktop, Version=2.4.1.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <HintPath>e:\installed_packages\xunit.extensibility.execution.2.4.1\lib\net452\xunit.execution.desktop.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.NLog, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>e:\FF\installed_packages\xunit.NLog.1.1.1\lib\net\xunit.NLog.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Choose>
@@ -112,6 +146,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -154,8 +191,15 @@
     <Error Condition="!Exists('e:\installed_packages\xunit.core.2.4.1\build\xunit.core.props')" Text="$([System.String]::Format('$(ErrorText)', 'e:\installed_packages\xunit.core.2.4.1\build\xunit.core.props'))" />
     <Error Condition="!Exists('e:\installed_packages\xunit.core.2.4.1\build\xunit.core.targets')" Text="$([System.String]::Format('$(ErrorText)', 'e:\installed_packages\xunit.core.2.4.1\build\xunit.core.targets'))" />
     <Error Condition="!Exists('e:\installed_packages\xunit.runner.visualstudio.2.4.1\build\net20\xunit.runner.visualstudio.props')" Text="$([System.String]::Format('$(ErrorText)', 'e:\installed_packages\xunit.runner.visualstudio.2.4.1\build\net20\xunit.runner.visualstudio.props'))" />
+    <Error Condition="!Exists('e:\FF\installed_packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" Text="$([System.String]::Format('$(ErrorText)', 'e:\FF\installed_packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets'))" />
+    <Error Condition="!Exists('e:\FF\installed_packages\MSBuild.Extension.Pack.1.9.1\build\net40\MSBuild.Extension.Pack.targets')" Text="$([System.String]::Format('$(ErrorText)', 'e:\FF\installed_packages\MSBuild.Extension.Pack.1.9.1\build\net40\MSBuild.Extension.Pack.targets'))" />
+    <Error Condition="!Exists('e:\FF\installed_packages\xunit.runner.msbuild.2.4.1\build\net452\xunit.runner.msbuild.props')" Text="$([System.String]::Format('$(ErrorText)', 'e:\FF\installed_packages\xunit.runner.msbuild.2.4.1\build\net452\xunit.runner.msbuild.props'))" />
+    <Error Condition="!Exists('e:\FF\installed_packages\xunit.runner.msbuild.2.4.1\build\net452\xunit.runner.msbuild.targets')" Text="$([System.String]::Format('$(ErrorText)', 'e:\FF\installed_packages\xunit.runner.msbuild.2.4.1\build\net452\xunit.runner.msbuild.targets'))" />
   </Target>
   <Import Project="e:\installed_packages\xunit.core.2.4.1\build\xunit.core.targets" Condition="Exists('e:\installed_packages\xunit.core.2.4.1\build\xunit.core.targets')" />
+  <Import Project="e:\FF\installed_packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('e:\FF\installed_packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
+  <Import Project="e:\FF\installed_packages\MSBuild.Extension.Pack.1.9.1\build\net40\MSBuild.Extension.Pack.targets" Condition="Exists('e:\FF\installed_packages\MSBuild.Extension.Pack.1.9.1\build\net40\MSBuild.Extension.Pack.targets')" />
+  <Import Project="e:\FF\installed_packages\xunit.runner.msbuild.2.4.1\build\net452\xunit.runner.msbuild.targets" Condition="Exists('e:\FF\installed_packages\xunit.runner.msbuild.2.4.1\build\net452\xunit.runner.msbuild.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
@@ -163,4 +207,11 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Target Name="test" DependsOnTargets="build">
+    <!-- $(OutputPath)/$(AssemblyName)$(TargetExt)" -->
+    <xunit Assemblies="$(TargetPath)" IgnoreFailures="true" Html="$(OutputPath)\TestResults.html" Xml="$(OutputPath)\TestResults.xml" />
+  </Target>
+  <Target Name="ViewTestResult" AfterTargets="test">
+    <exec command="$(OutputPath)\TestResults.html" />
+  </Target>
 </Project>

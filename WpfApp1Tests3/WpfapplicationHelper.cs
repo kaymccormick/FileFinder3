@@ -9,6 +9,7 @@ namespace WpfApp1Tests3
     public class WpfApplicationHelper : IDisposable
     {
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
+        private Uri _basePackUri;
 
         public WpfApplicationHelper(
             Assembly theAssembly
@@ -17,8 +18,12 @@ namespace WpfApp1Tests3
             Application app = new Application();
             CurAssembly = theAssembly;
 
-            //string assemblyFullName = CurAssembly.FullName;
-            //var assPart = Uri.EscapeUriString( assemblyFullName.ToString() );
+            string assemblyFullName = CurAssembly.FullName;
+            var assPart = Uri.EscapeUriString( CurAssembly.GetName().Name );
+            var uri = new Uri(
+                              $"pack://application:,,,/{assPart};component/",
+                              UriKind.RelativeOrAbsolute );
+            BasePackUri = uri;
             // var stream = Application.GetResourceStream(new Uri(
             //     $"pack://application:,,,/{assPart};component/dictionary.xaml",
             //     UriKind.RelativeOrAbsolute));
@@ -33,6 +38,12 @@ namespace WpfApp1Tests3
             }
 
             MyApp = app;
+        }
+
+        public Uri BasePackUri
+        {
+            get { return _basePackUri; }
+            set { _basePackUri = value; }
         }
 
         public Assembly CurAssembly { get; set; }
