@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using JetBrains.Annotations;
 using KayMcCormick.Dev.Test.Metadata;
 using Xunit;
@@ -18,6 +19,12 @@ namespace WpfApp1Tests3
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
         private readonly WpfApplicationHelper _wpfApplicationHelper;
+
+        public Application MyApp
+        {
+            get => _wpfApplicationHelper.MyApp;
+            set => _wpfApplicationHelper.MyApp = value;
+        }
 
         /// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
         public GenericApplicationFixture()

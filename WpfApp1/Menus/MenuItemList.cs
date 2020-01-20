@@ -15,7 +15,7 @@ namespace WpfApp1.Menus
             IEnumerable < ITopLevelMenu > topLevelMenus
         ) : base( topLevelMenus.Select( menu => menu.GetXMenuItem() ) )
         {
-            Logger.Info( $"{nameof( MenuItemList )}" );
+            Logger.Debug( $"{nameof( MenuItemList )} constructor" );
         }
     }
 }

@@ -18,22 +18,23 @@ using WpfApp1.Util;
 
 namespace WpfApp1Tests3
 {
-    internal class ContainerFixture : IDisposable
+    public class ContainerFixture : IDisposable
     {
         private IContainer _container;
-        private ILifetimeScope _lifetimeScope;
+
+        public ILifetimeScope LifetimeScope { get; }
 
         /// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
         public ContainerFixture()
         {
             _container = ContainerHelper.SetupContainer();
-            _lifetimeScope = _container.BeginLifetimeScope();
+            LifetimeScope = _container.BeginLifetimeScope();
         }
 
         /// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
         public void Dispose()
         {
-            _lifetimeScope?.Dispose();
+            LifetimeScope?.Dispose();
             _container?.Dispose();
         }
     }

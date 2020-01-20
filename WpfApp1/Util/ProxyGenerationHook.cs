@@ -21,6 +21,7 @@ namespace WpfApp1.Util
 {
     public class ProxyGenerationHook : IProxyGenerationHook
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0052:Remove unread private members", Justification = "<Pending>")]
         private static readonly Logger Logger =
             LogManager.GetCurrentClassLogger();
 
@@ -29,6 +30,7 @@ namespace WpfApp1.Util
             MemberInfo memberInfo
         )
         {
+            Logger.Debug($"{nameof(NonProxyableMemberNotification)}: type={type}, memberInfo={memberInfo}"  );
         }
 
         public bool ShouldInterceptMethod(
@@ -36,6 +38,7 @@ namespace WpfApp1.Util
             MethodInfo memberInfo
         )
         {
+            Logger.Debug($"{nameof(ShouldInterceptMethod)}: type={type}, memberInfo={memberInfo}");
             return memberInfo.Name.StartsWith(
                                               "get_", StringComparison.Ordinal
                                              );
@@ -43,13 +46,7 @@ namespace WpfApp1.Util
 
         public void MethodsInspected()
         {
-        }
-
-        public void NonVirtualMemberNotification(
-            Type       type,
-            MemberInfo memberInfo
-        )
-        {
+            Logger.Debug($"{nameof(MethodsInspected)}");
         }
     }
 }

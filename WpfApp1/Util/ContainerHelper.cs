@@ -2,6 +2,7 @@ using System.Reflection;
 using System.Windows;
 using Autofac;
 using Autofac.Extras.DynamicProxy;
+using NLog;
 using WpfApp1.Controls;
 using WpfApp1.Interfaces;
 using WpfApp1.Menus;
@@ -10,6 +11,9 @@ namespace WpfApp1.Util
 {
     public static class ContainerHelper
     {
+        private static readonly Logger Logger =
+            LogManager.GetCurrentClassLogger();
+
         public static IContainer SetupContainer()
         {
             var builder = new ContainerBuilder();
@@ -24,9 +28,11 @@ namespace WpfApp1.Util
                           t => typeof(ITopLevelMenu).IsAssignableFrom( t )
                          ).As < ITopLevelMenu >();
             //builder.Register(c => CreateDynamixProxy());
-            builder.RegisterType < MenuItemList >().EnableClassInterceptors();
-            builder.Register( C => new MyInterceptor() );
-            builder.RegisterType < XMenuItem >().EnableClassInterceptors();
+            builder.Register(C => new MyInterceptor());
+            builder.RegisterType < MenuItemList >().EnableClassInterceptors().InterceptedBy(typeof(MyInterceptor));
+            builder.RegisterType < XMenuItem >().EnableClassInterceptors().InterceptedBy( typeof(MyInterceptor) );
+            builder.RegisterBuildCallback( container => Logger.Info( "Container built." ) );
+
             return builder.Build();
         }
     }
