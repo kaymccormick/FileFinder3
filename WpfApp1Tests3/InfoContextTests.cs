@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using WpfApp1Tests3.Utils;
 using Xunit;
 
 namespace WpfApp1Tests3

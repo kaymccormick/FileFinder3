@@ -9,6 +9,7 @@ using Autofac;
 using Autofac.Extras.DynamicProxy;
 using NLog;
 using WpfApp1.Commands;
+using WpfApp1.Interfaces;
 using WpfApp1.Menus;
 using WpfApp1.Util;
 using IContainer = Autofac.IContainer;
@@ -67,7 +68,7 @@ namespace WpfApp1.Application
                                     CommandManager.RegisterClassCommandBinding( typeof(Window), cmdBinding );
                                     return true;
                                 } );
-                var menuItemList = AppContainer.Resolve < MenuItemList >();
+                var menuItemList = AppContainer.Resolve < IMenuItemList >();
                 Resources["MyMenuItemList"] = menuItemList;
 #if SHOWWINDOW
                 var mainWindow = new MainWindow();

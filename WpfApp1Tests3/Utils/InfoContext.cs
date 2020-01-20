@@ -16,10 +16,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace WpfApp1Tests3
+namespace WpfApp1Tests3.Utils
 {
     public class InfoContext : Tuple <string, object>, IEnumerable<object>
     {
+        public delegate InfoContext Factory(
+            string name,
+            object objectContext
+        );
         public string Name { get => Item1; }
 
         public object ObjectContext { get => Item2; }

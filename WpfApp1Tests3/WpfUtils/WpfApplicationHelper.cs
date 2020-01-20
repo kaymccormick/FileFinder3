@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Media;
 
-namespace WpfApp1Tests3
+namespace WpfApp1Tests3.WpfUtils
 {
     public class WpfApplicationHelper : IDisposable
     {

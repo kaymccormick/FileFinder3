@@ -1,9 +1,10 @@
-﻿using System;
+﻿
+using System;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Media;
 
-namespace WpfApp1Tests3
+namespace WpfApp1Tests3.WpfUtils
 {
     class WindowWrap<T> : Window where T : Visual
     {

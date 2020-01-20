@@ -16,7 +16,7 @@ using System;
 using System.Runtime.Serialization;
 using JetBrains.Annotations;
 
-namespace WpfApp1Tests3
+namespace WpfApp1Tests3.Exceptions
 {
     public class DuplicateKeyException
         : Exception

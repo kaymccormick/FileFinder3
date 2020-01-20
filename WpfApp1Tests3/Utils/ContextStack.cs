@@ -17,14 +17,18 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using JetBrains.Annotations;
+using NLog;
+using WpfApp1Tests3.Exceptions;
 using Xunit;
 
-namespace WpfApp1Tests3
+namespace WpfApp1Tests3.Utils
 {
     public class ContextStack<T> : Stack<T> where T : InfoContext
     {
         // not sure this makes sense to set - thread safe and/or conflicts?
         public static bool DefaultAllowDuplicateNames { get; set; } = true;
+        private static readonly Logger Logger =
+            LogManager.GetCurrentClassLogger();
 
         public bool AllowDuplicateNames { get; } = DefaultAllowDuplicateNames;
 
@@ -33,16 +37,18 @@ namespace WpfApp1Tests3
         {
         }
 
-        public new void Push(
+         public new void Push(
             T item
         )
         {
+            Logger.Debug($"{nameof(ContextStack<InfoContext>)}.Push ( {item}" );
             if (!AllowDuplicateNames && this.Any(context => context.Name == item.Name))
             {
                 throw new DuplicateKeyException(key: item.Name);
             }
 
             base.Push( item );
+            Logger.Debug($"[{(this)}: New count is {Count}"  );
         }
         /// <summary>Initializes a new instance of the <see cref="T:System.Collections.Generic.Stack`1" /> class that is empty and has the default initial capacity.</summary>
         public ContextStack(

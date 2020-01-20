@@ -59,9 +59,6 @@
     <Reference Include="AutoFixture, Version=4.11.0.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
       <HintPath>e:\FF\installed_packages\AutoFixture.4.11.0\lib\net452\AutoFixture.dll</HintPath>
     </Reference>
-    <Reference Include="AutoFixture.Xunit2, Version=4.11.0.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
-      <HintPath>e:\FF\installed_packages\AutoFixture.Xunit2.4.11.0\lib\net452\AutoFixture.Xunit2.dll</HintPath>
-    </Reference>
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>e:\installed_packages\Castle.Core.4.3.1\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
@@ -70,9 +67,6 @@
     </Reference>
     <Reference Include="JetBrains.Annotations, Version=2019.1.3.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
       <HintPath>e:\FF\installed_packages\JetBrains.Annotations.2019.1.3\lib\net20\JetBrains.Annotations.dll</HintPath>
-    </Reference>
-    <Reference Include="Jwc.Experiment.Xunit, Version=3.0.2.0, Culture=neutral, PublicKeyToken=db4e4bc25029966c, processorArchitecture=MSIL">
-      <HintPath>e:\FF\installed_packages\Experiment.Xunit.3.0.2\lib\net40\Jwc.Experiment.Xunit.dll</HintPath>
     </Reference>
     <Reference Include="MartinCostello.Logging.XUnit, Version=0.1.0.0, Culture=neutral, PublicKeyToken=9a192a7522c9e1a0, processorArchitecture=MSIL">
       <HintPath>e:\FF\installed_packages\MartinCostello.Logging.XUnit.0.1.0\lib\netstandard2.0\MartinCostello.Logging.XUnit.dll</HintPath>
@@ -155,44 +149,26 @@
     <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <HintPath>e:\installed_packages\xunit.abstractions.2.0.3\lib\net35\xunit.abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="xunit.assert, Version=2.4.1.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\xunit.assert.2.4.1\lib\netstandard1.1\xunit.assert.dll</HintPath>
-    </Reference>
-    <Reference Include="xunit.core, Version=2.4.1.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\xunit.extensibility.core.2.4.1\lib\net452\xunit.core.dll</HintPath>
-    </Reference>
-    <Reference Include="xunit.execution.desktop, Version=2.4.1.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\xunit.extensibility.execution.2.4.1\lib\net452\xunit.execution.desktop.dll</HintPath>
-    </Reference>
-    <Reference Include="xunit.extensions, Version=1.9.0.1566, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>e:\FF\installed_packages\xunit.extensions.1.9.0.1566\lib\xunit.extensions.dll</HintPath>
-    </Reference>
     <Reference Include="Xunit.Extensions.Ordering, Version=1.4.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>e:\FF\installed_packages\Xunit.Extensions.Ordering.1.4.5\lib\net452\Xunit.Extensions.Ordering.dll</HintPath>
     </Reference>
-    <Reference Include="xunit.frameworks.autofac, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>e:\FF\installed_packages\xunit.frameworks.autofac.0.1.0\lib\net452\xunit.frameworks.autofac.dll</HintPath>
-    </Reference>
-    <Reference Include="xunit.NLog, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>e:\FF\installed_packages\xunit.NLog.1.1.1\lib\net\xunit.NLog.dll</HintPath>
-    </Reference>
   </ItemGroup>
-    <Choose>
-   <When Condition="'$(LocalNLog)' == 'true'">
-  <ItemGroup>
-    <ProjectReference Include="..\..\NLog\src\NLog\NLog.csproj">
-      <Project>{a0bff0db-ed9a-4639-ae86-8e709a1efc66}</Project>
-      <Name>NLog</Name>
-    </ProjectReference>
-  </ItemGroup>
-   </When>
-   <Otherwise>
-   <ItemGroup>
-    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\NLog.4.6.8\lib\net45\NLog.dll</HintPath>
-    </Reference>
-   </ItemGroup>
-   </Otherwise>
+  <Choose>
+    <When Condition="'$(LocalNLog)' == 'true'">
+      <ItemGroup>
+        <ProjectReference Include="..\..\NLog\src\NLog\NLog.csproj">
+          <Project>{a0bff0db-ed9a-4639-ae86-8e709a1efc66}</Project>
+          <Name>NLog</Name>
+        </ProjectReference>
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+          <HintPath>e:\installed_packages\NLog.4.6.8\lib\net45\NLog.dll</HintPath>
+        </Reference>
+      </ItemGroup>
+    </Otherwise>
   </Choose>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -203,19 +179,26 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="AutofacContainerDef.cs" />
-    <Compile Include="ContainerFixture.cs" />
-    <Compile Include="ContextStack.cs" />
-    <Compile Include="DuplicateKeyException.cs" />
-    <Compile Include="GenericApplicationFixtureCollectionDefinition.cs" />
+    <Compile Include="Attributes\ContextStackInstanceAttribute.cs" />
+    <Compile Include="Attributes\IDGeneratorAttribute.cs" />
+    <Compile Include="Attributes\InfoContextFactoryAttribute.cs" />
+    <Compile Include="Attributes\PushContextAttribute.cs" />
+    <Compile Include="Collections\AutofacContainerDef.cs" />
+    <Compile Include="Collections\WpfApplication.cs" />
+    <Compile Include="Exceptions\DuplicateKeyException.cs" />
+    <Compile Include="Fixtures\ContainerFixture.cs" />
+    <Compile Include="Fixtures\ObjectIDFixture.cs" />
+    <Compile Include="Fixtures\UtilsContainerFixture.cs" />
+    <Compile Include="Fixtures\WpfApplicationFixture.cs" />
     <Compile Include="ContainerHelperTests.cs" />
-    <Compile Include="InfoContext.cs" />
     <Compile Include="InfoContextTests.cs" />
-    <Compile Include="WpfApplicationHelper.cs" />
-    <Compile Include="GenericApplicationFixture.cs" />
+    <Compile Include="Utils\ContextStack.cs" />
+    <Compile Include="Utils\Factory.cs" />
+    <Compile Include="Utils\InfoContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WindowWrap.cs" />
+    <Compile Include="WpfUtils\WindowWrap.cs" />
     <Compile Include="WpfTests.cs" />
+    <Compile Include="WpfUtils\WpfApplicationHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -228,6 +211,10 @@
     <Analyzer Include="E:\installed_packages\xunit.analyzers.0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\xunit.NLog\xunit.NLog\xunit.NLog.csproj">
+      <Project>{5b28fcf6-60d7-477a-98c3-91cf8900f8f8}</Project>
+      <Name>xunit.NLog</Name>
+    </ProjectReference>
     <ProjectReference Include="..\KayMcCormick.Dev.Test.Metadata\KayMcCormick.Dev.Test.Metadata.csproj">
       <Project>{CF1DCCEF-3324-45A2-A194-4A7B768E2291}</Project>
       <Name>KayMcCormick.Dev.Test.Metadata</Name>
@@ -236,7 +223,20 @@
       <Project>{27E3139A-E525-4CE0-828D-53A58F161D0A}</Project>
       <Name>WpfApp1</Name>
     </ProjectReference>
+    <ProjectReference Include="E:\Kay2020\source\xunit\src\xunit.assert\xunit.assert.csproj">
+      <Project>{6a9dd501-e837-4d16-9a46-4a2196fbe5df}</Project>
+      <Name>xunit.assert</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\Kay2020\source\xunit\src\xunit.core\xunit.core.csproj">
+      <Project>{450b4ffe-78c5-447a-a6f0-bf7bb2faf69b}</Project>
+      <Name>xunit.core</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\Kay2020\source\xunit\src\xunit.execution\xunit.execution.csproj">
+      <Project>{eb3f1fc0-3176-4541-8b4e-c8de2fabec9c}</Project>
+      <Name>xunit.execution</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

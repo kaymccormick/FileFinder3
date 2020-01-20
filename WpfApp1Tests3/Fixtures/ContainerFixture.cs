@@ -16,7 +16,7 @@ using System;
 using Autofac;
 using WpfApp1.Util;
 
-namespace WpfApp1Tests3
+namespace WpfApp1Tests3.Fixtures
 {
     public class ContainerFixture : IDisposable
     {

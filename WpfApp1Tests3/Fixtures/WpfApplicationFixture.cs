@@ -1,19 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using JetBrains.Annotations;
 using KayMcCormick.Dev.Test.Metadata;
+using WpfApp1Tests3.WpfUtils;
 using Xunit;
 
-namespace WpfApp1Tests3
+namespace WpfApp1Tests3.Fixtures
 {
     [ UsedImplicitly ]
-    public class GenericApplicationFixture : IDisposable
+    public class WpfApplicationFixture : IDisposable
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0052:Remove unread private members", Justification = "<Pending>")]
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
@@ -33,10 +30,10 @@ namespace WpfApp1Tests3
         }
 
         /// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
-        public GenericApplicationFixture()
+        public WpfApplicationFixture()
         {
             var qq = AppDomain.CurrentDomain.GetAssemblies()
-                              .Where( a => Attribute.IsDefined( a, typeof(WpfTestApplicationAttribute) ) );
+                              .Where( a => Attribute.IsDefined( (Assembly)a, typeof(WpfTestApplicationAttribute) ) );
             var assembly = typeof(WpfApp1.Application.App).Assembly;
             Assert.True( Attribute.IsDefined( assembly, typeof(WpfTestApplicationAttribute) ) );
             _wpfApplicationHelper = new WpfApplicationHelper(assembly);

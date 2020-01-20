@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using WpfApp1.Menus;
 using WpfApp1.Util;
 using Autofac;
+using JetBrains.Annotations;
+using WpfApp1.Interfaces;
 
 namespace WpfApp1Tests3
 {
@@ -21,10 +23,11 @@ namespace WpfApp1Tests3
         }
 
         [Fact()]
-        public void SetupContainerTest2()
+        [ UsedImplicitly ]
+        public void ContainerTest_ResolveIMenuItemList()
         {
             var c = ContainerHelper.SetupContainer();
-            var menuItemList = c.Resolve<MenuItemList>();
+            var menuItemList = c.Resolve<IMenuItemList>();
             Assert.NotNull(menuItemList);
 
 
