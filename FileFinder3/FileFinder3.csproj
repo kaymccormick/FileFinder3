@@ -2,6 +2,9 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
+  <LocalNLog Condition=" '$(LocalNLog)' == '' ">true</LocalNLog>
+    </PropertyGroup>
+  <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{5F5BA27F-9ADA-4137-B4E8-2108EDCAC3EF}</ProjectGuid>
@@ -52,10 +55,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c">
-      <HintPath>e:\installed_packages\NLog.4.6.8\lib\net45\NLog.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -119,6 +118,23 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+    <Choose>
+   <When Condition="'$(LocalNLog)' == 'true'">
+  <ItemGroup>
+    <ProjectReference Include="..\..\NLog\src\NLog\NLog.csproj">
+      <Project>{a0bff0db-ed9a-4639-ae86-8e709a1efc66}</Project>
+      <Name>NLog</Name>
+    </ProjectReference>
+  </ItemGroup>
+   </When>
+   <Otherwise>
+   <ItemGroup>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>e:\installed_packages\NLog.4.6.8\lib\net45\NLog.dll</HintPath>
+    </Reference>
+   </ItemGroup>
+   </Otherwise>
+  </Choose>
   <Target Name="test" DependsOnTargets="build">
   </Target>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

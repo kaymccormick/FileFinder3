@@ -10,4 +10,6 @@ FileSigs_*
 TestResults
 nlog.txt
 TestResult.xml
-
+/Backup
+*.sln.bak
+/UpgradeLog.htm

@@ -77,9 +77,6 @@
       <HintPath>e:\installed_packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\NLog.4.6.8\lib\net45\NLog.dll</HintPath>
-    </Reference>
     <Reference Include="nunit.framework, Version=3.12.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>e:\installed_packages\NUnit.3.12.0\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
@@ -193,6 +190,23 @@
     <Error Condition="!Exists('e:\installed_packages\NUnit.3.12.0\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', 'e:\installed_packages\NUnit.3.12.0\build\NUnit.props'))" />
     <Error Condition="!Exists('e:\installed_packages\NUnit3TestAdapter.3.16.0\build\net35\NUnit3TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', 'e:\installed_packages\NUnit3TestAdapter.3.16.0\build\net35\NUnit3TestAdapter.props'))" />
   </Target>
+    <Choose>
+   <When Condition="'$(LocalNLog)' == 'true'">
+  <ItemGroup>
+    <ProjectReference Include="..\..\NLog\src\NLog\NLog.csproj">
+      <Project>{a0bff0db-ed9a-4639-ae86-8e709a1efc66}</Project>
+      <Name>NLog</Name>
+    </ProjectReference>
+  </ItemGroup>
+   </When>
+   <Otherwise>
+   <ItemGroup>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>e:\installed_packages\NLog.4.6.8\lib\net45\NLog.dll</HintPath>
+    </Reference>
+   </ItemGroup>
+   </Otherwise>
+  </Choose>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

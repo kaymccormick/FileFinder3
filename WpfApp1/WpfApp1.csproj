@@ -4,6 +4,9 @@
   <Import Project="e:\installed_packages\Microsoft.CodeAnalysis.BannedApiAnalyzers.2.9.8\build\Microsoft.CodeAnalysis.BannedApiAnalyzers.props" Condition="Exists('e:\installed_packages\Microsoft.CodeAnalysis.BannedApiAnalyzers.2.9.8\build\Microsoft.CodeAnalysis.BannedApiAnalyzers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
+  <LocalNLog Condition=" '$(LocalNLog)' == '' ">true</LocalNLog>
+    </PropertyGroup>
+  <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{27E3139A-E525-4CE0-828D-53A58F161D0A}</ProjectGuid>
@@ -111,9 +114,6 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>e:\installed_packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>e:\installed_packages\NLog.4.6.8\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="saxon9he-api, Version=9.9.1.6, Culture=neutral, PublicKeyToken=e1fdd002d5083fe6, processorArchitecture=MSIL">
       <HintPath>e:\FF\installed_packages\Saxon-HE.9.9.1.6\lib\net40\saxon9he-api.dll</HintPath>
@@ -412,6 +412,23 @@
   <Import Project="e:\FF\installed_packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('e:\FF\installed_packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
   <Import Project="e:\FF\installed_packages\MSBuild.Extension.Pack.1.9.1\build\net40\MSBuild.Extension.Pack.targets" Condition="Exists('e:\FF\installed_packages\MSBuild.Extension.Pack.1.9.1\build\net40\MSBuild.Extension.Pack.targets')" />
   <Import Project="e:\FF\installed_packages\xunit.runner.msbuild.2.4.1\build\net452\xunit.runner.msbuild.targets" Condition="Exists('e:\FF\installed_packages\xunit.runner.msbuild.2.4.1\build\net452\xunit.runner.msbuild.targets')" />
+    <Choose>
+   <When Condition="'$(LocalNLog)' == 'true'">
+  <ItemGroup>
+    <ProjectReference Include="..\..\NLog\src\NLog\NLog.csproj">
+      <Project>{a0bff0db-ed9a-4639-ae86-8e709a1efc66}</Project>
+      <Name>NLog</Name>
+    </ProjectReference>
+  </ItemGroup>
+   </When>
+   <Otherwise>
+   <ItemGroup>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>e:\installed_packages\NLog.4.6.8\lib\net45\NLog.dll</HintPath>
+    </Reference>
+   </ItemGroup>
+   </Otherwise>
+  </Choose>
   <Target Name="test" DependsOnTargets="build">
   </Target>
 </Project>
