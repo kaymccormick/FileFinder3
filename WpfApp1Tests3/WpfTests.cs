@@ -1,4 +1,5 @@
-﻿using System;
+﻿#define LOG_HERE
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -79,6 +80,8 @@ namespace WpfApp1Tests3
             ITestOutputHelper outputHelper
         )
         {
+
+#if LOG_HERE
             MyTarget = new XunitTarget( outputHelper );
             LogManager.Configuration.AddTarget( "xunit", MyTarget );
             //LogManager.Configuration.AddRule( LogLevel.Debug, LogLevel.Fatal, MyTarget, "*" );
@@ -88,6 +91,7 @@ namespace WpfApp1Tests3
 
             Logger.Debug( "test" );
             MyTarget.Write( LogEventInfo.Create( LogLevel.Info, "test", "beep" ) );
+#endif
             _myServicesFixture  = utilsContainerFixture.Container.Resolve < MyServicesFixture>();
             //ContextStack<InfoContext>.DefaultAllowDuplicateNames = false; Instances.Add( this );
             this.Fixture      = fixture;
@@ -312,9 +316,13 @@ namespace WpfApp1Tests3
         {
             long myid;
             Instances.TryRemove( this, out myid );
+#if LOG_HERE
             LogManager.Configuration.RemoveTarget( "xunit" );
-            //LogManager.Configuration.RemoveRuleByName())
+            LogManager.Configuration.LoggingRules.RemoveAt(0);
+            LogManager.ReconfigExistingLoggers();
             
+#endif
+
 
         }
 
