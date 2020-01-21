@@ -30,6 +30,7 @@ namespace WpfApp1.Application
 
 
         public IContainer AppContainer { get; set; }
+        public MenuItemList MyMenuItemList { get; private set; }
 
         private void OpenWindowExecuted(
             object                  sender,
@@ -67,6 +68,7 @@ namespace WpfApp1.Application
                                     return true;
                                 } );
                 var menuItemList = AppContainer.Resolve < MenuItemList >();
+                MyMenuItemList = menuItemList;
                 Resources["MyMenuItemList"] = menuItemList;
 #if SHOWWINDOW
                 var mainWindow = new MainWindow();

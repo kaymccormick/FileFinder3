@@ -4,11 +4,14 @@
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:properties="clr-namespace:WpfApp1.Properties"
              xmlns:menus="clr-namespace:WpfApp1.Menus"
+                          xmlns:app="clr-namespace:WpfApp1.Application"
              StartupUri="../Windows/MainWindow.xaml"
              Startup="ApplicationStartup">
     <Application.Resources>
         <menus:MenuMenuItemTemplateSelector x:Key="MenuMenuItemTemplateSelector" />
         <menus:MenuItemContainerStyleSelector x:Key="MenuItemContainerStyleSelector" />
+
+        <CollectionViewSource x:Key="MenuItemsCollectionViewSource" Source="{DynamicResource MyMenuItemList}"/>
 
         <DataTemplate x:Key="Menu_ItemTemplateChildren" DataType="menus:XMenuItem">
             <MenuItem Header="{Binding Header}" ItemsSource="{Binding Children}" />
@@ -19,16 +22,18 @@
                       CommandParameter="{Binding CommandParameter}"
                       CommandTarget="{Binding CommandTarget}" />
         </DataTemplate>
-        <Style x:Key="MenuItemWithChildren" TargetType="MenuItem">
+        <Style x:Key="MenuItemWithChildren" TargetType="{x:Type MenuItem}">
             <Setter Property="HeaderTemplate" Value="{StaticResource MenuItemWithChildrenHeaderTemplate}" />
         </Style>
-        <Style x:Key="MenuItemNoChildren" TargetType="MenuItem">
+        <Style x:Key="MenuItemNoChildren" TargetType="{x:Type MenuItem}">
             <Setter Property="HeaderTemplate" Value="{StaticResource MenuItemDataTemplateNoChildren}" />
         </Style>
-        <Style TargetType="Menu">
-            <Setter Property="ItemsSource" Value="{DynamicResource MyMenuItemList}" />
+
+        <Style x:Key="{x:Type Menu}" TargetType="{x:Type Menu}">
+            <Setter Property="ItemsSource" Value="{Binding Source={StaticResource MenuItemsCollectionViewSource}}" />
             <Setter Property="ItemTemplateSelector" Value="{StaticResource MenuMenuItemTemplateSelector}" />
         </Style>
+
         <Style TargetType="Window">
             <Setter Property="FontSize" Value="18" />
         </Style>
