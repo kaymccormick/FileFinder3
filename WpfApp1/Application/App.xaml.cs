@@ -59,15 +59,15 @@ namespace WpfApp1.Application
             }
 
             Dispatcher.BeginInvoke( DispatcherPriority.Send, (DispatcherOperationCallback)delegate {
-                var windows = AppContainer.Resolve < IEnumerable < Lazy < Window > > >();
-                windows.Select( (
-                                    lazy,
-                                    i
-                                ) => {
-                                    var cmdBinding = new CommandBinding( MyAppCommands.OpenWindow, OpenWindowExecuted );
-                                    CommandManager.RegisterClassCommandBinding( typeof(Window), cmdBinding );
-                                    return true;
-                                } );
+                // var windows = AppContainer.Resolve < IEnumerable < Lazy < Window > > >();
+                // windows.Select( (
+                //                     lazy,
+                //                     i
+                //                 ) => {
+                //                     var cmdBinding = new CommandBinding( MyAppCommands.OpenWindow, OpenWindowExecuted );
+                //                     CommandManager.RegisterClassCommandBinding( typeof(Window), cmdBinding );
+                //                     return true;
+                //                 } );
                 var menuItemList = AppContainer.Resolve < IMenuItemList >();
                 Resources["MyMenuItemList"] = menuItemList;
 #if SHOWWINDOW

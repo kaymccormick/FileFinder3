@@ -19,14 +19,14 @@
                       CommandParameter="{Binding CommandParameter}"
                       CommandTarget="{Binding CommandTarget}" />
         </DataTemplate>
-        <Style x:Key="MenuItemWithChildren" TargetType="MenuItem">
+        <Style x:Key="MenuItemWithChildren" TargetType="{x:Type MenuItem}">
             <Setter Property="HeaderTemplate" Value="{StaticResource MenuItemWithChildrenHeaderTemplate}" />
         </Style>
-        <Style x:Key="MenuItemNoChildren" TargetType="MenuItem">
+        <Style x:Key="MenuItemNoChildren" TargetType="{x:Type MenuItem}">
             <Setter Property="HeaderTemplate" Value="{StaticResource MenuItemDataTemplateNoChildren}" />
         </Style>
 
-        <Style TargetType="Menu">
+        <Style x:Key="{x:Type Menu}" TargetType="{x:Type Menu}">
             <Setter Property="ItemsSource" Value="{DynamicResource MyMenuItemList}" />
             <Setter Property="ItemTemplateSelector" Value="{StaticResource MenuMenuItemTemplateSelector}" />
         </Style>

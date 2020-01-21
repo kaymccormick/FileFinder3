@@ -16,12 +16,13 @@ using WpfApp1.Attributes;
 namespace WpfApp1.Windows
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for SampleWindow.xaml
     /// </summary>
-    [WindowMetadata("Main Window")]
-    public partial class MainWindow : Window
+    /// 
+    [WindowMetadata("Sample Window")]
+    public partial class SampleWindow : Window
     {
-        public MainWindow()
+        public SampleWindow()
         {
             InitializeComponent();
         }

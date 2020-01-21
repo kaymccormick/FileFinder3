@@ -19,46 +19,57 @@ namespace WpfApp1.Menus
             DependencyObject container
         )
         {
+            var menuItem = container as MenuItem;
+            var cp = container as ContentPresenter;
+            if ( menuItem == null )
+            {
+                Logger.Warn( $"container is not a menuitem {container.GetType()}" );
+                return base.SelectTemplate( item, container );
+            }
+
+            var source = item as IMenuItem;
+            if ( source == null )
+            {
+                Logger.Warn( "item is not a IMenuItem" );
+                return base.SelectTemplate( item, container );
+            }
+
+            Logger.Info( $"{menuItem}" );
             Logger.Debug( $"{item} {container}" );
+            Logger.Debug( item.GetType() );
             if ( item is IMenuItem x )
             {
-                Logger.Debug( $"item is IMEnuITem" );
+                Logger.Debug( $"item is IMenuItem" );
                 if ( x.Children.Any() )
                 {
-                    if ( container is FrameworkElement ic )
-                    {
-                        var key = "Menu_ItemTemplateChildren";
-                        var dataTemplate =
-                            ic.FindResource( key ) as DataTemplate;
-                        Logger.Debug(
-                                     $"returning {key} {dataTemplate.DataTemplateKey}"
-                                    );
+                    var key = "Menu_ItemTemplateChildren";
+                    var dataTemplate =
+                        menuItem.FindResource( key ) as DataTemplate;
+                    Logger.Debug(
+                                 $"returning {key} {dataTemplate.DataTemplateKey}"
+                                );
 #if writexaml
                         var sw = new StringWriter();
                         XamlWriter.Save( dataTemplate, sw );
                         Logger.Trace( sw.ToString() );
 #endif
-                        return dataTemplate;
-                    }
+                    return dataTemplate;
                 }
-                else
-                {
-                    if ( container is FrameworkElement ic )
-                    {
-                        var key = "Menu_ItemTemplateNoChildren";
-                        var dataTemplate =
-                            ic.FindResource( key ) as DataTemplate;
-                        Logger.Debug(
-                                     $"returning {key} {dataTemplate.DataTemplateKey}"
-                                    );
+            }
+            else
+            {
+                var key = "Menu_ItemTemplateNoChildren";
+                var dataTemplate =
+                    menuItem.FindResource( key ) as DataTemplate;
+                Logger.Debug(
+                             $"returning {key} {dataTemplate.DataTemplateKey}"
+                            );
 #if writexaml
                         var sw = new StringWriter();
                         XamlWriter.Save( dataTemplate, sw );
                         Logger.Trace( sw.ToString() );
 #endif
-                        return dataTemplate;
-                    }
-                }
+                return dataTemplate;
             }
 
             Logger.Debug("Returning result from base method");
