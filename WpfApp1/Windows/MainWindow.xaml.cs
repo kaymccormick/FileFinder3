@@ -11,12 +11,14 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WpfApp1.Attributes;
 
 namespace WpfApp1.Windows
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    [WindowMetadata("Main Window")]
     public partial class MainWindow : Window
     {
         public MainWindow()

@@ -32,12 +32,12 @@ namespace WpfApp1.Util
             {
                 q += $" [{s}]";
             }
-            Logger.Info($"{q}.{invocation.Method.Name}"  );
+            Logger.Debug($"{q}.{invocation.Method.Name}"  );
             invocation.Proceed();
-            if ( invocation.Method.Name.StartsWith( "get_" ) )
-            {
-                Logger.Debug( invocation.Method.Name );
-            }
+//            if ( invocation.Method.Name.StartsWith( "get_" ) )
+//            {
+//                Logger.Debug( invocation.Method.Name );
+//            }
         }
     }
 }

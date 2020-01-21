@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -6,7 +7,8 @@ using WpfApp1.Interfaces;
 
 namespace WpfApp1.Menus
 {
-    public class MenuItemList : ObservableCollection < IMenuItem >, IMenuItemList
+    [LoggingEntityMetadata(typeof(MenuItemList))]
+    public class MenuItemList : ObservableCollection < IMenuItem >, IMenuItemList, ILoggingEntity
     {
         private static readonly Logger Logger =
             LogManager.GetCurrentClassLogger();
