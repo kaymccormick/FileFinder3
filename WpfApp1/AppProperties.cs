@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
 using NLog;
 
-namespace WpfApp1.CollectionViews
+namespace WpfApp1
 {
-    public static class MenuItemListCollectionViewProperties
+    public static class AppProperties
     {
 
         private static readonly Logger Logger =
@@ -19,16 +14,13 @@ namespace WpfApp1.CollectionViews
 
         public static readonly DependencyProperty MenuItemListCollectionViewProperty =
             DependencyProperty.RegisterAttached( "MenuItemListCollectionView",
-                                                 typeof(CollectionView), typeof(MenuItemListCollectionViewProperties),
-                                                 new FrameworkPropertyMetadata( null,
-                                                                                FrameworkPropertyMetadataOptions.Inherits));
+                                                 typeof(ICollectionView), typeof(AppProperties) );
 
         // [AttachedPropertyBrowsableForType(typeof(Window))]
+        [AttachedPropertyBrowsableForType(typeof(Window))]
+        [AttachedPropertyBrowsableForType(typeof(FrameworkElement))]
         // [AttachedProperty    BrowsableForType(typeof(ItemsControl))]
-        [AttachedPropertyBrowsableForType( typeof(DependencyObject))]
-        [AttachedPropertyBrowsableForType( typeof(object))]
-        [AttachedPropertyBrowsableForChildren(IncludeDescendants = true)]
-        public static CollectionView GetMenuItemListCollectionView(
+        public static ICollectionView GetMenuItemListCollectionView(
             DependencyObject target
         )
         {
@@ -38,7 +30,7 @@ namespace WpfApp1.CollectionViews
 
         public static void SetMenuItemListCollectionView(
             DependencyObject target,
-            CollectionView   value
+            ICollectionView   value
         )
         {
             Logger.Debug( $"{nameof( SetMenuItemListCollectionView )} {target}, {value}" );

@@ -9,7 +9,6 @@ using System.Windows.Threading;
 using Autofac;
 using Autofac.Extras.DynamicProxy;
 using NLog;
-using WpfApp1.CollectionViews;
 using WpfApp1.Commands;
 using WpfApp1.DataSource;
 using WpfApp1.Interfaces;
@@ -80,7 +79,7 @@ namespace WpfApp1.Application
                 EventManager.RegisterClassHandler(typeof(Window), Window.LoadedEvent, new RoutedEventHandler((
                                                                                                                  o,
                                                                                                                  args
-                                                                                                             ) => MenuItemListCollectionViewProperties.SetMenuItemListCollectionView((FrameworkElement)o, x)));
+                                                                                                             ) => AppProperties.SetMenuItemListCollectionView((FrameworkElement)o, x)));
                     ;
                 Resources["MyMenuItemList"] = menuItemList;
 #if SHOWWINDOW

@@ -21,5 +21,10 @@ namespace WpfApp1.Commands
                                 "Open Window", nameof( OpenWindow ),
                                 typeof(MyAppCommands)
                                );
+
+        public static readonly RoutedUICommand QuitApplication =
+            new RoutedUICommand( "Quit Application", nameof( QuitApplication ),
+                                 typeof(MyAppCommands) );
+
     }
 }

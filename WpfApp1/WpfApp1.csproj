@@ -193,6 +193,69 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="Vanara.Core, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
+      <HintPath>e:\FF\installed_packages\Vanara.Core.3.1.9\lib\net45\Vanara.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Vanara.PInvoke.AclUI, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
+      <HintPath>e:\FF\installed_packages\Vanara.PInvoke.AclUI.3.1.9\lib\net45\Vanara.PInvoke.AclUI.dll</HintPath>
+    </Reference>
+    <Reference Include="Vanara.PInvoke.ComCtl32, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
+      <HintPath>e:\FF\installed_packages\Vanara.PInvoke.ComCtl32.3.1.9\lib\net45\Vanara.PInvoke.ComCtl32.dll</HintPath>
+    </Reference>
+    <Reference Include="Vanara.PInvoke.CredUI, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
+      <HintPath>e:\FF\installed_packages\Vanara.PInvoke.CredUI.3.1.9\lib\net45\Vanara.PInvoke.CredUI.dll</HintPath>
+    </Reference>
+    <Reference Include="Vanara.PInvoke.Cryptography, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
+      <HintPath>e:\FF\installed_packages\Vanara.PInvoke.Cryptography.3.1.9\lib\net45\Vanara.PInvoke.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="Vanara.PInvoke.DwmApi, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
+      <HintPath>e:\FF\installed_packages\Vanara.PInvoke.DwmApi.3.1.9\lib\net45\Vanara.PInvoke.DwmApi.dll</HintPath>
+    </Reference>
+    <Reference Include="Vanara.PInvoke.Gdi32, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
+      <HintPath>e:\FF\installed_packages\Vanara.PInvoke.Gdi32.3.1.9\lib\net45\Vanara.PInvoke.Gdi32.dll</HintPath>
+    </Reference>
+    <Reference Include="Vanara.PInvoke.Kernel32, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
+      <HintPath>e:\FF\installed_packages\Vanara.PInvoke.Kernel32.3.1.9\lib\net45\Vanara.PInvoke.Kernel32.dll</HintPath>
+    </Reference>
+    <Reference Include="Vanara.PInvoke.Mpr, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
+      <HintPath>e:\FF\installed_packages\Vanara.PInvoke.Mpr.3.1.9\lib\net45\Vanara.PInvoke.Mpr.dll</HintPath>
+    </Reference>
+    <Reference Include="Vanara.PInvoke.NTDSApi, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
+      <HintPath>e:\FF\installed_packages\Vanara.PInvoke.NTDSApi.3.1.9\lib\net45\Vanara.PInvoke.NTDSApi.dll</HintPath>
+    </Reference>
+    <Reference Include="Vanara.PInvoke.Ole, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
+      <HintPath>e:\FF\installed_packages\Vanara.PInvoke.Ole.3.1.9\lib\net45\Vanara.PInvoke.Ole.dll</HintPath>
+    </Reference>
+    <Reference Include="Vanara.PInvoke.SearchApi, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
+      <HintPath>e:\FF\installed_packages\Vanara.PInvoke.SearchApi.3.1.9\lib\net45\Vanara.PInvoke.SearchApi.dll</HintPath>
+    </Reference>
+    <Reference Include="Vanara.PInvoke.Security, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
+      <HintPath>e:\FF\installed_packages\Vanara.PInvoke.Security.3.1.9\lib\net45\Vanara.PInvoke.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Vanara.PInvoke.Shared, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
+      <HintPath>e:\FF\installed_packages\Vanara.PInvoke.Shared.3.1.9\lib\net45\Vanara.PInvoke.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="Vanara.PInvoke.Shell32, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
+      <HintPath>e:\FF\installed_packages\Vanara.PInvoke.Shell32.3.1.9\lib\net45\Vanara.PInvoke.Shell32.dll</HintPath>
+    </Reference>
+    <Reference Include="Vanara.PInvoke.ShlwApi, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
+      <HintPath>e:\FF\installed_packages\Vanara.PInvoke.ShlwApi.3.1.9\lib\net45\Vanara.PInvoke.ShlwApi.dll</HintPath>
+    </Reference>
+    <Reference Include="Vanara.PInvoke.User32, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
+      <HintPath>e:\FF\installed_packages\Vanara.PInvoke.User32.3.1.9\lib\net45\Vanara.PInvoke.User32.dll</HintPath>
+    </Reference>
+    <Reference Include="Vanara.PInvoke.UxTheme, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
+      <HintPath>e:\FF\installed_packages\Vanara.PInvoke.UxTheme.3.1.9\lib\net45\Vanara.PInvoke.UxTheme.dll</HintPath>
+    </Reference>
+    <Reference Include="Vanara.Security, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
+      <HintPath>e:\FF\installed_packages\Vanara.Security.3.1.9\lib\net45\Vanara.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Vanara.Windows.Forms, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
+      <HintPath>e:\FF\installed_packages\Vanara.Windows.Forms.3.1.9\lib\net45\Vanara.Windows.Forms.dll</HintPath>
+    </Reference>
+    <Reference Include="Vanara.Windows.Shell, Version=3.1.9.0, Culture=neutral, PublicKeyToken=c37e4080322237fa, processorArchitecture=MSIL">
+      <HintPath>e:\FF\installed_packages\Vanara.Windows.Shell.3.1.9\lib\net45\Vanara.Windows.Shell.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -218,9 +281,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AppProperties.cs" />
     <Compile Include="Attributes\LoggingEntityMetadata.cs" />
     <Compile Include="Attributes\WindowMetadataAttribute.cs" />
-    <Compile Include="CollectionViews\MenuItemListCollectionView.cs" />
     <Compile Include="DataSource\MyDS1.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Interfaces\ILoggerName.cs" />
@@ -389,7 +452,9 @@
     <Analyzer Include="E:\installed_packages\WpfAnalyzers.2.4.4\analyzers\dotnet\cs\Gu.Roslyn.Extensions.dll" />
     <Analyzer Include="E:\installed_packages\WpfAnalyzers.2.4.4\analyzers\dotnet\cs\WpfAnalyzers.dll" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="CollectionViews\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

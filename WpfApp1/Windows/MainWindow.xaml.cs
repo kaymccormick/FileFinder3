@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Vanara.PInvoke;
 using WpfApp1.Attributes;
 
 namespace WpfApp1.Windows
@@ -24,6 +25,9 @@ namespace WpfApp1.Windows
         public MainWindow()
         {
             InitializeComponent();
+
+            //Vanara.PInvoke.User32.SetWindowLong( Vanara.PInvoke.User32.GetActiveWindow(), User32.WindowLongFlags.GWL_EXSTYLE )
         }
+
     }
 }
