@@ -220,6 +220,8 @@
     </ApplicationDefinition>
     <Compile Include="Attributes\LoggingEntityMetadata.cs" />
     <Compile Include="Attributes\WindowMetadataAttribute.cs" />
+    <Compile Include="CollectionViews\MenuItemListCollectionView.cs" />
+    <Compile Include="DataSource\MyDS1.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Interfaces\ILoggerName.cs" />
     <Compile Include="Interfaces\IMenuItem.cs" />

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1.Windows"
         mc:Ignorable="d"
-        Title="Main Window" Height="450" Width="800">
+        Title="Main Window" Height="450" Width="800" DataContext="{Binding ElementName=mainWindow,Path=MenuItemsCollection}">
     <DockPanel>
         <Menu DockPanel.Dock="Top"/>
         <TabControl>
@@ -16,10 +16,10 @@
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
+                        <RowDefinition/>    
                     </Grid.RowDefinitions>
-                    <TreeView Grid.Row="0" Grid.Column="0" ItemsSource="{Binding Source={StaticResource MenuItemsCollectionViewSource}}"
-                        ItemTemplateSelector="{StaticResource MenuMenuItemTemplateSelector}"></TreeView>
+                    <TreeView ItemsSource="{Binding Path=MenuItemCollectionView}" Grid.Row="0" Grid.Column="0"/>
+                        <!--ItemTemplateSelector="{StaticResource MenuMenuItemTemplateSelector}"></TreeView>-->
                 </Grid>
             </TabItem>
         </TabControl>

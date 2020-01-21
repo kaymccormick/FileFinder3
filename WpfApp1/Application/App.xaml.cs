@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Threading;
 using Autofac;
 using Autofac.Extras.DynamicProxy;
 using NLog;
+using WpfApp1.CollectionViews;
 using WpfApp1.Commands;
+using WpfApp1.DataSource;
 using WpfApp1.Interfaces;
 using WpfApp1.Menus;
 using WpfApp1.Util;
@@ -70,6 +73,15 @@ namespace WpfApp1.Application
                 //                     return true;
                 //                 } );
                 var menuItemList = AppContainer.Resolve < IMenuItemList >();
+
+                var tryFindResource = TryFindResource( "Ds1" ) as MyDS1;
+                CollectionView x = new ListCollectionView(menuItemList);
+                //MenuItemListCollectionViewProperties.SetMenuItemListCollectionView( this, x );
+                EventManager.RegisterClassHandler(typeof(Window), Window.LoadedEvent, new RoutedEventHandler((
+                                                                                                                 o,
+                                                                                                                 args
+                                                                                                             ) => MenuItemListCollectionViewProperties.SetMenuItemListCollectionView((FrameworkElement)o, x)));
+                    ;
                 Resources["MyMenuItemList"] = menuItemList;
 #if SHOWWINDOW
                 var mainWindow = new MainWindow();
@@ -78,5 +90,19 @@ namespace WpfApp1.Application
                 return null;
             }, null );
         }
+
+        // private void WindowLoaded(
+        //     object          sender,
+        //     RoutedEventArgs e
+        // )
+        // {
+        //     Window w = sender as Window;
+        //     if ( w == null )
+        //     {
+        //         Logger.Warn( $"Received WindowLoaded from non-Window {sender}"  );
+        //         return;
+        //     }
+        //     MenuItemListCollectionViewProperties.SetMenuItemListCollectionView(w, );
+        // }
     }
 }

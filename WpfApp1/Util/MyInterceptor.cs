@@ -12,6 +12,11 @@
 
 #endregion
 
+using System;
+using System.Collections;
+using System.Linq;
+using System.Linq.Dynamic;
+using System.Windows.Input;
 using Castle.DynamicProxy;
 using NLog;
 
@@ -32,7 +37,13 @@ namespace WpfApp1.Util
             {
                 q += $" [{s}]";
             }
-            Logger.Debug($"{q}.{invocation.Method.Name}"  );
+
+            var args = String.Join( ", ", invocation.Arguments
+                                                    .AsQueryable().Select( (o => o is ICollection
+                                                                                     ? o.GetType().ToString()
+                                                                                     : $"{o} {o.GetType()}") ) );
+            Logger.Debug( $"{s}.{invocation.Method.Name} ({args})" );
+
             invocation.Proceed();
 //            if ( invocation.Method.Name.StartsWith( "get_" ) )
 //            {

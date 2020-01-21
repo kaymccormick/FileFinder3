@@ -4,15 +4,15 @@
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:properties="clr-namespace:WpfApp1.Properties"
              xmlns:menus="clr-namespace:WpfApp1.Menus"
-                          xmlns:app="clr-namespace:WpfApp1.Application"
+             xmlns:app="clr-namespace:WpfApp1.Application"
+             xmlns:datasrc="clr-namespace:WpfApp1.DataSource"
              StartupUri="../Windows/MainWindow.xaml"
              Startup="ApplicationStartup">
     <Application.Resources>
         <menus:MenuMenuItemTemplateSelector x:Key="MenuMenuItemTemplateSelector" />
         <menus:MenuItemContainerStyleSelector x:Key="MenuItemContainerStyleSelector" />
 
-        <CollectionViewSource x:Key="MenuItemsCollectionViewSource" Source="{DynamicResource MyMenuItemList}"/>
-
+        <datasrc:MyDS1 x:Key="Ds1"/>
         <DataTemplate x:Key="Menu_ItemTemplateChildren" DataType="menus:XMenuItem">
             <MenuItem Header="{Binding Header}" ItemsSource="{Binding Children}" />
         </DataTemplate>
@@ -30,7 +30,6 @@
         </Style>
 
         <Style x:Key="{x:Type Menu}" TargetType="{x:Type Menu}">
-            <Setter Property="ItemsSource" Value="{Binding Source={StaticResource MenuItemsCollectionViewSource}}" />
             <Setter Property="ItemTemplateSelector" Value="{StaticResource MenuMenuItemTemplateSelector}" />
         </Style>
 
