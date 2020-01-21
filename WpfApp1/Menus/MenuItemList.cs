@@ -20,4 +20,23 @@ namespace WpfApp1.Menus
             Logger.Info( $"Creating {nameof( MenuItemList )} [ Count = {Count} ] " );
         }
     }
+
+    public interface ILoggingEntity
+    {
+    }
+
+[System.ComponentModel.Composition.MetadataAttribute]
+public class LoggingEntityMetadataAttribute
+    : Attribute
+{
+    public Type LoggingType { get; private set; }
+
+    /// <summary>Initializes a new instance of the <see cref="T:System.Attribute" /> class.</summary>
+    public LoggingEntityMetadataAttribute(
+                                          Type loggingType
+                                          )
+    {
+        LoggingType = loggingType;
+    }
+}
 }
