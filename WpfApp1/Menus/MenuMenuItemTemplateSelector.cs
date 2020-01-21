@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
 using NLog;
+using WpfApp1.Interfaces;
 
 namespace WpfApp1.Menus
 {
@@ -19,8 +20,9 @@ namespace WpfApp1.Menus
         )
         {
             Logger.Debug( $"{item} {container}" );
-            if ( item is XMenuItem x )
+            if ( item is IMenuItem x )
             {
+                Logger.Debug( $"item is IMEnuITem" );
                 if ( x.Children.Any() )
                 {
                     if ( container is FrameworkElement ic )
@@ -59,6 +61,7 @@ namespace WpfApp1.Menus
                 }
             }
 
+            Logger.Debug("Returning result from base method");
             return base.SelectTemplate( item, container );
         }
     }

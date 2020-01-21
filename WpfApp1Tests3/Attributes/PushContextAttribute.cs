@@ -61,7 +61,7 @@ namespace WpfApp1Tests3.Attributes
 
 
             var instances = WpfTests.Instances.Where( o => o.Key.GetType() == methodUnderTest.DeclaringType );
-            //Assert.Single( instances );
+            Assert.Single( instances );
             var instance = instances.Last().Key;
             //var qq = from prop in instance.GetType().GetProperties() select Attribute.GetCustomAttributes(prop, typeof(ContextStackInstanceAttribute)) 
 

@@ -25,10 +25,12 @@
         <Style x:Key="MenuItemNoChildren" TargetType="MenuItem">
             <Setter Property="HeaderTemplate" Value="{StaticResource MenuItemDataTemplateNoChildren}" />
         </Style>
+
         <Style TargetType="Menu">
             <Setter Property="ItemsSource" Value="{DynamicResource MyMenuItemList}" />
             <Setter Property="ItemTemplateSelector" Value="{StaticResource MenuMenuItemTemplateSelector}" />
         </Style>
+
         <Style TargetType="Window">
             <Setter Property="FontSize" Value="18" />
         </Style>

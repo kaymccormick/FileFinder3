@@ -1,7 +1,6 @@
 ﻿#define LOG_HERE
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
@@ -13,9 +12,9 @@ using Autofac;
 using JetBrains.Annotations;
 using NLog;
 using NLog.Config;
-using WpfApp1.Interfaces;
 using NLog.Fluent;
 using NLog.Targets;
+using WpfApp1.Interfaces;
 using WpfApp1Tests3.Attributes;
 using WpfApp1Tests3.Fixtures;
 using WpfApp1Tests3.Utils;
@@ -26,21 +25,76 @@ namespace WpfApp1Tests3
 {
     [ Collection( "WpfApp" ) ]
     public class WpfTests
-        : IClassFixture < ContainerFixture >,//, IClassFixture <MyServicesFixture>,
-            IDisposable, IHasId
+        : IClassFixture < ContainerFixture >, //, IClassFixture <MyServicesFixture>,
+            IDisposable,
+            IHasId
     {
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="T:System.Object" />
+        ///     class.
+        /// </summary>
+        public WpfTests(
+            WpfApplicationFixture fixture,
+            ContainerFixture      containerFixture,
+            ObjectIDFixture       objectIdFixture,
+            UtilsContainerFixture utilsContainerFixture,
+            ITestOutputHelper     outputHelper
+        )
+        {
+#if LOG_HERE
+            MyTarget = new XunitTarget( outputHelper );
+            LogManager.Configuration.AddTarget( "xunit", MyTarget );
+            //LogManager.Configuration.AddRule( LogLevel.Debug, LogLevel.Fatal, MyTarget, "*" );
+            //LogManager.Configuration.LoggingRules.Add( new LoggingRule( "*", LogLevel.Debug, MyTarget ));
+            LogManager.Configuration.LoggingRules.Insert( 0, new LoggingRule( "*", LogLevel.FromString( "Trace" ), MyTarget ) );
+            LogManager.ReconfigExistingLoggers();
+
+            Logger.Debug( "test" );
+            MyTarget.Write( LogEventInfo.Create( LogLevel.Info, "test", "beep" ) );
+#endif
+            _myServicesFixture = utilsContainerFixture.Container.Resolve < MyServicesFixture >();
+            //ContextStack<InfoContext>.DefaultAllowDuplicateNames = false; Instances.Add( this );
+            Fixture                = fixture;
+            ObjectIdFixture        = objectIdFixture;
+            OutputHelper           = outputHelper;
+            _containerFixture      = containerFixture;
+            _utilsContainerFixture = utilsContainerFixture;
+            MyStack                = InstanceFactory.CreateContextStack < InfoContext >();
+            bool firstTime;
+            ObjectId        = Generator.GetId( this, out firstTime );
+            Instances[this] = ObjectId;
+
+            Assert.True( firstTime );
+        }
+
+        /// <summary>
+        ///     Performs application-defined tasks associated with freeing, releasing,
+        ///     or resetting unmanaged resources.
+        /// </summary>
+        public void Dispose()
+        {
+            long myid;
+            Instances.TryRemove( this, out myid );
+#if LOG_HERE
+            LogManager.Configuration.RemoveTarget( "xunit" );
+            LogManager.Configuration.LoggingRules.RemoveAt( 0 );
+            LogManager.ReconfigExistingLoggers();
+
+#endif
+        }
+
         public class MyServices : IMyServices
         {
-            public InfoContext.Factory InfoContextFactory { get; }
-
-            /// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
             public MyServices(
                 InfoContext.Factory infoContextFactory
             )
             {
-                this.InfoContextFactory = infoContextFactory;
+                InfoContextFactory = infoContextFactory;
             }
+
+            public InfoContext.Factory InfoContextFactory { get; }
         }
+
         private static readonly Logger Logger =
             LogManager.GetCurrentClassLogger();
 
@@ -50,96 +104,37 @@ namespace WpfApp1Tests3
 
         public ITestOutputHelper OutputHelper { get; }
 
-        private readonly ContainerFixture          _containerFixture;
+        private readonly ContainerFixture      _containerFixture;
         private readonly UtilsContainerFixture _utilsContainerFixture;
-        private MyServicesFixture _myServicesFixture;
-        private long _id;
-        private long _objectId;
-        private XunitTarget _myTarget;
+        private readonly MyServicesFixture     _myServicesFixture;
+        private          long                  _objectId;
 
         // ReSharper disable once MemberCanBePrivate.Global
         [ ContextStackInstance ] public ContextStack < InfoContext > MyStack { get; }
 
-        [ InfoContextFactory, UsedImplicitly ]
-        public InfoContext.Factory InfoContextFactory
-        {
-            get => myServices.InfoContextFactory; }
-        public static ConcurrentDictionary < object, long > Instances { get; } = new ConcurrentDictionary<object, long>();
+        [ InfoContextFactory ]
+        [ UsedImplicitly ]
+        public InfoContext.Factory InfoContextFactory => myServices.InfoContextFactory;
 
-        public ObjectIDFixture.GetObjectIdDelegate GetObjIdFunc { get => ObjectIdFixture.GetObjectId; }
-        public ObjectIDGenerator Generator { get => ObjectIdFixture.Generator;  }
+        [ThreadStatic]
+        public static ConcurrentDictionary < object, long > Instances = new ConcurrentDictionary < object, long >();
 
-        IComponentContext UtilsContainer { get => _utilsContainerFixture.Container; }
-        private IMyServices myServices { get => _myServicesFixture.MyServices; }
-        /// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
-        public WpfTests(
-            WpfApplicationFixture fixture,
-            ContainerFixture          containerFixture,
-            ObjectIDFixture objectIdFixture,
-            UtilsContainerFixture utilsContainerFixture ,
-            ITestOutputHelper outputHelper
-        )
-        {
+        public ObjectIDFixture.GetObjectIdDelegate GetObjIdFunc => ObjectIdFixture.GetObjectId;
 
-#if LOG_HERE
-            MyTarget = new XunitTarget( outputHelper );
-            LogManager.Configuration.AddTarget( "xunit", MyTarget );
-            //LogManager.Configuration.AddRule( LogLevel.Debug, LogLevel.Fatal, MyTarget, "*" );
-            //LogManager.Configuration.LoggingRules.Add( new LoggingRule( "*", LogLevel.Debug, MyTarget ));
-            LogManager.Configuration.LoggingRules.Insert(0, new LoggingRule("*", LogLevel.FromString("Trace"), MyTarget));
-            LogManager.ReconfigExistingLoggers();
+        public ObjectIDGenerator Generator => ObjectIdFixture.Generator;
 
-            Logger.Debug( "test" );
-            MyTarget.Write( LogEventInfo.Create( LogLevel.Info, "test", "beep" ) );
-#endif
-            _myServicesFixture  = utilsContainerFixture.Container.Resolve < MyServicesFixture>();
-            //ContextStack<InfoContext>.DefaultAllowDuplicateNames = false; Instances.Add( this );
-            this.Fixture      = fixture;
-            ObjectIdFixture = objectIdFixture;
-            OutputHelper = outputHelper;
-            _containerFixture = containerFixture;
-            _utilsContainerFixture = utilsContainerFixture;
-            MyStack           = InstanceFactory.CreateContextStack < InfoContext >();
-            bool firstTime;
-            _id = Generator.GetId(this, out firstTime);
-            Instances[this] = _id;
+        private IComponentContext UtilsContainer => _utilsContainerFixture.Container;
 
-            Assert.True(firstTime );
-        }
+        private IMyServices myServices => _myServicesFixture.MyServices;
 
-        public XunitTarget MyTarget
-        {
-            get { return _myTarget; }
-            set => _myTarget = value;
-        }
+        public XunitTarget MyTarget { get; set; }
 
-        public Factory InstanceFactory { get => ObjectIdFixture.InstanceFactory;  }
-
-        [ Fact, Trait( "MSBuild", "Include" ),
-          PushContext( "my pushed context" ) ]
-        public void Test2()
-        {
-            using var c = C( "using context" );
-            DoLog( "This is my excellent log message." );
-        }
-
-        [ Fact ]
-        [ Trait( "MSBuild", "Include" ) ]
-        public void Test3()
-        {
-            using var c = C( "testxx" );
-            using var c2 = C( "testxx2" );
-            DoLog( "test" );
-        }
+        public Factory InstanceFactory => ObjectIdFixture.InstanceFactory;
 
         private IDisposable C(
             object test,
-            [ CanBeNull ] string name = null
-        )
-        {
-            var r = new AttachedContext( MyStack, InfoContextFactory(name, test));
-            return r;
-        }
+            [CanBeNull] string name = null
+        ) => new AttachedContext(MyStack, InfoContextFactory(name, test));
 
 
         private void DoLog(
@@ -152,64 +147,6 @@ namespace WpfApp1Tests3
             //.Property( "context", MyStack.ToOrderedDictionary()) //.Property("stack", MyStack)
 
             logBuilder.Write();
-        }
-
-        [ Fact ]
-        public void Test1()
-        {
-            var candidateConfigFilePaths = LogManager.LogFactory.GetCandidateConfigFilePaths();
-            foreach ( var q in candidateConfigFilePaths )
-            {
-                Logger.Debug( $"{q}" );
-            }
-
-            var loggingConfiguration = LogManager.Configuration;
-            var fieldInfo = loggingConfiguration
-                           .GetType().GetField( "_originalFileName", BindingFlags.NonPublic | BindingFlags.Instance );
-            if ( fieldInfo != null )
-            {
-                Logger.Debug( $"Original NLOG configuration filename is {fieldInfo.GetValue( loggingConfiguration )}" );
-            }
-
-            Logger.Debug( $"{loggingConfiguration}" );
-            using (var scope = _containerFixture.LifetimeScope.BeginLifetimeScope())
-            {
-                var menuItemList = scope.Resolve < IMenuItemList >();
-                Assert.NotNull( menuItemList );
-                Assert.NotEmpty( menuItemList );
-                Fixture.MyApp.Resources["MyMenuItemList"] = menuItemList;
-                var found = Fixture.MyApp.FindResource( "MyMenuItemList" );
-                Assert.NotNull( found );
-                var x = String.Join( ", ", menuItemList.First().Children );
-                Logger.Debug( $"found {found}, {x}" );
-                var uri = new Uri( Fixture.BasePackUri, "Resources/MenuResources.xaml" );
-                Logger.Debug( $"{uri}" );
-
-                var stream = Application.GetResourceStream( uri );
-                Logger.Info( stream.ContentType );
-                var baml2006Reader = new Baml2006Reader( stream.Stream );
-
-
-                var o = XamlReader.Load( baml2006Reader );
-                ///var o = Application.LoadComponent( uri );
-                var menuResources = o as ResourceDictionary;
-
-                //var stack = InstanceFactory.CreateContextStack < InfoContext >();
-                var stack = MyStack;
-                var entry = myServices.InfoContextFactory(nameof(menuResources), menuResources);
-                ;
-                stack.Push( entry );
-
-                foreach ( var q in menuResources.Keys )
-                {
-                    var resource = menuResources[q];
-                    stack.Push( myServices.InfoContextFactory( "key", q ) );
-                    Logger.Debug( $"{q}: {resource}" );
-                    var prefix = $"Resource[{q}]";
-                    DumpResource( stack, resource );
-                    stack.Pop();
-                }
-            }
         }
 
         private void DumpResource(
@@ -311,37 +248,96 @@ namespace WpfApp1Tests3
             Logger.Debug( $"{prefix} : DependencyProperty.OwnerType: {sProperty.OwnerType}" );
         }
 
-        /// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
-        public void Dispose()
+        public long ObjectId { get; }
+
+        [ Fact ]
+        public void Test1()
         {
-            long myid;
-            Instances.TryRemove( this, out myid );
-#if LOG_HERE
-            LogManager.Configuration.RemoveTarget( "xunit" );
-            LogManager.Configuration.LoggingRules.RemoveAt(0);
-            LogManager.ReconfigExistingLoggers();
-            
-#endif
+            var candidateConfigFilePaths = LogManager.LogFactory.GetCandidateConfigFilePaths();
+            foreach ( var q in candidateConfigFilePaths )
+            {
+                Logger.Debug( $"{q}" );
+            }
+
+            var loggingConfiguration = LogManager.Configuration;
+            var fieldInfo = loggingConfiguration
+                           .GetType().GetField( "_originalFileName", BindingFlags.NonPublic | BindingFlags.Instance );
+            if ( fieldInfo != null )
+            {
+                Logger.Debug( $"Original NLOG configuration filename is {fieldInfo.GetValue( loggingConfiguration )}" );
+            }
+
+            Logger.Debug( $"{loggingConfiguration}" );
+            using (var scope = _containerFixture.LifetimeScope.BeginLifetimeScope())
+            {
+                var menuItemList = scope.Resolve < IMenuItemList >();
+                Assert.NotNull( menuItemList );
+                Assert.NotEmpty( menuItemList );
+                Fixture.MyApp.Resources["MyMenuItemList"] = menuItemList;
+                var found = Fixture.MyApp.FindResource( "MyMenuItemList" );
+                Assert.NotNull( found );
+                var x = string.Join( ", ", menuItemList.First().Children );
+                Logger.Debug( $"found {found}, {x}" );
+                var uri = new Uri( Fixture.BasePackUri, "Resources/MenuResources.xaml" );
+                Logger.Debug( $"{uri}" );
+
+                var stream = Application.GetResourceStream( uri );
+                Logger.Info( stream.ContentType );
+                var baml2006Reader = new Baml2006Reader( stream.Stream );
 
 
+                var o = XamlReader.Load( baml2006Reader );
+                ///var o = Application.LoadComponent( uri );
+                var menuResources = o as ResourceDictionary;
+
+                //var stack = InstanceFactory.CreateContextStack < InfoContext >();
+                var stack = MyStack;
+                var entry = myServices.InfoContextFactory( nameof( menuResources ), menuResources );
+                ;
+                stack.Push( entry );
+
+                foreach ( var q in menuResources.Keys )
+                {
+                    var resource = menuResources[q];
+                    stack.Push( myServices.InfoContextFactory( "key", q ) );
+                    Logger.Debug( $"{q}: {resource}" );
+                    var prefix = $"Resource[{q}]";
+                    DumpResource( stack, resource );
+                    stack.Pop();
+                }
+            }
         }
 
-        public long ObjectId => _id;
-    }
+        [ Fact ]
+        [ Trait( "MSBuild", "Include" ) ]
+        [ PushContext( "my pushed context" ) ]
+        public void Test2()
+        {
+            using var c = C( "using context" );
+            DoLog( "This is my excellent log message." );
+        }
 
-    public interface IHasId
-    {
-        long ObjectId { get; }
+        [ Fact ]
+        [ Trait( "MSBuild", "Include" ) ]
+        public void Test3()
+        {
+            using var c = C( "testxx" );
+            using var c2 = C( "testxx2" );
+            DoLog( "test" );
+        }
     }
 
     public class MyServicesFixture
     {
-        /// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="T:System.Object" />
+        ///     class.
+        /// </summary>
         public MyServicesFixture(
             IMyServices myServices
         )
         {
-            this.MyServices = myServices;
+            MyServices = myServices;
         }
 
         public IMyServices MyServices { get; set; }
@@ -353,16 +349,22 @@ namespace WpfApp1Tests3
         InfoContext.Factory InfoContextFactory { get; }
     }
 
-    class ServiceProviderProxy : IServiceProvider
+    internal class ServiceProviderProxy : IServiceProvider
     {
         private static readonly Logger Logger =
             LogManager.GetCurrentClassLogger();
 
         /// <summary>Gets the service object of the specified type.</summary>
-        /// <param name="serviceType">An object that specifies the type of service object to get.</param>
-        /// <returns>A service object of type <paramref name="serviceType" />.
-        /// -or-
-        /// <see langword="null" /> if there is no service object of type <paramref name="serviceType" />.</returns>
+        /// <param name="serviceType">
+        ///     An object that specifies the type of service object
+        ///     to get.
+        /// </param>
+        /// <returns>
+        ///     A service object of type <paramref name="serviceType" />.
+        ///     -or-
+        ///     <see langword="null" /> if there is no service object of type
+        ///     <paramref name="serviceType" />.
+        /// </returns>
         public object GetService(
             Type serviceType
         )
@@ -377,57 +379,58 @@ namespace WpfApp1Tests3
         }
     }
 
-    class ProvideValueTarget : IProvideValueTarget
+    internal class ProvideValueTarget : IProvideValueTarget
     {
-        private object _targetObject;
-        private object _targetProperty;
-
-        /// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="T:System.Object" />
+        ///     class.
+        /// </summary>
         public ProvideValueTarget(
             object targetObject,
             object targetProperty
         )
         {
-            _targetObject   = targetObject;
-            _targetProperty = targetProperty;
+            TargetObject   = targetObject;
+            TargetProperty = targetProperty;
         }
 
         /// <summary>Gets the target object being reported.</summary>
         /// <returns>The target object being reported.</returns>
-        public object TargetObject => _targetObject;
+        public object TargetObject { get; }
 
         /// <summary>Gets an identifier for the target property being reported.</summary>
         /// <returns>An identifier for the target property being reported.</returns>
-        public object TargetProperty => _targetProperty;
+        public object TargetProperty { get; }
     }
 
     public class AttachedContext : IDisposable
     {
-        private ContextStack < InfoContext > contextStack;
-        private InfoContext                  _infoContext;
+        private readonly InfoContext                  _infoContext;
+        private readonly ContextStack < InfoContext > contextStack;
 
         public AttachedContext(
             ContextStack < InfoContext > contextStack,
-            InfoContext context
+            InfoContext                  context
         )
         {
             this.contextStack = contextStack;
-            _infoContext = context;
+            _infoContext      = context;
             contextStack.Push( _infoContext );
         }
 
-        /// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
+        /// <summary>
+        ///     Performs application-defined tasks associated with freeing, releasing,
+        ///     or resetting unmanaged resources.
+        /// </summary>
         public void Dispose()
         {
             Assert.NotEmpty( contextStack );
-            Assert.True( Object.ReferenceEquals( _infoContext, contextStack.First() ) );
+            Assert.True( ReferenceEquals( _infoContext, contextStack.First() ) );
             contextStack.Pop();
         }
-
-
     }
 
-    [Target("Xunit")]
+    [ Target( "Xunit" ) ]
     public class XunitTarget : TargetWithLayout
     {
         private readonly ITestOutputHelper _outputHelper;
@@ -440,17 +443,16 @@ namespace WpfApp1Tests3
         }
 
         /// <summary>
-        /// Writes logging event to the log target. Must be overridden in inheriting
-        /// classes.
+        ///     Writes logging event to the log target. Must be overridden in inheriting
+        ///     classes.
         /// </summary>
         /// <param name="logEvent">Logging event to be written out.</param>
         public new void Write(
             LogEventInfo logEvent
         )
         {
-            var renderLogEvent = RenderLogEvent(Layout, logEvent);
-            _outputHelper.WriteLine(renderLogEvent);
-            
+            var renderLogEvent = RenderLogEvent( Layout, logEvent );
+            _outputHelper.WriteLine( renderLogEvent );
         }
     }
 }
