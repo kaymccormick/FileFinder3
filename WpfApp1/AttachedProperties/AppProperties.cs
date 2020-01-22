@@ -115,8 +115,10 @@ namespace WpfApp1.AttachedProperties
 	        ICollectionView  value
         )
         {
-	        Logger.Debug($"{nameof(SetMenuItemListCollectionView)} {target}, {value}");
-	        target.SetValue(MenuItemListCollectionViewProperty, value);
+#pragma warning disable WPF0042 // Avoid side effects in CLR accessors.
+            Logger.Debug($"{nameof(SetMenuItemListCollectionView)} {target}, {value}");
+#pragma warning restore WPF0042 // Avoid side effects in CLR accessors.
+            target.SetValue(MenuItemListCollectionViewProperty, value);
         }
     }
 

@@ -1,18 +1,13 @@
-﻿#define LOG_HERE
-using System;
-using System.Collections.Concurrent;
+﻿using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.Serialization;
 using System.Windows;
 using System.Windows.Baml2006;
 using System.Windows.Markup;
 using Autofac;
-using JetBrains.Annotations;
 using NLog;
 using NLog.Config;
-using NLog.Fluent;
 using NLog.Targets;
 using WpfApp1.Interfaces;
 using WpfApp1Tests3.Attributes;
@@ -23,11 +18,9 @@ using Xunit.Abstractions;
 
 namespace WpfApp1Tests3
 {
-    [ Collection( "WpfApp" ) ]
+	[ Collection( "WpfApp" ) ]
     public class WpfTests
-        : IClassFixture < ContainerFixture >, //, IClassFixture <MyServicesFixture>,
-            IDisposable,
-            IHasId
+        : WpfTestsBase
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="T:System.Object" />
@@ -39,114 +32,17 @@ namespace WpfApp1Tests3
             ObjectIDFixture       objectIdFixture,
             UtilsContainerFixture utilsContainerFixture,
             ITestOutputHelper     outputHelper
-        )
+        ) : base( fixture, containerFixture, objectIdFixture, utilsContainerFixture, outputHelper )
         {
-#if LOG_HERE
-            MyTarget = new XunitTarget( outputHelper );
-            LogManager.Configuration.AddTarget( "xunit", MyTarget );
-            //LogManager.Configuration.AddRule( LogLevel.Debug, LogLevel.Fatal, MyTarget, "*" );
-            //LogManager.Configuration.LoggingRules.Add( new LoggingRule( "*", LogLevel.Debug, MyTarget ));
-            LogManager.Configuration.LoggingRules.Insert( 0, new LoggingRule( "*", LogLevel.FromString( "Trace" ), MyTarget ) );
-            LogManager.ReconfigExistingLoggers();
-
-            Logger.Debug( "test" );
-            MyTarget.Write( LogEventInfo.Create( LogLevel.Info, "test", "beep" ) );
-#endif
-            _myServicesFixture = utilsContainerFixture.Container.Resolve < MyServicesFixture >();
-            //ContextStack<InfoContext>.DefaultAllowDuplicateNames = false; Instances.Add( this );
-            Fixture                = fixture;
-            ObjectIdFixture        = objectIdFixture;
-            OutputHelper           = outputHelper;
-            _containerFixture      = containerFixture;
-            _utilsContainerFixture = utilsContainerFixture;
-            MyStack                = InstanceFactory.CreateContextStack < InfoContext >();
-            bool firstTime;
-            ObjectId        = Generator.GetId( this, out firstTime );
-            Instances[this] = ObjectId;
-
-            Assert.True( firstTime );
-        }
-
-        /// <summary>
-        ///     Performs application-defined tasks associated with freeing, releasing,
-        ///     or resetting unmanaged resources.
-        /// </summary>
-        public void Dispose()
-        {
-            long myid;
-            Instances.TryRemove( this, out myid );
-#if LOG_HERE
-            LogManager.Configuration.RemoveTarget( "xunit" );
-            LogManager.Configuration.LoggingRules.RemoveAt( 0 );
-            LogManager.ReconfigExistingLoggers();
-
-#endif
-        }
-
-        public class MyServices : IMyServices
-        {
-            public MyServices(
-                InfoContext.Factory infoContextFactory
-            )
-            {
-                InfoContextFactory = infoContextFactory;
-            }
-
-            public InfoContext.Factory InfoContextFactory { get; }
         }
 
         private static readonly Logger Logger =
             LogManager.GetCurrentClassLogger();
 
-        public WpfApplicationFixture Fixture { get; }
-
-        public ObjectIDFixture ObjectIdFixture { get; }
-
-        public ITestOutputHelper OutputHelper { get; }
-
-        private readonly ContainerFixture      _containerFixture;
-        private readonly UtilsContainerFixture _utilsContainerFixture;
-        private readonly MyServicesFixture     _myServicesFixture;
-
         // ReSharper disable once MemberCanBePrivate.Global
-        [ ContextStackInstance ] public ContextStack < InfoContext > MyStack { get; }
-
-        [ InfoContextFactory ]
-        [ UsedImplicitly ]
-        public InfoContext.Factory InfoContextFactory => myServices.InfoContextFactory;
-
-        [ThreadStatic]
-        public static ConcurrentDictionary < object, long > Instances = new ConcurrentDictionary < object, long >();
-
-        public ObjectIDFixture.GetObjectIdDelegate GetObjIdFunc => ObjectIdFixture.GetObjectId;
-
-        public ObjectIDGenerator Generator => ObjectIdFixture.Generator;
-
-        private IComponentContext UtilsContainer => _utilsContainerFixture.Container;
-
-        private IMyServices myServices => _myServicesFixture.MyServices;
 
         public XunitTarget MyTarget { get; set; }
 
-        public Factory InstanceFactory => ObjectIdFixture.InstanceFactory;
-
-        private IDisposable C(
-            object test,
-            [CanBeNull] string name = null
-        ) => new AttachedContext(MyStack, InfoContextFactory(name, test));
-
-
-        private void DoLog(
-            string test
-        )
-        {
-            var logBuilder =
-                Log.Warn().Message( test );
-            logBuilder = logBuilder.Property( "stack", MyStack );
-            //.Property( "context", MyStack.ToOrderedDictionary()) //.Property("stack", MyStack)
-
-            logBuilder.Write();
-        }
 
         private void DumpResource(
             ContextStack < InfoContext > context,
@@ -246,8 +142,6 @@ namespace WpfApp1Tests3
             Logger.Debug( $"{prefix} : DependencyProperty.PropertyType: {sProperty.PropertyType}" );
             Logger.Debug( $"{prefix} : DependencyProperty.OwnerType: {sProperty.OwnerType}" );
         }
-
-        public long ObjectId { get; }
 
         [ Fact ]
         public void Test1()

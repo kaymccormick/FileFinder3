@@ -100,7 +100,8 @@ namespace WpfApp1Tests3.WpfUtils
         /// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
         public void Dispose()
         {
-            MyApp?.Shutdown();
+            MyApp.Dispatcher.InvokeShutdown();
+            //MyApp?.Shutdown();
         }
     }
 }

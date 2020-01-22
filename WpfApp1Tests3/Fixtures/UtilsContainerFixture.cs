@@ -4,6 +4,7 @@ using WpfApp1Tests3.Utils;
 
 namespace WpfApp1Tests3.Fixtures
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
     public class UtilsContainerFixture : IDisposable
     {
         private IContainer _container;

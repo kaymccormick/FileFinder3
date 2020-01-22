@@ -18,6 +18,7 @@ using JetBrains.Annotations;
 
 namespace WpfApp1Tests3.Exceptions
 {
+    [Serializable]
     public class DuplicateKeyException
         : Exception
     {

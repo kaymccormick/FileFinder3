@@ -14,10 +14,12 @@
 
 using System;
 using Autofac;
+using JetBrains.Annotations;
 using WpfApp1.Util;
 
 namespace WpfApp1Tests3.Fixtures
 {
+    [ UsedImplicitly ]
     public class ContainerFixture : IDisposable
     {
         private IContainer _container;

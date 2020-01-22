@@ -12,6 +12,10 @@ namespace WpfApp1.Menus
         private static readonly Logger Logger =
             LogManager.GetCurrentClassLogger();
 
+        private XMenuItem()
+        {
+
+        }
         private IEnumerable < IMenuItem > _children;
 
         public string Header { get; set; }
