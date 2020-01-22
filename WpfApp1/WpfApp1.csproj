@@ -281,7 +281,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AppProperties.cs" />
+    <Compile Include="AttachedProperties\AppProperties.cs" />
     <Compile Include="Attributes\LoggingEntityMetadata.cs" />
     <Compile Include="Attributes\WindowMetadataAttribute.cs" />
     <Compile Include="DataSource\MyDS1.cs" />

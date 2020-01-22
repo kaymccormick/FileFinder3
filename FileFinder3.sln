@@ -32,6 +32,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xunit.NLog.Common", "..\xun
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "xunit.abstractions", "E:\Kay2020\source\abstractions.xunit\src\xunit.abstractions\xunit.abstractions.csproj", "{86F0DF9F-0D0B-47F8-9D70-8917A24224D8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp2", "WpfApp2\WpfApp2.csproj", "{B8DB1402-F481-4DB3-A265-8B34D7E9CAFB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -136,6 +138,14 @@ Global
 		{86F0DF9F-0D0B-47F8-9D70-8917A24224D8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{86F0DF9F-0D0B-47F8-9D70-8917A24224D8}.Release|x86.ActiveCfg = Release|Any CPU
 		{86F0DF9F-0D0B-47F8-9D70-8917A24224D8}.Release|x86.Build.0 = Release|Any CPU
+		{B8DB1402-F481-4DB3-A265-8B34D7E9CAFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8DB1402-F481-4DB3-A265-8B34D7E9CAFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8DB1402-F481-4DB3-A265-8B34D7E9CAFB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B8DB1402-F481-4DB3-A265-8B34D7E9CAFB}.Debug|x86.Build.0 = Debug|Any CPU
+		{B8DB1402-F481-4DB3-A265-8B34D7E9CAFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8DB1402-F481-4DB3-A265-8B34D7E9CAFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8DB1402-F481-4DB3-A265-8B34D7E9CAFB}.Release|x86.ActiveCfg = Release|Any CPU
+		{B8DB1402-F481-4DB3-A265-8B34D7E9CAFB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

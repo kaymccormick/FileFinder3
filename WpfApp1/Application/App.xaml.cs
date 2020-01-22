@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
@@ -8,7 +10,9 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using Autofac;
 using Autofac.Extras.DynamicProxy;
+using Microsoft.Scripting.Utils;
 using NLog;
+using WpfApp1.AttachedProperties;
 using WpfApp1.Commands;
 using WpfApp1.DataSource;
 using WpfApp1.Interfaces;
@@ -49,6 +53,8 @@ namespace WpfApp1.Application
             StartupEventArgs e
         )
         {
+	        
+	        AddEventListeners();
             if ( e.Args.Any() )
             {
                 var windowName = e.Args[0];
@@ -61,7 +67,7 @@ namespace WpfApp1.Application
                 }
             }
 
-            Dispatcher.BeginInvoke( DispatcherPriority.Send, (DispatcherOperationCallback)delegate {
+            Dispatcher.BeginInvoke(DispatcherPriority.Send, (DispatcherOperationCallback)delegate {
 // var windows = AppContainer.Resolve < IEnumerable < Lazy < Window > > >();
                 // windows.Select( (
                 //                     lazy,
@@ -71,16 +77,16 @@ namespace WpfApp1.Application
                 //                     CommandManager.RegisterClassCommandBinding( typeof(Window), cmdBinding );
                 //                     return true;
                 //                 } );
-                var menuItemList = AppContainer.Resolve < IMenuItemList >();
-
-                var tryFindResource = TryFindResource( "Ds1" ) as MyDS1;
+                var menuItemList = AppContainer.Resolve <IMenuItemList>();
+                if ( ! menuItemList.First().Children.Any() )
+                {
+	                throw new Exception("Empty menu window list");
+                }
+                var tryFindResource = TryFindResource("Ds1") as MyDS1;
                 CollectionView x = new ListCollectionView(menuItemList);
                 //MenuItemListCollectionViewProperties.SetMenuItemListCollectionView( this, x );
-                EventManager.RegisterClassHandler(typeof(Window), Window.LoadedEvent, new RoutedEventHandler((
-                                                                                                                 o,
-                                                                                                                 args
-                                                                                                             ) => AppProperties.SetMenuItemListCollectionView((FrameworkElement)o, x)));
-                    ;
+                RoutedEventHandler handler = new RoutedEventHandler((o, args) => AppProperties.SetMenuItemListCollectionView((FrameworkElement)o, x));
+                EventManager.RegisterClassHandler(typeof(Window), FrameworkElement.LoadedEvent, handler);
                 Resources["MyMenuItemList"] = menuItemList;
 #if SHOWWINDOW
                 var mainWindow = new MainWindow();
@@ -88,6 +94,31 @@ namespace WpfApp1.Application
 #endif
                 return null;
             }, null );
+        }
+
+        private void AddEventListeners()
+        {
+	        try
+	        {
+		        EventManager.RegisterClassHandler( typeof(Window), UIElement.KeyDownEvent,
+		                                           new KeyEventHandler( ClassKeyDownHandler ) );
+	        }
+	        catch ( Exception ex )
+	        {
+		        Logger.Error( ex, ex.Message );
+	        }
+        }
+
+        private void ClassKeyDownHandler(
+	        object       sender,
+	        KeyEventArgs e
+        )
+        {
+	        if ( e.Key == Key.T && e.KeyboardDevice.Modifiers == (ModifierKeys.Control | ModifierKeys.Alt) )
+	        {
+		        Process.Start( new ProcessStartInfo( @".\Demo.XamlDesigner.exe", @"..\WpfApp1\Windows\MainWindow.xaml" )
+		                       { WorkingDirectory = @"..\..\..\tools" } );
+	        }
         }
 
         // private void WindowLoaded(

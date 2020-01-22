@@ -1,0 +1,4 @@
+    <Window.InputBindings>
+        <KeyBinding Key="Q" Modifiers="Control" Command="commands:MyAppCommands.QuitApplication" />
+    </Window.InputBindings>
+

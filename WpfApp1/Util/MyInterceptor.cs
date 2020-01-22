@@ -45,6 +45,16 @@ namespace WpfApp1.Util
             Logger.Debug( $"{s}.{invocation.Method.Name} ({args})" );
 
             invocation.Proceed();
+            var r = invocation.ReturnValue;
+            if ( r is IEnumerable )
+            {
+	            Logger.Debug( "return value is enumerable" );
+	            var propertyInfo = r.GetType().GetProperty( "Count" );
+	            if ( propertyInfo != null )
+	            {
+                    Logger.Debug($"count is {propertyInfo.GetValue(r)}"  );
+	            }
+            }
 //            if ( invocation.Method.Name.StartsWith( "get_" ) )
 //            {
 //                Logger.Debug( invocation.Method.Name );

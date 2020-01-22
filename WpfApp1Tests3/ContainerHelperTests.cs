@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using WpfApp1.Menus;
 using WpfApp1.Util;
 using Autofac;
@@ -30,7 +31,21 @@ namespace WpfApp1Tests3
             var menuItemList = c.Resolve<IMenuItemList>();
             Assert.NotNull(menuItemList);
 
+            if (!menuItemList.First().Children.Any())
+            {
+	            throw new Exception("Empty menu window list");
+            }
 
+
+
+        }
+
+        [Fact]
+        public void ResolveWindows()
+        {
+	        var c = ContainerHelper.SetupContainer();
+	        var enumerable = c.Resolve < IEnumerable < Lazy < Window > > >();
+            Assert.NotEmpty(enumerable);
         }
 
     }

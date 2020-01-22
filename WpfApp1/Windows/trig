@@ -1,0 +1,9 @@
+    <Window.Triggers>
+        <EventTrigger >
+            <BeginStoryboard>
+                <Storyboard>
+                <BooleanAnimationUsingKeyFrames Storyboard.TargetName="mainWindow"/>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>

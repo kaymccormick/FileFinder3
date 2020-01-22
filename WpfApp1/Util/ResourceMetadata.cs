@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WpfApp1.Util
 {
-    class ResourceMetadata
+	public class ResourceMetadata
     {
         public string ResourceName { get; set; }
     }

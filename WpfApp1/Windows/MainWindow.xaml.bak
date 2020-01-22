@@ -6,48 +6,58 @@
         xmlns:local="clr-namespace:WpfApp1.Windows"
         xmlns:wpfApp1="clr-namespace:WpfApp1"
         xmlns:commands="clr-namespace:WpfApp1.Commands"
-        xmlns:attachedProperties="clr-namespace:WpfApp1.AttachedProperties"
         mc:Ignorable="d"
-        DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        Opacity=".9"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="{x:Null}"
         Title="Main Window" Height="450" Width="800"
-        FontFamily="Roboto Mono Medium"
-        FontSize="22"
+        
         >
     <Window.Resources>
-        <Style TargetType="{x:Type local:MainWindow}" x:Key="CoolStyle1"
-               
-           >
-            <Setter Property="FontWeight" Value="Medium"/>
-            <Setter Property="Opacity" Value="0.9"/>
-            <Setter Property="WindowStyle" Value="None"/>
-            <Setter Property="AllowsTransparency" Value="True"/>
-            <Setter Property="Background" Value="{x:Null}"/>
+        <Style TargetType="{x:Type TabControl}">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type local:MainWindow}">
-                        <Border BorderThickness="5" BorderBrush="Chartreuse" Padding="10">
-                            <DockPanel>
-                                <DockPanel.LayoutTransform>
-                                    <ScaleTransform ScaleX="1.7" ScaleY="1.7" />
-                                </DockPanel.LayoutTransform>
-                                <Menu DockPanel.Dock="Top"/>
-                                <ContentPresenter DockPanel.Dock="Bottom" />
-                            </DockPanel>
-                        </Border>
+                    <ControlTemplate TargetType="{x:Type TabControl}">
+                        <TabPanel IsItemsHost="True">
+                        <ContentPresenter x:Name="PART_SelectedContentHost" ContentSource="SelectedContent"/>
+                    </TabPanel>
+                </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type TabItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <ContentPresenter ContentSource="Header"/>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style TargetType="TabControl" x:Key="Red1">
-            <Setter Property="Effect">
+    <Style TargetType="{x:Type local:MainWindow}">
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Template">
                 <Setter.Value>
-                    <DropShadowEffect BlurRadius="10" Color="#FFC52C2C" />
+                    <ControlTemplate TargetType="{x:Type local:MainWindow}">
+                        <DockPanel>
+                            <DockPanel.LayoutTransform>
+                                <ScaleTransform ScaleX="1.7" ScaleY="1.7" />
+                            </DockPanel.LayoutTransform>
+                            <ContentPresenter DockPanel.Dock="Bottom" />
+                            </DockPanel>
+                    </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            
         </Style>
     </Window.Resources>
-    
+    <Window.CacheMode>
+        <BitmapCache />
+    </Window.CacheMode>
+    <Window.InputBindings>
+        <KeyBinding Key="Q" Modifiers="Control" Command="commands:MyAppCommands.QuitApplication" />
+    </Window.InputBindings>
     <TabControl Margin="10" Opacity=".7">
         <TabItem Header="Home">
             <Grid/>
@@ -61,7 +71,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition />
                     </Grid.RowDefinitions>
-                    <TreeView ItemsSource="{Binding Path=(attachedProperties:AppProperties.MenuItemListCollectionView)}"
+                    <TreeView ItemsSource="{Binding Path=(wpfApp1:AppProperties.MenuItemListCollectionView)}"
                               Grid.Row="0" Grid.Column="0">
                         <TreeView.ItemTemplate>
                             <HierarchicalDataTemplate ItemsSource="{Binding Path=Children}">

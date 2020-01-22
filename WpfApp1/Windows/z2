@@ -1,0 +1,30 @@
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup Name="ValidationStates">
+                                </VisualStateGroup>
+                                <VisualStateGroup Name="CommonStates">
+                                    <VisualState Name="Normal">
+                                        <Storyboard>
+                                            <DoubleAnimation To="{TemplateBinding Opacity}">
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                        </VisualState>
+                                        <VisualState Name="MouseEnter">
+                                        <Storyboard>
+                                            <DoubleAnimation To=".8" Storyboard.TargetProperty="Opacity" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState Name="MouseLeave">
+                                        <Storyboard>
+                                            <DoubleAnimation To=".4" Storyboard.TargetProperty="Opacity" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition To="MouseLeave" GeneratedDuration="0:0:0.6" />
+                                        <VisualTransition To="MouseEnter">
+                                            <VisualTransition.GeneratedEasingFunction>
+                                                <ExponentialEase EasingMode="EaseOut" Exponent="10" />
+                                            </VisualTransition.GeneratedEasingFunction>
+                                        </VisualTransition>
+                                    </VisualStateGroup.Transitions>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>

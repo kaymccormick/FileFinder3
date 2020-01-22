@@ -1,3 +1,4 @@
+using System;
 using System.Reflection;
 using System.Windows;
 using Autofac;
@@ -22,14 +23,20 @@ namespace WpfApp1.Util
             builder.RegisterType < SystemParametersControl >()
                    .As < ISettingsPanel >();
             var executingAssembly = Assembly.GetExecutingAssembly();
+
             builder.RegisterAssemblyTypes( executingAssembly )
                    .Where(
-                          t => typeof(Window).IsAssignableFrom( t )
-                         ).AsSelf();
-            builder.RegisterAssemblyTypes( executingAssembly )
-                   .Where(
-                          t => typeof(ITopLevelMenu).IsAssignableFrom( t )
-                         ).As < ITopLevelMenu >();
+                          delegate(
+	                          Type t
+                          ) {
+	                          var isAssignableFrom = typeof(Window).IsAssignableFrom( t );
+	                          Logger.Debug( $"{t} is assignable from ${isAssignableFrom}" );
+	                          return isAssignableFrom;
+                          } ).As < Window >()
+	            ;builder.RegisterAssemblyTypes( executingAssembly )
+	                    .Where(
+	                           t => typeof(ITopLevelMenu).IsAssignableFrom( t )
+	                          ).As < ITopLevelMenu >();
             
             //builder.Register(c => CreateDynamixProxy());
             //builder.Register( C => new MyInterceptor() );
