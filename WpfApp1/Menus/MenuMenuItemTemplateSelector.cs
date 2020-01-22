@@ -21,11 +21,16 @@ namespace WpfApp1.Menus
         {
             var menuItem = container as MenuItem;
             var cp = container as ContentPresenter;
-            if ( menuItem == null )
+            if(cp != null)
             {
-                Logger.Warn( $"container is not a menuitem {container.GetType()}" );
-                return base.SelectTemplate( item, container );
+	            Logger.Debug( "contentpresenter" );
+	            return base.SelectTemplate( item, container );
             }
+            // if ( menuItem == null )
+            // {
+            //     Logger.Warn( $"container is not a menuitem {container.GetType()}" );
+            //     return base.SelectTemplate( item, container );
+            // }
 
             var source = item as IMenuItem;
             if ( source == null )
@@ -34,42 +39,48 @@ namespace WpfApp1.Menus
                 return base.SelectTemplate( item, container );
             }
 
-            Logger.Info( $"{menuItem}" );
-            Logger.Debug( $"{item} {container}" );
-            Logger.Debug( item.GetType() );
+            Logger.Info( $"menuItem is {menuItem}" );
+            Logger.Debug( $"args are {item} {container}" );
+            Logger.Debug( $"item type is {item.GetType()}");
+            var r = container as FrameworkElement;
             if ( item is IMenuItem x )
             {
-                Logger.Debug( $"item is IMenuItem" );
-                if ( x.Children.Any() )
-                {
-                    var key = "Menu_ItemTemplateChildren";
-                    var dataTemplate =
-                        menuItem.FindResource( key ) as DataTemplate;
-                    Logger.Debug(
-                                 $"returning {key} {dataTemplate.DataTemplateKey}"
-                                );
+	            Logger.Debug( $"item is IMenuItem" );
+	            if ( x.Children.Any() )
+	            {
+		            var key = "Menu_ItemTemplateChildren";
+		            Logger.Info( $"Selecting template {key} for {container}" );
+		            var dataTemplate =
+			            r.FindResource( key ) as DataTemplate;
+		            Logger.Debug(
+		                         $"returning {key} {dataTemplate.DataTemplateKey}"
+		                        );
 #if writexaml
                         var sw = new StringWriter();
                         XamlWriter.Save( dataTemplate, sw );
                         Logger.Trace( sw.ToString() );
 #endif
-                    return dataTemplate;
-                }
-            }
-            else
-            {
-                var key = "Menu_ItemTemplateNoChildren";
-                var dataTemplate =
-                    menuItem.FindResource( key ) as DataTemplate;
-                Logger.Debug(
-                             $"returning {key} {dataTemplate.DataTemplateKey}"
-                            );
+		            return dataTemplate;
+	            }
+
+	            else
+	            {
+		            var key = "Menu_ItemTemplateNoChildren";
+
+		            Logger.Info( $"Selecting template {key} for {container}" );
+
+		            var dataTemplate =
+			            menuItem.FindResource( key ) as DataTemplate;
+		            Logger.Debug(
+		                         $"returning {key} {dataTemplate.DataTemplateKey}"
+		                        );
 #if writexaml
                         var sw = new StringWriter();
                         XamlWriter.Save( dataTemplate, sw );
                         Logger.Trace( sw.ToString() );
 #endif
-                return dataTemplate;
+		            return dataTemplate;
+	            }
             }
 
             Logger.Debug("Returning result from base method");

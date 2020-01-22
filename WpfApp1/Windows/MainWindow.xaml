@@ -12,10 +12,11 @@
         Title="Main Window" Height="450" Width="800"
         FontFamily="Roboto Mono Medium"
         FontSize="22"
-        >
+>
     <Window.Resources>
-        <Style TargetType="{x:Type local:MainWindow}" x:Key="CoolStyle1"
-               
+        <Style TargetType="{x:Type local:MainWindow}"  x:Key="CoolStyle1"
+
+
            >
             <Setter Property="FontWeight" Value="Medium"/>
             <Setter Property="Opacity" Value="0.9"/>
@@ -38,6 +39,26 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style TargetType="{x:Type local:MainWindow}" 
+        ><Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type local:MainWindow}">
+                            <DockPanel>
+                                <DockPanel.LayoutTransform>
+                                    <ScaleTransform ScaleX="1.7" ScaleY="1.7" />
+                                </DockPanel.LayoutTransform>
+                            <Menu DockPanel.Dock="Top" Name="appMenu">
+                                <MenuItem Header="foo">
+                                    <MenuItem Header="bar"/>
+                                </MenuItem>
+                            </Menu>
+                                
+                            <ContentPresenter DockPanel.Dock="Bottom" />
+                            </DockPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style TargetType="TabControl" x:Key="Red1">
             <Setter Property="Effect">
                 <Setter.Value>
@@ -55,8 +76,8 @@
             <TabItem Header="Menus">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition />

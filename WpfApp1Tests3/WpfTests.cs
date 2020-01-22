@@ -107,7 +107,6 @@ namespace WpfApp1Tests3
         private readonly ContainerFixture      _containerFixture;
         private readonly UtilsContainerFixture _utilsContainerFixture;
         private readonly MyServicesFixture     _myServicesFixture;
-        private          long                  _objectId;
 
         // ReSharper disable once MemberCanBePrivate.Global
         [ ContextStackInstance ] public ContextStack < InfoContext > MyStack { get; }

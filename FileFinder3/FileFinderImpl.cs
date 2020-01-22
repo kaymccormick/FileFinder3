@@ -24,8 +24,7 @@ namespace FileFinder3
         {
             var root = new DirectoryObjectInfo();
             Root = root;
-            DirectoryObjectInfo info;
-            Recurse( root, new DirectoryInfo( FindDir ), out info );
+            Recurse( root, new DirectoryInfo( FindDir ), out var info );
         }
 
         private void Recurse(
@@ -66,9 +65,8 @@ namespace FileFinder3
                         subResult.SummaryInfo.NumEntries;
                     foreach ( var q in subResult.Extensions )
                     {
-                        ExtensionInfo info;
-                        //SummaryInfo sext;
-                        if ( ! doi.Extensions.TryGetValue( q.Key, out info ) )
+	                    //SummaryInfo sext;
+                        if ( ! doi.Extensions.TryGetValue( q.Key, out var info ) )
                         {
                             info                  = new ExtensionInfo();
                             doi.Extensions[q.Key] = info;
@@ -94,8 +92,7 @@ namespace FileFinder3
                     s.TotalSize += file.Length;
 
                     var extKey = file.Extension.ToLower();
-                    ExtensionInfo ix;
-                    if ( ! doi.Extensions.TryGetValue( extKey, out ix ) )
+                    if ( ! doi.Extensions.TryGetValue( extKey, out var ix ) )
                     {
                         ix                     = new ExtensionInfo();
                         doi.Extensions[extKey] = ix;

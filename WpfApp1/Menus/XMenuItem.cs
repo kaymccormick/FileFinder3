@@ -7,7 +7,7 @@ using WpfApp1.Interfaces;
 
 namespace WpfApp1.Menus
 {
-    public class XMenuItem : IMenuItem, ICommandSource
+    public class XMenuItem : IMenuItem
     {
         private static readonly Logger Logger =
             LogManager.GetCurrentClassLogger();

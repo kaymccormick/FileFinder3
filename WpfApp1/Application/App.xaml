@@ -6,18 +6,24 @@
              xmlns:menus="clr-namespace:WpfApp1.Menus"
              xmlns:app="clr-namespace:WpfApp1.Application"
              xmlns:datasrc="clr-namespace:WpfApp1.DataSource"
+             xmlns:interfaces="clr-namespace:WpfApp1.Interfaces"
+             xmlns:attachedProperties="clr-namespace:WpfApp1.AttachedProperties"
              StartupUri="../Windows/MainWindow.xaml"
              Startup="ApplicationStartup">
     <Application.Resources>
         <menus:MenuMenuItemTemplateSelector x:Key="MenuMenuItemTemplateSelector" />
         <menus:MenuItemContainerStyleSelector x:Key="MenuItemContainerStyleSelector" />
 
+        <DataTemplate x:Key="testMenu_ItemTemplate" DataType="interfaces:IMenuItem">
+            <MenuItem Header="{Binding Header}"/>
+        </DataTemplate>
         <datasrc:MyDS1 x:Key="Ds1"/>
-        <DataTemplate x:Key="Menu_ItemTemplateChildren" DataType="menus:XMenuItem">
+        <DataTemplate x:Key="Menu_ItemTemplateChildren" DataType="{x:Type menus:XMenuItem}">
             <MenuItem Header="{Binding Header}" ItemsSource="{Binding Children}" />
         </DataTemplate>
-
-        <DataTemplate x:Key="Menu_ItemTemplateNoChildren" DataType="menus:XMenuItem">
+        <ControlTemplate x:Key="MenuItemWithChildrenHeaderTemplate">
+        </ControlTemplate>
+        <DataTemplate x:Key="Menu_ItemTemplateNoChildren" DataType="{x:Type menus:XMenuItem}">
             <MenuItem Header="{Binding Header}" Command="{Binding Command}"
                       CommandParameter="{Binding CommandParameter}"
                       CommandTarget="{Binding CommandTarget}" />
@@ -29,8 +35,14 @@
             <Setter Property="HeaderTemplate" Value="{StaticResource MenuItemDataTemplateNoChildren}" />
         </Style>
 
-        <Style x:Key="{x:Type Menu}" TargetType="{x:Type Menu}">
+        <Style x:Key="superMenu" TargetType="{x:Type Menu}">
             <Setter Property="ItemTemplateSelector" Value="{StaticResource MenuMenuItemTemplateSelector}" />
+            <Setter Property="ItemsSource" Value="{Binding Path=(attachedProperties:AppProperties.MenuItemListCollectionView)}"/>
+        </Style>
+
+        <Style x:Key="MyTest" TargetType="{x:Type Menu}">
+            <Setter Property="ItemsSource" Value="{Binding Path=(attachedProperties:AppProperties.MenuItemListCollectionView)}"/>
+            <Setter Property="ItemTemplate" Value="{StaticResource testMenu_ItemTemplate}"/>
         </Style>
 
         <Style TargetType="Window">

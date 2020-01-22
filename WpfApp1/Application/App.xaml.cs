@@ -101,7 +101,7 @@ namespace WpfApp1.Application
 	        try
 	        {
 		        EventManager.RegisterClassHandler( typeof(Window), UIElement.KeyDownEvent,
-		                                           new KeyEventHandler( ClassKeyDownHandler ) );
+		                                           new KeyEventHandler( OnKeyDown ) );
 	        }
 	        catch ( Exception ex )
 	        {
@@ -109,7 +109,7 @@ namespace WpfApp1.Application
 	        }
         }
 
-        private void ClassKeyDownHandler(
+        private void OnKeyDown(
 	        object       sender,
 	        KeyEventArgs e
         )

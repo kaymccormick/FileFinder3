@@ -163,6 +163,7 @@
     <Compile Include="ContainerHelperTests.cs" />
     <Compile Include="IHasId.cs" />
     <Compile Include="InfoContextTests.cs" />
+    <Compile Include="Menus\MenuHelperTests.cs" />
     <Compile Include="Utils\ContextStack.cs" />
     <Compile Include="Utils\Factory.cs" />
     <Compile Include="Utils\InfoContext.cs" />
@@ -180,10 +181,6 @@
     <Analyzer Include="E:\installed_packages\xunit.analyzers.0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\xunit.NLog\xunit.NLog\xunit.NLog.csproj">
-      <Project>{5b28fcf6-60d7-477a-98c3-91cf8900f8f8}</Project>
-      <Name>xunit.NLog</Name>
-    </ProjectReference>
     <ProjectReference Include="..\KayMcCormick.Dev.Test.Metadata\KayMcCormick.Dev.Test.Metadata.csproj">
       <Project>{CF1DCCEF-3324-45A2-A194-4A7B768E2291}</Project>
       <Name>KayMcCormick.Dev.Test.Metadata</Name>
