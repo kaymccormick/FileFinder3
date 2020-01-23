@@ -81,14 +81,18 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="AttachedContext.cs" />
     <Compile Include="Attributes\ContextStackInstanceAttribute.cs" />
     <Compile Include="Attributes\IDGeneratorAttribute.cs" />
     <Compile Include="Attributes\InfoContextFactoryAttribute.cs" />
     <Compile Include="Attributes\PushContextAttribute.cs" />
     <Compile Include="Collections\AutofacContainerDef.cs" />
     <Compile Include="Collections\WpfApplication.cs" />
+    <Compile Include="DumpHelper.cs" />
     <Compile Include="Exceptions\DuplicateKeyException.cs" />
+    <Compile Include="Fixtures\CombinedFixture.cs" />
     <Compile Include="Fixtures\ContainerFixture.cs" />
+    <Compile Include="Fixtures\LogFixture.cs" />
     <Compile Include="Fixtures\ObjectIDFixture.cs" />
     <Compile Include="Fixtures\UtilsContainerFixture.cs" />
     <Compile Include="Fixtures\WpfApp1Tests3.cs" />
@@ -96,7 +100,11 @@
     <Compile Include="ContainerHelperTests.cs" />
     <Compile Include="IHasId.cs" />
     <Compile Include="InfoContextTests.cs" />
-    <Compile Include="Menus\MenuHelperTests.cs" />
+    <Compile Include="LoggerImpl.cs" />
+    <Compile Include="MenuHelperTests.cs" />
+    <Compile Include="ProvideValueTarget.cs" />
+    <Compile Include="Resources.cs" />
+    <Compile Include="ServiceProviderProxy.cs" />
     <Compile Include="Utils\ContextStack.cs" />
     <Compile Include="Utils\Factory.cs" />
     <Compile Include="Utils\InfoContext.cs" />
@@ -105,6 +113,7 @@
     <Compile Include="WpfUtils\WindowWrap.cs" />
     <Compile Include="WpfTests.cs" />
     <Compile Include="WpfUtils\WpfApplicationHelper.cs" />
+    <Compile Include="XunitTarget.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -217,6 +226,11 @@
     <PackageReference Include="Xunit.Extensions.Ordering">
       <Version>1.4.5</Version>
     </PackageReference>
+    <PackageReference Include="xunit.runner.console">
+      <Version>2.4.1</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="xunit.runner.msbuild">
       <Version>2.4.1</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -233,6 +247,9 @@
     <PackageReference Include="xunit.stafact">
       <Version>0.3.18</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Menus\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

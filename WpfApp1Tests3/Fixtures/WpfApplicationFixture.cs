@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows;
 using JetBrains.Annotations;
 using KayMcCormick.Dev.Test.Metadata;
@@ -10,7 +11,7 @@ using Xunit;
 namespace WpfApp1Tests3.Fixtures
 {
     [ UsedImplicitly ]
-    public class WpfApplicationFixture : IDisposable
+    public class WpfApplicationFixture : IAsyncLifetime
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0052:Remove unread private members", Justification = "<Pending>")]
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
@@ -122,9 +123,30 @@ namespace WpfApp1Tests3.Fixtures
         }
 #endif
         /// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
-        public void Dispose()
+        // public void Dispose()
+        // {
+        //     _wpfApplicationHelper?.Dispose();
+        // }
+
+        /// <summary>
+        /// Called immediately after the class has been created, before it is used.
+        /// </summary>
+        public Task InitializeAsync()
         {
-            _wpfApplicationHelper?.Dispose();
+	        Logger.Debug($"{nameof(InitializeAsync)}"  );
+	        return Task.FromResult < object >( null );
+        }
+
+        /// <summary>
+        /// Called when an object is no longer needed. Called just before <see cref="M:System.IDisposable.Dispose" />
+        /// if the class also implements that.
+        /// </summary>
+        public Task DisposeAsync()
+        {
+	        return _wpfApplicationHelper.DisposeAsync();
+	        Logger.Debug($"{nameof(InitializeAsync)}");
+
+            throw new NotImplementedException();
         }
     }
 }

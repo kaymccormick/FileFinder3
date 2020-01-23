@@ -11,6 +11,7 @@ using WpfApp1.Util;
 using Autofac;
 using JetBrains.Annotations;
 using WpfApp1.Interfaces;
+using WpfApp1.Windows;
 
 namespace WpfApp1Tests3
 {
@@ -48,5 +49,15 @@ namespace WpfApp1Tests3
             Assert.NotEmpty(enumerable);
         }
 
+        [ WpfFact ]
+        public void ResolveMainWindow()
+
+        {
+	        var c = ContainerHelper.SetupContainer();
+	        var mainWindow = c.Resolve < MainWindow >();
+            Assert.NotNull(mainWindow);
+        }
     }
+
+    
 }

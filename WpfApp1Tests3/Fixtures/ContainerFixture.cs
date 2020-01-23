@@ -15,6 +15,7 @@
 using System;
 using Autofac;
 using JetBrains.Annotations;
+using NLog;
 using WpfApp1.Util;
 
 namespace WpfApp1Tests3.Fixtures
@@ -22,6 +23,9 @@ namespace WpfApp1Tests3.Fixtures
     [ UsedImplicitly ]
     public class ContainerFixture : IDisposable
     {
+	    private static readonly Logger Logger =
+		    LogManager.GetCurrentClassLogger();
+
         private IContainer _container;
 
         public ILifetimeScope LifetimeScope { get; }

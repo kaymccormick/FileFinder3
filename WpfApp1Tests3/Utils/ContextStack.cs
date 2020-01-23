@@ -41,14 +41,14 @@ namespace WpfApp1Tests3.Utils
             T item
         )
         {
-            Logger.Debug($"{nameof(ContextStack<InfoContext>)}.Push ( {item}" );
+            Logger.Trace($"{nameof(ContextStack<InfoContext>)}.Push ( {item}" );
             if (!AllowDuplicateNames && this.Any(context => context.Name == item.Name))
             {
                 throw new DuplicateKeyException(key: item.Name);
             }
 
             base.Push( item );
-            Logger.Debug($"[{(this)}: New count is {Count}"  );
+            Logger.Trace($"[{(this)}: New count is {Count}"  );
         }
         /// <summary>Initializes a new instance of the <see cref="T:System.Collections.Generic.Stack`1" /> class that is empty and has the default initial capacity.</summary>
         public ContextStack(

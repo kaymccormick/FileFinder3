@@ -1,20 +1,22 @@
-﻿using Xunit;
-using WpfApp1.Menus;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using Autofac;
+using NLog;
 using WpfApp1.Interfaces;
-using WpfApp1Tests3;
+using WpfApp1.Menus;
 using WpfApp1Tests3.Fixtures;
+using Xunit;
 using Xunit.Abstractions;
 
-namespace WpfApp1.MenusTests3
+namespace WpfApp1Tests3
 {
 	[Collection( "WpfApp")]
 	public class MenuHelperTests : WpfTestsBase
 	{
+		private static readonly Logger Logger =
+			LogManager.GetCurrentClassLogger();
+
+		private Func < IMenuItem > _xMenuItemCreator;
+
 		/// <summary>
 		///     Initializes a new instance of the <see cref="T:System.Object" />
 		///     class.
@@ -27,17 +29,19 @@ namespace WpfApp1.MenusTests3
 			ITestOutputHelper     outputHelper
 		) : base( fixture, containerFixture, objectIdFixture, utilsContainerFixture, outputHelper )
 		{
+			_xMenuItemCreator = containerScope.Resolve<Func<IMenuItem>>();
 		}
 
 		[WpfFact()]
 		public void MakeMenuItemTest()
 		{
 			var header = "test";
-			
-			IMenuItem arg = new XMenuItem() { Header = header };
+			IMenuItem arg = _xMenuItemCreator();
+			arg.Header = header;
+			Assert.NotNull(arg);
 			var item = MenuHelper.MakeMenuItem( arg );
 			Assert.NotNull( item );
-			Assert.Equal( item.Header, header );
+			Assert.Equal(header, item.Header );
 
 
 		}
