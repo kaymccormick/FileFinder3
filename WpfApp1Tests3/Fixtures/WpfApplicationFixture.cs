@@ -143,10 +143,10 @@ namespace WpfApp1Tests3.Fixtures
         /// </summary>
         public Task DisposeAsync()
         {
-	        return _wpfApplicationHelper.DisposeAsync();
 	        Logger.Debug($"{nameof(InitializeAsync)}");
-
-            throw new NotImplementedException();
+	        return _wpfApplicationHelper.DisposeAsync();
+	        
+           
         }
     }
 }

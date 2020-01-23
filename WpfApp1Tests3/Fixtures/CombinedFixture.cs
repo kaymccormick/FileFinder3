@@ -26,17 +26,14 @@ namespace WpfApp1Tests3.Fixtures
     [UsedImplicitly ]
     public class CombinedFixture : IAsyncLifetime
     {
+	    // ReSharper disable once UnusedMember.Local
 	    private static readonly Logger Logger =
 		    LogManager.GetCurrentClassLogger();
         public CombinedFixture()
         {
         }
 
-        /// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
-        public void Dispose()
-        {
-        }
-
+        
         /// <summary>
         /// Called immediately after the class has been created, before it is used.
         /// </summary>

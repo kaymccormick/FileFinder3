@@ -9,15 +9,19 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Threading;
 using Autofac;
+using Autofac.Core;
 using Autofac.Extras.DynamicProxy;
 using Microsoft.Scripting.Utils;
 using NLog;
+using Vanara.Extensions ;
 using WpfApp1.AttachedProperties;
 using WpfApp1.Commands;
 using WpfApp1.DataSource;
 using WpfApp1.Interfaces;
+using WpfApp1.Logging;
 using WpfApp1.Menus;
 using WpfApp1.Util;
+using WpfApp1.Windows;
 using IContainer = Autofac.IContainer;
 
 namespace WpfApp1.Application
@@ -25,18 +29,53 @@ namespace WpfApp1.Application
     /// <summary>
     ///     Interaction logic for App.xaml
     /// </summary>
-    public partial class App : System.Windows.Application
+    public partial class App : System.Windows.Application, IHaveAppLogger
     {
-        private static readonly Logger Logger =
-            LogManager.GetCurrentClassLogger();
+	    public AppLogger AppLogger { get; set; } = null;
+        public ILogger Logger { get; set; }
 
         public App()
         {
             AppContainer = ContainerHelper.SetupContainer();
+            var loggerTracker = AppContainer.Resolve < ILoggerTracker > ( ) ;
+            var myLoggerName = typeof ( App ).FullName ;
+            loggerTracker.LoggerRegistered += (  sender , args ) => {
+	            if ( args.Logger.Name == myLoggerName )
+	            {
+                    args.Logger.Debug ( "got my logger" ) ;
+	            }
+
+	            if (  Logger == null)
+	            {
+		            Debug.WriteLine ( "got a logger but i dont have one yet" ) ;
+	            }
+            } ;
+            Logger = AppContainer.Resolve < ILogger >( new TypedParameter( typeof(Type), typeof(App) ) );
+            Logger.Debug("reg: " + String.Join(", ", AppContainer.ComponentRegistry.Registrations.Select(RegOutput)
+                                                                 .ToList()));
+            Logger.Debug("Application logger initialized."  );
+        }
+
+        private string RegOutput(
+	        IComponentRegistration registration,
+	        int                    i
+        )
+        {
+	        var registrationActivator = registration.Activator;
+	        if ( registrationActivator != null )
+	        {
+		        var registrationActivatorLimitType = registrationActivator.LimitType;
+		        if ( registrationActivatorLimitType != null )
+		        {
+			        return registrationActivatorLimitType.FullName;
+		        }
+	        }
+
+	        return "";
         }
 
 
-        public IContainer AppContainer { get; set; }
+        public ILifetimeScope AppContainer { get; set; }
         public MenuItemList MyMenuItemList { get; private set; }
 
         private void OpenWindowExecuted(
@@ -55,7 +94,7 @@ namespace WpfApp1.Application
         {
 	        
 	        AddEventListeners();
-            if ( e.Args.Any() )
+	        if ( e.Args.Any() )
             {
                 var windowName = e.Args[0];
                 var xaml = windowName + ".xaml";
@@ -88,6 +127,8 @@ namespace WpfApp1.Application
                 RoutedEventHandler handler = new RoutedEventHandler((o, args) => AppProperties.SetMenuItemListCollectionView((FrameworkElement)o, x));
                 EventManager.RegisterClassHandler(typeof(Window), FrameworkElement.LoadedEvent, handler);
                 Resources["MyMenuItemList"] = menuItemList;
+                var mainWindow = AppContainer.Resolve < MainWindow >();
+                mainWindow.Show();
 #if SHOWWINDOW
                 var mainWindow = new MainWindow();
                 mainWindow.Show();
@@ -134,5 +175,10 @@ namespace WpfApp1.Application
         //     }
         //     MenuItemListCollectionViewProperties.SetMenuItemListCollectionView(w, );
         // }
+    }
+
+    public interface IHaveAppLogger
+    {
+        AppLogger AppLogger { get; set; }
     }
 }

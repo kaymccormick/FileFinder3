@@ -12,11 +12,10 @@
 
 #endregion
 
-using System;
-using System.Runtime.Serialization;
-using JetBrains.Annotations;
+using System ;
+using System.Runtime.Serialization ;
 
-namespace WpfApp1Tests3.Exceptions
+namespace WpfApp1.Util
 {
     [Serializable]
     public class DuplicateKeyException
@@ -71,16 +70,16 @@ namespace WpfApp1Tests3.Exceptions
         /// <paramref name="info" /> is <see langword="null" />.</exception>
         /// <exception cref="T:System.Runtime.Serialization.SerializationException">The class name is <see langword="null" /> or <see cref="P:System.Exception.HResult" /> is zero (0).</exception>
         protected DuplicateKeyException(
-            [ NotNull ] SerializationInfo info,
+            SerializationInfo info,
             StreamingContext              context
         ) : base( info, context )
         {
         }
 
         public DuplicateKeyException(Object key)
-            : this(DuplicateKeyException.DefaultMessage + ": " + key.ToString())
+            : this( $"{DuplicateKeyException.DefaultMessage}: {key}")
         {
-            this.key = key;
+            this.key = key ?? throw new ArgumentNullException ( nameof ( key ) );
         }
     }
 }

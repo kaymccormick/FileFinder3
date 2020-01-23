@@ -13,20 +13,22 @@
 #endregion
 
 using System;
+using System.Threading.Tasks ;
 using Autofac;
 using JetBrains.Annotations;
 using NLog;
 using WpfApp1.Util;
+using Xunit ;
 
 namespace WpfApp1Tests3.Fixtures
 {
     [ UsedImplicitly ]
-    public class ContainerFixture : IDisposable
+    public class ContainerFixture : IAsyncLifetime
     {
 	    private static readonly Logger Logger =
 		    LogManager.GetCurrentClassLogger();
 
-        private IContainer _container;
+        private readonly ILifetimeScope _container;
 
         public ILifetimeScope LifetimeScope { get; }
 
@@ -37,11 +39,23 @@ namespace WpfApp1Tests3.Fixtures
             LifetimeScope = _container.BeginLifetimeScope();
         }
 
-        /// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
-        public void Dispose()
+       
+
+        /// <summary>
+        /// Called immediately after the class has been created, before it is used.
+        /// </summary>
+        public Task InitializeAsync (  ) { return Task.CompletedTask ; }
+
+
+        /// <summary>
+        /// Called when an object is no longer needed. Called just before <see cref="M:System.IDisposable.Dispose" />
+        /// if the class also implements that.
+        /// </summary>
+        public Task DisposeAsync (  )
         {
-            LifetimeScope?.Dispose();
-            _container?.Dispose();
+	        LifetimeScope?.Dispose();
+	        _container?.Dispose();
+	        return Task.CompletedTask ;
         }
     }
 }

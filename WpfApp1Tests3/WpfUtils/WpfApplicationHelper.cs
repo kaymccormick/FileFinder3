@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Threading;
+using JetBrains.Annotations ;
 using Xunit;
 
 namespace WpfApp1Tests3.WpfUtils
@@ -21,7 +22,7 @@ namespace WpfApp1Tests3.WpfUtils
 		)
 		{
 			Application app = new Application();
-			CurAssembly = theAssembly;
+			CurAssembly = theAssembly ?? throw new ArgumentNullException ( nameof ( theAssembly ) );
 
 			string assemblyFullName = CurAssembly.FullName;
 			var assPart = Uri.EscapeUriString( CurAssembly.GetName().Name );
@@ -29,19 +30,7 @@ namespace WpfApp1Tests3.WpfUtils
 			                  $"pack://application:,,,/{assPart};component/",
 			                  UriKind.RelativeOrAbsolute );
 			BasePackUri = uri;
-			// var stream = Application.GetResourceStream(new Uri(
-			//     $"pack://application:,,,/{assPart};component/dictionary.xaml",
-			//     UriKind.RelativeOrAbsolute));
-			try
-			{
-				System.Uri resourceLocater =
-					new System.Uri( "/ParseLogsControls;component/dictionary.xaml", System.UriKind.Relative );
-				app.Resources = (ResourceDictionary)Application.LoadComponent( resourceLocater );
-			}
-			catch ( Exception )
-			{
-			}
-
+			
 			MyApp = app;
 		}
 
@@ -77,10 +66,19 @@ namespace WpfApp1Tests3.WpfUtils
 
 		//[Test(), Apartment(ApartmentState.STA)]
 		public void MakeWindowWrap(
-			Type genericType,
-			Type wrappedType
+			[ NotNull ] Type genericType, [ NotNull ] Type wrappedType
 		)
 		{
+			if ( genericType == null )
+			{
+				throw new ArgumentNullException ( nameof ( genericType ) ) ;
+			}
+
+			if ( wrappedType == null )
+			{
+				throw new ArgumentNullException ( nameof ( wrappedType ) ) ;
+			}
+
 			try
 			{
 				var name = CurAssembly.GetName().Name;
@@ -102,13 +100,7 @@ namespace WpfApp1Tests3.WpfUtils
 		}
 
 
-		/// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
-		public async void Dispose()
-		{
 
-		}
-
-		//MyApp?.Shutdown();
 		/// <summary>
 		/// Called immediately after the class has been created, before it is used.
 		/// </summary>
@@ -124,7 +116,6 @@ namespace WpfApp1Tests3.WpfUtils
 		/// </summary>
 		public Task DisposeAsync()
 		{
-			bool done = false;
 			TaskCompletionSource<bool> tcs = new TaskCompletionSource<bool>();
 			CancellationTokenSource s = new CancellationTokenSource(
 			                                                       );

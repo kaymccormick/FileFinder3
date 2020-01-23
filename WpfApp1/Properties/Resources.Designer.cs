@@ -59,5 +59,14 @@ namespace WpfApp1.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to test.
+        /// </summary>
+        internal static string LogFixture_LogFixture_test {
+            get {
+                return ResourceManager.GetString("LogFixture_LogFixture_test", resourceCulture);
+            }
+        }
     }
 }

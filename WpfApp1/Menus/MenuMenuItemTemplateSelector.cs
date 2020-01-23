@@ -5,16 +5,29 @@ using System.Windows.Controls;
 using System.Windows.Markup;
 using NLog;
 using WpfApp1.Interfaces;
+using WpfApp1.Logging;
 
 namespace WpfApp1.Menus
 {
     public class MenuMenuItemTemplateSelector : DataTemplateSelector
 
     {
-        private static readonly Logger Logger =
-            LogManager.GetCurrentClassLogger();
+	    private AppLogger _appLogger;
 
-        public override DataTemplate SelectTemplate(
+	    public AppLogger AppLogger
+	    {
+		    get => _appLogger;
+		    set => _appLogger = value;
+	    }
+
+	    public ILogger Logger
+	    {
+		    get => AppLogger.LoggerInstance;
+		    set => AppLogger.LoggerInstance = value;
+	    }
+
+
+	    public override DataTemplate SelectTemplate(
             object           item,
             DependencyObject container
         )

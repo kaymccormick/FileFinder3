@@ -12,7 +12,7 @@
 
 #endregion
 
-namespace WpfApp1Tests3
+namespace WpfApp1.Interfaces
 {
     public interface IHasId
     {

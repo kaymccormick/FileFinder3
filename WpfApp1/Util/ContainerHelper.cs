@@ -1,58 +1,394 @@
-using System;
-using System.Reflection;
-using System.Windows;
-using Autofac;
-using Autofac.Extras.AttributeMetadata;
-using Autofac.Extras.DynamicProxy;
-using NLog;
-using WpfApp1.Controls;
-using WpfApp1.Interfaces;
-using WpfApp1.Menus;
+using System ;
+using System.Collections.Generic ;
+using System.Reflection ;
+using System.Windows ;
+using Autofac ;
+using Autofac.Builder ;
+using Autofac.Core ;
+using Autofac.Core.Activators.Delegate ;
+using Autofac.Core.Activators.Reflection ;
+using Autofac.Core.Registration ;
+using Autofac.Extras.AttributeMetadata ;
+using Autofac.Extras.DynamicProxy ;
+using NLog ;
+using WpfApp1.Controls ;
+using WpfApp1.Interfaces ;
+using WpfApp1.Logging ;
+using WpfApp1.Menus ;
 
 namespace WpfApp1.Util
 {
-    public static class ContainerHelper
-    {
-        private static readonly Logger Logger =
-            LogManager.GetCurrentClassLogger();
+	public static class ContainerHelper
+	{
+		private static readonly Logger Logger =
+			LogManager.GetLogger ( "Autofac container builder helper" ) ;
 
-        public static IContainer SetupContainer()
-        {
-            var builder = new ContainerBuilder();
-            builder.RegisterModule<AttributedMetadataModule>();
-            builder.RegisterType < SystemParametersControl >()
-                   .As < ISettingsPanel >();
-            var executingAssembly = Assembly.GetExecutingAssembly();
+		public static ILifetimeScope SetupContainer ( )
+		{
+			AppLoggingConfigHelper.EnsureLoggingConfigured ( ) ;
+			var builder = new ContainerBuilder ( ) ;
+			#region Autofac Modules
+			builder.RegisterModule < AttributedMetadataModule > ( ) ;
+			#endregion
 
-            builder.RegisterAssemblyTypes( executingAssembly )
-                   .Where(
-                          delegate(
-	                          Type t
-                          ) {
-	                          var isAssignableFrom = typeof(Window).IsAssignableFrom( t );
-	                          Logger.Debug( $"{t} is assignable from ${isAssignableFrom}" );
-	                          return isAssignableFrom;
-                          } ).As < Window >()
-	            ;builder.RegisterAssemblyTypes( executingAssembly )
-	                    .Where(
-	                           t => typeof(ITopLevelMenu).IsAssignableFrom( t )
-	                          ).As < ITopLevelMenu >();
-            
-            //builder.Register(c => CreateDynamixProxy());
-            //builder.Register( C => new MyInterceptor() );
-            builder.RegisterType < MyInterceptor >().AsSelf();
-            //builder.Register(context => context.  )
-            builder.RegisterType < LogFactory >().AsSelf();
-            //builder.RegisterType <>().As <ILoggingEntity>();
-            builder.RegisterType < MenuItemList >().AsImplementedInterfaces()
-                   .WithMetadata < ResourceMetadata >( m => m.For( rn => rn.ResourceName, "MenuItemList" ) )
-                   .PreserveExistingDefaults() // As<INotifyCollectionChanged>().As<INotifyPropertyChanged>().As<>()
-                   .EnableInterfaceInterceptors().InterceptedBy( typeof(MyInterceptor) );
-            builder.RegisterType < XMenuItem >().AsImplementedInterfaces().PreserveExistingDefaults()
-                   .EnableInterfaceInterceptors().InterceptedBy( typeof(MyInterceptor) );
-            builder.RegisterBuildCallback( container => Logger.Info( "Container built." ) );
+			#region Currently unused?
+			builder.RegisterType < SystemParametersControl > ( ).As < ISettingsPanel > ( ) ;
+			#endregion
 
-            return builder.Build();
-        }
-    }
+			#region Assembly scanning
+			var executingAssembly = Assembly.GetExecutingAssembly ( ) ;
+
+			builder.RegisterAssemblyTypes ( executingAssembly )
+			       .Where (
+			               predicate : delegate ( Type t ) {
+				               var isAssignableFrom = typeof ( Window ).IsAssignableFrom ( c : t ) ;
+				               Logger.Trace ( message : $"{t} is assignable from ${isAssignableFrom}" ) ;
+				               return isAssignableFrom ;
+			               }
+			              )
+			       .AsSelf ( )
+			       .As < Window > ( )
+			       .OnActivating (
+			                      handler : args => {
+				                      ( args.Instance as IHaveLogger ).Logger =
+					                      args.Context.Resolve < ILogger > (
+					                                                        new TypedParameter (
+					                                                                            type : typeof
+					                                                                            ( Type
+					                                                                            )
+					                                                                          , value : args
+					                                                                                   .Instance
+					                                                                                   .GetType ( )
+					                                                                           )
+					                                                       ) ;
+			                      }
+			                     ) ;
+
+			builder.RegisterAssemblyTypes ( executingAssembly )
+			       .Where ( predicate : t => typeof ( ITopLevelMenu ).IsAssignableFrom ( c : t ) )
+			       .As < ITopLevelMenu > ( ) ;
+			#endregion
+
+			#region Interceptors
+			builder.RegisterType < MyInterceptor > ( ).AsSelf ( ) ;
+			#endregion
+
+			#region Logging
+			builder.RegisterType < LoggerTracker > ( )
+			       .As < ILoggerTracker > ( )
+			       .InstancePerLifetimeScope ( ) ;
+
+			builder.RegisterType < LogFactory > ( ).AsSelf ( ) ;
+
+			builder.Register (
+			                  @delegate : ( c , p ) => {
+				                  var loggerName = "unset" ;
+				                  try
+				                  {
+					                  loggerName = p.TypedAs < Type > ( ).FullName ;
+				                  }
+				                  catch ( Exception ex )
+				                  {
+					                  Console.WriteLine ( value : ex.ToString ( ) ) ;
+				                  }
+
+				                  var tracker = c.Resolve < ILoggerTracker > ( ) ;
+				                  Logger.Debug ( message : $"creating logger {loggerName}" ) ;
+				                  var logger = LogManager.GetLogger ( name : loggerName ) ;
+				                  Console.WriteLine ( value : "got logger " + logger.Name ) ;
+				                  tracker.TrackLogger ( loggerName : loggerName , logger : logger ) ;
+				                  return logger ;
+			                  }
+			                 )
+			       .As < ILogger > ( ) ;
+			#endregion
+
+			#region Menu Item Lists
+			builder.RegisterType < MenuItemList > ( )
+			       .AsImplementedInterfaces ( )
+			       .WithMetadata < ResourceMetadata
+			        > ( configurationAction : m => m.For ( propertyAccessor : rn => rn.ResourceName , value : "MenuItemList" ) )
+			       .PreserveExistingDefaults ( )
+			       .EnableInterfaceInterceptors ( )
+			       .InterceptedBy ( typeof ( MyInterceptor ) ) ;
+			builder.RegisterType < XMenuItem > ( )
+			       .AsImplementedInterfaces ( )
+			       .PreserveExistingDefaults ( )
+			       .EnableInterfaceInterceptors ( )
+			       .InterceptedBy ( typeof ( MyInterceptor ) ) ;
+			#endregion
+
+			#region Callbacks
+			builder.RegisterBuildCallback ( buildCallback : container => Logger.Info ( message : "Container built." ) ) ;
+			builder.RegisterCallback (
+			                          configurationCallback : registry => {
+				                          registry.Registered += ( sender , args ) => {
+					                          Logger.Debug (
+					                                        message : "Registered "
+					                                                  + args.ComponentRegistration.Activator
+					                                                        .LimitType
+					                                       ) ;
+					                          args.ComponentRegistration.Activated += (
+						                          o
+						                        , eventArgs
+					                          ) => {
+						                          Logger.Debug ( message : o + " " + eventArgs.Instance ) ;
+					                          } ;
+				                          } ;
+			                          }
+			                         ) ;
+			#endregion
+
+			#region Container Build
+			var setupContainer = builder.Build ( ) ;
+			#endregion
+
+
+			#region Post-container build reporting
+			return setupContainer.BeginLifetimeScope ( configurationAction : containerBuilder
+				                                           => ConfigurationAction (
+				                                                                   containerBuilder
+				                                                                  )
+			                                         ) ;
+			//return CreateChildLifetimeContext ( setupContainer ) ;
+		}
+
+		private static DeferredCallback ConfigurationAction ( ContainerBuilder obj )
+		{
+			return obj.RegisterCallback ( CreateChildLifetimeContext ) ;
+		}
+
+		private static void CreateChildLifetimeContext ( IComponentRegistry componentRegistry )
+		{
+			var setupContainer =  componentRegistry ;
+			#if USEHANDLER
+			setupContainer.ResolveOperationBeginning += ( sender , args ) => {
+				args.ResolveOperation.InstanceLookupBeginning += ( o , eventArgs ) => {
+					eventArgs.InstanceLookup.InstanceLookupEnding += ( sender1 , endingEventArgs ) => {
+						if ( endingEventArgs.NewInstanceActivated )
+						{
+							Logger.Debug ( "New instance activated" ) ;
+						}
+					} ;
+				} ;
+			} ;
+#endif
+
+			var registry = componentRegistry ;
+			foreach ( var componentRegistryRegistration in registry.Registrations )
+			{
+				if ( IsMyRegistration ( componentRegistryRegistration ) )
+				{
+					Logger.Warn ( "is my registration" ) ;
+				}
+				else
+				{
+					Logger.Error ( "is not my registration" ) ;
+				}
+
+				// Logger.Debug (
+				//               $"{componentRegistryRegistration.Activator.LimitType} {componentRegistryRegistration.Target}"
+				//              ) ;
+				var seen = new HashSet < object > ( ) ;
+				Dump ( componentRegistryRegistration , seen ) ;
+
+				if ( componentRegistryRegistration.Activator is ReflectionActivator rf )
+				{
+					Logger.Debug ( rf.LimitType.ToString ( ) ) ;
+					var x = new DelegateActivator (
+					                               rf.LimitType
+					                             , ( context , parameters ) => {
+						                               Logger.Debug (
+						                                             "delegate activation of reflection component success."
+						                                            ) ;
+						                               var r = rf.ActivateInstance (
+						                                                            context
+						                                                          , parameters
+						                                                           ) ;
+						                               Logger.Debug ( "got " + r ) ;
+						                               if ( r is IHaveLogger haveLogger )
+						                               {
+							                               Logger.Debug ( "has IHaveLogger interface." ) ;
+							                               if ( haveLogger.Logger == null )
+							                               {
+								                               Logger.Debug (
+								                                             "logger is null, resolving"
+								                                            ) ;
+								                               haveLogger.Logger =
+									                               context.Resolve < ILogger > (
+									                                                            new
+										                                                            TypedParameter (
+										                                                                            typeof
+										                                                                            ( Type
+										                                                                            )
+										                                                                          , r
+											                                                                           .GetType ( )
+										                                                                           )
+									                                                           ) ;
+							                               }
+						                               }
+
+						                               return r ;
+					                               }
+					                              ) ;
+
+					IComponentRegistration componentRegistration = new ComponentRegistration (
+					                                                                          Guid
+						                                                                         .NewGuid ( )
+					                                                                        , x
+					                                                                        , componentRegistryRegistration
+						                                                                         .Lifetime
+					                                                                        , componentRegistryRegistration
+						                                                                         .Sharing
+					                                                                        , componentRegistryRegistration
+						                                                                         .Ownership
+					                                                                        , componentRegistryRegistration
+						                                                                         .Services
+					                                                                        , componentRegistryRegistration
+						                                                                         .Metadata
+					                                                                        , componentRegistryRegistration
+					                                                                         ) ;
+
+					Logger.Debug ( "wrapping reflection with delegate" ) ;
+					try
+					{
+						registry.Register ( componentRegistration ) ;
+					}
+					catch ( Exception ex )
+					{
+						Logger.Debug ( ex , "failure is " + ex.Message ) ;
+					}
+				}
+				else if ( componentRegistryRegistration.Activator is DelegateActivator d )
+				{
+					if ( ! ( d is MyActivator ) )
+					{
+						if ( componentRegistryRegistration.Ownership == InstanceOwnership.ExternallyOwned )
+						{
+							Logger.Debug ( "Externally owned component registration." ) ;
+						}
+						else
+						{
+							var x = new DelegateActivator (
+							                               d.LimitType
+							                             , ( context , parameters ) => {
+								                               Logger.Debug ( "activating !!" ) ;
+								                               var r = d.ActivateInstance (
+								                                                           context
+								                                                         , parameters
+								                                                          ) ;
+								                               Logger.Debug ( "got " + r ) ;
+								                               return r ;
+							                               }
+							                              ) ;
+
+
+							IComponentRegistration componentRegistration = new ComponentRegistration (
+							                                                                          Guid
+								                                                                         .NewGuid ( )
+							                                                                        , x
+							                                                                        , componentRegistryRegistration
+								                                                                         .Lifetime
+							                                                                        , componentRegistryRegistration
+								                                                                         .Sharing
+							                                                                        , componentRegistryRegistration
+								                                                                         .Ownership
+							                                                                        , componentRegistryRegistration
+								                                                                         .Services
+							                                                                        , componentRegistryRegistration
+								                                                                         .Metadata
+							                                                                        , componentRegistryRegistration
+							                                                                         ) ;
+
+
+							Logger.Debug ( "wrapping delegate activator" ) ;
+							try
+							{
+								registry.Register ( componentRegistration ) ;
+							}
+							catch ( Exception ex )
+							{
+								Logger.Debug ( ex , "failure is " + ex.Message ) ;
+							}
+						}
+					}
+				}
+
+				componentRegistryRegistration.Preparing += ( sender , args ) => {
+				} ;
+
+				componentRegistryRegistration.Activated += ( sender , args ) => {
+					Logger.Debug ( $"Activated {args.Instance}" ) ;
+				} ;
+			}
+			#endregion
+		}
+
+		private static bool IsMyRegistration (
+			IComponentRegistration componentRegistryRegistration
+		)
+		{
+			return GetIsMyAssembly ( componentRegistryRegistration.Activator.LimitType.Assembly ) ;
+		}
+
+		private static bool GetIsMyAssembly ( Assembly limitTypeAssembly )
+		{
+			Logger.Debug ( $"{limitTypeAssembly.GetName ( )}" ) ;
+			if ( AssemblyName.ReferenceMatchesDefinition (
+			                                              limitTypeAssembly.GetName ( )
+			                                            , Assembly
+			                                             .GetExecutingAssembly ( )
+			                                             .GetName ( )
+			                                             ) )
+			{
+				return true ;
+			}
+
+			return false ;
+		}
+
+		private static void Dump (
+			IComponentRegistration componentRegistryRegistration
+		  , HashSet < object >     seenObjects
+		)
+		{
+			var activatorLimitType = componentRegistryRegistration.Activator.LimitType ;
+			ILogger _logger = LogManager.GetLogger ( activatorLimitType.FullName ) ;
+
+			if ( seenObjects.Contains ( componentRegistryRegistration ) )
+			{
+				return ;
+			}
+
+			seenObjects.Add ( componentRegistryRegistration ) ;
+			_logger.Debug ( "Id = " + componentRegistryRegistration.Id ) ;
+			_logger.Debug (
+			               "Activator type = " + componentRegistryRegistration.Activator.GetType ( )
+			              ) ;
+
+			_logger.Debug ( "LimitType = " + activatorLimitType ) ;
+
+
+			foreach ( var service in componentRegistryRegistration.Services )
+			{
+				_logger.Debug ( "Service is " + service.Description ) ;
+			}
+
+			if ( componentRegistryRegistration.Target == null )
+			{
+				Logger.Debug ( "Target registration is null." ) ;
+			}
+			else if ( Equals (
+			                  componentRegistryRegistration
+			                , componentRegistryRegistration.Target
+			                 ) )
+			{
+				Logger.Debug ( "Target is same registration." ) ;
+			}
+			else
+			{
+				Dump ( componentRegistryRegistration.Target , seenObjects ) ;
+			}
+		}
+	}
 }

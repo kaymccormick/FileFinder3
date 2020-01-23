@@ -12,16 +12,14 @@
 
 #endregion
 
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
-using JetBrains.Annotations;
-using NLog;
-using WpfApp1Tests3.Exceptions;
-using Xunit;
+using System ;
+using System.Collections.Generic ;
+using System.Collections.Specialized ;
+using System.Linq ;
+using Microsoft.Scripting.Utils ;
+using NLog ;
 
-namespace WpfApp1Tests3.Utils
+namespace WpfApp1.Util
 {
     public class ContextStack<T> : Stack<T> where T : InfoContext
     {
@@ -73,7 +71,7 @@ namespace WpfApp1Tests3.Utils
         /// <exception cref="T:System.ArgumentNullException">
         /// <paramref name="collection" /> is <see langword="null" />.</exception>
         public ContextStack(
-            [ NotNull ] IEnumerable < T > collection
+            IEnumerable < T > collection
         ) : base( collection )
         {
         }
@@ -100,8 +98,7 @@ namespace WpfApp1Tests3.Utils
             foreach ( var info in this.Reverse() )
             {
                 var key = info.Name;
-                Assert.False(r.Contains(key)  );
-                r[key] = info.ObjectContext;
+                 r[key] = info.ObjectContext;
             }
 
             return r;

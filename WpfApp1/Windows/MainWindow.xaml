@@ -5,24 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1.Windows"
         xmlns:wpfApp1="clr-namespace:WpfApp1"
+        xmlns:myxaml="clr-namespace:WpfApp1.Xaml"
+
         xmlns:commands="clr-namespace:WpfApp1.Commands"
         xmlns:attachedProperties="clr-namespace:WpfApp1.AttachedProperties"
+        xmlns:logging="clr-namespace:WpfApp1.Logging"
+        xmlns:nLog="clr-namespace:NLog;assembly=NLog"
         mc:Ignorable="d"
-        DataContext="{Binding RelativeSource={RelativeSource Self}}"
-        Title="Main Window" Height="450" Width="800"
-        FontFamily="Roboto Mono Medium"
-        FontSize="22"
->
+        DataContext="{Binding ElementName=mainWindow}"
+        Title="Main Window" Height="450" Width="1000"
+        FontFamily="Deja Vu Sans"
+        FontSize="20" MinHeight="800" MinWidth="1202">
     <Window.Resources>
-        <Style TargetType="{x:Type local:MainWindow}"  x:Key="CoolStyle1"
+        
+        <CollectionViewSource x:Key="LogItems" Source="{Binding LogEvents}" />
+        <logging:TargetConverter x:Key="TargetConverter" />
+        <logging:AppLoggerContainer x:Key="AppLoggerContainer2" logging:AppLogger="{myxaml:AppLogger poo}" />
+        <logging:AppLoggerContainer x:Key="designLogger" logging:AppLogger="{myxaml:AppLogger poo}" />
 
-
-           >
-            <Setter Property="FontWeight" Value="Medium"/>
-            <Setter Property="Opacity" Value="0.9"/>
-            <Setter Property="WindowStyle" Value="None"/>
-            <Setter Property="AllowsTransparency" Value="True"/>
-            <Setter Property="Background" Value="{x:Null}"/>
+        <Style TargetType="{x:Type local:MainWindow}" x:Key="CoolStyle1">
+            <Setter Property="FontWeight" Value="Medium" />
+            <Setter Property="Opacity" Value="0.9" />
+            <Setter Property="WindowStyle" Value="None" />
+            <Setter Property="AllowsTransparency" Value="True" />
+            <Setter Property="Background" Value="{x:Null}" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type local:MainWindow}">
@@ -31,7 +37,7 @@
                                 <DockPanel.LayoutTransform>
                                     <ScaleTransform ScaleX="1.7" ScaleY="1.7" />
                                 </DockPanel.LayoutTransform>
-                                <Menu DockPanel.Dock="Top"/>
+                                <Menu DockPanel.Dock="Top" />
                                 <ContentPresenter DockPanel.Dock="Bottom" />
                             </DockPanel>
                         </Border>
@@ -39,22 +45,21 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style TargetType="{x:Type local:MainWindow}" 
-        ><Setter Property="Template">
+        <Style TargetType="{x:Type local:MainWindow}">
+            <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type local:MainWindow}">
-                            <DockPanel>
-                                <DockPanel.LayoutTransform>
-                                    <ScaleTransform ScaleX="1.7" ScaleY="1.7" />
-                                </DockPanel.LayoutTransform>
+                        <DockPanel>
+                            <DockPanel.LayoutTransform>
+                                <ScaleTransform ScaleX="1" ScaleY="1" />
+                            </DockPanel.LayoutTransform>
                             <Menu DockPanel.Dock="Top" Name="appMenu">
                                 <MenuItem Header="foo">
-                                    <MenuItem Header="bar"/>
+                                    <MenuItem Header="bar" />
                                 </MenuItem>
                             </Menu>
-                                
                             <ContentPresenter DockPanel.Dock="Bottom" />
-                            </DockPanel>
+                        </DockPanel>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -65,32 +70,99 @@
                     <DropShadowEffect BlurRadius="10" Color="#FFC52C2C" />
                 </Setter.Value>
             </Setter>
-            
+
         </Style>
     </Window.Resources>
-    
-    <TabControl Margin="10" Opacity=".7">
-        <TabItem Header="Home">
-            <Grid/>
+
+    <TabControl Margin="10">
+        <TabItem Header="Home" d:DataContext="{Binding  Source={StaticResource designLogger}}"
+                 DataContext="{Binding Source={StaticResource AppLoggerContainer2}}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="2*" />
+                </Grid.RowDefinitions>
+                <WrapPanel Grid.Row="0" Grid.Column="0" DataContext="{Binding Path=Configuration}">
+                    <WrapPanel.Resources>
+                        <CollectionViewSource x:Key="targets" Source="{Binding AllTargets}" />
+
+                    </WrapPanel.Resources>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Margin="5,5,5,20"><Run Text="{Binding Mode=OneWay,Path=AllTargets.Count}" /> Targets</TextBlock>
+                        <ListView Name="TargetsListView" MinWidth="200"
+                                  ItemsSource="{Binding Source={StaticResource targets}}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Type"
+                                                    DisplayMemberBinding="{Binding Converter={StaticResource TargetConverter}, ConverterParameter=GetType}" />
+                                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" />
+                                    <GridViewColumn
+                                        DisplayMemberBinding="{Binding Converter={StaticResource TargetConverter}}" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <WrapPanel Margin="5,10,0,0">
+                            <Button Margin="25,0,25,0" Padding="25,0,25,0" Name="RefreshButton" Content="Refresh"
+                                    Click="Refresh_OnClick" />
+                            <TextBlock Margin="5" Padding="5" Text="{Binding Config, Mode=OneWay}"
+                                       Background="#FF955656" MinWidth="100" />
+                            <TextBlock Margin="5" Text="{Binding AppLogger.Arg, Mode=OneWay}" Background="#FF955656"
+                                       MinWidth="100" />
+                            <TextBlock Margin="5" Text="{Binding AppLogger, Mode=OneWay}" Background="#FF955656"
+                                       MinWidth="100" />
+                            <TextBlock Text="{Binding AppLogger.LoggerInstance.Name, Mode=OneWay}" />
+                        </WrapPanel>
+                    </StackPanel>
+                </WrapPanel>
+                <WrapPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="0">
+                    <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                        <TabItem Header="Default">
+                    <ListView VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
+                              ItemsSource="{Binding Source={StaticResource LogItems}}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn DisplayMemberBinding="{Binding LoggerName}" />
+                                <GridViewColumn DisplayMemberBinding="{Binding FormattedMessage}">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate DataType="{x:Type nLog:LogEventInfo}">
+                                            <TextBlock>
+                                                <Run Text="{Binding CallerClassName,Mode=OneWay}" />:
+                                                <Run Text="{Binding CallerLineNumber,Mode=OneWay}" />
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{Binding Properties[stack]}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                            </TabItem>
+                        </TabControl>
+                </WrapPanel>
+            </Grid>
         </TabItem>
-            <TabItem Header="Menus">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <TreeView ItemsSource="{Binding Path=(attachedProperties:AppProperties.MenuItemListCollectionView)}"
-                              Grid.Row="0" Grid.Column="0">
-                        <TreeView.ItemTemplate>
-                            <HierarchicalDataTemplate ItemsSource="{Binding Path=Children}">
-                                <TextBlock Text="{Binding Path=Header}" />
-                            </HierarchicalDataTemplate>
-                        </TreeView.ItemTemplate>
-                    </TreeView>
-                </Grid>
-            </TabItem>
-        </TabControl>
+        <TabItem Header="Menus">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TreeView ItemsSource="{Binding Path=(attachedProperties:AppProperties.MenuItemListCollectionView)}"
+                          Grid.Row="0" Grid.Column="0">
+                    <TreeView.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding Path=Children}">
+                            <TextBlock Text="{Binding Path=Header}" />
+                        </HierarchicalDataTemplate>
+                    </TreeView.ItemTemplate>
+                </TreeView>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Internal Log">
+            <TextBlock Text="{Binding Source={StaticResource AppLoggerContainer2}, Path=InternalLog}" />
+        </TabItem>
+    </TabControl>
 </Window>

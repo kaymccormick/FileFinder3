@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
+using Autofac.Features.OwnedInstances;
 using NLog;
 using WpfApp1.Interfaces;
 
@@ -9,36 +10,19 @@ namespace WpfApp1.Menus
 {
     public class XMenuItem : IMenuItem
     {
-        private static readonly Logger Logger =
-            LogManager.GetCurrentClassLogger();
+        private ILogger Logger { get;  }
 
-        private XMenuItem()
+        public XMenuItem(Owned <Func <Type, ILogger> > func)
         {
-
+	        Logger = func.Value( typeof(XMenuItem) );
+	        Logger.Debug( "got my logger Here" );
         }
-        private IEnumerable < IMenuItem > _children;
+        
 
         public string Header { get; set; }
 
-        public IEnumerable < IMenuItem > Children
-        {
-            get
-            {
-                Logger.Trace( $"here: {Environment.StackTrace}" );
-                try
-                {
-                    throw new Exception();
-                }
-                catch ( Exception e )
-                {
-                    Logger.Trace( e, e.StackTrace );
-                }
-
-                return _children;
-            }
-            set => _children = value;
-        }
-
+        public IEnumerable < IMenuItem > Children { get; set; }
+        
         public ICommand Command { get; set; }
 
         public object CommandParameter { get; set; }

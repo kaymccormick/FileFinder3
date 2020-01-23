@@ -24,8 +24,13 @@ namespace WpfApp1.Util
 {
     public class MyInterceptor : IInterceptor
     {
-        private static readonly Logger Logger =
-            LogManager.GetCurrentClassLogger();
+	    public ILogger Logger { get; }
+
+	    /// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
+        public MyInterceptor()//Func<Type, ILogger> loggerFunc)
+	    {
+		    //Logger = loggerFunc( typeof(MyInterceptor) );
+	    }
 
         public void Intercept(
             IInvocation invocation
@@ -42,17 +47,17 @@ namespace WpfApp1.Util
                                                     .AsQueryable().Select( (o => o is ICollection
                                                                                      ? o.GetType().ToString()
                                                                                      : $"{o} {o.GetType()}") ) );
-            Logger.Debug( $"{s}.{invocation.Method.Name} ({args})" );
+            // Logger.Debug( $"{s}.{invocation.Method.Name} ({args})" );
 
             invocation.Proceed();
             var r = invocation.ReturnValue;
             if ( r is IEnumerable )
             {
-	            Logger.Debug( "return value is enumerable" );
+	            // Logger.Debug( "return value is enumerable" );
 	            var propertyInfo = r.GetType().GetProperty( "Count" );
 	            if ( propertyInfo != null )
 	            {
-                    Logger.Debug($"count is {propertyInfo.GetValue(r)}"  );
+                    // Logger.Debug($"count is {propertyInfo.GetValue(r)}"  );
 	            }
             }
 //            if ( invocation.Method.Name.StartsWith( "get_" ) )

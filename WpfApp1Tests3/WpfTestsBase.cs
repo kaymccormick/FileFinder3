@@ -1,5 +1,4 @@
 ﻿#region header
-
 // Kay McCormick (mccor)
 // 
 // FileFinder3
@@ -9,179 +8,171 @@
 // 2020-01-22-7:06 AM
 // 
 // ---
-
 #endregion
 
-using System;
-using System.Collections.Concurrent;
-using System.Runtime.Serialization;
-using System.Threading;
-using System.Threading.Tasks;
-using Autofac;
-using JetBrains.Annotations;
-using NLog;
-using NLog.Fluent;
-using WpfApp1Tests3.Attributes;
-using WpfApp1Tests3.Fixtures;
-using WpfApp1Tests3.Utils;
-using Xunit;
-using Xunit.Abstractions;
+using System ;
+using System.Collections.Concurrent ;
+using System.Runtime.Serialization ;
+using System.Threading ;
+using System.Threading.Tasks ;
+using Autofac ;
+using JetBrains.Annotations ;
+using NLog ;
+using NLog.Fluent ;
+using WpfApp1.Attributes ;
+using WpfApp1.Interfaces ;
+using WpfApp1.Util ;
+using WpfApp1Tests3.Attributes ;
+using WpfApp1Tests3.Fixtures ;
+using WpfApp1Tests3.Utils ;
+using Xunit ;
+using Xunit.Abstractions ;
 
 namespace WpfApp1Tests3
 {
-	public class WpfTestsBase
-		: IClassFixture < ContainerFixture >,
-			IAsyncLifetime,
-			IHasId
+	public class WpfTestsBase : IClassFixture < ContainerFixture > , IAsyncLifetime , IHasId
 	{
-		protected readonly ContainerFixture      _containerFixture;
-		private            UtilsContainerFixture _utilsContainerFixture;
-		private            MyServicesFixture     _myServicesFixture;
+		private static readonly ILogger Logger = LogManager.GetCurrentClassLogger ( ) ;
 
-		private static readonly ILogger Logger =
-			LogManager.GetCurrentClassLogger();
-
-		[ ThreadStatic ] internal static ConcurrentDictionary < object, long > Instances = null;
+		[ ThreadStatic ] internal static ConcurrentDictionary < object , long > Instances  ;
+		protected readonly               ContainerFixture                       _containerFixture ;
 
 
-		private ILifetimeScope _containerScope;
+		private readonly MyServicesFixture     _myServicesFixture ;
+		private readonly UtilsContainerFixture _utilsContainerFixture ;
 
 		/// <summary>
 		///     Initializes a new instance of the <see cref="T:System.Object" />
 		///     class.
 		/// </summary>
-		public WpfTestsBase(
-			WpfApplicationFixture fixture,
-			ContainerFixture      containerFixture,
-			ObjectIDFixture       objectIdFixture,
-			UtilsContainerFixture utilsContainerFixture,
-			ITestOutputHelper     outputHelper
+		public WpfTestsBase (
+			WpfApplicationFixture fixture
+		  , ContainerFixture      containerFixture
+		  , ObjectIDFixture       objectIdFixture
+		  , UtilsContainerFixture utilsContainerFixture
+		  , ITestOutputHelper     outputHelper
 		)
 		{
-#if LOG_HERE
-			MyTarget = new XunitTarget( outputHelper );
-			LogManager.Configuration.AddTarget( "xunit", MyTarget );
-			//LogManager.Configuration.AddRule( LogLevel.Trace, LogLevel.Fatal, MyTarget, "*" );
-			//LogManager.Configuration.LoggingRules.Add( new LoggingRule( "*", LogLevel.Trace, MyTarget ));
-			LogManager.Configuration.LoggingRules.Insert( 0, new LoggingRule( "*", LogLevel.FromString( "Trace" ), MyTarget ) );
-			LogManager.ReconfigExistingLoggers();
-
-			WpfTests.Logger.Trace( "test" );
-			MyTarget.Write( LogEventInfo.Create( LogLevel.Info, "test", "beep" ) );
-#endif
-			_myServicesFixture = utilsContainerFixture.Container.Resolve < MyServicesFixture >();
-			//ContextStack<InfoContext>.DefaultAllowDuplicateNames = false; Instances.Add( this );
-			Fixture                = fixture;
-			ObjectIdFixture        = objectIdFixture;
-			OutputHelper           = outputHelper;
-			_containerFixture      = containerFixture;
-			containerScope         = _containerFixture.LifetimeScope.BeginLifetimeScope();
-			_utilsContainerFixture = utilsContainerFixture;
-			MyStack                = InstanceFactory.CreateContextStack < InfoContext >();
-			bool firstTime;
-			ObjectId = Generator.GetId( this, out firstTime );
+			_myServicesFixture = utilsContainerFixture.Container.Resolve < MyServicesFixture > ( ) ;
+			Fixture =
+				fixture ?? throw new ArgumentNullException ( nameof ( fixture ) ) ;
+			ObjectIdFixture = objectIdFixture
+			                  ?? throw new ArgumentNullException (
+			                                                      nameof ( objectIdFixture )
+			                                                     ) ;
+			OutputHelper = outputHelper
+			               ?? throw new ArgumentNullException (
+			                                                   nameof ( outputHelper )
+			                                                  ) ;
+			_containerFixture = containerFixture
+			                    ?? throw new ArgumentNullException (
+			                                                        nameof ( containerFixture )
+			                                                       ) ;
+			containerScope = _containerFixture.LifetimeScope.BeginLifetimeScope ( ) ;
+			_utilsContainerFixture = utilsContainerFixture
+			                         ?? throw new ArgumentNullException (
+			                                                             nameof (
+				                                                             utilsContainerFixture )
+			                                                            ) ;
+			MyStack = InstanceFactory.CreateContextStack < InfoContext > ( ) ;
+			bool firstTime ;
+			ObjectId = Generator.GetId ( this , out firstTime ) ;
 			if ( Instances == null )
 			{
-				Logger.Trace( "Creating instances" );
-				Instances = new ConcurrentDictionary < object, long >();
+				Logger.Trace ( "Creating instances" ) ;
+				Instances = new ConcurrentDictionary < object , long > ( ) ;
 			}
 			else
 			{
-				Logger.Trace( "Not Creating instances" );
+				Logger.Trace ( "Not Creating instances" ) ;
 			}
 
-			Logger.Trace( $"Setting Instances[this] to {ObjectId:0,8x}" );
-			Instances[this] = ObjectId;
-			Thread x = System.Threading.Thread.CurrentThread;
-                        if(x.Name == null) {
-                            x.Name = $"Testing thread {this.GetType()}[{ObjectId:0,8x}]";
-                        }
+			Logger.Trace ( $"Setting Instances[this] to {ObjectId:0,8x}" ) ;
+			Instances[ this ] = ObjectId ;
+			var x = Thread.CurrentThread ;
+			if ( x.Name == null )
+			{
+				x.Name = $"Testing thread {GetType ( )}[{ObjectId:0,8x}]" ;
+			}
 
-			Assert.True( firstTime );
+			Assert.True ( firstTime ) ;
 		}
 
-		public ILifetimeScope containerScope
-		{
-			get { return _containerScope; }
-			set { _containerScope = value; }
-		}
+		public ILifetimeScope containerScope { get ; set ; }
 
-		public WpfApplicationFixture Fixture { get; }
+		public WpfApplicationFixture Fixture { get ; }
 
-		public ObjectIDFixture ObjectIdFixture { get; }
+		public ObjectIDFixture ObjectIdFixture { get ; }
 
-		public ITestOutputHelper OutputHelper { get; }
+		public ITestOutputHelper OutputHelper { get ; }
 
-		[ ContextStackInstance ] public ContextStack < InfoContext > MyStack { get; }
+		[ ContextStackInstance ] public ContextStack < InfoContext > MyStack { get ; }
 
 		[ InfoContextFactory ]
 		[ UsedImplicitly ]
-		public InfoContext.Factory InfoContextFactory => myServices.InfoContextFactory;
+		public InfoContext.Factory InfoContextFactory => myServices.InfoContextFactory ;
 
-		public ObjectIDFixture.GetObjectIdDelegate GetObjIdFunc => ObjectIdFixture.GetObjectId;
+		public ObjectIDFixture.GetObjectIdDelegate GetObjIdFunc => ObjectIdFixture.GetObjectId ;
 
-		public ObjectIDGenerator Generator => ObjectIdFixture.Generator;
+		public ObjectIDGenerator Generator => ObjectIdFixture.Generator ;
 
-		private IComponentContext UtilsContainer => _utilsContainerFixture.Container;
+		private IComponentContext UtilsContainer => _utilsContainerFixture.Container ;
 
-		protected IMyServices myServices => _myServicesFixture.MyServices;
+		protected IMyServices myServices => _myServicesFixture.MyServices ;
 
-		public Factory InstanceFactory => ObjectIdFixture.InstanceFactory;
+		public Factory InstanceFactory => ObjectIdFixture.InstanceFactory ;
 
-		public long ObjectId { get; }
+		/// <summary>
+		///     Called immediately after the class has been created, before it is used.
+		/// </summary>
+		public Task InitializeAsync ( )
+		{
+			Logger.Trace ( $"{nameof ( InitializeAsync )}" ) ;
+			return Task.CompletedTask ;
+		}
+
+		/// <summary>
+		///     Called when an object is no longer needed. Called just before
+		///     <see cref="M:System.IDisposable.Dispose" />
+		///     if the class also implements that.
+		/// </summary>
+		public Task DisposeAsync ( )
+		{
+			long myid ;
+			Instances.TryRemove ( this , out myid ) ;
+			containerScope.Dispose ( ) ;
+			return Task.CompletedTask ;
+		}
+
+		public long ObjectId { get ; }
 
 		/// <summary>
 		///     Performs application-defined tasks associated with freeing, releasing,
 		///     or resetting unmanaged resources.
 		/// </summary>
-		public void Dispose()
-		{
+		public void Dispose ( ) { }
 
+		protected IDisposable C ( object test , [ CanBeNull ] string name = null )
+		{
+			return new AttachedContext ( MyStack , InfoContextFactory ( name , test ) ) ;
+		}
+
+		protected LogBuilder LB ( )
+		{
+			return new LogBuilder ( LogManager.GetCurrentClassLogger ( ) ).Property (
+			                                                                         "stack"
+			                                                                       , MyStack
+			                                                                        ) ;
 		}
 
 		public class MyServices : IMyServices
 		{
-			public MyServices(
-				InfoContext.Factory infoContextFactory
-			)
+			public MyServices ( InfoContext.Factory infoContextFactory )
 			{
-				InfoContextFactory = infoContextFactory;
+				InfoContextFactory = infoContextFactory ;
 			}
 
-			public InfoContext.Factory InfoContextFactory { get; }
-		}
-
-		protected IDisposable C(
-			object               test,
-			[ CanBeNull ] string name = null
-		) =>
-			new AttachedContext( MyStack, InfoContextFactory( name, test ) );
-
-		protected LogBuilder LB()
-		{
-			return new LogBuilder( LogManager.GetCurrentClassLogger() ).Property( "stack", MyStack );
-		}
-
-		/// <summary>
-		/// Called immediately after the class has been created, before it is used.
-		/// </summary>
-		public Task InitializeAsync()
-		{
-			Logger.Trace( $"{nameof( InitializeAsync )}" );
-			return Task.CompletedTask;
-		}
-
-		/// <summary>
-		/// Called when an object is no longer needed. Called just before <see cref="M:System.IDisposable.Dispose" />
-		/// if the class also implements that.
-		/// </summary>
-		public Task DisposeAsync()
-		{
-			long myid;
-			Instances.TryRemove( this, out myid );
-			containerScope.Dispose();
-			return Task.CompletedTask;
+			public InfoContext.Factory InfoContextFactory { get ; }
 		}
 	}
-
 }

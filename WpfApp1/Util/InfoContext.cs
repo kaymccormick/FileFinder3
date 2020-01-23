@@ -12,11 +12,11 @@
 
 #endregion
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using System ;
+using System.Collections ;
+using System.Collections.Generic ;
 
-namespace WpfApp1Tests3.Utils
+namespace WpfApp1.Util
 {
     public class InfoContext : Tuple <string, object>, IEnumerable<object>
     {

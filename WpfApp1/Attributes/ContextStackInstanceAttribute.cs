@@ -1,6 +1,6 @@
-﻿using System;
+﻿using System ;
 
-namespace WpfApp1Tests3.Attributes
+namespace WpfApp1.Attributes
 {
     [ AttributeUsage( AttributeTargets.Property ) ]
     public class ContextStackInstanceAttribute

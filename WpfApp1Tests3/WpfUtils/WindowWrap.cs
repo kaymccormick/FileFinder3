@@ -6,7 +6,7 @@ using System.Windows.Media;
 
 namespace WpfApp1Tests3.WpfUtils
 {
-    class WindowWrap<T> : Window where T : Visual
+	public class WindowWrap<T> : Window where T : Visual
     {
         private readonly T contentInstance;
         public WindowWrap()

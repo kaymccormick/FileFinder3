@@ -1,5 +1,6 @@
 ﻿using System;
 using Autofac;
+using WpfApp1.Util ;
 using WpfApp1Tests3.Utils;
 
 namespace WpfApp1Tests3.Fixtures
@@ -7,7 +8,7 @@ namespace WpfApp1Tests3.Fixtures
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
     public class UtilsContainerFixture : IDisposable
     {
-        private IContainer _container;
+        private readonly IContainer _container;
         private ILifetimeScope _scope;
         public IComponentContext Container { get => _scope;  }
 

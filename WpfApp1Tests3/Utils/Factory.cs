@@ -1,4 +1,5 @@
 using System.Runtime.Serialization;
+using WpfApp1.Util ;
 
 namespace WpfApp1Tests3.Utils
 {

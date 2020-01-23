@@ -26,18 +26,13 @@ namespace WpfApp1Tests3
 
         [Fact()]
         [ UsedImplicitly ]
-        public void ContainerTest_ResolveIMenuItemList()
+        public void ContainerTestResolveIMenuItemList()
         {
             var c = ContainerHelper.SetupContainer();
             var menuItemList = c.Resolve<IMenuItemList>();
             Assert.NotNull(menuItemList);
-
-            if (!menuItemList.First().Children.Any())
-            {
-	            throw new Exception("Empty menu window list");
-            }
-
-
+            Assert.NotEmpty ( menuItemList.First ( ).Children ) ;
+          
 
         }
 
@@ -46,7 +41,9 @@ namespace WpfApp1Tests3
         {
 	        var c = ContainerHelper.SetupContainer();
 	        var enumerable = c.Resolve < IEnumerable < Lazy < Window > > >();
-            Assert.NotEmpty(enumerable);
+	        var l = enumerable.ToList ( ) ;
+            Assert.NotEmpty(l);
+            Assert.Equal( 3 , l.Count ) ;
         }
 
         [ WpfFact ]

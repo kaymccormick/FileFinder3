@@ -8,7 +8,7 @@ namespace WpfApp1Tests3.Fixtures
         public LogFixture(ITestOutputHelper helper)
         {
             NLog.LogManager.GetCurrentClassLogger().Debug($"{helper}"  );
-            helper.WriteLine( "test" );
+            helper.WriteLine( "Test log message");
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using Autofac.Features.Metadata;
+using NLog;
 using WpfApp1.Commands;
 using WpfApp1.Interfaces;
 
@@ -13,11 +14,16 @@ namespace WpfApp1.Menus
         private readonly IMenuItem          _xMenuItem;
         private readonly Func < IMenuItem > _xMenuItemCreator;
 
+        private ILogger Logger;
+
         public WindowsTopLevelMenu(
             IEnumerable < Meta < Lazy < Window > > > windows,
-            Func < IMenuItem >              xMenuItemCreator
+            Func < IMenuItem >              xMenuItemCreator,
+            Func < Type, ILogger > func
         )
         {
+	        Logger = func( typeof(WindowsTopLevelMenu) );
+
             _xMenuItemCreator = xMenuItemCreator;
             _xMenuItem        = xMenuItemCreator();
             Windows           = windows;

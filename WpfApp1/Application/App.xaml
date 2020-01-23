@@ -8,11 +8,14 @@
              xmlns:datasrc="clr-namespace:WpfApp1.DataSource"
              xmlns:interfaces="clr-namespace:WpfApp1.Interfaces"
              xmlns:attachedProperties="clr-namespace:WpfApp1.AttachedProperties"
-             StartupUri="../Windows/MainWindow.xaml"
+             xmlns:myxaml="clr-namespace:WpfApp1.Xaml"
+             xmlns:logging="clr-namespace:WpfApp1.Logging"
              Startup="ApplicationStartup">
     <Application.Resources>
-        <menus:MenuMenuItemTemplateSelector x:Key="MenuMenuItemTemplateSelector" />
-        <menus:MenuItemContainerStyleSelector x:Key="MenuItemContainerStyleSelector" />
+
+        <logging:AppLoggerContainer x:Key="AppLoggerContainer" logging:AppLogger="{myxaml:AppLogger poo}"/>
+        <menus:MenuMenuItemTemplateSelector x:Key="MenuMenuItemTemplateSelector" AppLogger="{myxaml:AppLogger}" />
+        <menus:MenuItemContainerStyleSelector x:Key="MenuItemContainerStyleSelector"  />
 
         <DataTemplate x:Key="testMenu_ItemTemplate" DataType="interfaces:IMenuItem">
             <MenuItem Header="{Binding Header}"/>
@@ -29,20 +32,20 @@
                       CommandTarget="{Binding CommandTarget}" />
         </DataTemplate>
         <Style x:Key="MenuItemWithChildren" TargetType="{x:Type MenuItem}">
-            <Setter Property="HeaderTemplate" Value="{StaticResource MenuItemWithChildrenHeaderTemplate}" />
+            <Setter Property="HeaderTemplate" Value="{DynamicResource MenuItemWithChildrenHeaderTemplate}" />
         </Style>
         <Style x:Key="MenuItemNoChildren" TargetType="{x:Type MenuItem}">
-            <Setter Property="HeaderTemplate" Value="{StaticResource MenuItemDataTemplateNoChildren}" />
+            <Setter Property="HeaderTemplate" Value="{DynamicResource MenuItemDataTemplateNoChildren}" />
         </Style>
 
         <Style x:Key="superMenu" TargetType="{x:Type Menu}">
-            <Setter Property="ItemTemplateSelector" Value="{StaticResource MenuMenuItemTemplateSelector}" />
+            <Setter Property="ItemTemplateSelector" Value="{DynamicResource MenuMenuItemTemplateSelector}" />
             <Setter Property="ItemsSource" Value="{Binding Path=(attachedProperties:AppProperties.MenuItemListCollectionView)}"/>
         </Style>
 
         <Style x:Key="MyTest" TargetType="{x:Type Menu}">
             <Setter Property="ItemsSource" Value="{Binding Path=(attachedProperties:AppProperties.MenuItemListCollectionView)}"/>
-            <Setter Property="ItemTemplate" Value="{StaticResource testMenu_ItemTemplate}"/>
+            <Setter Property="ItemTemplate" Value="{DynamicResource testMenu_ItemTemplate}"/>
         </Style>
 
         <Style TargetType="Window">
