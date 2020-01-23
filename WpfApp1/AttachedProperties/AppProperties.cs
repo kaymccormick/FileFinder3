@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel ;
 using System.Windows ;
 using System.Windows.Data ;
+using Autofac ;
 using NLog ;
 
 
@@ -8,7 +9,7 @@ namespace WpfApp1.AttachedProperties
 {
 	public static class AppProperties
 	{
-		private static readonly Logger Logger = LogManager.GetCurrentClassLogger (         ) ;
+		private static readonly Logger Logger = LogManager.GetCurrentClassLogger ( ) ;
 
 
 		public static readonly RoutedEvent MenuItemListCollectionViewChangedEvent =
@@ -43,7 +44,7 @@ namespace WpfApp1.AttachedProperties
 			                                    ) ;
 
 
-
+		// ReSharper disable once MemberCanBePrivate.Global
 		public static readonly RoutedEvent LoggerRegisteredEvent =
 			EventManager.RegisterRoutedEvent (
 			                                  "LoggerRegistered"
@@ -54,10 +55,10 @@ namespace WpfApp1.AttachedProperties
 
 		private static object CoerceMenuItemListCollectionView (
 			DependencyObject d
-		  , object           basevalue
+		  , object           baseValue
 		)
 		{
-			return basevalue ;
+			return baseValue ;
 		}
 
 		private static void OnMenuItemListCollectionViewChanged (
@@ -75,17 +76,23 @@ namespace WpfApp1.AttachedProperties
 			                                                                ) ;
 			if ( d is UIElement uie )
 			{
+#if TRACE_EVENTS
 				Logger.Trace ( $"Raising event on UIElement {evt.Name}" ) ;
+#endif
 				uie.RaiseEvent ( ev ) ;
 			}
 			else if ( d is ContentElement ce )
 			{
+#if TRACE_EVENTS
 				Logger.Trace ( $"Raising event on ContentElement {evt.Name}" ) ;
+#endif
 				ce.RaiseEvent ( ev ) ;
 			}
 			else
 			{
+#if TRACE_EVENTS
 				Logger.Trace ( $"Raising event on incompatible type {evt.Name}" ) ;
+#endif
 			}
 		}
 
@@ -143,7 +150,9 @@ namespace WpfApp1.AttachedProperties
 		  , ICollectionView  value
 		)
 		{
+#if TRACE_EVENTS
 			Logger.Trace ( $"{nameof ( SetMenuItemListCollectionView )} {target}, {value}" ) ;
+#endif
 
 			target.SetValue ( MenuItemListCollectionViewProperty , value ) ;
 		}
@@ -181,6 +190,127 @@ namespace WpfApp1.AttachedProperties
 			}
 		}
 
-	}
+		public static readonly RoutedEvent LifetimeScopeChangedEvent =
+			EventManager.RegisterRoutedEvent (
+			                                  "LifetimeScopeChanged"
+			                                , RoutingStrategy.Direct
+			                                , typeof ( RoutedPropertyChangedEventHandler <
+				                                  ILifetimeScope > )
+			                                , typeof ( AppProperties )
+			                                 ) ;
 
+		public static readonly DependencyProperty LifetimeScopeProperty =
+			DependencyProperty.RegisterAttached (
+			                                     "LifetimeScope"
+			                                   , typeof ( ILifetimeScope )
+			                                   , typeof ( AppProperties )
+			                                   , new FrameworkPropertyMetadata (
+			                                                                    null
+			                                                                  , FrameworkPropertyMetadataOptions
+				                                                                   .Inherits
+			                                                                  , OnLifetimeScopeChanged
+			                                                                  , CoerceLifetimeScopeValue
+			                                                                  , false
+			                                                                  , UpdateSourceTrigger
+				                                                                   .PropertyChanged
+			                                                                   )
+			                                    ) ;
+
+		private static object CoerceLifetimeScopeValue ( DependencyObject d , object basevalue )
+		{
+			return basevalue ;
+
+		}
+
+
+		private static void OnLifetimeScopeChanged (
+			DependencyObject                   d
+		  , DependencyPropertyChangedEventArgs e
+		)
+		{
+			var evt = LifetimeScopeChangedEvent ;
+			var ev = new RoutedPropertyChangedEventArgs < ILifetimeScope > (
+			                                                                ( ILifetimeScope ) e
+				                                                               .OldValue
+			                                                              , ( ILifetimeScope ) e
+				                                                               .NewValue
+			                                                              , evt
+			                                                               ) ;
+			if ( d is UIElement uie )
+			{
+#if TRACE_EVENTS
+				Logger.Trace ( $"Raising event on UIElement {evt.Name}" ) ;
+#endif
+				uie.RaiseEvent ( ev ) ;
+			}
+			else if ( d is ContentElement ce )
+			{
+#if TRACE_EVENTS
+				Logger.Trace ( $"Raising event on ContentElement {evt.Name}" ) ;
+#endif
+				ce.RaiseEvent ( ev ) ;
+			}
+			else
+			{
+#if TRACE_EVENTS
+				Logger.Trace ( $"Raising event on incompatible type {evt.Name}" ) ;
+#endif
+			}
+		}
+
+		public static void AddOnLifetimeScopeChangedEventHandler (
+			DependencyObject   d
+		  , RoutedEventHandler handler
+		)
+		{
+			if ( d is UIElement uie )
+			{
+				uie.AddHandler ( LifetimeScopeChangedEvent , handler ) ;
+			}
+			else if ( d is ContentElement ce )
+			{
+				ce.AddHandler ( LifetimeScopeChangedEvent , handler ) ;
+			}
+		}
+
+		public static void RemoveLifetimeScopeChangedEventHandler (
+			DependencyObject   d
+		  , RoutedEventHandler handler
+		)
+		{
+			if ( d is UIElement uie )
+			{
+				uie.AddHandler ( LifetimeScopeChangedEvent , handler ) ;
+			}
+			else if ( d is ContentElement ce )
+			{
+				ce.AddHandler ( LifetimeScopeChangedEvent , handler ) ;
+			}
+		}
+
+		// [AttachedPropertyBrowsableForType(typeof(Window))]
+		/// <summary>
+		///     Helper for getting <see cref="MenuItemListCollectionViewProperty" />
+		///     from <paramref name="target" />.
+		/// </summary>
+		/// <param name="target">
+		///     <see cref="DependencyObject" /> to read
+		///     <see cref="MenuItemListCollectionViewProperty" /> from.
+		/// </param>
+		/// <returns>MenuItemListCollectionView property value.</returns>
+		[ AttachedPropertyBrowsableForType ( typeof ( Window ) ) ]
+		public static ILifetimeScope GetLifetimeScope ( DependencyObject target )
+		{
+			return ( ILifetimeScope ) target.GetValue ( LifetimeScopeProperty ) ;
+		}
+
+		public static void SetLifetimeScope ( DependencyObject target , ILifetimeScope value )
+		{
+#if TRACE_EVENTS
+			Logger.Trace ( $"{nameof ( SetMenuItemListCollectionView )} {target}, {value}" ) ;
+#endif
+
+			target.SetValue ( LifetimeScopeProperty , value ) ;
+		}
+	}
 }

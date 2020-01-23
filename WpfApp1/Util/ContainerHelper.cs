@@ -42,7 +42,7 @@ namespace WpfApp1.Util
 			       .Where (
 			               predicate : delegate ( Type t ) {
 				               var isAssignableFrom = typeof ( Window ).IsAssignableFrom ( c : t ) ;
-				               Logger.Trace ( message : $"{t} is assignable from ${isAssignableFrom}" ) ;
+				               Logger.Trace ( message : $"{t} is assignable from {isAssignableFrom}" ) ;
 				               return isAssignableFrom ;
 			               }
 			              )
@@ -186,9 +186,6 @@ namespace WpfApp1.Util
 					Logger.Error ( "is not my registration" ) ;
 				}
 
-				// Logger.Debug (
-				//               $"{componentRegistryRegistration.Activator.LimitType} {componentRegistryRegistration.Target}"
-				//              ) ;
 				var seen = new HashSet < object > ( ) ;
 				Dump ( componentRegistryRegistration , seen ) ;
 

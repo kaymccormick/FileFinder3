@@ -18,6 +18,7 @@ namespace WpfApp1.Logging
 	{
 		public static StringWriter _stringWriter = null ;
 
+		// ReSharper disable once MemberCanBePrivate.Global
 		public static LoggingConfiguration ConfigureLogging (   )
 		{
 			InternalLogging (   ) ;

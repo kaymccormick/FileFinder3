@@ -14,7 +14,7 @@ namespace WpfApp1Tests3
 		/// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
 		public ZeroconfTests (  ) { }
 
-		[ Fact ]
+		//[ Fact ]
 		public void AdvertiseTest (  )
 		{
 			var zone =  "_log4j_xml_udp_appender.local." ;
