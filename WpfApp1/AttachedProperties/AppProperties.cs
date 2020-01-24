@@ -29,12 +29,8 @@ namespace WpfApp1.AttachedProperties
 			                                   , new FrameworkPropertyMetadata (
 			                                                                    null
 			                                                                   ,
-			                                                                    // FrameworkPropertyMetadataOptions.None,
-			                                                                    FrameworkPropertyMetadataOptions
-				                                                                   .Inherits
+			                                                                    FrameworkPropertyMetadataOptions.Inherits
 			                                                                   ,
-			                                                                    // | FrameworkPropertyMetadataOptions
-			                                                                    // .OverridesInheritanceBehavior,
 			                                                                    OnMenuItemListCollectionViewChanged
 			                                                                  , CoerceMenuItemListCollectionView
 			                                                                  , false
@@ -190,6 +186,7 @@ namespace WpfApp1.AttachedProperties
 			}
 		}
 
+		// ReSharper disable once MemberCanBePrivate.Global
 		public static readonly RoutedEvent LifetimeScopeChangedEvent =
 			EventManager.RegisterRoutedEvent (
 			                                  "LifetimeScopeChanged"
@@ -258,7 +255,7 @@ namespace WpfApp1.AttachedProperties
 			}
 		}
 
-		public static void AddOnLifetimeScopeChangedEventHandler (
+		public static void AddLifetimeScopeChangedEventHandler (
 			DependencyObject   d
 		  , RoutedEventHandler handler
 		)

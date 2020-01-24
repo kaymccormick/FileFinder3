@@ -118,6 +118,9 @@
     <Compile Include="Attributes\LoggingEntityMetadata.cs" />
     <Compile Include="Attributes\PushContextAttribute.cs" />
     <Compile Include="Attributes\WindowMetadataAttribute.cs" />
+    <Compile Include="Controls\UserControl1.xaml.cs">
+      <DependentUpon>UserControl1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DataSource\MyDS1.cs" />
     <Compile Include="Events\AttachedEvents.cs" />
     <Compile Include="Interfaces\IAppLogger.cs" />
@@ -168,9 +171,14 @@
     <Compile Include="Windows\SampleWindow.xaml.cs">
       <DependentUpon>SampleWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Xaml\ComponentLifetimeConverter.cs" />
     <Compile Include="Xaml\Converter.cs" />
     <Compile Include="Xaml\AppLoggerExtension.cs" />
     <Compile Include="Xaml\LoggerInstanceConverter.cs" />
+    <Page Include="Controls\UserControl1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\MenuResources.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -10,18 +10,34 @@ xmlns:aprops="clr-namespace:WpfApp1.AttachedProperties"
         xmlns:commands="clr-namespace:WpfApp1.Commands"
         xmlns:logging="clr-namespace:WpfApp1.Logging"
         xmlns:nLog="clr-namespace:NLog;assembly=NLog"
+        xmlns:autofac="clr-namespace:Autofac.Core;assembly=Autofac"
+        xmlns:registration="clr-namespace:Autofac.Core.Registration;assembly=Autofac"
         mc:Ignorable="d"
         DataContext="{Binding ElementName=mainWindow}"
         Title="Main Window" Height="450" Width="1000"
         FontFamily="Deja Vu Sans"
         FontSize="20" MinHeight="800" MinWidth="1202">
     <Window.Resources>
-        
+        <DataTemplate x:Key="ServicesCellTemplate" DataType="{x:Type autofac:IComponentRegistration}">
+        <ComboBox Width="150" ItemsSource="{Binding Services}"/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type autofac:TypedService}">
+            <WrapPanel>
+                <TextBlock Text="{Binding Path=GetType}"/>
+                <TextBlock Text="{Binding ServiceType}"/>
+            </WrapPanel>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type autofac:Service}">
+            <WrapPanel>
+                <TextBlock Text="{Binding GetType}"/>
+                <TextBlock Text="{Binding Description}"/>
+            </WrapPanel>
+        </DataTemplate>
         <CollectionViewSource x:Key="LogItems" Source="{Binding LogEvents}" />
         <logging:TargetConverter x:Key="TargetConverter" />
         <logging:AppLoggerContainer x:Key="AppLoggerContainer2" logging:AppLogger="{myxaml:AppLogger poo}" />
         <logging:AppLoggerContainer x:Key="designLogger" logging:AppLogger="{myxaml:AppLogger poo}" />
-
+<myxaml:ComponentLifetimeConverter x:Key="ComponentLifetimeConverter"/>
         <Style TargetType="{x:Type local:MainWindow}" x:Key="CoolStyle1">
             <Setter Property="FontWeight" Value="Medium" />
             <Setter Property="Opacity" Value="0.9" />
@@ -84,11 +100,14 @@ xmlns:aprops="clr-namespace:WpfApp1.AttachedProperties"
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="" DisplayMemberBinding="{Binding Path=Id}"/>
-                                
-
+                                <GridViewColumn Header="Limit Type" DisplayMemberBinding="{Binding Path=Activator.LimitType}"/>
+                                <GridViewColumn Header="Sharing" DisplayMemberBinding="{Binding Path=Sharing}"/>
+                                <GridViewColumn Header="Limit Type" DisplayMemberBinding="{Binding Path=Activaor.LimitType}"/>
+               
+                                <GridViewColumn 
+                                    CellTemplate="{StaticResource  ServicesCellTemplate}" Header="Ownership" />
                             </GridView>
                         </ListView.View>
-
                     </ListView>
                 </Grid>
 
