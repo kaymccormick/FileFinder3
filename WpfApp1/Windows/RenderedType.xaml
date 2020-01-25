@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="WpfApp1.Windows.RenderedType"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WpfApp1.Windows"
+             xmlns:controls="clr-namespace:WpfApp1.Controls"
+             xmlns:menus="clr-namespace:WpfApp1.Menus"
+             xmlns:appProperties="clr-namespace:WpfApp1.AttachedProperties"
+             xmlns:commands="clr-namespace:WpfApp1.Commands"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.CommandBindings><CommandBinding 
+                                                 CanExecute="CommandBinding_OnCanExecute"
+                                                 /></UserControl.CommandBindings>
+    <Grid>
+            <controls:TypeControl>
+        <appProperties:AppProperties.RenderedType><x:Type TypeName="menus:MenuItemList"/></appProperties:AppProperties.RenderedType>
+                </controls:TypeControl>
+            
+    </Grid>
+</UserControl>

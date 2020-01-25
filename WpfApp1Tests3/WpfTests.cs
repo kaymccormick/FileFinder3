@@ -38,13 +38,6 @@ namespace WpfApp1Tests3
 
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger ( ) ;
 
-		// ReSharper disable once MemberCanBePrivate.Global
-
-		//public XunitTarget MyTarget { get; set; }
-		private static class DumpHelper
-		{
-		}
-
 		private void DoLog ( string test )
 		{
 			LB ( ).Level ( LogLevel.Debug ).Message ( test ).Write ( ) ;

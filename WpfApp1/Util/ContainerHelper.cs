@@ -1,6 +1,7 @@
 using System ;
 using System.Collections.Generic ;
 using System.Reflection ;
+using System.Runtime.Serialization ;
 using System.Windows ;
 using Autofac ;
 using Autofac.Builder ;
@@ -31,6 +32,9 @@ namespace WpfApp1.Util
 			builder.RegisterModule < AttributedMetadataModule > ( ) ;
 			#endregion
 
+			// var obIdGenerator = new ObjectIDGenerator();
+
+			// builder.Register < ObjectIDGenerator > ( ).InstancePerLifetimeScope ( ) ;
 			#region Currently unused?
 			builder.RegisterType < SystemParametersControl > ( ).As < ISettingsPanel > ( ) ;
 			#endregion
@@ -71,6 +75,7 @@ namespace WpfApp1.Util
 
 			#region Interceptors
 			builder.RegisterType < MyInterceptor > ( ).AsSelf ( ) ;
+			builder.RegisterType < LoggingInterceptor > ( ).AsSelf ( ) ;
 			#endregion
 
 			#region Logging
@@ -93,9 +98,8 @@ namespace WpfApp1.Util
 				                  }
 
 				                  var tracker = c.Resolve < ILoggerTracker > ( ) ;
-				                  Logger.Debug ( message : $"creating logger {loggerName}" ) ;
+				                  Logger.Debug ( message : $"creating logger loggerName = {loggerName}" ) ;
 				                  var logger = LogManager.GetLogger ( name : loggerName ) ;
-				                  Console.WriteLine ( value : "got logger " + logger.Name ) ;
 				                  tracker.TrackLogger ( loggerName : loggerName , logger : logger ) ;
 				                  return logger ;
 			                  }
@@ -110,12 +114,12 @@ namespace WpfApp1.Util
 			        > ( configurationAction : m => m.For ( propertyAccessor : rn => rn.ResourceName , value : "MenuItemList" ) )
 			       .PreserveExistingDefaults ( )
 			       .EnableInterfaceInterceptors ( )
-			       .InterceptedBy ( typeof ( MyInterceptor ) ) ;
+			       .InterceptedBy ( typeof ( LoggingInterceptor ) ) ;
 			builder.RegisterType < XMenuItem > ( )
 			       .AsImplementedInterfaces ( )
 			       .PreserveExistingDefaults ( )
 			       .EnableInterfaceInterceptors ( )
-			       .InterceptedBy ( typeof ( MyInterceptor ) ) ;
+			       .InterceptedBy ( typeof ( LoggingInterceptor ) ) ;
 			#endregion
 
 			#region Callbacks
@@ -132,7 +136,9 @@ namespace WpfApp1.Util
 						                          o
 						                        , eventArgs
 					                          ) => {
-						                          Logger.Debug ( message : o + " " + eventArgs.Instance ) ;
+						                          Logger.Debug (
+						                                        $"Activated {DesribeComponent ( eventArgs.Component )} (sender={o}, instance={eventArgs.Instance})"
+						                                       ) ;
 					                          } ;
 				                          } ;
 			                          }
@@ -151,6 +157,18 @@ namespace WpfApp1.Util
 				                                                                  )
 			                                         ) ;
 			//return CreateChildLifetimeContext ( setupContainer ) ;
+		}
+
+		private static string DesribeComponent ( IComponentRegistration eventArgsComponent )
+		{
+			var debugDesc = "no description";
+			var key = "DebugDescription" ;
+			if ( eventArgsComponent.Metadata.ContainsKey ( key ) )
+			{
+				debugDesc = eventArgsComponent.Metadata[ key ].ToString ( ) ;
+			}
+			return
+				$" CompReg w({eventArgsComponent.Id.ShortenGuid()}, {debugDesc})" ;
 		}
 
 		private static DeferredCallback ConfigurationAction ( ContainerBuilder obj )
@@ -361,6 +379,12 @@ namespace WpfApp1.Util
 			_logger.Debug ( "Id = " + componentRegistryRegistration.Id ) ;
 			_logger.Debug (
 			               "Activator type = " + componentRegistryRegistration.Activator.GetType ( )
+			              ) ;
+
+			
+			
+
+	componentRegistryRegistration.Activator.GetType (
 			              ) ;
 
 			_logger.Debug ( "LimitType = " + activatorLimitType ) ;

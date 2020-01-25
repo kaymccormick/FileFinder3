@@ -35,6 +35,7 @@ namespace WpfApp1Tests3
 		private static readonly ILogger Logger = LogManager.GetCurrentClassLogger ( ) ;
 
 		[ ThreadStatic ] internal static ConcurrentDictionary < object , long > Instances  ;
+		// ReSharper disable once MemberCanBePrivate.Global
 		protected readonly               ContainerFixture                       _containerFixture ;
 
 

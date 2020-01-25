@@ -23,7 +23,6 @@ namespace WpfApp1.Xaml
 		{
 			AppLoggingConfigHelper.EnsureLoggingConfigured();
 			Logger = LogManager.GetCurrentClassLogger ( ) ;
-			Logger.Fatal ( "woot" ) ;
 		}
 
 		public string Arg { get; set; }

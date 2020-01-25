@@ -7,6 +7,7 @@ using System.Reactive.Concurrency ;
 using System.Reactive.Linq ;
 using System.Windows ;
 using System.Windows.Controls ;
+using System.Windows.Input ;
 using System.Windows.Threading ;
 using DynamicData.Annotations ;
 using NLog ;
@@ -66,6 +67,8 @@ namespace WpfApp1.Windows
 		public MainWindow ( )
 		{
 			InitializeComponent ( ) ;
+
+			
 			var target = MyCacheTarget.GetInstance ( 1000 ) ;
 			target.Cache.SubscribeOn ( Scheduler.Default )
 			      .Buffer ( TimeSpan.FromMilliseconds ( 100 ) )
@@ -168,15 +171,20 @@ namespace WpfApp1.Windows
 		}
 
 		private void DumpRoutedPropertyChangedEventArgs < T > (
-			RoutedPropertyChangedEventArgs < T > routedPropertyChangedEventArgs
+			RoutedPropertyChangedEventArgs < T > args
 		)
 		{
-			Logger.Debug ( routedPropertyChangedEventArgs.OldValue ) ;
-			Logger.Debug ( routedPropertyChangedEventArgs.NewValue ) ;
-			Logger.Debug ( routedPropertyChangedEventArgs.RoutedEvent ) ;
-			Logger.Debug ( routedPropertyChangedEventArgs.Source ) ;
+			Logger.Debug ( "OldValue = " + args.OldValue ) ;
+			Logger.Debug ( "NewValue = " + args.NewValue ) ;
+			Logger.Debug ( "RoutedEvent = " + args.RoutedEvent ) ;
+			Logger.Debug ( "Source = " + args.Source ) ;
 		}
 
 		private void Refresh_OnClick ( object sender , RoutedEventArgs e ) { }
+
+		private void CommandBinding_OnPreviewExecuted ( object sender , ExecutedRoutedEventArgs e )
+		{
+			Logger.Debug ( "Preview can execute" ) ;
+		}
 	}
 }

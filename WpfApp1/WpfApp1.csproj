@@ -118,23 +118,34 @@
     <Compile Include="Attributes\LoggingEntityMetadata.cs" />
     <Compile Include="Attributes\PushContextAttribute.cs" />
     <Compile Include="Attributes\WindowMetadataAttribute.cs" />
+    <Compile Include="Controls\AssemblyBrowser.xaml.cs">
+      <DependentUpon>AssemblyBrowser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TypeControl.xaml.cs">
+      <DependentUpon>TypeControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\UserControl1.xaml.cs">
       <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataSource\MyDS1.cs" />
+    <Compile Include="DefaultServices\DefaultObjectIdProvider.cs" />
     <Compile Include="Events\AttachedEvents.cs" />
+    <Compile Include="IdGeneratorModule.cs" />
     <Compile Include="Interfaces\IAppLogger.cs" />
     <Compile Include="Interfaces\IHasId.cs" />
     <Compile Include="Interfaces\IHaveLogger.cs" />
+    <Compile Include="Interfaces\IHaveObjectId.cs" />
     <Compile Include="Interfaces\ILoggerName.cs" />
     <Compile Include="Interfaces\ILoggerTracker.cs" />
     <Compile Include="Interfaces\IMenuItem.cs" />
     <Compile Include="Interfaces\IMenuItemList.cs" />
+    <Compile Include="Interfaces\IObjectIdProvider.cs" />
     <Compile Include="Interfaces\MyLogBuilder.cs" />
     <Compile Include="Logging\AppLogger.cs" />
     <Compile Include="Logging\AppLoggerContainer.cs" />
     <Compile Include="Logging\AppLoggingConfigHelper.cs" />
     <Compile Include="Logging\LoggerTracker.cs" />
+    <Compile Include="Logging\LoggingInterceptor.cs" />
     <Compile Include="Logging\MyCacheTarget.cs" />
     <Compile Include="Logging\TargetConverter.cs" />
     <Compile Include="Menus\ILoggingEntity.cs" />
@@ -142,8 +153,11 @@
     <Compile Include="Menus\MenuHelper.cs" />
     <Compile Include="Util\AttachedContext.cs" />
     <Compile Include="Util\ContextStack.cs" />
+    <Compile Include="Util\DebugHelper.cs" />
     <Compile Include="Util\DuplicateKeyException.cs" />
     <Compile Include="Util\InfoContext.cs" />
+    <Compile Include="Util\IObjectId.cs" />
+    <Compile Include="Util\LongObjectId.cs" />
     <Compile Include="Util\MyActivator.cs" />
     <Compile Include="Util\MyInterceptor.cs" />
     <Compile Include="Util\ProxyGenerationHook.cs" />
@@ -168,13 +182,33 @@
     <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\Page1.xaml.cs">
+      <DependentUpon>Page1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\RenderedType.xaml.cs">
+      <DependentUpon>RenderedType.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\SampleWindow.xaml.cs">
       <DependentUpon>SampleWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\TypeWindow.xaml.cs">
+      <DependentUpon>TypeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Xaml\AssemblyConverter.cs" />
+    <Compile Include="Xaml\AssemblyList.cs" />
     <Compile Include="Xaml\ComponentLifetimeConverter.cs" />
     <Compile Include="Xaml\Converter.cs" />
     <Compile Include="Xaml\AppLoggerExtension.cs" />
     <Compile Include="Xaml\LoggerInstanceConverter.cs" />
+    <Compile Include="Xaml\SmartTypeConverter.cs" />
+    <Page Include="Controls\AssemblyBrowser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\TypeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\UserControl1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -199,7 +233,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\Page1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\RenderedType.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\SampleWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\TypeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -359,6 +405,15 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="MvvmLight">
+      <Version>5.4.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="MvvmLightLibs">
+      <Version>5.4.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="PostSharp">
+      <Version>6.4.6</Version>
+    </PackageReference>
     <PackageReference Include="Saxon-HE">
       <Version>9.9.1.6</Version>
     </PackageReference>
@@ -397,6 +452,9 @@
     </PackageReference>
     <PackageReference Include="System.Numerics.Vectors">
       <Version>4.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Reactive">
+      <Version>4.3.2</Version>
     </PackageReference>
     <PackageReference Include="System.Reactive.Windows.Threading">
       <Version>4.3.2</Version>

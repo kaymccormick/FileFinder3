@@ -18,7 +18,7 @@ using NLog;
 
 namespace WpfApp1.Logging
 {
-	class LoggerImpl : ILogger
+	public class LoggerImpl : ILogger
 	{
 		private ILogger _loggerImplementation;
 

@@ -44,7 +44,9 @@ namespace WpfApp1.Application
 			loggerTracker.LoggerRegistered += ( sender , args ) => {
 				if ( args.Logger.Name == myLoggerName )
 				{
-					args.Logger.Debug ( "got my logger" ) ;
+					args.Logger.Trace (
+					                   "Received logger for application in LoggerREegistered handler."
+					                  ) ;
 				}
 
 				if ( Logger == null )
@@ -52,21 +54,24 @@ namespace WpfApp1.Application
 					Debug.WriteLine ( "got a logger but i dont have one yet" ) ;
 				}
 			} ;
+
 			Logger = AppContainer.Resolve < ILogger > (
 			                                           new TypedParameter (
 			                                                               typeof ( Type )
 			                                                             , typeof ( App )
 			                                                              )
 			                                          ) ;
+#if DEBUGB_AUTOFAC_REGS
 			Logger.Debug (
 			              "reg: "
 			              + string.Join (
 			                             ", "
-			                           , AppContainer
+			                       , AppContainer
 			                            .ComponentRegistry.Registrations.Select ( RegOutput )
 			                            .ToList ( )
 			                            )
 			             ) ;
+#endif
 			Logger.Debug ( "Application logger initialized." ) ;
 		}
 
@@ -106,7 +111,7 @@ namespace WpfApp1.Application
 			if ( e.Args.Any ( ) )
 			{
 				var windowName = e.Args[ 0 ] ;
-				var xaml = windowName + ".xaml" ;
+				var xaml = "../Windows/" + windowName+ ".xaml" ;
 				var converter = TypeDescriptor.GetConverter ( typeof ( Uri ) ) ;
 				if ( converter.CanConvertFrom ( typeof ( string ) ) )
 				{
@@ -114,12 +119,15 @@ namespace WpfApp1.Application
 					Logger.Debug ( "Startup URI is {startupUri}" , StartupUri ) ;
 				}
 			}
+			else
+			{
 
-			Dispatcher.BeginInvoke (
-			                        DispatcherPriority.Send
-			                      , ( DispatcherOperationCallback ) DispatcherOperationCallback
-			                      , null
-			                       ) ;
+				Dispatcher.BeginInvoke (
+				                        DispatcherPriority.Send
+				                      , ( DispatcherOperationCallback ) DispatcherOperationCallback
+				                      , null
+				                       ) ;
+			}
 		}
 
 		private object DispatcherOperationCallback ( object arg )
@@ -134,22 +142,29 @@ namespace WpfApp1.Application
 			                                 , handler
 			                                  ) ;
 			Resources[ "MyMenuItemList" ] = menuItemList ;
+			Logger.Trace ( $"Attempting to resolve MainWindow" ) ;
 			var mainWindow = AppContainer.Resolve < MainWindow > ( ) ;
+			Logger.Trace ( $"Reeeived {mainWindow} " ) ;
 			mainWindow.Show ( ) ;
 #if SHOWWINDOW
                 var mainWindow = new MainWindow();
                 mainWindow.Show();
 #endif
-			return null ;
+				return null ;
 		}
 
 		private void MainWindowLoaded ( object o , RoutedEventArgs args )
 		{
-			AppProperties.SetMenuItemListCollectionView (
-			                                             ( FrameworkElement ) o
-			                                           , MenuItemListCollectionView
-			                                            ) ;
-			AppProperties.SetLifetimeScope ( ( FrameworkElement ) o , AppContainer ) ;
+			if ( ! typeof ( MainWindow ).IsAssignableFrom ( o.GetType ( ) ) )
+			{
+				Logger.Error ( $"Bad type for event sender {o.GetType ( )}" ) ;
+			}
+
+			var fe = o as FrameworkElement ;
+			Logger.Info ( $"{nameof ( MainWindowLoaded )}" ) ;
+			AppProperties.SetMenuItemListCollectionView ( fe , MenuItemListCollectionView ) ;
+			Logger.Debug ( $"Setting LifetimeScooe DependencyProperty" ) ;
+			AppProperties.SetLifetimeScope ( fe , AppContainer ) ;
 		}
 
 		// ReSharper disable once MemberCanBePrivate.Global
@@ -185,19 +200,27 @@ namespace WpfApp1.Application
 			}
 		}
 
-		// private void WindowLoaded(
-		//     object          sender,
-		//     RoutedEventArgs e
-		// )
-		// {
-		//     Window w = sender as Window;
-		//     if ( w == null )
-		//     {
-		//         Logger.Warn( $"Received WindowLoaded from non-Window {sender}"  );
-		//         return;
-		//     }
-		//     MenuItemListCollectionViewProperties.SetMenuItemListCollectionView(w, );
-		// }
+		private void Application_DispatcherUnhandledException (
+			object                                sender
+		  , DispatcherUnhandledExceptionEventArgs e
+		)
+		{
+			if ( Logger != null )
+			{
+				Logger.Fatal (
+				              e.Exception
+				            , $"{nameof ( Application_DispatcherUnhandledException )}: {e.Exception.Message}"
+				             ) ;
+			}
+		}
+
+		private void App_OnExit ( object sender , ExitEventArgs e )
+		{
+			if ( Logger != null )
+			{
+				Logger.Warn ($"Appliccation exiting.  Exit code is {e.ApplicationExitCode}" )  ;
+			}
+		}
 	}
 
 	public interface IHaveAppLogger

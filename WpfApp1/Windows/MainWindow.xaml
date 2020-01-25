@@ -12,18 +12,23 @@ xmlns:aprops="clr-namespace:WpfApp1.AttachedProperties"
         xmlns:nLog="clr-namespace:NLog;assembly=NLog"
         xmlns:autofac="clr-namespace:Autofac.Core;assembly=Autofac"
         xmlns:registration="clr-namespace:Autofac.Core.Registration;assembly=Autofac"
+        xmlns:controls="clr-namespace:WpfApp1.Controls"
         mc:Ignorable="d"
         DataContext="{Binding ElementName=mainWindow}"
         Title="Main Window" Height="450" Width="1000"
         FontFamily="Deja Vu Sans"
         FontSize="20" MinHeight="800" MinWidth="1202">
     <Window.Resources>
+        <myxaml:SmartTypeConverter x:Key="SmartTypeConverter"/>
+        <DataTemplate x:Key="ServicesTypeTemplate">
+<ComboBox ItemsSource="{Binding Services}"/>
+</DataTemplate>
         <DataTemplate x:Key="ServicesCellTemplate" DataType="{x:Type autofac:IComponentRegistration}">
         <ComboBox Width="150" ItemsSource="{Binding Services}"/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type autofac:TypedService}">
             <WrapPanel>
-                <TextBlock Text="{Binding Path=GetType}"/>
+                <controls:TypeControl RenderedType="{Binding ServiceType}"/>
                 <TextBlock Text="{Binding ServiceType}"/>
             </WrapPanel>
         </DataTemplate>
@@ -88,6 +93,10 @@ xmlns:aprops="clr-namespace:WpfApp1.AttachedProperties"
 
         </Style>
     </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="commands:MyAppCommands.LoadAssemblyList"
+                        PreviewExecuted="CommandBinding_OnPreviewExecuted"/>
+    </Window.CommandBindings>
 
     <TabControl Margin="10" DataContext="{Binding ElementName=mainWindow,Path=(aprops:AppProperties.LifetimeScope)}">
         <TabItem Header="Autofac">
@@ -102,8 +111,7 @@ xmlns:aprops="clr-namespace:WpfApp1.AttachedProperties"
                                 <GridViewColumn Header="" DisplayMemberBinding="{Binding Path=Id}"/>
                                 <GridViewColumn Header="Limit Type" DisplayMemberBinding="{Binding Path=Activator.LimitType}"/>
                                 <GridViewColumn Header="Sharing" DisplayMemberBinding="{Binding Path=Sharing}"/>
-                                <GridViewColumn Header="Limit Type" DisplayMemberBinding="{Binding Path=Activaor.LimitType}"/>
-               
+
                                 <GridViewColumn 
                                     CellTemplate="{StaticResource  ServicesCellTemplate}" Header="Ownership" />
                             </GridView>
@@ -194,6 +202,9 @@ xmlns:aprops="clr-namespace:WpfApp1.AttachedProperties"
         </TabItem>
         <TabItem Header="Internal Log">
             <TextBlock Text="{Binding Source={StaticResource AppLoggerContainer2}, Path=InternalLog}" />
+        </TabItem>
+        <TabItem Header="Assemblies">
+            <controls:AssemblyBrowser/>
         </TabItem>
     </TabControl>
 

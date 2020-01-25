@@ -19,16 +19,16 @@ namespace WpfApp1.Logging
 		public static StringWriter _stringWriter = null ;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public static LoggingConfiguration ConfigureLogging (   )
+		public static LoggingConfiguration ConfigureLogging ( )
 		{
-			InternalLogging (   ) ;
+			InternalLogging ( ) ;
 
-			var lconf = new LoggingConfiguration (   ) ;
+			var lconf = new LoggingConfiguration ( ) ;
 
-			var t = new List < Target > (   ) ;
+			var t = new List < Target > ( ) ;
 
 			#region Cache Target
-			var cacheTarget = new MyCacheTarget (   ) ;
+			var cacheTarget = new MyCacheTarget ( ) ;
 			t.Add ( cacheTarget ) ;
 			#endregion
 			#region NLogViewer Target
@@ -36,57 +36,60 @@ namespace WpfApp1.Logging
 			t.Add ( viewer ) ;
 			#endregion
 			#region Debugger Target
-			var debuggerTarget = new DebuggerTarget
-			                     {
-				                     Layout = new SimpleLayout ( "${message}" )
-			                     } ;
-			t.Add ( debuggerTarget ) ;
+			if ( DebuggerTargetEnabled )
+			{
+				var debuggerTarget =
+					new DebuggerTarget { Layout = new SimpleLayout ( "${message}" ) } ;
+				t.Add ( debuggerTarget ) ;
+			}
 			#endregion
 			#region Chainsaw Target
-			var chainsawTarget = new ChainsawTarget (   ) ;
+			var chainsawTarget = new ChainsawTarget ( ) ;
 			SetupNetworkTarget ( chainsawTarget , "udp://192.168.10.1:4445" ) ;
 			t.Add ( chainsawTarget ) ;
 			#endregion
-			Dictionary < Type , int > byType = new Dictionary < Type , int > ( ) ;
-			Dictionary < string , Target > byName = new Dictionary < string , Target > ( ) ;
+			var byType = new Dictionary < Type , int > ( ) ;
+			var byName = new Dictionary < string , Target > ( ) ;
 			foreach ( var target in t )
 			{
-				int count  =  0 ;
-				var type = target.GetType (     ) ;
+				var count = 0 ;
+				var type = target.GetType ( ) ;
 				byType.TryGetValue ( type , out count ) ;
-				count                           += 1 ;
+				count          += 1 ;
 				byType[ type ] =  count ;
 
 				if ( target.Name == null )
 				{
-					target.Name = $"{Regex.Replace(type.Name, "Target", "")}{count:D2}" ;
+					target.Name = $"{Regex.Replace ( type.Name , "Target" , "" )}{count:D2}" ;
 				}
 
 
 				lconf.AddTarget ( target ) ;
 			}
 
-			lconf.LoggingRules.AddRange ( t.AsQueryable().Select ( DefaultLoggingRule ) ) ;
+			lconf.LoggingRules.AddRange ( t.AsQueryable ( ).Select ( DefaultLoggingRule ) ) ;
 			LogManager.Configuration = lconf ;
-			LogManager.GetCurrentClassLogger (  ).Info ( "Logging configured" ) ;
+			LogManager.GetCurrentClassLogger ( ).Info ( "Logging configured" ) ;
 			return lconf ;
 		}
+
+		public static bool DebuggerTargetEnabled { get ; set ; } = false ;
 
 		private static LoggingRule DefaultLoggingRule ( Target target )
 		{
 			return new LoggingRule ( "*" , LogLevel.FromOrdinal ( 0 ) , target ) ;
 		}
 
-		private static void InternalLogging (  )
+		private static void InternalLogging ( )
 		{
 			InternalLogger.LogLevel = LogLevel.Debug ;
 
-			InternalLogger.LogFile           = "c:\\temp\\mylog.txt" ;
-			InternalLogger.LogToConsole      = true ;
-			InternalLogger.LogToConsoleError = true ;
-			InternalLogger.LogToTrace        = true ;
+			InternalLogger.LogFile = "c:\\temp\\mylog.txt" ;
+			//InternalLogger.LogToConsole      = true ;
+			//InternalLogger.LogToConsoleError = true ;
+			//InternalLogger.LogToTrace        = true ;
 
-			_stringWriter            = new StringWriter (  ) ;
+			_stringWriter            = new StringWriter ( ) ;
 			InternalLogger.LogWriter = _stringWriter ;
 		}
 
@@ -106,13 +109,13 @@ namespace WpfApp1.Logging
 			       } ;
 		}
 
-		public static void EnsureLoggingConfigured (  )
+		public static void EnsureLoggingConfigured ( )
 		{
 			//LogManager.ThrowConfigExceptions = true;
 			//LogManager.ThrowExceptions = true;
 			if ( LogManager.Configuration == null )
 			{
-				ConfigureLogging (  ) ;
+				ConfigureLogging ( ) ;
 			}
 
 			DumpPossibleConfig ( LogManager.Configuration ) ;
@@ -120,13 +123,13 @@ namespace WpfApp1.Logging
 
 		private static void DumpPossibleConfig ( LoggingConfiguration configuration )
 		{
-			var candidateConfigFilePaths = LogManager.LogFactory.GetCandidateConfigFilePaths (  ) ;
+			var candidateConfigFilePaths = LogManager.LogFactory.GetCandidateConfigFilePaths ( ) ;
 			foreach ( var q in candidateConfigFilePaths )
 			{
 				Debug ( $"{q}" ) ;
 			}
 
-			var fieldInfo = configuration.GetType (  )
+			var fieldInfo = configuration.GetType ( )
 			                             .GetField (
 			                                        "_originalFileName"
 			                                      , BindingFlags.NonPublic | BindingFlags.Instance

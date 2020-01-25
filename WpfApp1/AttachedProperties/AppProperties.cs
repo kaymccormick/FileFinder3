@@ -1,8 +1,11 @@
-﻿using System.ComponentModel ;
+﻿using System ;
+using System.ComponentModel ;
 using System.Windows ;
 using System.Windows.Data ;
 using Autofac ;
 using NLog ;
+using WpfApp1.Controls ;
+using WpfApp1.Xaml ;
 
 
 namespace WpfApp1.AttachedProperties
@@ -186,7 +189,6 @@ namespace WpfApp1.AttachedProperties
 			}
 		}
 
-		// ReSharper disable once MemberCanBePrivate.Global
 		public static readonly RoutedEvent LifetimeScopeChangedEvent =
 			EventManager.RegisterRoutedEvent (
 			                                  "LifetimeScopeChanged"
@@ -285,16 +287,6 @@ namespace WpfApp1.AttachedProperties
 			}
 		}
 
-		// [AttachedPropertyBrowsableForType(typeof(Window))]
-		/// <summary>
-		///     Helper for getting <see cref="MenuItemListCollectionViewProperty" />
-		///     from <paramref name="target" />.
-		/// </summary>
-		/// <param name="target">
-		///     <see cref="DependencyObject" /> to read
-		///     <see cref="MenuItemListCollectionViewProperty" /> from.
-		/// </param>
-		/// <returns>MenuItemListCollectionView property value.</returns>
 		[ AttachedPropertyBrowsableForType ( typeof ( Window ) ) ]
 		public static ILifetimeScope GetLifetimeScope ( DependencyObject target )
 		{
@@ -309,5 +301,254 @@ namespace WpfApp1.AttachedProperties
 
 			target.SetValue ( LifetimeScopeProperty , value ) ;
 		}
+
+		public static readonly RoutedEvent RenderedTypeChangedEvent =
+			EventManager.RegisterRoutedEvent (
+			                                  "RenderedTypeChanged"
+			                                , RoutingStrategy.Direct
+			                                , typeof ( RoutedPropertyChangedEventHandler <
+				                                  Type > )
+			                                , typeof ( AppProperties )
+			                                 ) ;
+
+		public static readonly DependencyProperty RenderedTypeProperty =
+			DependencyProperty.RegisterAttached (
+			                                     "RenderedType"
+			                                   , typeof ( Type )
+			                                   , typeof ( AppProperties )
+			                                   , new FrameworkPropertyMetadata (
+			                                                                    null
+			                                                                  , FrameworkPropertyMetadataOptions
+				                                                                   .Inherits
+			                                                                  , OnRenderedTypeChanged
+			                                                                  , CoerceRenderedTypeValue
+			                                                                  , false
+			                                                                  , UpdateSourceTrigger
+				                                                                   .PropertyChanged
+			                                                                   )
+			                                    ) ;
+
+		private static object CoerceRenderedTypeValue ( DependencyObject d , object basevalue )
+		{
+			return basevalue ;
+
+		}
+
+
+		private static void OnRenderedTypeChanged (
+			DependencyObject                   d
+		  , DependencyPropertyChangedEventArgs e
+		)
+		{
+			var evt = RenderedTypeChangedEvent ;
+			var ev = new RoutedPropertyChangedEventArgs < Type > (
+			                                                                ( Type ) e
+				                                                               .OldValue
+			                                                              , ( Type ) e
+				                                                               .NewValue
+			                                                              , evt
+			                                                               ) ;
+			if ( d is UIElement uie )
+			{
+#if TRACE_EVENTS
+				Logger.Trace ( $"Raising event on UIElement {evt.Name}" ) ;
+#endif
+				uie.RaiseEvent ( ev ) ;
+			}
+			else if ( d is ContentElement ce )
+			{
+#if TRACE_EVENTS
+				Logger.Trace ( $"Raising event on ContentElement {evt.Name}" ) ;
+#endif
+				ce.RaiseEvent ( ev ) ;
+			}
+			else
+			{
+#if TRACE_EVENTS
+				Logger.Trace ( $"Raising event on incompatible type {evt.Name}" ) ;
+#endif
+			}
+		}
+
+		public static void AddRenderedTypeChangedEventHandler (
+			DependencyObject   d
+		  , RoutedEventHandler handler
+		)
+		{
+			if ( d is UIElement uie )
+			{
+				uie.AddHandler ( RenderedTypeChangedEvent , handler ) ;
+			}
+			else if ( d is ContentElement ce )
+			{
+				ce.AddHandler ( RenderedTypeChangedEvent , handler ) ;
+			}
+		}
+
+		public static void RemoveRenderedTypeChangedEventHandler (
+			DependencyObject   d
+		  , RoutedEventHandler handler
+		)
+		{
+			if ( d is UIElement uie )
+			{
+				uie.AddHandler ( RenderedTypeChangedEvent , handler ) ;
+			}
+			else if ( d is ContentElement ce )
+			{
+				ce.AddHandler ( RenderedTypeChangedEvent , handler ) ;
+			}
+		}
+
+		[ AttachedPropertyBrowsableForType ( typeof ( Window ) ) ]
+		public static Type GetRenderedType ( DependencyObject target )
+		{
+			return ( Type ) target.GetValue ( RenderedTypeProperty ) ;
+		}
+
+		public static void SetRenderedType ( DependencyObject target , Type value )
+		{
+#if TRACE_EVENTS
+			Logger.Trace ( $"{nameof ( SetMenuItemListCollectionView )} {target}, {value}" ) ;
+#endif
+
+			target.SetValue ( RenderedTypeProperty , value ) ;
+		}
+
+
+		public static readonly RoutedEvent AssemblyListChangedEvent =
+			EventManager.RegisterRoutedEvent (
+			                                  "AssemblyListChanged"
+			                                , RoutingStrategy.Direct
+			                                , typeof ( RoutedPropertyChangedEventHandler <
+				                                  ICollectionView > )
+			                                , typeof ( AppProperties )
+			                                 ) ;
+
+		public static readonly DependencyProperty AssemblyListProperty =
+			DependencyProperty.RegisterAttached (
+			                                     "AssemblyList"
+			                                   , typeof ( AssemblyList )
+			                                   , typeof ( AppProperties )
+			                                   , new FrameworkPropertyMetadata (
+			                                                                    null
+			                                                                   ,
+			                                                                    FrameworkPropertyMetadataOptions.None
+			                                                                   ,
+			                                                                    OnAssemblyListChanged
+			                                                                  , CoerceAssemblyList
+			                                                                  , false
+			                                                                  , UpdateSourceTrigger
+				                                                                   .PropertyChanged
+			                                                                   )
+			                                    ) ;
+
+
+		private static object CoerceAssemblyList (
+			DependencyObject d
+		  , object           baseValue
+		)
+		{
+			return baseValue ;
+		}
+
+		private static void OnAssemblyListChanged (
+			DependencyObject                   d
+		  , DependencyPropertyChangedEventArgs e
+		)
+		{
+			var evt = AssemblyListChangedEvent ;
+			var ev = new RoutedPropertyChangedEventArgs < AssemblyList > (
+			                                                                 ( AssemblyList ) e
+				                                                                .OldValue
+			                                                               , ( AssemblyList ) e
+				                                                                .NewValue
+			                                                               , evt
+			                                                                ) ;
+			if ( d is UIElement uie )
+			{
+#if TRACE_EVENTS
+				Logger.Trace ( $"Raising event on UIElement {evt.Name}" ) ;
+#endif
+				uie.RaiseEvent ( ev ) ;
+			}
+			else if ( d is ContentElement ce )
+			{
+#if TRACE_EVENTS
+				Logger.Trace ( $"Raising event on ContentElement {evt.Name}" ) ;
+#endif
+				ce.RaiseEvent ( ev ) ;
+			}
+			else
+			{
+#if TRACE_EVENTS
+				Logger.Trace ( $"Raising event on incompatible type {evt.Name}" ) ;
+#endif
+			}
+		}
+
+		public static void AddOnAssemblyListChangedHandler (
+			DependencyObject   d
+		  , RoutedEventHandler handler
+		)
+		{
+			if ( d is UIElement uie )
+			{
+				uie.AddHandler ( AssemblyListChangedEvent , handler ) ;
+			}
+			else if ( d is ContentElement ce )
+			{
+				ce.AddHandler ( AssemblyListChangedEvent , handler ) ;
+			}
+		}
+
+		public static void RemoveOnAssemblyListChangedHandler (
+			DependencyObject   d
+		  , RoutedEventHandler handler
+		)
+		{
+			if ( d is UIElement uie )
+			{
+				uie.AddHandler ( AssemblyListChangedEvent , handler ) ;
+			}
+			else if ( d is ContentElement ce )
+			{
+				ce.AddHandler ( AssemblyListChangedEvent , handler ) ;
+			}
+		}
+
+		// [AttachedPropertyBrowsableForType(typeof(Window))]
+		/// <summary>
+		///     Helper for getting <see cref="AssemblyListProperty" />
+		///     from <paramref name="target" />.
+		/// </summary>
+		/// <param name="target">
+		///     <see cref="DependencyObject" /> to read
+		///     <see cref="AssemblyListProperty" /> from.
+		/// </param>
+		/// <returns>AssemblyList property value.</returns>
+		[ AttachedPropertyBrowsableForType ( typeof ( Window ) ) ]
+		[ AttachedPropertyBrowsableForType ( typeof ( AssemblyBrowser ) ) ]
+		// [AttachedProperty    BrowsableForType(typeof(ItemsControl))]
+		public static AssemblyList GetAssemblyList ( DependencyObject target )
+		{
+			Logger.Trace ( $"{nameof ( GetAssemblyList )} {target}" ) ;
+			return ( AssemblyList ) target.GetValue ( AssemblyListProperty ) ;
+		}
+
+		public static void SetAssemblyList (
+			DependencyObject target
+		  , AssemblyList  value
+		)
+		{
+#if TRACE_EVENTS
+			Logger.Trace ( $"{nameof ( SetAssemblyList )} {target}, {value}" ) ;
+#endif
+
+			target.SetValue ( AssemblyListProperty , value ) ;
+		}
+
+
+
 	}
 }

@@ -1,0 +1,39 @@
+﻿<UserControl Name="userControl" x:Class="WpfApp1.Controls.AssemblyBrowser"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WpfApp1.Controls"
+             xmlns:attachedProperties="clr-namespace:WpfApp1.AttachedProperties"
+             xmlns:commands="clr-namespace:WpfApp1.Commands"
+             xmlns:xaml="clr-namespace:WpfApp1.Xaml"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <CollectionViewSource Source="{Binding ElementName=userControl,Path=(attachedProperties:AppProperties.AssemblyList)}" x:Key="AssemblyCollectionView"/>
+    </UserControl.Resources>
+    <UserControl.CommandBindings>
+        <CommandBinding Command="commands:MyAppCommands.LoadAssemblyList"
+                        Executed="CommandBinding_OnExecuted"/>
+    </UserControl.CommandBindings>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <ToolBarTray>
+            <ToolBar Band="1" BandIndex="1">
+                <Button Content="Load" CommandParameter="{Binding ElementName=userControl,Path=(attachedProperties:AppProperties.AssemblyList)}"  Command="commands:MyAppCommands.LoadAssemblyList"/>
+            </ToolBar>
+        </ToolBarTray>
+        <ListBox Grid.Row="1" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  Name="assemblyListBox" ItemsSource="{Binding Path=AssemblyList}"/>
+        <ListBox Grid.Row="2" Grid.Column="0"  MinHeight="100" Name="typeBox" ItemsSource="{Binding Source={StaticResource AssemblyCollectionView}, Converter={StaticResource AssemblyConverter}}"/>
+        <local:TypeControl Grid.Row="3" Grid.Column="1">
+            <attachedProperties:AppProperties.RenderedType>
+                <Binding ElementName="typeBox" Path="SelectedItem"/>
+            </attachedProperties:AppProperties.RenderedType>
+        </local:TypeControl>
+    </Grid>
+</UserControl>

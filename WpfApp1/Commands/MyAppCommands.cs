@@ -23,8 +23,14 @@ namespace WpfApp1.Commands
                                );
 
         public static readonly RoutedUICommand QuitApplication =
-            new RoutedUICommand( "Quit Application", nameof( QuitApplication ),
-                                 typeof(MyAppCommands) );
+	        new RoutedUICommand( "Quit Application", nameof( QuitApplication ),
+	                             typeof(MyAppCommands) );
+        public static readonly RoutedUICommand VisitTypeCommand =
+	        new RoutedUICommand( "Visit Type", nameof( VisitTypeCommand ),
+	                             typeof(MyAppCommands) );
 
+        public static readonly RoutedUICommand LoadAssemblyList =
+	        new RoutedUICommand( "Load", nameof( LoadAssemblyList ),
+	                             typeof(MyAppCommands) );
     }
 }

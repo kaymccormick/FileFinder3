@@ -1,3 +1,6 @@
+
+
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,9 +12,9 @@ using WpfApp1.Interfaces;
 namespace WpfApp1.Menus
 {
     [LoggingEntityMetadata(typeof(MenuItemList))]
-    public class MenuItemList : ObservableCollection < IMenuItem >, IMenuItemList, ILoggingEntity
+    public class MenuItemList : ObservableCollection < IMenuItem >, IMenuItemList, ILoggingEntity, IHaveLogger
     {
-	    public ILogger Logger { get; }
+	    public ILogger Logger { get; set; }
 
 	    public MenuItemList(
             IEnumerable < ITopLevelMenu > topLevelMenus,

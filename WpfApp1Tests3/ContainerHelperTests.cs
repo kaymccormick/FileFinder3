@@ -54,6 +54,13 @@ namespace WpfApp1Tests3
 	        var mainWindow = c.Resolve < MainWindow >();
             Assert.NotNull(mainWindow);
         }
+
+        [ WpfFact ]
+        public void TestPushContext ( )
+        {
+	        var c = ContainerHelper.SetupContainer ( ) ;
+
+        }
     }
 
     

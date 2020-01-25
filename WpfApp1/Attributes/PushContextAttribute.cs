@@ -9,7 +9,7 @@ using WpfApp1.Util ;
 
 namespace WpfApp1.Attributes
 {
-    public class PushContextAttribute
+    public class PushContextAttribute : Attribute
 
     {
         public object Context { get; }

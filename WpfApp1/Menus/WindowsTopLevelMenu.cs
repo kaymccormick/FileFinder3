@@ -47,7 +47,16 @@ namespace WpfApp1.Menus
         )
         {
             var m = _xMenuItemCreator();
-            m.Header = (string)window.Metadata["WindowTitle"];
+            if ( window.Metadata.ContainsKey ( "WindowTitle" ) == false )
+            {
+                Logger.Warn ( $"No window title for window {window}" ) ;
+                m.Header = window.Value.ToString ( ) ;
+            }
+            else
+            {
+	            m.Header = ( string ) window.Metadata[ "WindowTitle" ] ;
+            }
+
             m.Command          = MyAppCommands.OpenWindow;
             m.CommandParameter = window;
             return m;

@@ -97,9 +97,11 @@
     <Compile Include="InfoContextTests.cs" />
     <Compile Include="LoggerImpl.cs" />
     <Compile Include="MenuHelperTests.cs" />
+    <Compile Include="MyService.cs" />
     <Compile Include="ProvideValueTarget.cs" />
     <Compile Include="Resources.cs" />
     <Compile Include="ServiceProviderProxy.cs" />
+    <Compile Include="TestIDGeneratorModule.cs" />
     <Compile Include="TestResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -119,6 +121,10 @@
     <None Include="NLog.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\new\Sentinel\Sentinel.NLog\Sentinel.NLog.csproj">
+      <Project>{eabc1023-a456-44a7-9d8c-fcd0f6323c58}</Project>
+      <Name>Sentinel.NLog</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\NLog\src\NLog\NLog.csproj">
       <Project>{a0bff0db-ed9a-4639-ae86-8e709a1efc66}</Project>
       <Name>NLog</Name>

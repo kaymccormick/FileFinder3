@@ -10,9 +10,10 @@
              xmlns:attachedProperties="clr-namespace:WpfApp1.AttachedProperties"
              xmlns:myxaml="clr-namespace:WpfApp1.Xaml"
              xmlns:logging="clr-namespace:WpfApp1.Logging"
+             Exit="App_OnExit"
              Startup="ApplicationStartup">
     <Application.Resources>
-
+        <myxaml:AssemblyConverter x:Key="AssemblyConverter"/>
         <logging:AppLoggerContainer x:Key="AppLoggerContainer" logging:AppLogger="{myxaml:AppLogger poo}"/>
         <menus:MenuMenuItemTemplateSelector x:Key="MenuMenuItemTemplateSelector" AppLogger="{myxaml:AppLogger}" />
         <menus:MenuItemContainerStyleSelector x:Key="MenuItemContainerStyleSelector"  />
