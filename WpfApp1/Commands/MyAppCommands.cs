@@ -32,5 +32,8 @@ namespace WpfApp1.Commands
         public static readonly RoutedUICommand LoadAssemblyList =
 	        new RoutedUICommand( "Load", nameof( LoadAssemblyList ),
 	                             typeof(MyAppCommands) );
+        public static readonly RoutedUICommand Restart =
+	        new RoutedUICommand( "Restart", nameof( Restart),
+	                             typeof(MyAppCommands) );
     }
 }

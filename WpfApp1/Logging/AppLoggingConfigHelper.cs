@@ -1,5 +1,6 @@
 using System ;
 using System.Collections.Generic ;
+using System.Diagnostics ;
 using System.IO ;
 using System.Linq ;
 using System.Linq.Dynamic ;
@@ -84,7 +85,10 @@ namespace WpfApp1.Logging
 		{
 			InternalLogger.LogLevel = LogLevel.Debug ;
 
-			InternalLogger.LogFile = "c:\\temp\\mylog.txt" ;
+			var id = Process.GetCurrentProcess ( ).Id ;
+			string LogFile = $@"c:\temp\nlog-internal-{id}.txt" ;
+			InternalLogger.LogFile = LogFile ;
+			//"c:\\temp\\nlog-internal-${processid}.txt" ;
 			//InternalLogger.LogToConsole      = true ;
 			//InternalLogger.LogToConsoleError = true ;
 			//InternalLogger.LogToTrace        = true ;

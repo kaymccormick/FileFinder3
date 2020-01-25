@@ -30,7 +30,6 @@ namespace WpfApp1.Logging
 				}
 			}
 
-			Debug.WriteLine ( "hello" ) ;
 			invocation.Proceed();
 
 		}

@@ -1,16 +1,21 @@
 ﻿using System ;
+using System.Collections ;
 using System.Collections.Generic ;
 using System.Collections.ObjectModel ;
 using System.ComponentModel ;
 using System.Linq ;
 using System.Reactive.Concurrency ;
 using System.Reactive.Linq ;
+using System.Threading ;
 using System.Windows ;
 using System.Windows.Controls ;
 using System.Windows.Input ;
+using System.Windows.Markup ;
 using System.Windows.Threading ;
 using DynamicData.Annotations ;
 using NLog ;
+using NLog.Fluent ;
+using Vanara.Extensions.Reflection ;
 using WpfApp1.Application ;
 using WpfApp1.AttachedProperties ;
 using WpfApp1.Attributes ;
@@ -64,11 +69,94 @@ namespace WpfApp1.Windows
 	[ WindowMetadata ( "Main Window" ) ]
 	public partial class MainWindow : Window , IHaveLogger , IHaveAppLogger
 	{
+		/// <summary>Adds a specified object as the child of a <see cref="T:System.Windows.Controls.ContentControl" />. </summary>
+		/// <param name="value">The object to add.</param>
+		protected override void AddChild ( object value )
+		{
+			Logger.Debug ( $"{nameof ( AddChild )}:{value} {value.GetType ( )}" ) ;
+			base.AddChild ( value ) ;
+		}
+
+		public void RecurseDiscover ( object ui )
+		{
+			if(ui == null)
+			{
+				Logger.Warn ( $"null" ) ;
+				return ;
+			}
+
+			if(ui.GetType() == typeof(string))
+			{
+			//	Logger.Warn ( $"string is {(ui as string).Substring(0, 32)}" ) ;
+				return ;
+			}
+			UIElement uie = ui as UIElement;
+			FrameworkElement fe = ui as FrameworkElement	;
+			string desc = null ;
+			var qqq = Attribute.GetCustomAttribute (
+			                                        ui.GetType ( )
+			                                      , typeof ( RuntimeNamePropertyAttribute )
+			                                       ) ;
+			if ( qqq != null )
+			{
+				desc = ui.GetPropertyValue < string > (
+				                                       ( qqq as RuntimeNamePropertyAttribute ).Name
+				                                      ) ;
+			}
+			else
+			{
+				if ( fe     == null
+				     && uie == null )
+				{
+					return ;
+				}
+				desc = fe != null ? fe.Name : uie.Uid ;
+			}
+
+			var qq = Attribute.GetCustomAttribute (
+			                                       ui.GetType ( )
+			                                     , typeof ( ContentPropertyAttribute )
+			                                      ) ;
+			Logger.Error( $"child {desc} ({ui.GetType()})" ) ;
+			if(qq != null)
+			{
+				var content = ui.GetPropertyValue<object> ( ( qq as ContentPropertyAttribute ).Name ) ;
+				if ( content is IEnumerable && content.GetType (  ) != typeof(string))
+				{
+					foreach ( var child in content as IEnumerable)
+					{
+
+						RecurseDiscover ( child ) ;
+					}
+				}
+				else
+				{
+					RecurseDiscover ( content ) ;
+				}
+
+				return ;
+
+			}
+
+			
+			Control c = ui as Control ;
+
+			if ( ui is ItemsControl ic )
+			{
+				foreach(var item in ic.Items)
+				{
+					RecurseDiscover(item);
+				}
+			} else if ( ui is ContentControl cc )
+			{
+				RecurseDiscover	(cc.Content);
+			}
+		}
 		public MainWindow ( )
 		{
 			InitializeComponent ( ) ;
 
-			
+			RecurseDiscover(Content ) ;
 			var target = MyCacheTarget.GetInstance ( 1000 ) ;
 			target.Cache.SubscribeOn ( Scheduler.Default )
 			      .Buffer ( TimeSpan.FromMilliseconds ( 100 ) )
@@ -143,7 +231,7 @@ namespace WpfApp1.Windows
 
 		public AppLogger AppLogger { get ; set ; }
 
-		public ILogger Logger { get ; set ; }
+		public ILogger Logger { get ; set ; } = LogManager.GetCurrentClassLogger ( ) ;
 
 		private void OnMenuItemListCollectionViewChanged (
 			object                                             sender
@@ -185,6 +273,11 @@ namespace WpfApp1.Windows
 		private void CommandBinding_OnPreviewExecuted ( object sender , ExecutedRoutedEventArgs e )
 		{
 			Logger.Debug ( "Preview can execute" ) ;
+		}
+
+		private void CommandBinding_OnExecuted ( object sender , ExecutedRoutedEventArgs e )
+		{
+			//Vanara.Windows.Forms.;
 		}
 	}
 }

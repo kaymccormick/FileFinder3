@@ -421,7 +421,7 @@ namespace WpfApp1.AttachedProperties
 			                                  "AssemblyListChanged"
 			                                , RoutingStrategy.Direct
 			                                , typeof ( RoutedPropertyChangedEventHandler <
-				                                  ICollectionView > )
+				                                  AssemblyList > )
 			                                , typeof ( AppProperties )
 			                                 ) ;
 
