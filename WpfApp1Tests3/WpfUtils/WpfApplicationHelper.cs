@@ -29,7 +29,7 @@ namespace WpfApp1Tests3.WpfUtils
 					( ) ;
 				
 				Application app1 = application ;
-				ret = app1 ;
+					ret = app1 ;
 			}
 			else
 			{

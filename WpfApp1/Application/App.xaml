@@ -14,8 +14,10 @@
              xmlns:autofaccore="clr-namespace:Autofac.Core;assembly=Autofac"
              xmlns:controls="clr-namespace:WpfApp1.Controls"
              xmlns:wpfapp1="clr-namespace:WpfApp1"
+             xmlns:local="clr-namespace:WpfApp1.Windows"
              Exit="App_OnExit">
     <Application.Resources>
+        <myxaml:RegistrationConverter x:Key="DesignRegistrationConverter"/>
         <myxaml:InstanceRegistrationConverter x:Key="InstanceRegistrationConverter"/>
         <myxaml:AssemblyConverter x:Key="AssemblyConverter"/>
         <logging:AppLoggerContainer x:Key="AppLoggerContainer" logging:AppLogger="{myxaml:AppLogger poo}"/>
@@ -84,5 +86,66 @@
         <ObjectDataProvider x:Key="designInstanceList" ObjectInstance="{x:Static wpfapp1:DesignData.InstanceList}"/>
         <wpfapp1:DesignData x:Key="designData"/>
         <Binding x:Key="lifetimescope" Source="{StaticResource designData}" Path="LifetimeScope"/>
+        
+            <myxaml:SmartTypeConverter x:Key="SmartTypeConverter" />
+            <CollectionViewSource x:Key="LogItems" Source="{Binding LogEvents}" />
+            <logging:TargetConverter x:Key="TargetConverter" />
+            <logging:AppLoggerContainer x:Key="testAppLoggerContainer" logging:AppLogger="{myxaml:AppLogger Test AppLoggerContainer}" />
+            <Style TargetType="{x:Type local:MainWindow}" x:Key="CoolStyle1">
+                <Setter Property="FontWeight" Value="Medium" />
+                <Setter Property="Opacity" Value="0.9" />
+                <Setter Property="WindowStyle" Value="None" />
+                <Setter Property="AllowsTransparency" Value="True" />
+                <Setter Property="Background" Value="{x:Null}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type TypeName=local:MainWindow}">
+                            <Border BorderThickness="5" BorderBrush="Chartreuse" Padding="10">
+                                <DockPanel>
+                                    <DockPanel.LayoutTransform>
+                                        <ScaleTransform ScaleX="1.7" ScaleY="1.7" />
+                                    </DockPanel.LayoutTransform>
+                                    <Menu DockPanel.Dock="Top" />
+                                    <ContentPresenter DockPanel.Dock="Bottom" />
+                                </DockPanel>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style TargetType="{x:Type local:MainWindow}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type local:MainWindow}">
+                            <DockPanel>
+                                <DockPanel.LayoutTransform>
+                                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                                </DockPanel.LayoutTransform>
+                                <Menu DockPanel.Dock="Top" Name="appMenu">
+                                    <MenuItem Header="File">
+                                        <MenuItem Header="Open Assembly"
+                                              Command="ApplicationCommands.Open" />
+                                        <MenuItem Header="Restart"
+                                              Command="commands:MyAppCommands.Restart" />
+                                    </MenuItem>
+                                    <MenuItem Header="Debug">
+                                        <MenuItem Header="Dump" Command="commands:MyAppCommands.DumpDebug" />
+                                    </MenuItem>
+                                </Menu>
+                                <ContentPresenter DockPanel.Dock="Bottom" />
+                            </DockPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style TargetType="TabControl" x:Key="Red1">
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect BlurRadius="10" Color="#FFC52C2C" />
+                    </Setter.Value>
+                </Setter>
+
+            </Style>
+
     </Application.Resources>
 </Application>

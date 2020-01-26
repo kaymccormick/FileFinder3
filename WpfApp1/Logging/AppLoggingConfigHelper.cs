@@ -49,6 +49,7 @@ namespace WpfApp1.Logging
 			SetupNetworkTarget ( chainsawTarget , "udp://192.168.10.1:4445" ) ;
 			t.Add ( chainsawTarget ) ;
 			#endregion
+			t.Add ( JsonFileTarget ( ) ) ;
 			var byType = new Dictionary < Type , int > ( ) ;
 			var byName = new Dictionary < string , Target > ( ) ;
 			foreach ( var target in t )
@@ -113,7 +114,20 @@ namespace WpfApp1.Logging
 			       } ;
 		}
 
-		public static void EnsureLoggingConfigured ( )
+		public static FileTarget JsonFileTarget ( )
+		{
+			FileTarget f  = new FileTarget ( "OUT.JSON" ) ;
+			f.Name = "json_out" ;
+			f.FileName = Layout.FromString ( "out.json" ) ;
+			f.Layout = new JsonLayout ( )
+			           {
+				           IncludeAllProperties = true
+				         
+			           } ;
+			return f ;
+		}
+		
+	public static void EnsureLoggingConfigured ( )
 		{
 			//LogManager.ThrowConfigExceptions = true;
 			//LogManager.ThrowExceptions = true;

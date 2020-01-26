@@ -21,35 +21,39 @@ namespace WpfApp1.Util
 {
 	public static class ContainerHelper
 	{
-		public static ProxyGenerator  ProxyGenerator= new ProxyGenerator ( ) ;
+		public static ProxyGenerator ProxyGenerator = new ProxyGenerator ( ) ;
+
 		private static readonly Logger Logger =
 			LogManager.GetLogger ( "Autofac container builder helper" ) ;
 
-		public static ILifetimeScope SetupContainer (out IContainer container )
+		public static ILifetimeScope SetupContainer ( out IContainer container )
 		{
 			AppLoggingConfigHelper.EnsureLoggingConfigured ( ) ;
 			var proxyGenerator = ProxyGenerator ;
-			var builderInterceptor = new BuilderInterceptor(proxyGenerator) ;
-			var proxy = proxyGenerator.CreateClassProxy < ContainerBuilder > (builderInterceptor ) ;
+			var builderInterceptor = new BuilderInterceptor ( proxyGenerator ) ;
+			var proxy =
+				proxyGenerator.CreateClassProxy < ContainerBuilder > ( builderInterceptor ) ;
 
-			var type = typeof(ContainerBuilder).Assembly.GetType ( "Autofac.Core.Registration.ModuleRegistrar" ) ;
+			var proxyGenerationOptions = new ProxyGenerationOptions ( new Hook ( ) ) ;
+			
 
-			var opt = new ProxyGenerationOptions() ;
-			var classProxy = proxyGenerator.CreateClassProxy(type, opt, new BuilderInterceptor(proxyGenerator) );
-			var builder = proxy ;//new ContainerBuilder ( ) ;
+			// var type = typeof(ContainerBuilder).Assembly.GetType ( "Autofac.Core.Registration.ModuleRegistrar" ) ;
+			// var opt = new ProxyGenerationOptions() ;
+			// var classProxy = proxyGenerator.CreateClassProxy(type, opt, new BuilderInterceptor(proxyGenerator) ;
+			var builder = proxy ; //new ContainerBuilder ( ) ;
 			#region Autofac Modules
 			builder.RegisterModule < AttributedMetadataModule > ( ) ;
 			builder.RegisterModule < MenuModule > ( ) ;
 			builder.RegisterModule < IdGeneratorModule > ( ) ;
 			#endregion
 
-			int dumpIteration = 0 ;
+			var dumpIteration = 0 ;
 			Action dump = ( ) => {
 				dumpIteration += 1 ;
 				builderInterceptor.Invocations.ForEach (
 				                                        invocation
 					                                        => Logger.Debug (
-					                                                         $"${dumpIteration}]: {invocation.Method.Name} ({String.Join ( ", " , invocation.Arguments )}) => {invocation.ReturnValue}"
+					                                                         $"${dumpIteration}]: {invocation.Method.Name} ({string.Join ( ", " , invocation.Arguments )}) => {invocation.OriginalReturnValue}"
 					                                                        )
 				                                       ) ;
 			} ;
@@ -68,31 +72,32 @@ namespace WpfApp1.Util
 
 			builder.RegisterAssemblyTypes ( executingAssembly )
 			       .Where (
-			               predicate : delegate ( Type t ) {
-				               var isAssignableFrom = typeof ( Window ).IsAssignableFrom ( c : t ) ;
-				               Logger.Trace ( message : $"{t} is assignable from {isAssignableFrom}" ) ;
+			               delegate ( Type t ) {
+				               var isAssignableFrom = typeof ( Window ).IsAssignableFrom ( t ) ;
+				               Logger.Trace ( $"{t} is assignable from {isAssignableFrom}" ) ;
 				               return isAssignableFrom ;
 			               }
 			              )
 			       .AsSelf ( )
 			       .As < Window > ( )
 			       .OnActivating (
-								  
-			                      handler : args => {
+			                      args => {
 				                      var argsInstance = args.Instance ;
 
-				                      var haveLogger = ( argsInstance as IHaveLogger ) ;
-									  if(haveLogger != null)
-				                      haveLogger.Logger =
-					                      args.Context.Resolve < ILogger > (
-					                                                        new TypedParameter (
-					                                                                            type : typeof
-					                                                                            ( Type
-					                                                                            )
-					                                                                          , value : argsInstance
-					                                                                                   .GetType ( )
-					                                                                           )
-					                                                       ) ;
+				                      var haveLogger = argsInstance as IHaveLogger ;
+				                      if ( haveLogger != null )
+				                      {
+					                      haveLogger.Logger =
+						                      args.Context.Resolve < ILogger > (
+						                                                        new TypedParameter (
+						                                                                            typeof
+						                                                                            ( Type
+						                                                                            )
+						                                                                          , argsInstance
+							                                                                           .GetType ( )
+						                                                                           )
+						                                                       ) ;
+				                      }
 			                      }
 			                     ) ;
 
@@ -117,7 +122,7 @@ namespace WpfApp1.Util
 			// builder.RegisterType < LogFactory > ( ).AsSelf ( ) ;
 
 			builder.Register (
-			                  @delegate : ( c , p ) => {
+			                  ( c , p ) => {
 				                  var loggerName = "unset" ;
 				                  try
 				                  {
@@ -125,29 +130,29 @@ namespace WpfApp1.Util
 				                  }
 				                  catch ( Exception ex )
 				                  {
-					                  Console.WriteLine ( value : ex.ToString ( ) ) ;
+					                  Console.WriteLine ( ex.ToString ( ) ) ;
 				                  }
 
 				                  var tracker = c.Resolve < ILoggerTracker > ( ) ;
-				                  Logger.Trace( message : $"creating logger loggerName = {loggerName}" ) ;
-				                  var logger = LogManager.GetLogger ( name : loggerName ) ;
-				                  tracker.TrackLogger ( loggerName : loggerName , logger : logger ) ;
+				                  Logger.Trace ( $"creating logger loggerName = {loggerName}" ) ;
+				                  var logger = LogManager.GetLogger ( loggerName ) ;
+				                  tracker.TrackLogger ( loggerName , logger ) ;
 				                  return logger ;
 			                  }
 			                 )
 			       .As < ILogger > ( ) ;
 			#endregion
 
-			
+
 			#region Callbacks
-			builder.RegisterBuildCallback ( buildCallback : c => Logger.Info ( message : "Container built." ) ) ;
+			builder.RegisterBuildCallback ( c => Logger.Info ( "Container built." ) ) ;
 			builder.RegisterCallback (
-			                          configurationCallback : registry => {
+			                          registry => {
 				                          registry.Registered += ( sender , args ) => {
 					                          Logger.Trace (
-					                                        message : "Registered "
-					                                                  + args.ComponentRegistration.Activator
-					                                                        .LimitType
+					                                        "Registered "
+					                                        + args.ComponentRegistration.Activator
+					                                              .LimitType
 					                                       ) ;
 					                          args.ComponentRegistration.Activated += (
 						                          o
@@ -165,19 +170,27 @@ namespace WpfApp1.Util
 			#region Container Build
 			var setupContainer = builder.Build ( ) ;
 			container = setupContainer ;
-			setupContainer.ChildLifetimeScopeBeginning += SetupContainerOnChildLifetimeScopeBeginning;
+			setupContainer.ChildLifetimeScopeBeginning +=
+				SetupContainerOnChildLifetimeScopeBeginning ;
 			#endregion
-			setupContainer.CurrentScopeEnding += SetupContainerOnCurrentScopeEnding;
+			setupContainer.CurrentScopeEnding += SetupContainerOnCurrentScopeEnding ;
 
 
-			#region Post-container build reporting
-			return setupContainer.BeginLifetimeScope ( "initial scope");
-			   // ,configurationAction : containerBuilder
-				                                           // => ConfigurationAction (
-				                                                                   // containerBuilder
-				                                                                  // )
-			                                         // ) ;
+			// #region Post-container build reporting
+			return setupContainer.BeginLifetimeScope ( "initial scope" ) ;
+			// ,configurationAction : containerBuilder
+			// => ConfigurationAction (
+			// containerBuilder
+			// )
+			// ) ;
 			//return CreateChildLifetimeContext ( setupContainer ) ;
+		}
+
+		private static void 
+				
+			Target ( IComponentRegistry obj )
+		{
+			throw new NotImplementedException ( ) ;
 		}
 
 		private static void SetupContainerOnCurrentScopeEnding (
@@ -200,28 +213,30 @@ namespace WpfApp1.Util
 
 		private static string DesribeComponent ( IComponentRegistration eventArgsComponent )
 		{
-			var debugDesc = "no description";
+			var debugDesc = "no description" ;
 			var key = "DebugDescription" ;
 			if ( eventArgsComponent.Metadata.ContainsKey ( key ) )
 			{
 				debugDesc = eventArgsComponent.Metadata[ key ].ToString ( ) ;
 			}
-			return
-				$" CompReg w({eventArgsComponent.Id.ShortenGuid()}, {debugDesc})" ;
+
+			return $" CompReg w({eventArgsComponent.Id.ShortenGuid ( )}, {debugDesc})" ;
 		}
+#if DOIT
 
 		private static DeferredCallback ConfigurationAction ( ContainerBuilder obj )
 		{
-			return obj.RegisterCallback ( CreateChildLifetimeContext ) ;
+			return ;
+			// return obj.RegisterCallback ( CreateChildLifetimeContext ) ;
 		}
-
-		private static void CreateChildLifetimeContext ( IComponentRegistry componentRegistry )
+			private static void CreateChildLifetimeContext ( IComponentRegistryBuilder componentRegistryBuilder )
 		{
-			var setupContainer =  componentRegistry ;
-			#if USEHANDLER
+			// var setupContainer = componentRegistry ;
+#if USEHANDLER
 			setupContainer.ResolveOperationBeginning += ( sender , args ) => {
 				args.ResolveOperation.InstanceLookupBeginning += ( o , eventArgs ) => {
-					eventArgs.InstanceLookup.InstanceLookupEnding += ( sender1 , endingEventArgs ) => {
+					eventArgs.InstanceLookup.InstanceLookupEnding +=
+ ( sender1 , endingEventArgs ) => {
 						if ( endingEventArgs.NewInstanceActivated )
 						{
 							Logger.Debug ( "New instance activated" ) ;
@@ -262,7 +277,9 @@ namespace WpfApp1.Util
 						                               Logger.Debug ( "got " + r ) ;
 						                               if ( r is IHaveLogger haveLogger )
 						                               {
-							                               Logger.Debug ( "has IHaveLogger interface." ) ;
+							                               Logger.Debug (
+							                                             "has IHaveLogger interface."
+							                                            ) ;
 							                               if ( haveLogger.Logger == null )
 							                               {
 								                               Logger.Debug (
@@ -317,7 +334,8 @@ namespace WpfApp1.Util
 				{
 					if ( ! ( d is MyActivator ) )
 					{
-						if ( componentRegistryRegistration.Ownership == InstanceOwnership.ExternallyOwned )
+						if ( componentRegistryRegistration.Ownership
+						     == InstanceOwnership.ExternallyOwned )
 						{
 							Logger.Debug ( "Externally owned component registration." ) ;
 						}
@@ -337,22 +355,17 @@ namespace WpfApp1.Util
 							                              ) ;
 
 
-							IComponentRegistration componentRegistration = new ComponentRegistration (
-							                                                                          Guid
-								                                                                         .NewGuid ( )
-							                                                                        , x
-							                                                                        , componentRegistryRegistration
-								                                                                         .Lifetime
-							                                                                        , componentRegistryRegistration
-								                                                                         .Sharing
-							                                                                        , componentRegistryRegistration
-								                                                                         .Ownership
-							                                                                        , componentRegistryRegistration
-								                                                                         .Services
-							                                                                        , componentRegistryRegistration
-								                                                                         .Metadata
-							                                                                        , componentRegistryRegistration
-							                                                                         ) ;
+							IComponentRegistration componentRegistration =
+								new ComponentRegistration (
+								                           Guid.NewGuid ( )
+								                         , x
+								                         , componentRegistryRegistration.Lifetime
+								                         , componentRegistryRegistration.Sharing
+								                         , componentRegistryRegistration.Ownership
+								                         , componentRegistryRegistration.Services
+								                         , componentRegistryRegistration.Metadata
+								                         , componentRegistryRegistration
+								                          ) ;
 
 
 							Logger.Debug ( "wrapping delegate activator" ) ;
@@ -375,7 +388,7 @@ namespace WpfApp1.Util
 					Logger.Debug ( $"Activated {args.Instance}" ) ;
 				} ;
 			}
-			#endregion
+		
 		}
 
 		private static bool IsMyRegistration (
@@ -400,7 +413,7 @@ namespace WpfApp1.Util
 
 			return false ;
 		}
-
+		#endif
 		private static void Dump (
 			IComponentRegistration componentRegistryRegistration
 		  , HashSet < object >     seenObjects
@@ -420,11 +433,10 @@ namespace WpfApp1.Util
 			               "Activator type = " + componentRegistryRegistration.Activator.GetType ( )
 			              ) ;
 
-			
-			
 
-	componentRegistryRegistration.Activator.GetType (
-			              ) ;
+
+
+			componentRegistryRegistration.Activator.GetType ( ) ;
 
 			_logger.Debug ( "LimitType = " + activatorLimitType ) ;
 
@@ -449,6 +461,39 @@ namespace WpfApp1.Util
 			{
 				Dump ( componentRegistryRegistration.Target , seenObjects ) ;
 			}
+		}
+	}
+
+	public class Hook : IProxyGenerationHook
+	{
+		/// <summary>
+		///   Invoked by the generation process to notify that the whole process has completed.
+		/// </summary>
+		public void MethodsInspected ( ) { throw new NotImplementedException ( ) ; }
+
+		/// <summary>
+		///   Invoked by the generation process to notify that a member was not marked as virtual.
+		/// </summary>
+		/// <param name="type">The type which declares the non-virtual member.</param>
+		/// <param name="memberInfo">The non-virtual member.</param>
+		/// <remarks>
+		///   This method gives an opportunity to inspect any non-proxyable member of a type that has
+		///   been requested to be proxied, and if appropriate - throw an exception to notify the caller.
+		/// </remarks>
+		public void NonProxyableMemberNotification ( Type type , MemberInfo memberInfo )
+		{
+			throw new NotImplementedException ( ) ;
+		}
+
+		/// <summary>
+		///   Invoked by the generation process to determine if the specified method should be proxied.
+		/// </summary>
+		/// <param name="type">The type which declares the given method.</param>
+		/// <param name="methodInfo">The method to inspect.</param>
+		/// <returns>True if the given method should be proxied; false otherwise.</returns>
+		public bool ShouldInterceptMethod ( Type type , MethodInfo methodInfo )
+		{
+			throw new NotImplementedException ( ) ;
 		}
 	}
 }

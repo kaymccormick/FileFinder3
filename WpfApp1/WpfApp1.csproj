@@ -118,12 +118,16 @@
     <Compile Include="Controls\AssemblyBrowser.xaml.cs">
       <DependentUpon>AssemblyBrowser.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Container.xaml.cs">
+      <DependentUpon>Container.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\InstanceInfoControl.xaml.cs">
       <DependentUpon>InstanceInfoControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\TypeControl.xaml.cs">
       <DependentUpon>TypeControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\typedService.cs" />
     <Compile Include="Controls\UserControl1.xaml.cs">
       <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
@@ -169,6 +173,12 @@
     </Compile>
     <Compile Include="Menus\WindowsTopLevelMenu.cs" />
     <Compile Include="Menus\XMenuItem.cs" />
+    <Compile Include="Windows\ComponentRegistration.cs" />
+    <Compile Include="Windows\ComponentRegistry.cs" />
+    <Compile Include="Windows\ContainerWindow.xaml.cs">
+      <DependentUpon>ContainerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\LifetimeScope.cs" />
     <Compile Include="Windows\LogEventInfoCollection.cs" />
     <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -194,8 +204,13 @@
     <Compile Include="Xaml\InstanceRegistrationConverter.cs" />
     <Compile Include="Xaml\LoggerInstanceConverter.cs" />
     <Compile Include="Xaml\RegistrationConverter.cs" />
+    <Compile Include="Xaml\RegistrationConverter2.cs" />
     <Compile Include="Xaml\SmartTypeConverter.cs" />
     <Page Include="Controls\AssemblyBrowser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Container.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -224,6 +239,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Controls\SystemParametersControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ContainerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -265,6 +284,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="ClassDiagram2.cd" />
     <None Include="NLog.config" />

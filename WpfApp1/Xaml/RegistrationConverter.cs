@@ -23,6 +23,10 @@ namespace WpfApp1.Xaml
 		private readonly ILifetimeScope    _appContainer ;
 		private readonly IObjectIdProvider _provider ;
 
+		/// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
+		public RegistrationConverter ( ) {
+		}
+
 		public RegistrationConverter ( ILifetimeScope appContainer , IObjectIdProvider provider )
 		{
 			_appContainer = appContainer ;
