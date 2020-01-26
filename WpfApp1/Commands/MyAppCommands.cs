@@ -45,6 +45,9 @@ namespace WpfApp1.Commands
 
         public static readonly RoutedUICommand Load =
 	        new RoutedUICommand ( "Load" , nameof ( Load ) , typeof(MyAppCommands)) ;
+
+        public static readonly RoutedUICommand Metadata =
+	        new RoutedUICommand ( "Metadata" , nameof ( Metadata ) , typeof(MyAppCommands)) ;
         
 
     }

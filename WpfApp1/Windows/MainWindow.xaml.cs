@@ -23,6 +23,8 @@ using AppShared.Interfaces ;
 using Autofac ;
 using Autofac.Core ;
 using Autofac.Core.Lifetime ;
+using Autofac.Features.Metadata ;
+using Autofac.Features.OwnedInstances ;
 using NLog ;
 using NLog.Fluent ;
 using Sentinel.NLog ;
@@ -433,6 +435,19 @@ namespace WpfApp1.Windows
 			//Lazy<object> l = e.Parameter as Lazy < object > ;
 			//var v = l.Value ;
 			Logger.Debug ( "loaded " + v ) ;
+		}
+
+		private void Metadata ( object sender , ExecutedRoutedEventArgs e )
+		{
+
+			var v = e.Parameter.GetPropertyValue<IDictionary<string, object>> ( "Metadata" ) ;
+			foreach ( var keyValuePair in v )
+			{
+				Logger.Debug ( $"{keyValuePair.Key} = {keyValuePair.Value}" ) ;
+			}
+			//Lazy<object> l = e.Parameter as Lazy < object > ;
+			//var v = l.Value ;
+			
 		}
 	}
 }

@@ -116,6 +116,7 @@
                         </DockPanel.Resources>
                         <DockPanel.CommandBindings>
                             <CommandBinding Command="commands:MyAppCommands.Load" Executed="LoadInstance"/>
+                            <CommandBinding Command="commands:MyAppCommands.Metadata" Executed="Metadata"/>
                         </DockPanel.CommandBindings>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding}" />

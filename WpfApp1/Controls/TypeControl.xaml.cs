@@ -107,21 +107,27 @@ namespace WpfApp1.Controls
 			}
 		}
 
-		private object ToopTipContent ( Type myType )
+		private object ToopTipContent ( Type myType , StackPanel pp = null)
 		{
 			CSharpCodeProvider provider = new CSharpCodeProvider();
 			var codeTypeReference = new CodeTypeReference(myType) ;
 			var q = codeTypeReference;
-			return new TextBlock ( )
-			       {
-				       Text   = provider.GetTypeOutput ( q ) , FontSize = 20
-				     , Margin = new Thickness ( 15 )
-				      ,
-			       } ;
-
-			
+			var toopTipContent = new TextBlock ( )
+			                     {
+				                     Text   = provider.GetTypeOutput ( q ) , FontSize = 20
+				                   //, Margin = new Thickness ( 15 )
+				                    ,
+			                     } ;
+			if ( pp == null )
+			{
+				pp = new StackPanel ( ) { Orientation = Orientation.Vertical } ;
+			}
+			pp.Children.Insert ( 0 , toopTipContent ) ;
+			var @base = myType.BaseType ;
+			if(@base != null)
+				ToopTipContent ( @base , pp ) ;
+			return pp ;
 		}
-
 
 		private string NameForType ( Type myType )
 		{

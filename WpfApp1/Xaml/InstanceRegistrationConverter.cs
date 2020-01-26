@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls ;
 using System.Windows.Data ;
 using Autofac ;
+using Autofac.Features.Metadata ;
 using WpfApp1.Commands ;
 
 namespace WpfApp1.Xaml
@@ -27,9 +28,9 @@ namespace WpfApp1.Xaml
 		)
 		{
 			InstanceRegistration x = value as InstanceRegistration;
+			var r = new List < object > ( ) ;
 			if ( x.Type.IsGenericType && x.Type.GetGenericTypeDefinition() == typeof(Lazy <object>).GetGenericTypeDefinition()) 
 			{
-				var r = new List < object > ( ) ;
 				r.Add (
 				       new Button ( )
 				       {
@@ -38,8 +39,23 @@ namespace WpfApp1.Xaml
 					     , CommandParameter = x.Instance
 				       }
 				      ) ;
-				return r ;
 			}
+
+			if ( x.Type.IsGenericType
+			     && x.Type.GetGenericTypeDefinition ( )
+			     == typeof ( Meta < object > ).GetGenericTypeDefinition ( ) )
+			{
+				r.Add (
+				       new Button ( )
+				       {
+					       Content          = "Metadata"
+					     , Command          = MyAppCommands.Metadata
+					     , CommandParameter = x.Instance
+				       }
+				      ) ;
+
+			}
+			return r ;
 
 			return new object[ 0 ] ;
 			throw new NotImplementedException ( ) ;
