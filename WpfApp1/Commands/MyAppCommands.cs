@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Windows.Forms.VisualStyles ;
+using System.Windows.Input;
 
 namespace WpfApp1.Commands
 {
@@ -23,24 +24,27 @@ namespace WpfApp1.Commands
                                );
 
         public static readonly RoutedUICommand QuitApplication =
-	        new RoutedUICommand( "Quit Application", nameof( QuitApplication ),
-	                             typeof(MyAppCommands) );
+            new RoutedUICommand( "Quit Application", nameof( QuitApplication ),
+                                 typeof(MyAppCommands) );
         public static readonly RoutedUICommand VisitTypeCommand =
-	        new RoutedUICommand( "Visit Type", nameof( VisitTypeCommand ),
-	                             typeof(MyAppCommands) );
+            new RoutedUICommand( "Visit Type", nameof( VisitTypeCommand ),
+                                 typeof(MyAppCommands) );
 
         public static readonly RoutedUICommand LoadAssemblyList =
-	        new RoutedUICommand( "Load", nameof( LoadAssemblyList ),
-	                             typeof(MyAppCommands) );
+            new RoutedUICommand( "Load", nameof( LoadAssemblyList ),
+                                 typeof(MyAppCommands) );
         public static readonly RoutedUICommand Restart =
-	        new RoutedUICommand( "Restart", nameof( Restart),
-	                             typeof(MyAppCommands) );
+            new RoutedUICommand( "Restart", nameof( Restart),
+                                 typeof(MyAppCommands) );
         public static readonly RoutedUICommand DumpDebug =
-	        new RoutedUICommand( "Dump Debug", nameof( DumpDebug),
-	                             typeof(MyAppCommands) );
+            new RoutedUICommand( "Dump Debug", nameof( DumpDebug),
+                                 typeof(MyAppCommands) );
         public static readonly RoutedUICommand FilterInstances =
-	        new RoutedUICommand( "FIlter Instances", nameof( FilterInstances),
-	                             typeof(MyAppCommands) );
+            new RoutedUICommand( "FIlter Instances", nameof( FilterInstances),
+                                 typeof(MyAppCommands) );
+
+        public static readonly RoutedUICommand Load =
+	        new RoutedUICommand ( "Load" , nameof ( Load ) , typeof(MyAppCommands)) ;
         
 
     }

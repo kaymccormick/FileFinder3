@@ -5,11 +5,15 @@ using System.Linq ;
 using System.Linq.Dynamic ;
 using System.Text ;
 using System.Threading.Tasks ;
+using System.Windows.Controls ;
 using System.Windows.Data ;
+using AppShared ;
 using AppShared.Interfaces ;
 using Autofac ;
 using Autofac.Core ;
 using Autofac.Core.Registration ;
+using DynamicData.Kernel ;
+using WpfApp1.Commands ;
 
 
 namespace WpfApp1.Xaml
@@ -38,26 +42,28 @@ namespace WpfApp1.Xaml
 		  , CultureInfo culture
 		)
 		{
-			var componentRegistration = value as
-				                            IComponentRegistration ;
-			var instanceInfo = _provider
-			                  .GetInstanceByComponentRegistration ( componentRegistration );
-				var x = instanceInfo
-			                  .Select (
-			                           ( o , i ) => {
-				                           var objId =
-					                           _provider.ProvideObjectInstanceIdentifier (
-					                                                                      o.Instance
-					                                                                    , componentRegistration
-					                                                                    , o
-						                                                                     .Parameters
-					                                                                     ) ;
-				                           var instanceRegistration =
-					                           new InstanceRegistration ( o.Instance , objId , o ) ;
-				                           return instanceRegistration ;
-			                           }
-			                          )
-			                  .ToList ( ) ;
+			var componentRegistration = value as IComponentRegistration ;
+			var instanceInfo =
+				_provider.GetInstanceByComponentRegistration ( componentRegistration ) ;
+			var x = instanceInfo.Select (
+			                             ( o , i ) => {
+				                             var objId =
+					                             _provider.ProvideObjectInstanceIdentifier (
+					                                                                        o
+						                                                                       .Instance
+					                                                                      , componentRegistration
+					                                                                      , o
+						                                                                       .Parameters
+					                                                                       ) ;
+				                             var instanceRegistration =
+					                             new InstanceRegistration (
+					                                                       o.Instance
+					                                                     , objId
+					                                                     , o
+					                                                      ) ;
+				                             return instanceRegistration ;
+			                             }
+			                            ) ;
 
 			if ( parameter is string xx )
 			{
@@ -67,18 +73,40 @@ namespace WpfApp1.Xaml
 				}
 			}
 
-			return x ;
-			// IComponentRegistration x = new ComponentRegistration();
-			// foreach(var svc in x.Services)
+			return x.AsList ( ) ;
+			return new object[ 0 ] ;
+			// else if ( string.Compare (
+			// xx , "ToolBar" ) )
 			// {
-			// if(svc is TypedService ts)
+			// return x.Select ( ( registration , i ) => {
+			// if ( registration.Type.IsAssignableTo < Lazy < object > > ( ) )
 			// {
-			// var q =  scope.ResolveComponent(.)
-			// ts.ServiceType}
-			// x.Resolve
+			// return new Button ( )
+			// {
+			// Content          = "Load"
+			// , Command          = MyAppCommands.Load
+			// , CommandParameter = registration
+			// ,
+			// } ;
+			// }
+			// }
 
-			// throw new NotImplementedException ( ) ;
+			// }
+			// }
+			// } )
 		}
+
+		// IComponentRegistration x = new ComponentRegistration();
+		// foreach(var svc in x.Services)
+		// {
+		// if(svc is TypedService ts)
+		// {
+		// var q =  scope.ResolveComponent(.)
+		// ts.ServiceType}
+		// x.Resolve
+
+		// throw new NotImplementedException ( ) ;
+
 
 		/// <summary>Converts a value. </summary>
 		/// <param name="value">The value that is produced by the binding target.</param>
@@ -93,7 +121,7 @@ namespace WpfApp1.Xaml
 		  , CultureInfo culture
 		)
 		{
-			throw new NotImplementedException ( ) ;
+			return - 1 ;
 		}
 	}
 }

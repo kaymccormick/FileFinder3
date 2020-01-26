@@ -58,7 +58,10 @@ namespace WpfApp1.Util
 								  
 			                      handler : args => {
 				                      var argsInstance = args.Instance ;
-				                      ( argsInstance as IHaveLogger ).Logger =
+
+				                      var haveLogger = ( argsInstance as IHaveLogger ) ;
+									  if(haveLogger != null)
+				                      haveLogger.Logger =
 					                      args.Context.Resolve < ILogger > (
 					                                                        new TypedParameter (
 					                                                                            type : typeof
@@ -146,11 +149,12 @@ namespace WpfApp1.Util
 
 
 			#region Post-container build reporting
-			return setupContainer.BeginLifetimeScope ( "initial scope",configurationAction : containerBuilder
-				                                           => ConfigurationAction (
-				                                                                   containerBuilder
-				                                                                  )
-			                                         ) ;
+			return setupContainer.BeginLifetimeScope ( "initial scope");
+			   // ,configurationAction : containerBuilder
+				                                           // => ConfigurationAction (
+				                                                                   // containerBuilder
+				                                                                  // )
+			                                         // ) ;
 			//return CreateChildLifetimeContext ( setupContainer ) ;
 		}
 

@@ -93,26 +93,29 @@
         <CommandBinding Command="commands:MyAppCommands.Restart" Executed="Restart" />
     </Window.CommandBindings>
 
-    <TabControl 
+    <TabControl
         Name="MainTabControl" Margin="10"
-                DataContext="{Binding ElementName=mainWindow)}">
+        DataContext="{Binding ElementName=mainWindow)}">
         <TabItem Header="Autofac" Padding="15">
 
             <TabControl>
                 <TabItem Header="Lifetime Scopes" Padding="15">
 
                     <StackPanel Orientation="Vertical">
-                        <TextBlock Text="{Binding ElementName=mainWindow,Path=(aprops:App.Container).Tag}"/>
+                        <TextBlock Text="{Binding ElementName=mainWindow,Path=(aprops:App.Container).Tag}" />
                         <TextBlock Text="{Binding Path=Tag}" />
                     </StackPanel>
                 </TabItem>
                 <TabItem Header="Registrations">
-                    <DockPanel DataContext="{Binding ElementName=mainWindow, Path=(aprops:App.Container).ComponentRegistry.Registrations}">
+                    <DockPanel
+                        DataContext="{Binding ElementName=mainWindow, Path=(aprops:App.Container).ComponentRegistry.Registrations}">
                         <DockPanel.Resources>
-                            <CollectionViewSource d:DesignSource="{Binding Source={StaticResource designData}, Path=LifetimeScope.ComponentRegistry.Registrations}" x:Key="Registrations" Source="{Binding}"/>
+                            <CollectionViewSource
+                                d:DesignSource="{Binding Source={StaticResource designData}, Path=LifetimeScope.ComponentRegistry.Registrations}"
+                                x:Key="Registrations" Source="{Binding}" />
                         </DockPanel.Resources>
                         <DockPanel.CommandBindings>
-
+                            <CommandBinding Command="commands:MyAppCommands.Load" Executed="LoadInstance"/>
                         </DockPanel.CommandBindings>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding}" />
@@ -141,10 +144,20 @@
                             </ListView>
                             <StackPanel Grid.Row="2">
                                 <ListView
-                                    DataContext="{Binding ElementName=compView,Path=SelectedItem,Converter={StaticResource RegistrationConverter}}" ItemsSource="{Binding}">
+                                    DataContext="{Binding ElementName=compView,Path=SelectedItem,Converter={StaticResource RegistrationConverter}}"
+                                    ItemsSource="{Binding}">
                                     <ListView.View>
                                         <GridView>
                                             <GridViewColumn DisplayMemberBinding="{Binding Path=ObjectId}" />
+                                            <GridViewColumn Header="Actions">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <ToolBarTray>
+                                                            <ToolBar ItemsSource="{Binding Converter={StaticResource InstanceRegistrationConverter},ConverterParameter=ToolBar}"/>
+                                                        </ToolBarTray>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
                                             <GridViewColumn>
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
@@ -177,9 +190,9 @@
                  DataContext="{Binding Source={StaticResource AppLoggerContainer2}}">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="41"/>
-                    <ColumnDefinition Width="8*"/>
-                    <ColumnDefinition Width="1127*"/>
+                    <ColumnDefinition Width="41" />
+                    <ColumnDefinition Width="8*" />
+                    <ColumnDefinition Width="1127*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
@@ -260,15 +273,14 @@
             <TextBlock Text="{Binding Source={StaticResource AppLoggerContainer2}, Path=InternalLog}" />
         </TabItem>
         <TabItem Header="Assemblies">
-            <controls:AssemblyBrowser>
-                </controls:AssemblyBrowser>
+            <controls:AssemblyBrowser />
         </TabItem>
         <TabItem Header="Config">
             <StackPanel Orientation="Vertical">
-            <nLog1:NetworkConfigurationPage Name="NetConfig" />
+                <nLog1:NetworkConfigurationPage Name="NetConfig" />
                 <StackPanel Orientation="Horizontal">
-                            <Button Click="ButtonBase_OnClick" Content="Connect" Margin="200,20,0,20" FontSize="24"/>
-                                    </StackPanel>
+                    <Button Click="ButtonBase_OnClick" Content="Connect" Margin="200,20,0,20" FontSize="24" />
+                </StackPanel>
             </StackPanel>
         </TabItem>
     </TabControl>

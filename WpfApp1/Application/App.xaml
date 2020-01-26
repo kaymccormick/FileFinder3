@@ -17,6 +17,7 @@
              Exit="App_OnExit"
              Startup="ApplicationStartup">
     <Application.Resources>
+        <myxaml:InstanceRegistrationConverter x:Key="InstanceRegistrationConverter"/>
         <myxaml:AssemblyConverter x:Key="AssemblyConverter"/>
         <logging:AppLoggerContainer x:Key="AppLoggerContainer" logging:AppLogger="{myxaml:AppLogger poo}"/>
         <menus:MenuMenuItemTemplateSelector x:Key="MenuMenuItemTemplateSelector" AppLogger="{myxaml:AppLogger}" />

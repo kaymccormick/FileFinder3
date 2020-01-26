@@ -426,5 +426,13 @@ namespace WpfApp1.Windows
 		}
 
 		public Sentinel.Interfaces.ILogger MyLogger { get ; set ; } = new MyLogger ( ) ;
+
+		private void LoadInstance ( object sender , ExecutedRoutedEventArgs e )
+		{
+			var v = e.Parameter.GetPropertyValue<object> ( "Value" ) ;
+			//Lazy<object> l = e.Parameter as Lazy < object > ;
+			//var v = l.Value ;
+			Logger.Debug ( "loaded " + v ) ;
+		}
 	}
 }

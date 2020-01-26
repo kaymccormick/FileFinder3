@@ -191,6 +191,7 @@
     <Compile Include="Xaml\Converter.cs" />
     <Compile Include="Xaml\AppLoggerExtension.cs" />
     <Compile Include="Xaml\InstanceRegistration.cs" />
+    <Compile Include="Xaml\InstanceRegistrationConverter.cs" />
     <Compile Include="Xaml\LoggerInstanceConverter.cs" />
     <Compile Include="Xaml\RegistrationConverter.cs" />
     <Compile Include="Xaml\SmartTypeConverter.cs" />
