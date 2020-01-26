@@ -29,36 +29,9 @@ namespace WpfApp1.Controls
 		public AssemblyBrowser ()
 		{
 			InitializeComponent ( );
-			AddHandler (
-			            App.AssemblyListChangedEvent
-			          , new RoutedPropertyChangedEventHandler < AssemblyList > ( Target )
-			           ) ;
 		}
 
-		private void Target ( object sender , RoutedPropertyChangedEventArgs < AssemblyList > e )
-		{
-			Logger.Error ( "beep" ) ;
-
-		}
-
-		private void CommandBinding_OnExecuted ( object sender , ExecutedRoutedEventArgs e )
-		{
-			Logger.Debug ( "hello" ) ;
-			CollectionView view = ( e.Parameter as CollectionView ) ;
-
-			Logger.Debug ( $"{e.Parameter}" ) ;
-		}
-
-		private void UIElement_OnPreviewMouseDown ( object sender , MouseButtonEventArgs e )
-		{
-			Logger.Debug ( "preview mouse down" ) ;
-		}
-
-		private void CommandBinding_OnCanExecute ( object sender , CanExecuteRoutedEventArgs e )
-		{
-			e.CanExecute = true ;
-			Logger.Debug ( "Can execute" ) ;
-			e.Handled = true ;
-		}
+		private void LoadAssemblyList ( object sender , ExecutedRoutedEventArgs e ) { throw new NotImplementedException ( ) ; }
+		private void CanLoadAssemblyList ( object sender , CanExecuteRoutedEventArgs e ) {  }
 	}
 }

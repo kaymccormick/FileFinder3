@@ -22,11 +22,10 @@ namespace WpfApp1.Logging
 
 			if ( invocation.InvocationTarget is IHaveLogger haveLogger )
 			{
-				Debug.WriteLine ( $"Invocation target has logger" ) ;
 				var logger = haveLogger.Logger ;
 				if ( logger != null )
 				{
-					logger.Debug ( $"invocation of {invocation.Method.Name}" ) ;
+					logger.Trace ( $"invocation of {invocation.Method.Name}" ) ;
 				}
 			}
 

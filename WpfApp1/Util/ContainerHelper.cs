@@ -1,9 +1,9 @@
 using System ;
 using System.Collections.Generic ;
-using System.Diagnostics ;
 using System.Reflection ;
 using System.Windows ;
 using AppShared.Interfaces ;
+using AppShared.Modules ;
 using Autofac ;
 using Autofac.Builder ;
 using Autofac.Core ;
@@ -12,8 +12,8 @@ using Autofac.Core.Activators.Reflection ;
 using Autofac.Core.Lifetime ;
 using Autofac.Core.Registration ;
 using Autofac.Extras.AttributeMetadata ;
+using Castle.DynamicProxy ;
 using NLog ;
-using WpfApp1.Application ;
 using WpfApp1.Controls ;
 using WpfApp1.Logging ;
 
@@ -21,18 +21,40 @@ namespace WpfApp1.Util
 {
 	public static class ContainerHelper
 	{
+		public static ProxyGenerator  ProxyGenerator= new ProxyGenerator ( ) ;
 		private static readonly Logger Logger =
 			LogManager.GetLogger ( "Autofac container builder helper" ) ;
 
 		public static ILifetimeScope SetupContainer (out IContainer container )
 		{
 			AppLoggingConfigHelper.EnsureLoggingConfigured ( ) ;
-			var builder = new ContainerBuilder ( ) ;
+			var proxyGenerator = ProxyGenerator ;
+			var builderInterceptor = new BuilderInterceptor(proxyGenerator) ;
+			var proxy = proxyGenerator.CreateClassProxy < ContainerBuilder > (builderInterceptor ) ;
+
+			var type = typeof(ContainerBuilder).Assembly.GetType ( "Autofac.Core.Registration.ModuleRegistrar" ) ;
+
+			var opt = new ProxyGenerationOptions() ;
+			var classProxy = proxyGenerator.CreateClassProxy(type, opt, new BuilderInterceptor(proxyGenerator) );
+			var builder = proxy ;//new ContainerBuilder ( ) ;
 			#region Autofac Modules
 			builder.RegisterModule < AttributedMetadataModule > ( ) ;
 			builder.RegisterModule < MenuModule > ( ) ;
 			builder.RegisterModule < IdGeneratorModule > ( ) ;
 			#endregion
+
+			int dumpIteration = 0 ;
+			Action dump = ( ) => {
+				dumpIteration += 1 ;
+				builderInterceptor.Invocations.ForEach (
+				                                        invocation
+					                                        => Logger.Debug (
+					                                                         $"${dumpIteration}]: {invocation.Method.Name} ({String.Join ( ", " , invocation.Arguments )}) => {invocation.ReturnValue}"
+					                                                        )
+				                                       ) ;
+			} ;
+			dump ( ) ;
+
 
 			// var obIdGenerator = new ObjectIDGenerator();
 
@@ -107,7 +129,7 @@ namespace WpfApp1.Util
 				                  }
 
 				                  var tracker = c.Resolve < ILoggerTracker > ( ) ;
-				                  Logger.Debug ( message : $"creating logger loggerName = {loggerName}" ) ;
+				                  Logger.Trace( message : $"creating logger loggerName = {loggerName}" ) ;
 				                  var logger = LogManager.GetLogger ( name : loggerName ) ;
 				                  tracker.TrackLogger ( loggerName : loggerName , logger : logger ) ;
 				                  return logger ;
@@ -122,7 +144,7 @@ namespace WpfApp1.Util
 			builder.RegisterCallback (
 			                          configurationCallback : registry => {
 				                          registry.Registered += ( sender , args ) => {
-					                          Logger.Debug (
+					                          Logger.Trace (
 					                                        message : "Registered "
 					                                                  + args.ComponentRegistration.Activator
 					                                                        .LimitType
@@ -131,7 +153,7 @@ namespace WpfApp1.Util
 						                          o
 						                        , eventArgs
 					                          ) => {
-						                          Logger.Debug (
+						                          Logger.Trace (
 						                                        $"Activated {DesribeComponent ( eventArgs.Component )} (sender={o}, instance={eventArgs.Instance})"
 						                                       ) ;
 					                          } ;

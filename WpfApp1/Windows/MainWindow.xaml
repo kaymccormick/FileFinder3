@@ -4,18 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1.Windows"
-        xmlns:wpfApp1="clr-namespace:WpfApp1"
         xmlns:myxaml="clr-namespace:WpfApp1.Xaml"
         xmlns:commands="clr-namespace:WpfApp1.Commands"
         xmlns:logging="clr-namespace:WpfApp1.Logging"
         xmlns:nLog="clr-namespace:NLog;assembly=NLog"
-        xmlns:autofac="clr-namespace:Autofac.Core;assembly=Autofac"
-        xmlns:registration="clr-namespace:Autofac.Core.Registration;assembly=Autofac"
         xmlns:controls="clr-namespace:WpfApp1.Controls"
         xmlns:windows="clr-namespace:WpfApp1.Windows"
         xmlns:nLog1="clr-namespace:Sentinel.NLog;assembly=Sentinel.NLog"
         xmlns:aprops="clr-namespace:AppShared;assembly=AppShared"
-        xmlns:autofac1="clr-namespace:Autofac;assembly=Autofac"
         mc:Ignorable="d"
         DataContext="{Binding ElementName=mainWindow}"
         Title="Main Window" Height="450" Width="1000"
@@ -25,8 +21,7 @@
         <myxaml:SmartTypeConverter x:Key="SmartTypeConverter" />
         <CollectionViewSource x:Key="LogItems" Source="{Binding LogEvents}" />
         <logging:TargetConverter x:Key="TargetConverter" />
-        <logging:AppLoggerContainer x:Key="AppLoggerContainer2" logging:AppLogger="{myxaml:AppLogger poo}" />
-        <logging:AppLoggerContainer x:Key="designLogger" logging:AppLogger="{myxaml:AppLogger poo}" />
+        <logging:AppLoggerContainer x:Key="testAppLoggerContainer" logging:AppLogger="{myxaml:AppLogger Test AppLoggerContainer}" />
         <Style TargetType="{x:Type local:MainWindow}" x:Key="CoolStyle1">
             <Setter Property="FontWeight" Value="Medium" />
             <Setter Property="Opacity" Value="0.9" />
@@ -96,39 +91,44 @@
     <TabControl
         Name="MainTabControl" Margin="10"
         DataContext="{Binding ElementName=mainWindow)}">
-        <TabItem Header="Autofac" Padding="15">
-
+        <TabItem Header="Objects">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Autofac" Padding="15" DataContext="{Binding Path=Container}">
             <TabControl>
                 <TabItem Header="Lifetime Scopes" Padding="15">
 
                     <StackPanel Orientation="Vertical">
-                        <TextBlock Text="{Binding ElementName=mainWindow,Path=(aprops:App.Container).Tag}" />
-                        <TextBlock Text="{Binding Path=Tag}" />
+                        <TextBlock Text="{Binding Tag}" />
                     </StackPanel>
                 </TabItem>
                 <TabItem Header="Registrations">
                     <DockPanel
-                        DataContext="{Binding ElementName=mainWindow, Path=(aprops:App.Container).ComponentRegistry.Registrations}">
+                        DataContext="{Binding ComponentRegistry.Registrations}">
                         <DockPanel.Resources>
                             <CollectionViewSource
-                                d:DesignSource="{Binding Source={StaticResource designData}, Path=LifetimeScope.ComponentRegistry.Registrations}"
                                 x:Key="Registrations" Source="{Binding}" />
                         </DockPanel.Resources>
                         <DockPanel.CommandBindings>
-                            <CommandBinding Command="commands:MyAppCommands.Load" Executed="LoadInstance"/>
-                            <CommandBinding Command="commands:MyAppCommands.Metadata" Executed="Metadata"/>
+                            <CommandBinding Command="commands:MyAppCommands.Load" Executed="LoadInstance" />
+                            <CommandBinding Command="commands:MyAppCommands.Metadata" Executed="Metadata" />
                         </DockPanel.CommandBindings>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding}" />
                             <CheckBox Name="InstancesOnly" Checked="InstancesOnly_OnChecked"
                                       Unchecked="InstancesOnly_OnUnchecked" />
                         </StackPanel>
-                        <Grid>
+                        <Grid DataContext="{Binding Source={StaticResource Registrations}}">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
-                            <ListView Name="compView" ItemsSource="{Binding Source={StaticResource Registrations}}">
+                            <ListView Name="compView" ItemsSource="{Binding}">
                                 <ListView.View>
                                     <GridView>
                                         <GridViewColumn Header="" DisplayMemberBinding="{Binding Path=Id}" />
@@ -139,14 +139,13 @@
                                         <GridViewColumn Header="Sharing" DisplayMemberBinding="{Binding Path=Sharing}" />
 
                                         <GridViewColumn
-                                            CellTemplate="{StaticResource  ServicesCellTemplate}" Header="Ownership" />
+                                            CellTemplate="{StaticResource  ServicesCellTemplate}" Header="Services" />
                                     </GridView>
                                 </ListView.View>
                             </ListView>
                             <StackPanel Grid.Row="2">
                                 <ListView
-                                    DataContext="{Binding ElementName=compView,Path=SelectedItem,Converter={StaticResource RegistrationConverter}}"
-                                    ItemsSource="{Binding}">
+                                    ItemsSource="{Binding /,Converter={StaticResource RegistrationConverter}}">
                                     <ListView.View>
                                         <GridView>
                                             <GridViewColumn DisplayMemberBinding="{Binding Path=ObjectId}" />
@@ -154,7 +153,8 @@
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <ToolBarTray>
-                                                            <ToolBar ItemsSource="{Binding Converter={StaticResource InstanceRegistrationConverter},ConverterParameter=ToolBar}"/>
+                                                            <ToolBar
+                                                                ItemsSource="{Binding Converter={StaticResource InstanceRegistrationConverter},ConverterParameter=ToolBar}" />
                                                         </ToolBarTray>
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>

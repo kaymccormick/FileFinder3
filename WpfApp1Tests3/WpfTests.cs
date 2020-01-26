@@ -40,7 +40,7 @@ namespace WpfApp1Tests3
 
 		private void DoLog ( string test )
 		{
-			LB ( ).Level ( LogLevel.Debug ).Message ( test ).Write ( ) ;
+			LB ( ).Level ( LogLevel.Trace ).Message ( test ).Write ( ) ;
 		}
 
 		[ Fact ]

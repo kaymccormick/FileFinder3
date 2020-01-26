@@ -8,6 +8,7 @@ using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Threading;
 using JetBrains.Annotations ;
+using WpfApp1.Application ;
 using Xunit;
 
 namespace WpfApp1Tests3.WpfUtils
@@ -21,7 +22,22 @@ namespace WpfApp1Tests3.WpfUtils
 			Assembly theAssembly
 		)
 		{
-			Application app = new Application();
+			Application ret ;
+			if(LoadRealApp)
+			{
+				var application = new App 
+					( ) ;
+				
+				Application app1 = application ;
+				ret = app1 ;
+			}
+			else
+			{
+				ret = new Application() ;
+			}
+
+			var app = ret ;
+			
 			CurAssembly = theAssembly ?? throw new ArgumentNullException ( nameof ( theAssembly ) );
 
 			string assemblyFullName = CurAssembly.FullName;
@@ -34,6 +50,23 @@ namespace WpfApp1Tests3.WpfUtils
 			MyApp = app;
 		}
 
+		private Application LoadApplication ( )
+		{
+			
+			if(LoadRealApp)
+			{
+				Application app = new App 
+( ) ;
+				return app ;
+			}
+			else
+			{
+				return new Application();
+			}
+		}
+
+		public bool LoadRealApp { get ; set ; } = true ;
+
 		public Uri BasePackUri
 		{
 			get { return _basePackUri; }
@@ -43,26 +76,6 @@ namespace WpfApp1Tests3.WpfUtils
 		public Assembly CurAssembly { get; set; }
 
 		public Application MyApp { get; set; }
-
-		private static void DisplayTypeInfo(
-			Type t
-		)
-		{
-			Console.WriteLine( "\r\n{0}", t );
-
-			Console.WriteLine( "\tIs this a generic type definition? {0}",
-			                   t.IsGenericTypeDefinition );
-
-			Console.WriteLine( "\tIs it a generic type? {0}",
-			                   t.IsGenericType );
-
-			Type[] typeArguments = t.GetGenericArguments();
-			Console.WriteLine( "\tList type arguments ({0}):", typeArguments.Length );
-			foreach ( Type tParam in typeArguments )
-			{
-				Console.WriteLine( "\t\t{0}", tParam );
-			}
-		}
 
 		//[Test(), Apartment(ApartmentState.STA)]
 		public void MakeWindowWrap(

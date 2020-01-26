@@ -14,8 +14,7 @@
              xmlns:autofaccore="clr-namespace:Autofac.Core;assembly=Autofac"
              xmlns:controls="clr-namespace:WpfApp1.Controls"
              xmlns:wpfapp1="clr-namespace:WpfApp1"
-             Exit="App_OnExit"
-             Startup="ApplicationStartup">
+             Exit="App_OnExit">
     <Application.Resources>
         <myxaml:InstanceRegistrationConverter x:Key="InstanceRegistrationConverter"/>
         <myxaml:AssemblyConverter x:Key="AssemblyConverter"/>

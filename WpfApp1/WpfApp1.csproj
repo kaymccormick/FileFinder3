@@ -128,10 +128,9 @@
       <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataSource\MyDS1.cs" />
-    <Compile Include="DefaultServices\DefaultObjectIdProvider.cs" />
+    <Compile Include="DefaultServices\CompInfo.cs" />
     <Compile Include="DesignData.cs" />
     <Compile Include="Events\AttachedEvents.cs" />
-    <Compile Include="IdGeneratorModule.cs" />
     <Compile Include="Logging\AppLogger.cs" />
     <Compile Include="Logging\AppLoggerContainer.cs" />
     <Compile Include="Logging\AppLoggingConfigHelper.cs" />
@@ -143,6 +142,7 @@
     <Compile Include="Menus\LoggingEntityMetadataAttribute.cs" />
     <Compile Include="Menus\MenuHelper.cs" />
     <Compile Include="Util\AttachedContext.cs" />
+    <Compile Include="Util\BuilderInterceptor.cs" />
     <Compile Include="Util\ContextStack.cs" />
     <Compile Include="Util\DebugHelper.cs" />
     <Compile Include="Util\DuplicateKeyException.cs" />
@@ -266,7 +266,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="ClassDiagram1.cd" />
     <None Include="ClassDiagram2.cd" />
     <None Include="NLog.config" />
     <None Include="Properties\Settings.settings">

@@ -6,6 +6,7 @@ using System.Diagnostics ;
 using System.Linq ;
 using System.Reflection ;
 using System.Runtime.ExceptionServices ;
+using System.Runtime.Serialization ;
 using System.Threading ;
 using System.Windows ;
 using System.Windows.Data ;
@@ -16,9 +17,11 @@ using AppShared.Interfaces ;
 using Autofac ;
 using Autofac.Core ;
 using Autofac.Extras.DynamicProxy ;
+using DynamicData.Annotations ;
 using Microsoft.Scripting.Utils ;
 using NLog ;
 using Vanara.Extensions ;
+using Vanara.Extensions.Reflection ;
 using WpfApp1.Commands ;
 using WpfApp1.DataSource ;
 using WpfApp1.Logging ;
@@ -53,40 +56,33 @@ namespace WpfApp1.Application
 			cd.AssemblyLoad += CurrentDomainOnAssemblyLoad;
 			//cd.TypeResolve += CdOnTypeResolve;
 			cd.ProcessExit += ( sender , args ) => {
-				Logger?.Warn ( args == null ? "null" : args.ToString ( ) ) ;
+				
+				Logger?.Debug ( $"Exiting. args is {args}");
 			};
 			cd.UnhandledException += CdOnUnhandledException;
 			cd.ResourceResolve += CdOnResourceResolve;
 			
 			cd.FirstChanceException += CurrentDomainOnFirstChanceException;
-#if DEBUGB_AUTOFAC_REGS
-			Logger.Debug (
-						  "reg: "
-						  + string.Join (
-										 ", "
-						   , AppContainer
-										.ComponentRegistry.Registrations.Select ( RegOutput )
-										.ToList ( )
-										)
-						 ) ;
-#endif
-//			Logger.Debug ( "Application logger initialized." ) ;
 		}
 
 		private Assembly CdOnResourceResolve ( object sender , ResolveEventArgs args )
 		{
-			Logger.Warn ( $"{args.Name}" );
+			Logger.Warn ( $"nameof(CdOnResourceResolve): {args.Name}" );
 			return null ;
 		}
 
 		private void CdOnUnhandledException ( object sender , UnhandledExceptionEventArgs e )
 		{
-			Logger.Error ( $"{e.ExceptionObject} {e.IsTerminating}" ) ;
+			var message = "" ;
+			message = e.ExceptionObject.GetPropertyValue<string>( "Message" ) ;
+			UnhandledException
+				err = new UnhandledException ("UnhandledException: " + message , e.ExceptionObject as Exception) ;
+			Logger.Error (err,  $"{err.Message} Terminating={e.IsTerminating}" ) ;
+
 		}
 
-
-
-		private Assembly CdOnTypeResolve ( object sender , ResolveEventArgs args )
+	
+	private Assembly CdOnTypeResolve ( object sender , ResolveEventArgs args )
 		{
 			Logger.Warn ( $"{args.Name}" );
 			Logger.Warn($"Requesting assembly is {args.RequestingAssembly.FullName}");
@@ -148,9 +144,6 @@ namespace WpfApp1.Application
 															, "VSTHRD001:Avoid legacy thread switching APIs"
 															, Justification = "<Pending>"
 														  ) ]
-		private void ApplicationStartup ( object sender , StartupEventArgs e )
-		{
-		}
 
 		private object DispatcherOperationCallback ( object arg )
 		{
@@ -378,4 +371,35 @@ namespace WpfApp1.Application
 		}
 
 	}
+
+	public class UnhandledException : Exception
+	{
+		/// <summary>Initializes a new instance of the <see cref="T:System.Exception" /> class.</summary>
+		public UnhandledException ( ) {
+		}
+
+		/// <summary>Initializes a new instance of the <see cref="T:System.Exception" /> class with a specified error message.</summary>
+		/// <param name="message">The message that describes the error.</param>
+		public UnhandledException ( string message ) : base ( message )
+		{
+		}
+
+		/// <summary>Initializes a new instance of the <see cref="T:System.Exception" /> class with a specified error message and a reference to the inner exception that is the cause of this exception.</summary>
+		/// <param name="message">The error message that explains the reason for the exception.</param>
+		/// <param name="innerException">The exception that is the cause of the current exception, or a null reference (<see langword="Nothing" /> in Visual Basic) if no inner exception is specified.</param>
+		public UnhandledException ( string message , Exception innerException ) : base ( message , innerException )
+		{
+		}
+
+		/// <summary>Initializes a new instance of the <see cref="T:System.Exception" /> class with serialized data.</summary>
+		/// <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo" /> that holds the serialized object data about the exception being thrown.</param>
+		/// <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext" /> that contains contextual information about the source or destination.</param>
+		/// <exception cref="T:System.ArgumentNullException">
+		/// <paramref name="info" /> is <see langword="null" />.</exception>
+		/// <exception cref="T:System.Runtime.Serialization.SerializationException">The class name is <see langword="null" /> or <see cref="P:System.Exception.HResult" /> is zero (0).</exception>
+		protected UnhandledException ( [ NotNull ] SerializationInfo info , StreamingContext context ) : base ( info , context )
+		{
+		}
+	}
+
 }

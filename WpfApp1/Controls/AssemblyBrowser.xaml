@@ -18,7 +18,7 @@
     </UserControl.Resources>
     <UserControl.CommandBindings>
         <CommandBinding Command="commands:MyAppCommands.LoadAssemblyList"
-                        Executed="CommandBinding_OnExecuted" CanExecute="CommandBinding_OnCanExecute"/>
+                        Executed="LoadAssemblyList" CanExecute="CanLoadAssemblyList"/>
     </UserControl.CommandBindings>
     <Grid>
         <Grid.ColumnDefinitions>

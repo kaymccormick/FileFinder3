@@ -15,7 +15,6 @@ namespace WpfApp1.Menus
         public XMenuItem(Owned <Func <Type, ILogger> > func)
         {
 	        Logger = func.Value( typeof(XMenuItem) );
-	        Logger.Debug( "got my logger Here" );
         }
         
 

@@ -76,7 +76,6 @@ namespace WpfApp1.Controls
 		private void GenerateControlsForType ( Type myType, IAddChild addChild )
 		{
 			var name = NameForType ( myType ) ;
-			Logger.Debug ( $"name for ttype is {name}" ) ;
 			var hyperLink = new Hyperlink ( new Run ( myType.Name ) ) ;
 			Uri.TryCreate ( "obj://" +Uri.EscapeUriString(myType.Name) , UriKind.Absolute , out Uri res ) ;
 
@@ -86,9 +85,6 @@ namespace WpfApp1.Controls
 			hyperLink.ToolTip = new ToolTip ( ) { Content = ToopTipContent ( myType ) } ;
 
 			hyperLink.RequestNavigate += HyperLinkOnRequestNavigate;
-			hyperLink.Click += ( sender , args ) => {
-				Logger.Debug ( "clicking on main type link" ) ;
-			} ;
 			addChild.AddChild( hyperLink ) ;
 			if ( myType.IsGenericType )
 			{
@@ -148,7 +144,7 @@ namespace WpfApp1.Controls
 
 		private void HyperLinkOnRequestNavigate ( object sender , RequestNavigateEventArgs e )
 		{
-			Logger.Debug ( e.Uri ) ;
+			Logger.Debug ( $"{nameof(HyperLinkOnRequestNavigate)}: Uri={e.Uri}");
 			ContentElement uie = ( ContentElement ) sender ;
 			var navigationService = NavigationService.GetNavigationService ( uie ) ;
 			if ( navigationService != null )
@@ -166,6 +162,7 @@ namespace WpfApp1.Controls
 			}
 			else
 			{
+                Logger.Info("find other way to navigate type");
 
 			}
 

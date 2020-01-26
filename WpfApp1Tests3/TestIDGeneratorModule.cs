@@ -5,6 +5,7 @@ using System.Runtime.Remoting.Contexts ;
 using System.Text ;
 using System.Threading.Tasks ;
 using AppShared.Interfaces ;
+using AppShared.Modules ;
 using Autofac ;
 using WpfApp1 ;
 using Xunit ;
