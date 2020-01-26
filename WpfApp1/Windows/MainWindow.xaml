@@ -12,6 +12,7 @@
         xmlns:autofac="clr-namespace:Autofac.Core;assembly=Autofac"
         xmlns:registration="clr-namespace:Autofac.Core.Registration;assembly=Autofac"
         xmlns:controls="clr-namespace:WpfApp1.Controls"
+        xmlns:windows="clr-namespace:WpfApp1.Windows"
         xmlns:nLog1="clr-namespace:Sentinel.NLog;assembly=Sentinel.NLog"
         xmlns:aprops="clr-namespace:AppShared;assembly=AppShared"
         xmlns:autofac1="clr-namespace:Autofac;assembly=Autofac"
@@ -34,7 +35,7 @@
             <Setter Property="Background" Value="{x:Null}" />
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type local:MainWindow}">
+                    <ControlTemplate TargetType="windows:MainWindow">
                         <Border BorderThickness="5" BorderBrush="Chartreuse" Padding="10">
                             <DockPanel>
                                 <DockPanel.LayoutTransform>
@@ -48,10 +49,10 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style TargetType="{x:Type local:MainWindow}">
+        <Style TargetType="{x:Type windows:MainWindow}">
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type local:MainWindow}">
+                    <ControlTemplate TargetType="{x:Type windows:MainWindow}">
                         <DockPanel>
                             <DockPanel.LayoutTransform>
                                 <ScaleTransform ScaleX="1" ScaleY="1" />
@@ -81,9 +82,6 @@
             </Setter>
 
         </Style>
-
-        <CollectionViewSource x:Key="Registrations"
-                              Source="{Binding ElementName=mainWindow,Path=(aprops:AppProperties.LifetimeScope).ComponentRegistry.Registrations}" />
     </Window.Resources>
     <Window.CommandBindings>
         <CommandBinding Command="commands:MyAppCommands.LoadAssemblyList"
@@ -95,19 +93,23 @@
         <CommandBinding Command="commands:MyAppCommands.Restart" Executed="Restart" />
     </Window.CommandBindings>
 
-    <TabControl Name="MainTabControl" Margin="10"
-                DataContext="{Binding ElementName=mainWindow,Path=(aprops:AppProperties.LifetimeScope)}">
+    <TabControl 
+        Name="MainTabControl" Margin="10"
+                DataContext="{Binding ElementName=mainWindow)}">
         <TabItem Header="Autofac" Padding="15">
 
             <TabControl>
                 <TabItem Header="Lifetime Scopes" Padding="15">
 
-                    <StackPanel Orientation="Vertical" DataContext="{Binding Path=LifetimeScope}">
+                    <StackPanel Orientation="Vertical">
                         <TextBlock Text="{Binding Path=Tag}" />
                     </StackPanel>
                 </TabItem>
                 <TabItem Header="Registrations">
                     <DockPanel DataContext="{Binding Path=ComponentRegistry.Registrations}">
+                        <DockPanel.Resources>
+                            <CollectionViewSource d:DesignSource="{Binding Source={StaticResource designData}, Path=LifetimeScope.ComponentRegistry.Registrations}" x:Key="Registrations" Source="{Binding}"/>
+                        </DockPanel.Resources>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding}" />
                             <CheckBox Name="InstancesOnly" Checked="InstancesOnly_OnChecked"
@@ -135,7 +137,7 @@
                             </ListView>
                             <StackPanel Grid.Row="2">
                                 <ListView
-                                    ItemsSource="{Binding ElementName=compView,Path=SelectedItem,Converter={StaticResource RegistrationConverter}}">
+                                    DataContext="{Binding ElementName=compView,Path=SelectedItem,Converter={StaticResource RegistrationConverter}}" ItemsSource="{Binding}">
                                     <ListView.View>
                                         <GridView>
                                             <GridViewColumn DisplayMemberBinding="{Binding Path=ObjectId}" />
@@ -143,9 +145,9 @@
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <controls:TypeControl>
-                                                            <aprops:AppProperties.RenderedType>
+                                                            <aprops:App.RenderedType>
                                                                 <Binding Path="Type" />
-                                                            </aprops:AppProperties.RenderedType>
+                                                            </aprops:App.RenderedType>
                                                         </controls:TypeControl>
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
@@ -154,7 +156,7 @@
                                             <GridViewColumn>
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
-                                                        <ComboBox ItemsSource="Parameters" />
+                                                        <ComboBox ItemsSource="{Binding Parameters}" />
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>
@@ -167,14 +169,19 @@
                 </TabItem>
             </TabControl>
         </TabItem>
-        <TabItem Header="Home" d:DataContext="{Binding  Source={StaticResource designLogger}}"
+        <TabItem Header="Home"
                  DataContext="{Binding Source={StaticResource AppLoggerContainer2}}">
             <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="41"/>
+                    <ColumnDefinition Width="8*"/>
+                    <ColumnDefinition Width="1127*"/>
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="2*" />
                 </Grid.RowDefinitions>
-                <WrapPanel Grid.Row="0" Grid.Column="0" DataContext="{Binding Path=Configuration}">
+                <WrapPanel Grid.Row="0" Grid.Column="0" DataContext="{Binding Path=Configuration}" Grid.ColumnSpan="3">
                     <WrapPanel.Resources>
                         <CollectionViewSource x:Key="targets" Source="{Binding AllTargets}" />
 
@@ -200,7 +207,7 @@
                         </WrapPanel>
                     </StackPanel>
                 </WrapPanel>
-                <WrapPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="0">
+                <WrapPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
                     <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                         <TabItem Header="Default">
                             <ListView VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
@@ -235,7 +242,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <TreeView ItemsSource="{Binding Path=(aprops:AppProperties.MenuItemListCollectionView)}"
+                <TreeView ItemsSource="{Binding Path=(aprops:App.MenuItemListCollectionView)}"
                           Grid.Row="0" Grid.Column="0">
                     <TreeView.ItemTemplate>
                         <HierarchicalDataTemplate ItemsSource="{Binding Path=Children}">
@@ -252,7 +259,12 @@
             <controls:AssemblyBrowser />
         </TabItem>
         <TabItem Header="Config">
-            <nLog1:NetworkConfigurationPage />
+            <StackPanel Orientation="Vertical">
+            <nLog1:NetworkConfigurationPage Name="NetConfig" />
+                <StackPanel Orientation="Horizontal">
+                            <Button Click="ButtonBase_OnClick" Content="Connect" Margin="200,20,0,20" FontSize="24"/>
+                                    </StackPanel>
+            </StackPanel>
         </TabItem>
     </TabControl>
 

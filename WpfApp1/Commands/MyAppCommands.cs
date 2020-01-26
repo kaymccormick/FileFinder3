@@ -39,7 +39,7 @@ namespace WpfApp1.Commands
 	        new RoutedUICommand( "Dump Debug", nameof( DumpDebug),
 	                             typeof(MyAppCommands) );
         public static readonly RoutedUICommand FilterInstances =
-	        new RoutedUICommand( "Dump Debug", nameof( DumpDebug),
+	        new RoutedUICommand( "FIlter Instances", nameof( FilterInstances),
 	                             typeof(MyAppCommands) );
         
 

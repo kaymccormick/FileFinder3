@@ -59,14 +59,14 @@ namespace WpfApp1.Application
 			cd.FirstChanceException += CurrentDomainOnFirstChanceException;
 #if DEBUGB_AUTOFAC_REGS
 			Logger.Debug (
-			              "reg: "
-			              + string.Join (
-			                             ", "
-			               , AppContainer
-			                            .ComponentRegistry.Registrations.Select ( RegOutput )
-			                            .ToList ( )
-			                            )
-			             ) ;
+						  "reg: "
+						  + string.Join (
+										 ", "
+						   , AppContainer
+										.ComponentRegistry.Registrations.Select ( RegOutput )
+										.ToList ( )
+										)
+						 ) ;
 #endif
 //			Logger.Debug ( "Application logger initialized." ) ;
 		}
@@ -110,13 +110,13 @@ namespace WpfApp1.Application
 		{
 			try
 			{
-				Logger?.Error ( $"{e.Exception.Message}" ) ;
+				Logger?.Trace ( $"{e.Exception.Message}" ) ;
 			} catch(Exception ex)
 			{
 				Debug.WriteLine ( ( ex.Message ) ) ;
 			}
 
-		}
+	;	}
 			
 		private string RegOutput ( IComponentRegistration registration , int i )
 		{
@@ -142,10 +142,10 @@ namespace WpfApp1.Application
 		}
 
 		[ System.Diagnostics.CodeAnalysis.SuppressMessage (
-			                                                  "Usage"
-			                                                , "VSTHRD001:Avoid legacy thread switching APIs"
-			                                                , Justification = "<Pending>"
-		                                                  ) ]
+															  "Usage"
+															, "VSTHRD001:Avoid legacy thread switching APIs"
+															, Justification = "<Pending>"
+														  ) ]
 		private void ApplicationStartup ( object sender , StartupEventArgs e )
 		{
 		}
@@ -156,30 +156,35 @@ namespace WpfApp1.Application
 
 			
 			PresentationTraceSources.Refresh ( ) ;
-			var nLogTraceListener = new NLogTraceListener ( ) ;
-			var routedEventSource = PresentationTraceSources.RoutedEventSource ;
-			nLogTraceListener.DefaultLogLevel = LogLevel.Debug ;
-			nLogTraceListener.ForceLogLevel   = LogLevel.Warn ;
-			//nLogTraceListener.LogFactory      = AppContainer.Resolve < LogFactory > ( ) ;
-			nLogTraceListener.AutoLoggerName  = false ;
-			//nLogTraceListener.
-			routedEventSource.Switch.Level = SourceLevels.All ;
-			var foo = AppContainer.Resolve < IEnumerable<TraceListener>> ( ) ;
-			foreach ( var tl in foo )
+			if ( DoTracing )
 			{
-				routedEventSource.Listeners.Add ( tl ) ;
+				var nLogTraceListener = new NLogTraceListener ( ) ;
+				var routedEventSource = PresentationTraceSources.RoutedEventSource ;
+				nLogTraceListener.DefaultLogLevel = LogLevel.Debug ;
+				nLogTraceListener.ForceLogLevel   = LogLevel.Warn ;
+				//nLogTraceListener.LogFactory      = AppContainer.Resolve < LogFactory > ( ) ;
+				nLogTraceListener.AutoLoggerName = false ;
+				//nLogTraceListener.
+				routedEventSource.Switch.Level = SourceLevels.All ;
+				var foo = AppContainer.Resolve < IEnumerable < TraceListener > > ( ) ;
+				foreach ( var tl in foo )
+				{
+					routedEventSource.Listeners.Add ( tl ) ;
+				}
+
+				//routedEventSource.Listeners.Add ( new AppTraceLisener ( ) ) ;
+				routedEventSource.Listeners.Add ( nLogTraceListener ) ;
 			}
-			//routedEventSource.Listeners.Add ( new AppTraceLisener ( ) ) ;
-			routedEventSource.Listeners.Add ( nLogTraceListener ) ;
-		
+
+
 			var loggerTracker = AppContainer.Resolve < ILoggerTracker > ( ) ;
 			var myLoggerName = typeof ( App ).FullName ;
 			loggerTracker.LoggerRegistered += ( sender , args ) => {
 				if ( args.Logger.Name == myLoggerName )
 				{
 					args.Logger.Trace (
-					                   "Received logger for application in LoggerREegistered handler."
-					                  ) ;
+									   "Received logger for application in LoggerREegistered handler."
+									  ) ;
 				}
 				else
 				{
@@ -191,11 +196,11 @@ namespace WpfApp1.Application
 			} ;
 
 			Logger = AppContainer.Resolve < ILogger > (
-			                                           new TypedParameter (
-			                                                               typeof ( Type )
-			                                                             , typeof ( App )
-			                                                              )
-			                                          ) ;
+													   new TypedParameter (
+																		   typeof ( Type )
+																		 , typeof ( App )
+																		  )
+													  ) ;
 
 
 			var menuItemList = AppContainer.Resolve < IMenuItemList > ( ) ;
@@ -203,10 +208,10 @@ namespace WpfApp1.Application
 			var handler = new RoutedEventHandler ( MainWindowLoaded ) ;
 
 			EventManager.RegisterClassHandler (
-			                                   typeof ( Window )
-			                                 , FrameworkElement.LoadedEvent
-			                                 , handler
-			                                  ) ;
+											   typeof ( Window )
+											 , FrameworkElement.LoadedEvent
+											 , handler
+											  ) ;
 			Resources[ "MyMenuItemList" ] = menuItemList ;
 			Logger.Trace ( $"Attempting to resolve MainWindow" ) ;
 
@@ -225,24 +230,29 @@ namespace WpfApp1.Application
 
 			}
 #if SHOWWINDOW
-                var mainWindow = new MainWindow();
-                mainWindow.Show();
+				var mainWindow = new MainWindow();
+				mainWindow.Show();
 #endif
 			return null ;
 		}
 
+		public bool DoTracing { get ; } = false ;
+
+
 		private void MainWindowLoaded ( object o , RoutedEventArgs args )
 		{
-			if ( ! (o is MainWindow ))
+			MainWindow w = o as MainWindow;
+			if (w == null) {}
 			{
 				Logger.Error ( $"Bad type for event sender {o.GetType ( )}" ) ;
 			}
 
 			var fe = o as FrameworkElement ;
 			Logger.Info ( $"{nameof ( MainWindowLoaded )}" ) ;
-			AppProperties.SetMenuItemListCollectionView ( fe , MenuItemListCollectionView ) ;
-			Logger.Debug ( $"Setting LifetimeScooe DependencyProperty" ) ;
-			AppProperties.SetLifetimeScope ( fe , AppContainer ) ;
+			AppShared.App.SetMenuItemListCollectionView ( fe , MenuItemListCollectionView ) ;
+			Logger.Debug ( $"Setting LifetimeScooe DependencyProperty to {AppContainer}" ) ;
+			AppShared.App.SetLifetimeScope ( fe , AppContainer ) ;
+			Logger.Info ( $"{w.LifetimeScope} - {w.LifetimeScope.Tag}" ) ;
 		}
 
 		// ReSharper disable once MemberCanBePrivate.Global
@@ -253,10 +263,10 @@ namespace WpfApp1.Application
 			try
 			{
 				EventManager.RegisterClassHandler (
-				                                   typeof ( Window )
-				                                 , UIElement.KeyDownEvent
-				                                 , new KeyEventHandler ( OnKeyDown )
-				                                  ) ;
+												   typeof ( Window )
+												 , UIElement.KeyDownEvent
+												 , new KeyEventHandler ( OnKeyDown )
+												  ) ;
 			}
 			catch ( Exception ex )
 			{
@@ -267,14 +277,14 @@ namespace WpfApp1.Application
 		private void OnKeyDown ( object sender , KeyEventArgs e )
 		{
 			if ( e.Key                         == Key.T
-			     && e.KeyboardDevice.Modifiers == ( ModifierKeys.Control | ModifierKeys.Alt ) )
+				 && e.KeyboardDevice.Modifiers == ( ModifierKeys.Control | ModifierKeys.Alt ) )
 			{
 				Process.Start (
-				               new ProcessStartInfo (
-				                                     @".\Demo.XamlDesigner.exe"
-				                                   , @"..\WpfApp1\Windows\MainWindow.xaml"
-				                                    ) { WorkingDirectory = @"..\..\..\tools" }
-				              ) ;
+							   new ProcessStartInfo (
+													 @".\Demo.XamlDesigner.exe"
+												   , @"..\WpfApp1\Windows\MainWindow.xaml"
+													) { WorkingDirectory = @"..\..\..\tools" }
+							  ) ;
 			}
 		}
 
@@ -284,9 +294,9 @@ namespace WpfApp1.Application
 		)
 		{
 			Logger?.Fatal (
-			               e.Exception
-			             , $"{nameof ( Application_DispatcherUnhandledException )}: {e.Exception.Message}"
-			              ) ;
+						   e.Exception
+						 , $"{nameof ( Application_DispatcherUnhandledException )}: {e.Exception.Message}"
+						  ) ;
 		}
 
 		private void App_OnExit ( object sender , ExitEventArgs e )
@@ -313,15 +323,15 @@ namespace WpfApp1.Application
 			else
 			{
 				Dispatcher.BeginInvoke (
-				                        DispatcherPriority.Send
-				                      , ( DispatcherOperationCallback ) DispatcherOperationCallback
-				                      , null
-				                       ) ;
+										DispatcherPriority.Send
+									  , ( DispatcherOperationCallback ) DispatcherOperationCallback
+									  , null
+									   ) ;
 			}
 			base.OnStartup ( e ) ;
 		}
 		private void Application_DispatcherUnhandledException1(object                                                         sender,
-		                                                       System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+															   System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
 		{
 			Logger.Error(e.Exception, $"Unhandled exception {e.Exception}");
 			Exception inner = e.Exception.InnerException;

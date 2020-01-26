@@ -169,9 +169,11 @@
     </Compile>
     <Compile Include="Menus\WindowsTopLevelMenu.cs" />
     <Compile Include="Menus\XMenuItem.cs" />
+    <Compile Include="Windows\LogEventInfoCollection.cs" />
     <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\MyLogger.cs" />
     <Compile Include="Windows\Page1.xaml.cs">
       <DependentUpon>Page1.xaml</DependentUpon>
     </Compile>
@@ -278,6 +280,10 @@
     <ProjectReference Include="..\..\AppShared\AppShared\AppShared.csproj">
       <Project>{c4c404ae-0214-481b-ab46-708abd99af9c}</Project>
       <Name>AppShared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\new\Sentinel\Sentinel.Interfaces\Sentinel.Interfaces.csproj">
+      <Project>{aa7ae77f-d8fe-4d3e-98c0-789a0e886ec6}</Project>
+      <Name>Sentinel.Interfaces</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\new\Sentinel\Sentinel.NLog\Sentinel.NLog.csproj">
       <Project>{EABC1023-A456-44A7-9D8C-FCD0F6323C58}</Project>

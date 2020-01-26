@@ -1,12 +1,12 @@
 ﻿using System ;
 using System.Collections ;
 using System.Collections.Generic ;
-using System.Collections.ObjectModel ;
 using System.ComponentModel ;
 using System.Diagnostics ;
 using System.Globalization ;
 using System.IO ;
 using System.Linq ;
+using System.Net ;
 using System.Reactive.Concurrency ;
 using System.Reactive.Linq ;
 using System.Reflection ;
@@ -22,9 +22,10 @@ using AppShared ;
 using AppShared.Interfaces ;
 using Autofac ;
 using Autofac.Core ;
-using DynamicData.Annotations ;
+using Autofac.Core.Lifetime ;
 using NLog ;
 using NLog.Fluent ;
+using Sentinel.NLog ;
 using Vanara.Extensions.Reflection ;
 using WpfApp1.Application ;
 using WpfApp1.Attributes ;
@@ -32,54 +33,24 @@ using WpfApp1.Logging ;
 using WpfApp1.Menus ;
 using WpfApp1.Xaml ;
 using Control = System.Windows.Controls.Control ;
+using ILogger = NLog.ILogger ;
 using Menu = System.Windows.Controls.Menu ;
 
 namespace WpfApp1.Windows
 {
-	public class LogEventInfoCollection : ObservableCollection < LogEventInfo >
-	{
-		/// <summary>
-		///     Initializes a new instance of the
-		///     <see cref="T:System.Collections.ObjectModel.ObservableCollection`1" />
-		///     class.
-		/// </summary>
-		public LogEventInfoCollection (  ) { }
-
-		/// <summary>
-		///     Initializes a new instance of the
-		///     <see cref="T:System.Collections.ObjectModel.ObservableCollection`1" />
-		///     class that contains elements copied from the specified list.
-		/// </summary>
-		/// <param name="list">The list from which the elements are copied.</param>
-		/// <exception cref="T:System.ArgumentNullException">
-		///     The <paramref name="list" />
-		///     parameter cannot be <see langword="null" />.
-		/// </exception>
-		public LogEventInfoCollection ( [ NotNull ] List < LogEventInfo > list ) : base ( list ) { }
-
-		/// <summary>
-		///     Initializes a new instance of the
-		///     <see cref="T:System.Collections.ObjectModel.ObservableCollection`1" />
-		///     class that contains elements copied from the specified collection.
-		/// </summary>
-		/// <param name="collection">The collection from which the elements are copied.</param>
-		/// <exception cref="T:System.ArgumentNullException">
-		///     The
-		///     <paramref name="collection" /> parameter cannot be <see langword="null" />.
-		/// </exception>
-		public LogEventInfoCollection ( [ NotNull ] IEnumerable < LogEventInfo > collection ) :
-			base ( collection )
-		{
-		}
-	}
-
 	/// <summary>
 	///     Interaction logic for MainWindow.xaml
 	/// </summary>
 	/// public c
 	[ WindowMetadata ( "Main Window" ) ]
 	public partial class MainWindow : Window , IHaveLogger , IHaveAppLogger
+
 	{
+
+		public static DependencyProperty
+			LifetimeScopeProperty = AppProperties.LifetimeScopeProperty ;
+
+		public static DependencyProperty MenuItemListCollectionViewProperty = AppProperties.MenuItemListCollectionViewProperty ;
 		/// <summary>Adds a specified object as the child of a <see cref="T:System.Windows.Controls.ContentControl" />. </summary>
 		/// <param name="value">The object to add.</param>
 		protected override void AddChild ( object value )
@@ -90,19 +61,20 @@ namespace WpfApp1.Windows
 
 		public void RecurseDiscover ( object ui )
 		{
-			if(ui == null)
+			if ( ui == null )
 			{
 				Logger.Warn ( $"null" ) ;
 				return ;
 			}
 
-			if(ui.GetType() == typeof(string))
+			if ( ui.GetType ( ) == typeof ( string ) )
 			{
-			//	Logger.Warn ( $"string is {(ui as string).Substring(0, 32)}" ) ;
+				//	Logger.Warn ( $"string is {(ui as string).Substring(0, 32)}" ) ;
 				return ;
 			}
-			UIElement uie = ui as UIElement;
-			FrameworkElement fe = ui as FrameworkElement	;
+
+			var uie = ui as UIElement ;
+			var fe = ui as FrameworkElement ;
 			string desc = null ;
 			var qqq = Attribute.GetCustomAttribute (
 			                                        ui.GetType ( )
@@ -121,6 +93,7 @@ namespace WpfApp1.Windows
 				{
 					return ;
 				}
+
 				desc = fe != null ? fe.Name : uie.Uid ;
 			}
 
@@ -128,15 +101,16 @@ namespace WpfApp1.Windows
 			                                       ui.GetType ( )
 			                                     , typeof ( ContentPropertyAttribute )
 			                                      ) ;
-			Logger.Error( $"child {desc} ({ui.GetType()})" ) ;
-			if(qq != null)
+			Logger.Error ( $"child {desc} ({ui.GetType ( )})" ) ;
+			if ( qq != null )
 			{
-				var content = ui.GetPropertyValue<object> ( ( qq as ContentPropertyAttribute ).Name ) ;
-				if ( content is IEnumerable && content.GetType (  ) != typeof(string))
+				var content =
+					ui.GetPropertyValue < object > ( ( qq as ContentPropertyAttribute ).Name ) ;
+				if ( content is IEnumerable
+				     && content.GetType ( ) != typeof ( string ) )
 				{
-					foreach ( var child in content as IEnumerable)
+					foreach ( var child in content as IEnumerable )
 					{
-
 						RecurseDiscover ( child ) ;
 					}
 				}
@@ -146,26 +120,30 @@ namespace WpfApp1.Windows
 				}
 
 				return ;
-
 			}
 
-			
-			Control c = ui as Control ;
+
+			var c = ui as Control ;
 
 			if ( ui is ItemsControl ic )
 			{
-				foreach(var item in ic.Items)
+				foreach ( var item in ic.Items )
 				{
-					RecurseDiscover(item);
+					RecurseDiscover ( item ) ;
 				}
-			} else if ( ui is ContentControl cc )
+			}
+			else if ( ui is ContentControl cc )
 			{
-				RecurseDiscover	(cc.Content);
+				RecurseDiscover ( cc.Content ) ;
 			}
 		}
+
 		public MainWindow ( )
 		{
 			InitializeComponent ( ) ;
+
+			AddHandler ( AppProperties.LifetimeScopeChangedEvent, new RoutedPropertyChangedEventHandler < ILifetimeScope > ( UpdatedScope ));
+			Loaded += OnLoaded;
 
 			//RecurseDiscover(Content ) ;
 			var target = MyCacheTarget.GetInstance ( 1000 ) ;
@@ -184,23 +162,23 @@ namespace WpfApp1.Windows
 				                  }
 			                  }
 			                 ) ; /*
-            DataTemplate lvItemTemplate = (DataTemplate) FindResource("ButtonTemplate");
-            target.Cache.SubscribeOn(Scheduler.Default).Buffer(TimeSpan.FromMilliseconds(100)).Where(x => x.Any())
-                .ObserveOnDispatcher(DispatcherPriority.Background).Subscribe(infos =>
-                {
-                    foreach (LogEventInfo info in infos)
-                    {
-                        ListView lv = new ListView();
-                        lv.ItemTemplate = lvItemTemplate;
-                        lv.Items.Add(info);
-                        InlineUIContainer container = new InlineUIContainer(lv);
-                        var paragraph = new Paragraph(new Run(info.FormattedMessage));
-                        paragraph.Inlines.Add(container);
-                        FlowDoc.Blocks.Add(paragraph);
+			DataTemplate lvItemTemplate = (DataTemplate) FindResource("ButtonTemplate");
+			target.Cache.SubscribeOn(Scheduler.Default).Buffer(TimeSpan.FromMilliseconds(100)).Where(x => x.Any())
+				.ObserveOnDispatcher(DispatcherPriority.Background).Subscribe(infos =>
+				{
+					foreach (LogEventInfo info in infos)
+					{
+						ListView lv = new ListView();
+						lv.ItemTemplate = lvItemTemplate;
+						lv.Items.Add(info);
+						InlineUIContainer container = new InlineUIContainer(lv);
+						var paragraph = new Paragraph(new Run(info.FormattedMessage));
+						paragraph.Inlines.Add(container);
+						FlowDoc.Blocks.Add(paragraph);
 
-                    }
-                });
-                */
+					}
+				});
+				*/
 
 			AddHandler (
 			            AppProperties.MenuItemListCollectionViewChangedEvent
@@ -211,8 +189,22 @@ namespace WpfApp1.Windows
 			//Vanara.PInvoke.User32.SetWindowLong( Vanara.PInvoke.User32.GetActiveWindow(), User32.WindowLongFlags.GWL_EXSTYLE )
 		}
 
+		private void UpdatedScope (
+			object                                           sender
+		  , RoutedPropertyChangedEventArgs < ILifetimeScope > e
+		)
+		{
+			Logger.Warn ( "updated scope " + e.NewValue.Tag ) ;
+		}
+
+		private void OnLoaded ( object sender , RoutedEventArgs e )
+		{
+			DoRestart                                       = false ;
+			System.Windows.Application.Current.ShutdownMode = ShutdownMode.OnLastWindowClose ;
+		}
+
 		public LogEventInfoCollection LogEvents { get ; set ; } = new LogEventInfoCollection (
-		                                                                                      new []
+		                                                                                      new[]
 		                                                                                      {
 			                                                                                      new
 				                                                                                      LogEventInfo (
@@ -273,10 +265,10 @@ namespace WpfApp1.Windows
 			RoutedPropertyChangedEventArgs < T > args
 		)
 		{
-			Logger.Debug ( "OldValue = " + args.OldValue ) ;
-			Logger.Debug ( "NewValue = " + args.NewValue ) ;
+			Logger.Debug ( "OldValue = "    + args.OldValue ) ;
+			Logger.Debug ( "NewValue = "    + args.NewValue ) ;
 			Logger.Debug ( "RoutedEvent = " + args.RoutedEvent ) ;
-			Logger.Debug ( "Source = " + args.Source ) ;
+			Logger.Debug ( "Source = "      + args.Source ) ;
 		}
 
 		private void Refresh_OnClick ( object sender , RoutedEventArgs e ) { }
@@ -288,15 +280,16 @@ namespace WpfApp1.Windows
 
 		public ILifetimeScope LifetimeScope
 		{
-			get { return ( ILifetimeScope ) GetValue ( AppProperties.LifetimeScopeProperty ) ; }
-			set { SetValue ( AppProperties.LifetimeScopeProperty , value ) ; }
+			get => ( ILifetimeScope ) GetValue ( LifetimeScopeProperty ) ;
+			set => SetValue ( LifetimeScopeProperty , value ) ;
 		}
+
 		private void CommandBinding_OnExecuted ( object sender , ExecutedRoutedEventArgs e )
 		{
 			var module1BinDebugModule1Dll = @"..\..\..\..\Module1\module1\bin\debug\module1.dll" ;
 
-			FileInfo f = new FileInfo(module1BinDebugModule1Dll);
-			if(!f.Exists)
+			var f = new FileInfo ( module1BinDebugModule1Dll ) ;
+			if ( ! f.Exists )
 			{
 				Logger.Warn ( "dll does not exist" ) ;
 				return ;
@@ -312,11 +305,11 @@ namespace WpfApp1.Windows
 					                                                                              loadFile
 					                                                                             ) ;
 				                                                   }
-				                                                  ) ;		                                                   				//LifetimeScope = childScope ;
+				                                                  ) ; //LifetimeScope = childScope ;
 			}
 			catch ( Exception ex )
 			{
-				Logger.Fatal (ex, $"{ex.Message}" ) ;
+				Logger.Fatal ( ex , $"{ex.Message}" ) ;
 			}
 
 			//Vanara.Windows.Forms.;
@@ -324,16 +317,16 @@ namespace WpfApp1.Windows
 
 		private void DumpDebug ( object sender , ExecutedRoutedEventArgs e )
 		{
-			var foo = LifetimeScope.Resolve < IEnumerable < TraceListener > >( ) ;
+			var foo = LifetimeScope.Resolve < IEnumerable < TraceListener > > ( ) ;
 			foreach ( var q in foo )
 			{
-
 			}
 		}
 
 		private void OnRestart ( object sender , ExecutedRoutedEventArgs e )
 		{
-			DoRestart = true ;
+			DoRestart                                       = true ;
+			System.Windows.Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown ;
 			Close ( ) ;
 		}
 
@@ -343,10 +336,11 @@ namespace WpfApp1.Windows
 		{
 			if ( DoRestart )
 			{
-				MainWindow newWindow = new MainWindow ( ) ;
+				var newWindow = new MainWindow ( ) ;
 				newWindow.Show ( ) ;
 			}
-			base.OnClosed(e);
+
+			base.OnClosed ( e ) ;
 		}
 
 		public bool DoRestart { get ; set ; }
@@ -354,6 +348,7 @@ namespace WpfApp1.Windows
 		private void Restart ( object sender , ExecutedRoutedEventArgs e )
 		{
 			DoRestart = true ;
+			System.Windows.Application.Current.ShutdownMode =ShutdownMode.OnExplicitShutdown; 
 			Close ( ) ;
 		}
 
@@ -362,30 +357,40 @@ namespace WpfApp1.Windows
 			Logger.Debug ( "checked" ) ;
 			var collectionViewSource = Resources[ "Registrations" ] as CollectionViewSource ;
 			var tryFindResource = TryFindResource ( "RegistrationConverter" ) ;
-			if ( tryFindResource == null ) return ;
-			var converter = tryFindResource as IValueConverter ;
-			if ( converter == null ) return ;
-		   CheckedHandler  = ( object o , FilterEventArgs args ) => {
-			   args.Accepted = false ;
-			   var componentRegistration = args.Item as IComponentRegistration ;
-			   var convert = converter.Convert (
-			                                    args.Item
-			                                  , typeof ( int )
-			                                  , "Count"
-			                                  , CultureInfo.CurrentUICulture
-			                                   ) ;
-			   try
-			   {
-				   var count = ( int ) convert ;
-				   if ( count > 0 ) args.Accepted = true ;
-			   }
-			   catch ( Exception ex )
-			   {
-				   return ;
-			   }
-		   } ;
-			collectionViewSource.Filter += CheckedHandler ;
+			if ( tryFindResource == null )
+			{
+				return ;
+			}
 
+			var converter = tryFindResource as IValueConverter ;
+			if ( converter == null )
+			{
+				return ;
+			}
+
+			CheckedHandler = ( object o , FilterEventArgs args ) => {
+				args.Accepted = false ;
+				var componentRegistration = args.Item as IComponentRegistration ;
+				var convert = converter.Convert (
+				                                 args.Item
+				                               , typeof ( int )
+				                               , "Count"
+				                               , CultureInfo.CurrentUICulture
+				                                ) ;
+				try
+				{
+					var count = ( int ) convert ;
+					if ( count > 0 )
+					{
+						args.Accepted = true ;
+					}
+				}
+				catch ( Exception  )
+				{
+					return ;
+				}
+			} ;
+			collectionViewSource.Filter += CheckedHandler ;
 		}
 
 		public FilterEventHandler CheckedHandler { get ; set ; }
@@ -395,8 +400,28 @@ namespace WpfApp1.Windows
 		{
 			var collectionViewSource = Resources[ "Registrations" ] as CollectionViewSource ;
 			collectionViewSource.Filter -= CheckedHandler ;
-			CheckedHandler = null ;
+			CheckedHandler              =  null ;
 		}
 
+		private void ButtonBase_OnClick ( object sender , RoutedEventArgs e )
+		{
+			{
+				var provider = new NLogViewerProvider (
+				                                       new NetworkSettings ( )
+				                                       {
+					                                       Port = NetConfig.Port
+					                                     , Protocol =
+						                                       NetConfig.IsUdp
+							                                       ? NetworkProtocol.Udp
+							                                       : NetworkProtocol.Tcp
+					                                      ,
+				                                       }
+				                                      ) ;
+				provider.Start ( ) ;
+				provider.Logger = MyLogger ;
+			}
+		}
+
+		public Sentinel.Interfaces.ILogger MyLogger { get ; set ; } = new MyLogger ( ) ;
 	}
 }

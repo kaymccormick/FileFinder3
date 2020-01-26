@@ -144,7 +144,7 @@ namespace WpfApp1.Logging
 					return n.Address;
 				}
 			}
-			catch ( Exception ex )
+			catch ( Exception )
 			{
 
 			}

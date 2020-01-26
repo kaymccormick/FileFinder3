@@ -30,7 +30,7 @@ namespace WpfApp1.Controls
 	{
 		private static Logger Logger = LogManager.GetCurrentClassLogger ( ) ;
 		public static readonly DependencyProperty RenderedTypeProperty =
-			AppProperties.RenderedTypeProperty ;
+			App.RenderedTypeProperty ;
 
 		public Type RenderedType
 		{
@@ -39,8 +39,8 @@ namespace WpfApp1.Controls
 		}
 
 		public event RoutedPropertyChangedEventHandler <Type> RenderedTypeChanged {
-			add { AddHandler ( AppProperties.RenderedTypeChangedEvent , value ) ; }
-			remove { RemoveHandler ( AppProperties.RenderedTypeChangedEvent , value ) ; }
+			add { AddHandler ( App.RenderedTypeChangedEvent , value ) ; }
+			remove { RemoveHandler ( App.RenderedTypeChangedEvent , value ) ; }
 
 		}
 		public TypeControl ()
@@ -137,7 +137,7 @@ namespace WpfApp1.Controls
 			var q = codeTypeReference;
 			//myType.GetGenericTypeParameters()
 			return provider.GetTypeOutput ( q ) ;
-			return myType.IsGenericType ? myType.GetGenericTypeDefinition ( ).Name : myType.Name ;
+			// return myType.IsGenericType ? myType.GetGenericTypeDefinition ( ).Name : myType.Name ;
 		}
 
 		private void HyperLinkOnRequestNavigate ( object sender , RequestNavigateEventArgs e )
@@ -152,7 +152,7 @@ namespace WpfApp1.Controls
 				                            {
 					                            RenderedType =
 						                            uie.GetValue (
-						                                          AppProperties.RenderedTypeProperty
+						                                          App.RenderedTypeProperty
 						                                         ) as Type
 				                            }
 				                           ) ;

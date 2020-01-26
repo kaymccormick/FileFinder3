@@ -10,7 +10,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <CollectionViewSource Source="{Binding ElementName=userControl,Path=(attachedProperties:AppProperties.AssemblyList)}" x:Key="AssemblyCollectionView"/>
+        <CollectionViewSource Source="{Binding ElementName=userControl,Path=(attachedProperties:App.AssemblyList)}" x:Key="AssemblyCollectionView"/>
     </UserControl.Resources>
     <UserControl.CommandBindings>
         <CommandBinding Command="commands:MyAppCommands.LoadAssemblyList"
@@ -25,15 +25,15 @@
         </Grid.RowDefinitions>
         <ToolBarTray>
             <ToolBar Band="1" BandIndex="1">
-                <Button Content="Load" CommandParameter="{Binding ElementName=userControl,Path=(attachedProperties:AppProperties.AssemblyList)}"  Command="commands:MyAppCommands.LoadAssemblyList"/>
+                <Button Content="Load" CommandParameter="{Binding ElementName=userControl,Path=(attachedProperties:App.AssemblyList)}"  Command="commands:MyAppCommands.LoadAssemblyList"/>
             </ToolBar>
         </ToolBarTray>
         <ListBox Grid.Row="1" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  Name="assemblyListBox" ItemsSource="{Binding Path=AssemblyList}"/>
         <ListBox Grid.Row="2" Grid.Column="0"  MinHeight="100" Name="typeBox" ItemsSource="{Binding Source={StaticResource AssemblyCollectionView}, Converter={StaticResource AssemblyConverter}}"/>
         <local:TypeControl Grid.Row="3" Grid.Column="1">
-            <attachedProperties:AppProperties.RenderedType>
+            <attachedProperties:App.RenderedType>
                 <Binding ElementName="typeBox" Path="SelectedItem"/>
-            </attachedProperties:AppProperties.RenderedType>
+            </attachedProperties:App.RenderedType>
         </local:TypeControl>
     </Grid>
 </UserControl>

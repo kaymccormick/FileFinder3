@@ -9,6 +9,7 @@ using Autofac.Builder ;
 using Autofac.Core ;
 using Autofac.Core.Activators.Delegate ;
 using Autofac.Core.Activators.Reflection ;
+using Autofac.Core.Lifetime ;
 using Autofac.Core.Registration ;
 using Autofac.Extras.AttributeMetadata ;
 using NLog ;
@@ -138,16 +139,36 @@ namespace WpfApp1.Util
 
 			#region Container Build
 			var setupContainer = builder.Build ( ) ;
+			setupContainer.ChildLifetimeScopeBeginning += SetupContainerOnChildLifetimeScopeBeginning;
 			#endregion
+			setupContainer.CurrentScopeEnding += SetupContainerOnCurrentScopeEnding;
 
 
 			#region Post-container build reporting
-			return setupContainer.BeginLifetimeScope ( configurationAction : containerBuilder
+			return setupContainer.BeginLifetimeScope ( "initial scope",configurationAction : containerBuilder
 				                                           => ConfigurationAction (
 				                                                                   containerBuilder
 				                                                                  )
 			                                         ) ;
 			//return CreateChildLifetimeContext ( setupContainer ) ;
+		}
+
+		private static void SetupContainerOnCurrentScopeEnding (
+			object                       sender
+		  , LifetimeScopeEndingEventArgs e
+		)
+		{
+			Logger.Info (
+			             $"{nameof ( SetupContainerOnCurrentScopeEnding )} {e.LifetimeScope.Tag}"
+			            ) ;
+		}
+
+		private static void SetupContainerOnChildLifetimeScopeBeginning (
+			object                          sender
+		  , LifetimeScopeBeginningEventArgs e
+		)
+		{
+			Logger.Info ( $"{sender} {e.LifetimeScope.Tag}" ) ;
 		}
 
 		private static string DesribeComponent ( IComponentRegistration eventArgsComponent )

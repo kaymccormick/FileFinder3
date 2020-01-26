@@ -13,10 +13,10 @@
              xmlns:autofac="clr-namespace:Autofac;assembly=Autofac"
              xmlns:autofaccore="clr-namespace:Autofac.Core;assembly=Autofac"
              xmlns:controls="clr-namespace:WpfApp1.Controls"
+             xmlns:wpfapp1="clr-namespace:WpfApp1"
              Exit="App_OnExit"
              Startup="ApplicationStartup">
     <Application.Resources>
-        <myxaml:RegistrationConverter x:Key="RegistrationConverter"/>
         <myxaml:AssemblyConverter x:Key="AssemblyConverter"/>
         <logging:AppLoggerContainer x:Key="AppLoggerContainer" logging:AppLogger="{myxaml:AppLogger poo}"/>
         <menus:MenuMenuItemTemplateSelector x:Key="MenuMenuItemTemplateSelector" AppLogger="{myxaml:AppLogger}" />
@@ -39,17 +39,9 @@
         <Style x:Key="MenuItemWithChildren" TargetType="{x:Type MenuItem}">
             <Setter Property="HeaderTemplate" Value="{DynamicResource MenuItemWithChildrenHeaderTemplate}" />
         </Style>
-        <Style x:Key="MenuItemNoChildren" TargetType="{x:Type MenuItem}">
-            <Setter Property="HeaderTemplate" Value="{DynamicResource MenuItemDataTemplateNoChildren}" />
-        </Style>
-
-        <Style x:Key="superMenu" TargetType="{x:Type Menu}">
-            <Setter Property="ItemTemplateSelector" Value="{DynamicResource MenuMenuItemTemplateSelector}" />
-            <Setter Property="ItemsSource" Value="{Binding Path=(aooShared:AppProperties.MenuItemListCollectionView)}"/>
-        </Style>
 
         <Style x:Key="MyTest" TargetType="{x:Type Menu}">
-            <Setter Property="ItemsSource" Value="{Binding Path=(aooShared:AppProperties.MenuItemListCollectionView)}"/>
+            <Setter Property="ItemsSource" Value="{Binding Path=(aooShared:App.MenuItemListCollectionView)}"/>
             <Setter Property="ItemTemplate" Value="{DynamicResource testMenu_ItemTemplate}"/>
         </Style>
 
@@ -62,32 +54,35 @@
         <DataTemplate DataType="autofac:TypedParameter">
             <WrapPanel>
             <controls:TypeControl BorderBrush="BlueViolet" BorderThickness="3">
-                <aooShared:AppProperties.RenderedType>
+                <aooShared:App.RenderedType>
                     <Binding Path="Type"/>
-                </aooShared:AppProperties.RenderedType>
+                </aooShared:App.RenderedType>
             </controls:TypeControl>
             <Label Content="{Binding Value}"/>
             </WrapPanel>
         </DataTemplate>
-        <DataTemplate x:Key="ServicesTypeTemplate" DataType="{x:Type autofaccore:IComponentRegistration}">
+        <DataTemplate x:Key="ServicesTypeTemplate" DataType="autofaccore:IComponentRegistration">
             <ComboBox ItemsSource="{Binding Services}" />
         </DataTemplate>
-        <DataTemplate x:Key="ServicesCellTemplate" DataType="{x:Type autofaccore:IComponentRegistration}">
+        <DataTemplate x:Key="ServicesCellTemplate" DataType="autofaccore:IComponentRegistration">
             <ComboBox Width="150" ItemsSource="{Binding Services}" />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type autofaccore:TypedService}">
+        <DataTemplate DataType="autofaccore:TypedService">
             <WrapPanel>
                 <controls:TypeControl RenderedType="{Binding ServiceType}" />
                 <TextBlock Text="{Binding ServiceType}" />
             </WrapPanel>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type autofaccore:Service}">
+        <DataTemplate DataType="autofaccore:Service">
             <WrapPanel>
                 <TextBlock Text="{Binding GetType}" />
                 <TextBlock Text="{Binding Description}" />
             </WrapPanel>
         </DataTemplate>
         <myxaml:ComponentLifetimeConverter x:Key="ComponentLifetimeConverter" />
-        <ObjectDataProvider x:Key="designInstanceInfo" ObjectInstance="{x:Static DesignData.InstanceInfo}"/>
+        <ObjectDataProvider x:Key="designInstanceInfo" ObjectInstance="{x:Static wpfapp1:DesignData.InstanceInfo}"/>
+        <ObjectDataProvider x:Key="designInstanceList" ObjectInstance="{x:Static wpfapp1:DesignData.InstanceList}"/>
+        <wpfapp1:DesignData x:Key="designData"/>
+        <Binding x:Key="lifetimescope" Source="{StaticResource designData}" Path="LifetimeScope"/>
     </Application.Resources>
 </Application>

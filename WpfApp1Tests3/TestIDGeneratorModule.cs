@@ -29,7 +29,7 @@ namespace WpfApp1Tests3
 			var idProvider = container.Resolve<IObjectIdProvider>();
 			foreach(var q in idProvider.GetObjectInstances())
 			{
-				var id = idProvider.ProvideObjectInstanceIdentifier ( q, null ) ;
+				var id = idProvider.ProvideObjectInstanceIdentifier ( q, null, null) ;
 				_output.WriteLine ( $"{q} = {id}" ) ;
 			}
 		}
