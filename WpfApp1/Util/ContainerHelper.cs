@@ -24,7 +24,7 @@ namespace WpfApp1.Util
 		private static readonly Logger Logger =
 			LogManager.GetLogger ( "Autofac container builder helper" ) ;
 
-		public static ILifetimeScope SetupContainer ( )
+		public static ILifetimeScope SetupContainer (out IContainer container )
 		{
 			AppLoggingConfigHelper.EnsureLoggingConfigured ( ) ;
 			var builder = new ContainerBuilder ( ) ;
@@ -115,7 +115,7 @@ namespace WpfApp1.Util
 
 			
 			#region Callbacks
-			builder.RegisterBuildCallback ( buildCallback : container => Logger.Info ( message : "Container built." ) ) ;
+			builder.RegisterBuildCallback ( buildCallback : c => Logger.Info ( message : "Container built." ) ) ;
 			builder.RegisterCallback (
 			                          configurationCallback : registry => {
 				                          registry.Registered += ( sender , args ) => {
@@ -139,6 +139,7 @@ namespace WpfApp1.Util
 
 			#region Container Build
 			var setupContainer = builder.Build ( ) ;
+			container = setupContainer ;
 			setupContainer.ChildLifetimeScopeBeginning += SetupContainerOnChildLifetimeScopeBeginning;
 			#endregion
 			setupContainer.CurrentScopeEnding += SetupContainerOnCurrentScopeEnding;

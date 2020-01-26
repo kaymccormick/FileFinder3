@@ -14,15 +14,18 @@ using System.Collections ;
 using System.Collections.Concurrent ;
 using System.Collections.Generic ;
 using System.Runtime.Serialization ;
+using System.ServiceModel.Channels ;
 using System.Windows.Documents ;
 using AppShared ;
 using AppShared.Interfaces ;
 using Autofac.Core ;
+using NLog ;
 
 namespace WpfApp1.DefaultServices
 {
 	public class DefaultObjectIdProvider : IObjectIdProvider
 	{
+		private static Logger Logger = LogManager.GetCurrentClassLogger ( ) ;
 		public ConcurrentDictionary < object , long > registry ;
 		public ConcurrentDictionary < long , object > registryById ;
 		public ObjectIDGenerator Generator { get ; }
@@ -40,12 +43,17 @@ namespace WpfApp1.DefaultServices
 			{
 				return Array.Empty < InstanceInfo > ( ) ;
 			}
-			if ( byComponent.TryGetValue ( reg , out var compinfo ) )
+			if ( byComponent.TryGetValue ( reg.Id , out var compinfo ) )
 			{
-				return compinfo.instances ;
+				return new List < InstanceInfo > ( compinfo.instances) ;
 			}
 
 			return Array.Empty < InstanceInfo > ( ) ;
+		}
+
+		public int GetInstanceCount ( IComponentRegistration reg )
+		{
+			return GetInstanceByComponentRegistration ( reg ).Count ;
 		}
 
 		public IEnumerable GetObjectInstances ( ) { return registry.Keys ; }
@@ -61,15 +69,16 @@ namespace WpfApp1.DefaultServices
 			if ( newFlag )
 			{
 				CompInfo compreg = null ;
-				if ( ! byComponent.TryGetValue ( eComponent , out compreg ) )
+				if ( ! byComponent.TryGetValue ( eComponent.Id , out compreg ) )
 				{
 					compreg = new CompInfo ( ) ;
-					if ( ! byComponent.TryAdd ( eComponent , compreg ) )
+					if ( ! byComponent.TryAdd ( eComponent.Id , compreg ) )
 					{
 
 					}
 				}
 
+				Logger.Debug ( $"Adding {instance} tp reg for {eComponent.Id}" ) ;
 				compreg.instances.Add (
 				                       new InstanceInfo ( )
 				                       {
@@ -86,7 +95,7 @@ namespace WpfApp1.DefaultServices
 
 		}
 
-		public ConcurrentDictionary <object, CompInfo> byComponent { get ; set ; } = new ConcurrentDictionary < object , CompInfo > ();
+		public ConcurrentDictionary <Guid, CompInfo> byComponent { get ; set ; } = new ConcurrentDictionary < Guid , CompInfo > ();
 	}
 
 	public class CompInfo

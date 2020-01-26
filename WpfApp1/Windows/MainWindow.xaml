@@ -102,14 +102,18 @@
                 <TabItem Header="Lifetime Scopes" Padding="15">
 
                     <StackPanel Orientation="Vertical">
+                        <TextBlock Text="{Binding ElementName=mainWindow,Path=(aprops:App.Container).Tag}"/>
                         <TextBlock Text="{Binding Path=Tag}" />
                     </StackPanel>
                 </TabItem>
                 <TabItem Header="Registrations">
-                    <DockPanel DataContext="{Binding Path=ComponentRegistry.Registrations}">
+                    <DockPanel DataContext="{Binding ElementName=mainWindow, Path=(aprops:App.Container).ComponentRegistry.Registrations}">
                         <DockPanel.Resources>
                             <CollectionViewSource d:DesignSource="{Binding Source={StaticResource designData}, Path=LifetimeScope.ComponentRegistry.Registrations}" x:Key="Registrations" Source="{Binding}"/>
                         </DockPanel.Resources>
+                        <DockPanel.CommandBindings>
+
+                        </DockPanel.CommandBindings>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding}" />
                             <CheckBox Name="InstancesOnly" Checked="InstancesOnly_OnChecked"
@@ -243,7 +247,7 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <TreeView ItemsSource="{Binding Path=(aprops:App.MenuItemListCollectionView)}"
-                          Grid.Row="0" Grid.Column="0">
+                          Grid.Row="0" Grid.Column="0" DataContext="{Binding ElementName=mainWindow, Mode=OneWay}">
                     <TreeView.ItemTemplate>
                         <HierarchicalDataTemplate ItemsSource="{Binding Path=Children}">
                             <TextBlock Text="{Binding Path=Header}" />
@@ -256,7 +260,8 @@
             <TextBlock Text="{Binding Source={StaticResource AppLoggerContainer2}, Path=InternalLog}" />
         </TabItem>
         <TabItem Header="Assemblies">
-            <controls:AssemblyBrowser />
+            <controls:AssemblyBrowser>
+                </controls:AssemblyBrowser>
         </TabItem>
         <TabItem Header="Config">
             <StackPanel Orientation="Vertical">

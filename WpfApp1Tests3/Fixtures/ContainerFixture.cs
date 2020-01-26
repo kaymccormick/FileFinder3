@@ -35,7 +35,8 @@ namespace WpfApp1Tests3.Fixtures
         /// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
         public ContainerFixture()
         {
-            _container = ContainerHelper.SetupContainer();
+	        IContainer container ;
+	        _container = ContainerHelper.SetupContainer( out container );
             LifetimeScope = _container.BeginLifetimeScope();
         }
 

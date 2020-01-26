@@ -7,16 +7,23 @@
              xmlns:commands="clr-namespace:WpfApp1.Commands"
              xmlns:xaml="clr-namespace:WpfApp1.Xaml"
              xmlns:attachedProperties="clr-namespace:AppShared;assembly=AppShared"
+             xmlns:reflection="clr-namespace:System.Reflection;assembly=mscorlib"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" DataContext="{Binding Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
     <UserControl.Resources>
-        <CollectionViewSource Source="{Binding ElementName=userControl,Path=(attachedProperties:App.AssemblyList)}" x:Key="AssemblyCollectionView"/>
+        <CollectionViewSource Source="{Binding Path=(attachedProperties:App.AssemblyList)}" x:Key="AssemblyCollectionView"/>
+        <DataTemplate  x:Key="assemblyTemplate" DataType="reflection:Assembly">
+            <TextBlock Text="{Binding Path=FullName}"/>
+            </DataTemplate>
     </UserControl.Resources>
     <UserControl.CommandBindings>
         <CommandBinding Command="commands:MyAppCommands.LoadAssemblyList"
                         Executed="CommandBinding_OnExecuted" CanExecute="CommandBinding_OnCanExecute"/>
     </UserControl.CommandBindings>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
@@ -25,10 +32,11 @@
         </Grid.RowDefinitions>
         <ToolBarTray>
             <ToolBar Band="1" BandIndex="1">
-                <Button Content="Load" CommandParameter="{Binding ElementName=userControl,Path=(attachedProperties:App.AssemblyList)}"  Command="commands:MyAppCommands.LoadAssemblyList"/>
+                <Button Content="Load" Command="commands:MyAppCommands.LoadAssemblyList"/>
             </ToolBar>
         </ToolBarTray>
-        <ListBox Grid.Row="1" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  Name="assemblyListBox" ItemsSource="{Binding Path=AssemblyList}"/>
+        <ListBox Grid.Row="1" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  Name="assemblyListBox" ItemTemplate="{StaticResource assemblyTemplate}" ItemsSource="{Binding Source={StaticResource AssemblyCollectionView}}"/>
+            
         <ListBox Grid.Row="2" Grid.Column="0"  MinHeight="100" Name="typeBox" ItemsSource="{Binding Source={StaticResource AssemblyCollectionView}, Converter={StaticResource AssemblyConverter}}"/>
         <local:TypeControl Grid.Row="3" Grid.Column="1">
             <attachedProperties:App.RenderedType>

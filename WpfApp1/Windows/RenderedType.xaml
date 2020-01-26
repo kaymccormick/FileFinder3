@@ -15,7 +15,7 @@
                                                  /></UserControl.CommandBindings>
     <Grid>
             <controls:TypeControl>
-        <appShared:AppProperties.RenderedType><x:Type TypeName="menus:MenuItemList"/></appShared:AppProperties.RenderedType>
+        <appShared:App.RenderedType><x:Type TypeName="menus:MenuItemList"/></appShared:App.RenderedType>
                 </controls:TypeControl>
             
     </Grid>

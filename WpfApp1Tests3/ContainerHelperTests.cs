@@ -20,7 +20,8 @@ namespace WpfApp1Tests3
         [Fact()]
         public void SetupContainerTest()
         {
-            var c = ContainerHelper.SetupContainer();
+	        IContainer container ;
+	        var c = ContainerHelper.SetupContainer( out container );
             Assert.NotNull(c);
         }
 
@@ -28,7 +29,8 @@ namespace WpfApp1Tests3
         [ UsedImplicitly ]
         public void ContainerTestResolveIMenuItemList()
         {
-            var c = ContainerHelper.SetupContainer();
+	        IContainer container ;
+	        var c = ContainerHelper.SetupContainer( out container );
             var menuItemList = c.Resolve<IMenuItemList>();
             Assert.NotNull(menuItemList);
             Assert.NotEmpty ( menuItemList.First ( ).Children ) ;
@@ -39,7 +41,8 @@ namespace WpfApp1Tests3
         [Fact]
         public void ResolveWindows()
         {
-	        var c = ContainerHelper.SetupContainer();
+	        IContainer container ;
+	        var c = ContainerHelper.SetupContainer( out container );
 	        var enumerable = c.Resolve < IEnumerable < Lazy < Window > > >();
 	        var l = enumerable.ToList ( ) ;
             Assert.NotEmpty(l);
@@ -50,7 +53,8 @@ namespace WpfApp1Tests3
         public void ResolveMainWindow()
 
         {
-	        var c = ContainerHelper.SetupContainer();
+	        IContainer container ;
+	        var c = ContainerHelper.SetupContainer( out container );
 	        var mainWindow = c.Resolve < MainWindow >();
             Assert.NotNull(mainWindow);
         }
@@ -58,8 +62,8 @@ namespace WpfApp1Tests3
         [ WpfFact ]
         public void TestPushContext ( )
         {
-	        var c = ContainerHelper.SetupContainer ( ) ;
-
+	        IContainer container ;
+	        var c = ContainerHelper.SetupContainer ( out container ) ;
         }
     }
 

@@ -40,30 +40,34 @@ namespace WpfApp1.Xaml
 		{
 			var componentRegistration = value as
 				                            IComponentRegistration ;
-			var instanceInfo = _provider.GetInstanceByComponentRegistration (
-			                                                                 componentRegistration
-			                                                                )
-			                            .Select (
-			                                     ( o , i ) => {
-				                                     var objId = _provider.ProvideObjectInstanceIdentifier ( o, componentRegistration, o.Parameters) ;
-				                                     var instanceRegistration = new InstanceRegistration (
-				                                                                                          o.Instance
-				                                                                                        , objId,
-																										  o
-				                                                                                         ) ;
-				                                     return instanceRegistration ;
-			                                     }
-			                                    ) ;
+			var instanceInfo = _provider
+			                  .GetInstanceByComponentRegistration ( componentRegistration );
+				var x = instanceInfo
+			                  .Select (
+			                           ( o , i ) => {
+				                           var objId =
+					                           _provider.ProvideObjectInstanceIdentifier (
+					                                                                      o.Instance
+					                                                                    , componentRegistration
+					                                                                    , o
+						                                                                     .Parameters
+					                                                                     ) ;
+				                           var instanceRegistration =
+					                           new InstanceRegistration ( o.Instance , objId , o ) ;
+				                           return instanceRegistration ;
+			                           }
+			                          )
+			                  .ToList ( ) ;
 
 			if ( parameter is string xx )
 			{
 				if ( string.Compare ( xx , "Count" ) == 0 )
 				{
-					return instanceInfo.Count ( ) ;
+					return _provider.GetInstanceCount ( componentRegistration ) ;
 				}
 			}
 
-			return instanceInfo ;
+			return x ;
 			// IComponentRegistration x = new ComponentRegistration();
 			// foreach(var svc in x.Services)
 			// {

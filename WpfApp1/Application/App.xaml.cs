@@ -41,6 +41,8 @@ namespace WpfApp1.Application
 	/// </summary>
 	public partial class App : System.Windows.Application , IHaveAppLogger
 	{
+		private IContainer _container ;
+
 		public AppLogger AppLogger { get ; set ; } = null ;
 
 		public ILogger Logger { get ; set ; }
@@ -152,7 +154,8 @@ namespace WpfApp1.Application
 
 		private object DispatcherOperationCallback ( object arg )
 		{
-			AppContainer = ContainerHelper.SetupContainer ( ) ;
+			AppContainer = ContainerHelper.SetupContainer (out var container ) ;
+			_container = container ;
 
 			
 			PresentationTraceSources.Refresh ( ) ;
@@ -251,6 +254,8 @@ namespace WpfApp1.Application
 			Logger.Info ( $"{nameof ( MainWindowLoaded )}" ) ;
 			AppShared.App.SetMenuItemListCollectionView ( fe , MenuItemListCollectionView ) ;
 			Logger.Debug ( $"Setting LifetimeScooe DependencyProperty to {AppContainer}" ) ;
+			AppShared.App.SetAssemblyList(w, new AssemblyList(AppDomain.CurrentDomain.GetAssemblies()));
+			AppShared.App.SetContainer(fe, _container);
 			AppShared.App.SetLifetimeScope ( fe , AppContainer ) ;
 			Logger.Info ( $"{w.LifetimeScope} - {w.LifetimeScope.Tag}" ) ;
 		}

@@ -24,13 +24,13 @@ namespace WpfApp1.Controls
 	public partial class AssemblyBrowser : UserControl
 	{
 		public static readonly DependencyProperty AssemblyListPrroperty =
-			AppProperties.AssemblyListProperty ;
+			App.AssemblyListProperty ;
 		private static NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 		public AssemblyBrowser ()
 		{
 			InitializeComponent ( );
 			AddHandler (
-			            AppProperties.AssemblyListChangedEvent
+			            App.AssemblyListChangedEvent
 			          , new RoutedPropertyChangedEventHandler < AssemblyList > ( Target )
 			           ) ;
 		}

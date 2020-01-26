@@ -32,6 +32,7 @@ using WpfApp1.Attributes ;
 using WpfApp1.Logging ;
 using WpfApp1.Menus ;
 using WpfApp1.Xaml ;
+using CheckBox = System.Windows.Controls.CheckBox ;
 using Control = System.Windows.Controls.Control ;
 using ILogger = NLog.ILogger ;
 using Menu = System.Windows.Controls.Menu ;
@@ -48,9 +49,9 @@ namespace WpfApp1.Windows
 	{
 
 		public static DependencyProperty
-			LifetimeScopeProperty = AppProperties.LifetimeScopeProperty ;
+			LifetimeScopeProperty = AppShared.App.LifetimeScopeProperty ;
 
-		public static DependencyProperty MenuItemListCollectionViewProperty = AppProperties.MenuItemListCollectionViewProperty ;
+		public static DependencyProperty MenuItemListCollectionViewProperty = AppShared.App.MenuItemListCollectionViewProperty ;
 		/// <summary>Adds a specified object as the child of a <see cref="T:System.Windows.Controls.ContentControl" />. </summary>
 		/// <param name="value">The object to add.</param>
 		protected override void AddChild ( object value )
@@ -142,7 +143,7 @@ namespace WpfApp1.Windows
 		{
 			InitializeComponent ( ) ;
 
-			AddHandler ( AppProperties.LifetimeScopeChangedEvent, new RoutedPropertyChangedEventHandler < ILifetimeScope > ( UpdatedScope ));
+			AddHandler ( AppShared.App.LifetimeScopeChangedEvent, new RoutedPropertyChangedEventHandler < ILifetimeScope > ( UpdatedScope ));
 			Loaded += OnLoaded;
 
 			//RecurseDiscover(Content ) ;
@@ -181,8 +182,8 @@ namespace WpfApp1.Windows
 				*/
 
 			AddHandler (
-			            AppProperties.MenuItemListCollectionViewChangedEvent
-			          , new RoutedPropertyChangedEventHandler < ICollectionView > (
+			            AppShared.App.MenuItemListCollectionViewChangedEvent
+			          , new RoutedPropertyChangedEventHandler < CollectionView > (
 			                                                                       OnMenuItemListCollectionViewChanged
 			                                                                      )
 			           ) ;
@@ -238,7 +239,7 @@ namespace WpfApp1.Windows
 
 		private void OnMenuItemListCollectionViewChanged (
 			object                                             sender
-		  , RoutedPropertyChangedEventArgs < ICollectionView > e
+		  , RoutedPropertyChangedEventArgs < CollectionView > e
 		)
 		{
 			if ( e.Source == this )
@@ -355,7 +356,8 @@ namespace WpfApp1.Windows
 		private void InstancesOnly_OnChecked ( object sender , RoutedEventArgs e )
 		{
 			Logger.Debug ( "checked" ) ;
-			var collectionViewSource = Resources[ "Registrations" ] as CollectionViewSource ;
+			CheckBox x = sender as CheckBox ;
+			var collectionViewSource = x.TryFindResource("Registrations") as CollectionViewSource ;
 			var tryFindResource = TryFindResource ( "RegistrationConverter" ) ;
 			if ( tryFindResource == null )
 			{
@@ -398,7 +400,8 @@ namespace WpfApp1.Windows
 
 		private void InstancesOnly_OnUnchecked ( object sender , RoutedEventArgs e )
 		{
-			var collectionViewSource = Resources[ "Registrations" ] as CollectionViewSource ;
+			CheckBox x = sender as CheckBox ;
+			var collectionViewSource = x.TryFindResource("Registrations") as CollectionViewSource ;
 			collectionViewSource.Filter -= CheckedHandler ;
 			CheckedHandler              =  null ;
 		}
