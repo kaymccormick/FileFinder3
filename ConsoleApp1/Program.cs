@@ -29,7 +29,7 @@ namespace ConsoleApp1
 				return ;
 			}
 		
-			var id = "_log4j_xml_udp_appender.local.local" ;
+			// var id = "_log4j_xml_udp_appender.local.local" ;
 		
 			var	service	= new ServiceProfile (
 			                                  new DomainName ( "x" )

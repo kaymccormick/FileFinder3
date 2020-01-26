@@ -5,10 +5,10 @@ using System.Reflection ;
 using System.Runtime.Serialization ;
 using System.Text;
 using System.Threading.Tasks;
+using AppShared.Interfaces ;
 using Autofac ;
 using Autofac.Core ;
 using WpfApp1.DefaultServices ;
-using WpfApp1.Interfaces ;
 using WpfApp1.Util ;
 using Module = Autofac.Module ;
 
@@ -16,6 +16,7 @@ namespace WpfApp1
 {
 	public class IdGeneratorModule : Module
 	{
+		private static NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger ( ) ;
 		/// <summary>Override to add registrations to the container.</summary>
 		/// <remarks>
 		/// Note that the ContainerBuilder parameter is unique to this module.
@@ -24,14 +25,23 @@ namespace WpfApp1
 		/// registered.</param>
 		protected override void Load ( ContainerBuilder builder )
 		{
-			//var obIdGenerator = new ObjectIDGenerator();
 
-			builder.RegisterType < ObjectIDGenerator > ( ).InstancePerLifetimeScope ( ).AsSelf ( ) ;
-			builder.RegisterType < DefaultObjectIdProvider > ( )
-			       .As < IObjectIdProvider > ( )
-			       .InstancePerLifetimeScope ( ) ;
+			//var obIdGenerator = new ObjectIDGenerator();
+			Logger.Info ( ( nameof ( IdGeneratorModule ) ) ) ;
+		    generator = new ObjectIDGenerator();
+			//builder.RegisterInstance ( generator ).As < ObjectIDGenerator > ( ) ;
+//			builder.RegisterType < ObjectIDGenerator > ( ).InstancePerLifetimeScope ( ).AsSelf ( ) ;
+		    defaultObject = new DefaultObjectIdProvider(generator);
+			builder.RegisterInstance(defaultObject).As<IObjectIdProvider> (  ).SingleInstance();
+			// builder.RegisterType < DefaultObjectIdProvider > ( )
+			//        .As < IObjectIdProvider > ( )
+			//        .InstancePerLifetimeScope ( ) ;
 
 		}
+
+		public DefaultObjectIdProvider defaultObject { get ; set ; }
+
+		public ObjectIDGenerator generator { get ; set ; }
 
 		/// <summary>
 		/// Override to attach module-specific functionality to a
@@ -53,11 +63,32 @@ namespace WpfApp1
 		private void RegistrationOnActivating ( object sender , ActivatingEventArgs < object > e )
 		{
 			var inst = e.Instance;
-			if ( inst is IHaveObjectId x )
+			
+			;
+			Logger.Debug ( $"{nameof ( RegistrationOnActivating )} {e.Component}" ) ;
+			if ( e.Component.Services.Any (
+			                               service
+				                               => {
+				                               var typedService = service as TypedService ;
+				                               Logger.Debug ( typedService ) ;
+				                               if ( typedService != null )
+				                               {
+					                               var typedServiceServiceType = typedService.ServiceType ;
+					                               return typedServiceServiceType
+					                                      == typeof ( ObjectIDGenerator ) ;
+				                               }
 
+				                               return false ;
+			                               }
+			                              ) )
 			{
-				var provider = e.Context.Resolve < IObjectIdProvider > ( ) ;
-				x.InstanceObjectId = provider.ProvideObjectInstanceIdentifier (inst ) ;
+				return ;
+			}
+			//var provider = e.Context.Resolve < IObjectIdProvider > ( ) ;
+			var provideObjectInstanceIdentifier = defaultObject.ProvideObjectInstanceIdentifier (inst, e.Component, e.Parameters ) ;
+			if ( inst is IHaveObjectId x )
+			{
+				x.InstanceObjectId = provideObjectInstanceIdentifier ;
 			}
 		}
 

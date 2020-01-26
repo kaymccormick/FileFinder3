@@ -6,16 +6,16 @@
              xmlns:local="clr-namespace:WpfApp1.Windows"
              xmlns:controls="clr-namespace:WpfApp1.Controls"
              xmlns:menus="clr-namespace:WpfApp1.Menus"
-             xmlns:appProperties="clr-namespace:WpfApp1.AttachedProperties"
              xmlns:commands="clr-namespace:WpfApp1.Commands"
+             xmlns:appShared="clr-namespace:AppShared;assembly=AppShared"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="40" d:DesignWidth="150">
     <UserControl.CommandBindings><CommandBinding 
                                                  CanExecute="CommandBinding_OnCanExecute"
                                                  /></UserControl.CommandBindings>
     <Grid>
             <controls:TypeControl>
-        <appProperties:AppProperties.RenderedType><x:Type TypeName="menus:MenuItemList"/></appProperties:AppProperties.RenderedType>
+        <appShared:AppProperties.RenderedType><x:Type TypeName="menus:MenuItemList"/></appShared:AppProperties.RenderedType>
                 </controls:TypeControl>
             
     </Grid>

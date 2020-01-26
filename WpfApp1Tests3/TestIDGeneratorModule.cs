@@ -4,9 +4,9 @@ using System.Linq ;
 using System.Runtime.Remoting.Contexts ;
 using System.Text ;
 using System.Threading.Tasks ;
+using AppShared.Interfaces ;
 using Autofac ;
 using WpfApp1 ;
-using WpfApp1.Interfaces ;
 using Xunit ;
 using Xunit.Abstractions ;
 
@@ -29,7 +29,7 @@ namespace WpfApp1Tests3
 			var idProvider = container.Resolve<IObjectIdProvider>();
 			foreach(var q in idProvider.GetObjectInstances())
 			{
-				var id = idProvider.ProvideObjectInstanceIdentifier ( q ) ;
+				var id = idProvider.ProvideObjectInstanceIdentifier ( q, null ) ;
 				_output.WriteLine ( $"{q} = {id}" ) ;
 			}
 		}

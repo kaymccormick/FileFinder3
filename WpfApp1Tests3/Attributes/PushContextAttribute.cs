@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using AppShared.Interfaces ;
 using NLog;
 using WpfApp1.Attributes ;
-using WpfApp1.Interfaces ;
 using WpfApp1.Util ;
 using WpfApp1Tests3.Utils;
 using Xunit;

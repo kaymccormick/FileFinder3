@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using WpfApp1.Interfaces;
+using AppShared.Interfaces ;
 
 namespace WpfApp1.Menus
 {

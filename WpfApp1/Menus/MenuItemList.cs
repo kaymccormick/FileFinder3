@@ -5,9 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using AppShared.Interfaces ;
 using Autofac.Features.AttributeFilters;
 using NLog;
-using WpfApp1.Interfaces;
 
 namespace WpfApp1.Menus
 {

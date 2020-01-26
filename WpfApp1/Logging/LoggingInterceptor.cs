@@ -4,9 +4,9 @@ using System.Diagnostics ;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AppShared.Interfaces ;
 using Castle.DynamicProxy ;
 using WpfApp1.Attributes ;
-using WpfApp1.Interfaces ;
 
 namespace WpfApp1.Logging
 {

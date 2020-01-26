@@ -9,7 +9,6 @@ using NLog;
 using NLog.Config;
 using NLog.Layouts;
 using NLog.Targets;
-using WpfApp1.Interfaces;
 using WpfApp1.Logging;
 
 namespace WpfApp1.Xaml

@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
+using AppShared.Interfaces ;
 using Autofac.Features.OwnedInstances;
 using NLog;
-using WpfApp1.Interfaces;
 
 namespace WpfApp1.Menus
 {

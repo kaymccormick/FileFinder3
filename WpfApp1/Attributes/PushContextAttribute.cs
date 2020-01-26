@@ -2,9 +2,9 @@
 using System.Collections.Generic ;
 using System.Linq ;
 using System.Reflection ;
+using AppShared.Interfaces ;
 using Microsoft.Scripting.Utils ;
 using NLog ;
-using WpfApp1.Interfaces ;
 using WpfApp1.Util ;
 
 namespace WpfApp1.Attributes
@@ -61,7 +61,7 @@ namespace WpfApp1.Attributes
 
 
 
-            var instances = Enumerable.Where < KeyValuePair < object , long > > ( Instances , o => o.Key.GetType() == methodUnderTest.DeclaringType );
+            var instances = Instances.Where < KeyValuePair < object , long > > ( o => o.Key.GetType() == methodUnderTest.DeclaringType );
             // Assert.Single( instances );
             var instance = instances.Last().Key;
             //var qq = from prop in instance.GetType().GetProperties() select Attribute.GetCustomAttributes(prop, typeof(ContextStackInstanceAttribute)) 

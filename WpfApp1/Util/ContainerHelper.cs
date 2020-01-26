@@ -1,8 +1,9 @@
 using System ;
 using System.Collections.Generic ;
+using System.Diagnostics ;
 using System.Reflection ;
-using System.Runtime.Serialization ;
 using System.Windows ;
+using AppShared.Interfaces ;
 using Autofac ;
 using Autofac.Builder ;
 using Autofac.Core ;
@@ -10,12 +11,10 @@ using Autofac.Core.Activators.Delegate ;
 using Autofac.Core.Activators.Reflection ;
 using Autofac.Core.Registration ;
 using Autofac.Extras.AttributeMetadata ;
-using Autofac.Extras.DynamicProxy ;
 using NLog ;
+using WpfApp1.Application ;
 using WpfApp1.Controls ;
-using WpfApp1.Interfaces ;
 using WpfApp1.Logging ;
-using WpfApp1.Menus ;
 
 namespace WpfApp1.Util
 {
@@ -30,6 +29,8 @@ namespace WpfApp1.Util
 			var builder = new ContainerBuilder ( ) ;
 			#region Autofac Modules
 			builder.RegisterModule < AttributedMetadataModule > ( ) ;
+			builder.RegisterModule < MenuModule > ( ) ;
+			builder.RegisterModule < IdGeneratorModule > ( ) ;
 			#endregion
 
 			// var obIdGenerator = new ObjectIDGenerator();
@@ -53,26 +54,30 @@ namespace WpfApp1.Util
 			       .AsSelf ( )
 			       .As < Window > ( )
 			       .OnActivating (
+								  
 			                      handler : args => {
-				                      ( args.Instance as IHaveLogger ).Logger =
+				                      var argsInstance = args.Instance ;
+				                      ( argsInstance as IHaveLogger ).Logger =
 					                      args.Context.Resolve < ILogger > (
 					                                                        new TypedParameter (
 					                                                                            type : typeof
 					                                                                            ( Type
 					                                                                            )
-					                                                                          , value : args
-					                                                                                   .Instance
+					                                                                          , value : argsInstance
 					                                                                                   .GetType ( )
 					                                                                           )
 					                                                       ) ;
 			                      }
 			                     ) ;
 
-			builder.RegisterAssemblyTypes ( executingAssembly )
-			       .Where ( predicate : t => typeof ( ITopLevelMenu ).IsAssignableFrom ( c : t ) )
-			       .As < ITopLevelMenu > ( ) ;
+			// builder.RegisterAssemblyTypes ( executingAssembly )
+			//        .Where ( predicate : t => typeof ( ITopLevelMenu ).IsAssignableFrom ( c : t ) )
+			//        .As < ITopLevelMenu > ( ) ;
 			#endregion
 
+			// builder.RegisterType < AppTraceLisener > ( )
+			//        .As < TraceListener > ( )
+			//        .InstancePerLifetimeScope ( ) ;
 			#region Interceptors
 			builder.RegisterType < MyInterceptor > ( ).AsSelf ( ) ;
 			builder.RegisterType < LoggingInterceptor > ( ).AsSelf ( ) ;
@@ -83,7 +88,7 @@ namespace WpfApp1.Util
 			       .As < ILoggerTracker > ( )
 			       .InstancePerLifetimeScope ( ) ;
 
-			builder.RegisterType < LogFactory > ( ).AsSelf ( ) ;
+			// builder.RegisterType < LogFactory > ( ).AsSelf ( ) ;
 
 			builder.Register (
 			                  @delegate : ( c , p ) => {
@@ -107,21 +112,7 @@ namespace WpfApp1.Util
 			       .As < ILogger > ( ) ;
 			#endregion
 
-			#region Menu Item Lists
-			builder.RegisterType < MenuItemList > ( )
-			       .AsImplementedInterfaces ( )
-			       .WithMetadata < ResourceMetadata
-			        > ( configurationAction : m => m.For ( propertyAccessor : rn => rn.ResourceName , value : "MenuItemList" ) )
-			       .PreserveExistingDefaults ( )
-			       .EnableInterfaceInterceptors ( )
-			       .InterceptedBy ( typeof ( LoggingInterceptor ) ) ;
-			builder.RegisterType < XMenuItem > ( )
-			       .AsImplementedInterfaces ( )
-			       .PreserveExistingDefaults ( )
-			       .EnableInterfaceInterceptors ( )
-			       .InterceptedBy ( typeof ( LoggingInterceptor ) ) ;
-			#endregion
-
+			
 			#region Callbacks
 			builder.RegisterBuildCallback ( buildCallback : container => Logger.Info ( message : "Container built." ) ) ;
 			builder.RegisterCallback (

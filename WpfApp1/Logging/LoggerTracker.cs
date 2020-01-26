@@ -1,6 +1,6 @@
 using System.Collections.Concurrent ;
+using AppShared.Interfaces ;
 using NLog ;
-using WpfApp1.Interfaces ;
 
 namespace WpfApp1.Logging
 {

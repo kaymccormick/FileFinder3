@@ -3,25 +3,36 @@ using System.Collections ;
 using System.Collections.Generic ;
 using System.Collections.ObjectModel ;
 using System.ComponentModel ;
+using System.Diagnostics ;
+using System.Globalization ;
+using System.IO ;
 using System.Linq ;
 using System.Reactive.Concurrency ;
 using System.Reactive.Linq ;
+using System.Reflection ;
 using System.Threading ;
 using System.Windows ;
 using System.Windows.Controls ;
+using System.Windows.Data ;
+using System.Windows.Forms ;
 using System.Windows.Input ;
 using System.Windows.Markup ;
 using System.Windows.Threading ;
+using AppShared ;
+using AppShared.Interfaces ;
+using Autofac ;
+using Autofac.Core ;
 using DynamicData.Annotations ;
 using NLog ;
 using NLog.Fluent ;
 using Vanara.Extensions.Reflection ;
 using WpfApp1.Application ;
-using WpfApp1.AttachedProperties ;
 using WpfApp1.Attributes ;
-using WpfApp1.Interfaces ;
 using WpfApp1.Logging ;
 using WpfApp1.Menus ;
+using WpfApp1.Xaml ;
+using Control = System.Windows.Controls.Control ;
+using Menu = System.Windows.Controls.Menu ;
 
 namespace WpfApp1.Windows
 {
@@ -156,7 +167,7 @@ namespace WpfApp1.Windows
 		{
 			InitializeComponent ( ) ;
 
-			RecurseDiscover(Content ) ;
+			//RecurseDiscover(Content ) ;
 			var target = MyCacheTarget.GetInstance ( 1000 ) ;
 			target.Cache.SubscribeOn ( Scheduler.Default )
 			      .Buffer ( TimeSpan.FromMilliseconds ( 100 ) )
@@ -275,9 +286,117 @@ namespace WpfApp1.Windows
 			Logger.Debug ( "Preview can execute" ) ;
 		}
 
+		public ILifetimeScope LifetimeScope
+		{
+			get { return ( ILifetimeScope ) GetValue ( AppProperties.LifetimeScopeProperty ) ; }
+			set { SetValue ( AppProperties.LifetimeScopeProperty , value ) ; }
+		}
 		private void CommandBinding_OnExecuted ( object sender , ExecutedRoutedEventArgs e )
 		{
+			var module1BinDebugModule1Dll = @"..\..\..\..\Module1\module1\bin\debug\module1.dll" ;
+
+			FileInfo f = new FileInfo(module1BinDebugModule1Dll);
+			if(!f.Exists)
+			{
+				Logger.Warn ( "dll does not exist" ) ;
+				return ;
+			}
+
+			try
+			{
+				Logger.Warn ( $"Loading assembly {f.FullName}" ) ;
+				var loadFile = Assembly.LoadFile ( f.FullName ) ;
+				var childScope = LifetimeScope.BeginLifetimeScope (
+				                                                   b => {
+					                                                   b.RegisterAssemblyModules (
+					                                                                              loadFile
+					                                                                             ) ;
+				                                                   }
+				                                                  ) ;		                                                   				//LifetimeScope = childScope ;
+			}
+			catch ( Exception ex )
+			{
+				Logger.Fatal (ex, $"{ex.Message}" ) ;
+			}
+
 			//Vanara.Windows.Forms.;
 		}
+
+		private void DumpDebug ( object sender , ExecutedRoutedEventArgs e )
+		{
+			var foo = LifetimeScope.Resolve < IEnumerable < TraceListener > >( ) ;
+			foreach ( var q in foo )
+			{
+
+			}
+		}
+
+		private void OnRestart ( object sender , ExecutedRoutedEventArgs e )
+		{
+			DoRestart = true ;
+			Close ( ) ;
+		}
+
+		/// <summary>Raises the <see cref="E:System.Windows.Window.Closed" /> event.</summary>
+		/// <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
+		protected override void OnClosed ( EventArgs e )
+		{
+			if ( DoRestart )
+			{
+				MainWindow newWindow = new MainWindow ( ) ;
+				newWindow.Show ( ) ;
+			}
+			base.OnClosed(e);
+		}
+
+		public bool DoRestart { get ; set ; }
+
+		private void Restart ( object sender , ExecutedRoutedEventArgs e )
+		{
+			DoRestart = true ;
+			Close ( ) ;
+		}
+
+		private void InstancesOnly_OnChecked ( object sender , RoutedEventArgs e )
+		{
+			Logger.Debug ( "checked" ) ;
+			var collectionViewSource = Resources[ "Registrations" ] as CollectionViewSource ;
+			var tryFindResource = TryFindResource ( "RegistrationConverter" ) ;
+			if ( tryFindResource == null ) return ;
+			var converter = tryFindResource as IValueConverter ;
+			if ( converter == null ) return ;
+		   CheckedHandler  = ( object o , FilterEventArgs args ) => {
+			   args.Accepted = false ;
+			   var componentRegistration = args.Item as IComponentRegistration ;
+			   var convert = converter.Convert (
+			                                    args.Item
+			                                  , typeof ( int )
+			                                  , "Count"
+			                                  , CultureInfo.CurrentUICulture
+			                                   ) ;
+			   try
+			   {
+				   var count = ( int ) convert ;
+				   if ( count > 0 ) args.Accepted = true ;
+			   }
+			   catch ( Exception ex )
+			   {
+				   return ;
+			   }
+		   } ;
+			collectionViewSource.Filter += CheckedHandler ;
+
+		}
+
+		public FilterEventHandler CheckedHandler { get ; set ; }
+
+
+		private void InstancesOnly_OnUnchecked ( object sender , RoutedEventArgs e )
+		{
+			var collectionViewSource = Resources[ "Registrations" ] as CollectionViewSource ;
+			collectionViewSource.Filter -= CheckedHandler ;
+			CheckedHandler = null ;
+		}
+
 	}
 }

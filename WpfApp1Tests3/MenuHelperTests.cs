@@ -1,7 +1,7 @@
 ﻿using System;
+using AppShared.Interfaces ;
 using Autofac;
 using NLog;
-using WpfApp1.Interfaces;
 using WpfApp1.Menus;
 using WpfApp1Tests3.Fixtures;
 using Xunit;

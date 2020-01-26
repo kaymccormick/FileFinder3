@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Xaml;
+using AppShared.Interfaces ;
 using NLog;
-using WpfApp1.Interfaces;
 using WpfApp1.Xaml;
 
 namespace WpfApp1.Logging

@@ -11,8 +11,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
+using AppShared.Interfaces ;
 using NLog;
-using WpfApp1.Interfaces;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 
 namespace WpfApp1.Controls
@@ -49,7 +49,7 @@ namespace WpfApp1.Controls
                 var bareProp = t.GetProperty( barePropName, BindingFlags.Static | BindingFlags.Public );
                 if ( bareProp == null )
                 {
-                    Logger.Warn( "no prop for {resKeyProp.Name}" );
+                    Logger.Warn( $"no prop for {resKeyProp.Name}" );
                 }
                 else
                 {

@@ -3,8 +3,8 @@ using System.Linq.Dynamic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
+using AppShared.Interfaces ;
 using NLog;
-using WpfApp1.Interfaces;
 using WpfApp1.Logging;
 
 namespace WpfApp1.Menus

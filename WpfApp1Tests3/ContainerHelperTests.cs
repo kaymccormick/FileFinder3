@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using AppShared.Interfaces ;
 using WpfApp1.Menus;
 using WpfApp1.Util;
 using Autofac;
 using JetBrains.Annotations;
-using WpfApp1.Interfaces;
 using WpfApp1.Windows;
 
 namespace WpfApp1Tests3

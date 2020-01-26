@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WpfApp1.Interfaces
+namespace WpfApp1
 {
-	public interface IAppLogger 
-    {
-    }
+	class DesignData
+	{
+	}
 }

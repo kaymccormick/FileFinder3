@@ -14,11 +14,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using AppShared ;
 using Microsoft.CSharp ;
 using Microsoft.Scripting.Utils ;
 using NLog ;
 using PostSharp.Reflection ;
-using WpfApp1.AttachedProperties ;
 using WpfApp1.Commands ;
 
 namespace WpfApp1.Controls
@@ -78,10 +78,13 @@ namespace WpfApp1.Controls
 			var name = NameForType ( myType ) ;
 			Logger.Debug ( $"name for ttype is {name}" ) ;
 			var hyperLink = new Hyperlink ( new Run ( myType.Name ) ) ;
-			
-			hyperLink.NavigateUri = new Uri(System.Windows.Application.Current.StartupUri, "TypeVisitor.xaml#");
+			Uri.TryCreate ( "obj://" +Uri.EscapeUriString(myType.Name) , UriKind.Absolute , out Uri res ) ;
+
+			hyperLink.NavigateUri = res ;
 			// hyperLink.Command          = MyAppCommands.VisitTypeCommand ;
 			// hyperLink.CommandParameter = myType ;
+			hyperLink.ToolTip = new ToolTip ( ) { Content = ToopTipContent ( myType ) } ;
+
 			hyperLink.RequestNavigate += HyperLinkOnRequestNavigate;
 			hyperLink.Click += ( sender , args ) => {
 				Logger.Debug ( "clicking on main type link" ) ;
@@ -103,6 +106,22 @@ namespace WpfApp1.Controls
 				addChild.AddText ( ">" ) ;
 			}
 		}
+
+		private object ToopTipContent ( Type myType )
+		{
+			CSharpCodeProvider provider = new CSharpCodeProvider();
+			var codeTypeReference = new CodeTypeReference(myType) ;
+			var q = codeTypeReference;
+			return new TextBlock ( )
+			       {
+				       Text   = provider.GetTypeOutput ( q ) , FontSize = 20
+				     , Margin = new Thickness ( 15 )
+				      ,
+			       } ;
+
+			
+		}
+
 
 		private string NameForType ( Type myType )
 		{
@@ -126,14 +145,23 @@ namespace WpfApp1.Controls
 			Logger.Debug ( e.Uri ) ;
 			ContentElement uie = ( ContentElement ) sender ;
 			var navigationService = NavigationService.GetNavigationService ( uie ) ;
-			navigationService.Navigate (
-			                            new TypeControl ( )
-			                            {
-				                            RenderedType =
-					                            uie.GetValue ( AppProperties.RenderedTypeProperty ) as Type
-			                            }
-			                           ) ;
-			e.Handled = true ;
+			if ( navigationService != null )
+			{
+				navigationService.Navigate (
+				                            new TypeControl ( )
+				                            {
+					                            RenderedType =
+						                            uie.GetValue (
+						                                          AppProperties.RenderedTypeProperty
+						                                         ) as Type
+				                            }
+				                           ) ;
+				e.Handled = true ;
+			}
+			else
+			{
+
+			}
 
 		}
 	}

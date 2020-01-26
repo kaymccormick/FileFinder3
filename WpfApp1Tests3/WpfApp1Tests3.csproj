@@ -121,6 +121,10 @@
     <None Include="NLog.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\AppShared\AppShared\AppShared.csproj">
+      <Project>{C4C404AE-0214-481B-AB46-708ABD99AF9C}</Project>
+      <Name>AppShared</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\new\Sentinel\Sentinel.NLog\Sentinel.NLog.csproj">
       <Project>{eabc1023-a456-44a7-9d8c-fcd0f6323c58}</Project>
       <Name>Sentinel.NLog</Name>

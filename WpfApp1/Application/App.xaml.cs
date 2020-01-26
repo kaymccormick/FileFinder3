@@ -3,33 +3,39 @@ using System.Collections ;
 using System.Collections.Generic ;
 using System.ComponentModel ;
 using System.Diagnostics ;
-using System.IO ;
 using System.Linq ;
-using System.Text ;
+using System.Reflection ;
+using System.Runtime.ExceptionServices ;
+using System.Threading ;
 using System.Windows ;
 using System.Windows.Data ;
 using System.Windows.Input ;
 using System.Windows.Threading ;
-using System.Xaml ;
-using System.Xml.Serialization ;
+using AppShared ;
+using AppShared.Interfaces ;
 using Autofac ;
 using Autofac.Core ;
 using Autofac.Extras.DynamicProxy ;
 using Microsoft.Scripting.Utils ;
 using NLog ;
 using Vanara.Extensions ;
-using WpfApp1.AttachedProperties ;
 using WpfApp1.Commands ;
 using WpfApp1.DataSource ;
-using WpfApp1.Interfaces ;
 using WpfApp1.Logging ;
-using WpfApp1.Menus ;
 using WpfApp1.Util ;
 using WpfApp1.Windows ;
+using WpfApp1.Xaml ;
 using IContainer = Autofac.IContainer ;
 
 namespace WpfApp1.Application
 {
+	public enum ExitCode
+	{
+		Success        = 0,
+		GeneralError   = 1,
+		ArgumentsError = 2,
+	}
+
 	/// <summary>
 	///     Interaction logic for App.xaml
 	/// </summary>
@@ -41,48 +47,77 @@ namespace WpfApp1.Application
 
 		public App ( )
 		{
-			AppContainer = ContainerHelper.SetupContainer ( ) ;
-
-			var loggerTracker = AppContainer.Resolve < ILoggerTracker > ( ) ;
-			var myLoggerName = typeof ( App ).FullName ;
-			loggerTracker.LoggerRegistered += ( sender , args ) => {
-				if ( args.Logger.Name == myLoggerName )
-				{
-					args.Logger.Trace (
-					                   "Received logger for application in LoggerREegistered handler."
-					                  ) ;
-				}
-				else
-				{
-
-					if ( Logger == null )
-					{
-						Debug.WriteLine ( "got a logger but i dont have one yet" ) ;
-					}
-				}
-
-			} ;
-
-			Logger = AppContainer.Resolve < ILogger > (
-			                                           new TypedParameter (
-			                                                               typeof ( Type )
-			                                                             , typeof ( App )
-			                                                              )
-			                                          ) ;
+			var cd = AppDomain.CurrentDomain ;
+			cd.AssemblyLoad += CurrentDomainOnAssemblyLoad;
+			//cd.TypeResolve += CdOnTypeResolve;
+			cd.ProcessExit += ( sender , args ) => {
+				Logger?.Warn ( args == null ? "null" : args.ToString ( ) ) ;
+			};
+			cd.UnhandledException += CdOnUnhandledException;
+			cd.ResourceResolve += CdOnResourceResolve;
+			
+			cd.FirstChanceException += CurrentDomainOnFirstChanceException;
 #if DEBUGB_AUTOFAC_REGS
 			Logger.Debug (
 			              "reg: "
 			              + string.Join (
 			                             ", "
-			                       , AppContainer
+			               , AppContainer
 			                            .ComponentRegistry.Registrations.Select ( RegOutput )
 			                            .ToList ( )
 			                            )
 			             ) ;
 #endif
-			Logger.Debug ( "Application logger initialized." ) ;
+//			Logger.Debug ( "Application logger initialized." ) ;
 		}
 
+		private Assembly CdOnResourceResolve ( object sender , ResolveEventArgs args )
+		{
+			Logger.Warn ( $"{args.Name}" );
+			return null ;
+		}
+
+		private void CdOnUnhandledException ( object sender , UnhandledExceptionEventArgs e )
+		{
+			Logger.Error ( $"{e.ExceptionObject} {e.IsTerminating}" ) ;
+		}
+
+
+
+		private Assembly CdOnTypeResolve ( object sender , ResolveEventArgs args )
+		{
+			Logger.Warn ( $"{args.Name}" );
+			Logger.Warn($"Requesting assembly is {args.RequestingAssembly.FullName}");
+			return null ;
+		}
+
+		private void CurrentDomainOnAssemblyLoad ( object sender , AssemblyLoadEventArgs args )
+		{
+			if ( Logger != null )
+			{
+				Logger.Warn ( $"{args.LoadedAssembly}" ) ;
+			}
+			else
+			{
+				Debug.WriteLine ( args.LoadedAssembly ) ;
+			}
+		}
+
+		private void CurrentDomainOnFirstChanceException (
+			object                        sender
+		  , FirstChanceExceptionEventArgs e
+		)
+		{
+			try
+			{
+				Logger?.Error ( $"{e.Exception.Message}" ) ;
+			} catch(Exception ex)
+			{
+				Debug.WriteLine ( ( ex.Message ) ) ;
+			}
+
+		}
+			
 		private string RegOutput ( IComponentRegistration registration , int i )
 		{
 			var registrationActivator = registration.Activator ;
@@ -99,9 +134,7 @@ namespace WpfApp1.Application
 		}
 
 
-		public ILifetimeScope AppContainer { get ; set ; }
-
-		public MenuItemList MyMenuItemList { get ; private set ; }
+		private ILifetimeScope AppContainer { get ; set ; }
 
 		private void OpenWindowExecuted ( object sender , ExecutedRoutedEventArgs e )
 		{
@@ -115,31 +148,56 @@ namespace WpfApp1.Application
 		                                                  ) ]
 		private void ApplicationStartup ( object sender , StartupEventArgs e )
 		{
-			AddEventListeners ( ) ;
-			if ( e.Args.Any ( ) )
-			{
-				var windowName = e.Args[ 0 ] ;
-				var xaml = "../Windows/" + windowName+ ".xaml" ;
-				var converter = TypeDescriptor.GetConverter ( typeof ( Uri ) ) ;
-				if ( converter.CanConvertFrom ( typeof ( string ) ) )
-				{
-					StartupUri = ( Uri ) converter.ConvertFrom ( xaml ) ;
-					Logger.Debug ( "Startup URI is {startupUri}" , StartupUri ) ;
-				}
-			}
-			else
-			{
-
-				Dispatcher.BeginInvoke (
-				                        DispatcherPriority.Send
-				                      , ( DispatcherOperationCallback ) DispatcherOperationCallback
-				                      , null
-				                       ) ;
-			}
 		}
 
 		private object DispatcherOperationCallback ( object arg )
 		{
+			AppContainer = ContainerHelper.SetupContainer ( ) ;
+
+			
+			PresentationTraceSources.Refresh ( ) ;
+			var nLogTraceListener = new NLogTraceListener ( ) ;
+			var routedEventSource = PresentationTraceSources.RoutedEventSource ;
+			nLogTraceListener.DefaultLogLevel = LogLevel.Debug ;
+			nLogTraceListener.ForceLogLevel   = LogLevel.Warn ;
+			//nLogTraceListener.LogFactory      = AppContainer.Resolve < LogFactory > ( ) ;
+			nLogTraceListener.AutoLoggerName  = false ;
+			//nLogTraceListener.
+			routedEventSource.Switch.Level = SourceLevels.All ;
+			var foo = AppContainer.Resolve < IEnumerable<TraceListener>> ( ) ;
+			foreach ( var tl in foo )
+			{
+				routedEventSource.Listeners.Add ( tl ) ;
+			}
+			//routedEventSource.Listeners.Add ( new AppTraceLisener ( ) ) ;
+			routedEventSource.Listeners.Add ( nLogTraceListener ) ;
+		
+			var loggerTracker = AppContainer.Resolve < ILoggerTracker > ( ) ;
+			var myLoggerName = typeof ( App ).FullName ;
+			loggerTracker.LoggerRegistered += ( sender , args ) => {
+				if ( args.Logger.Name == myLoggerName )
+				{
+					args.Logger.Trace (
+					                   "Received logger for application in LoggerREegistered handler."
+					                  ) ;
+				}
+				else
+				{
+					if ( Logger == null )
+					{
+						Debug.WriteLine ( "got a logger but i dont have one yet" ) ;
+					}
+				}
+			} ;
+
+			Logger = AppContainer.Resolve < ILogger > (
+			                                           new TypedParameter (
+			                                                               typeof ( Type )
+			                                                             , typeof ( App )
+			                                                              )
+			                                          ) ;
+
+
 			var menuItemList = AppContainer.Resolve < IMenuItemList > ( ) ;
 			MenuItemListCollectionView = new ListCollectionView ( menuItemList ) ;
 			var handler = new RoutedEventHandler ( MainWindowLoaded ) ;
@@ -151,19 +209,31 @@ namespace WpfApp1.Application
 			                                  ) ;
 			Resources[ "MyMenuItemList" ] = menuItemList ;
 			Logger.Trace ( $"Attempting to resolve MainWindow" ) ;
+
+			var objectIdProvider = AppContainer.Resolve < IObjectIdProvider > ( ) ;
+			RegistrationConverter converter = new RegistrationConverter ( AppContainer, objectIdProvider ) ;
+			Resources[ "RegistrationConverter" ] = converter ;
 			var mainWindow = AppContainer.Resolve < MainWindow > ( ) ;
 			Logger.Trace ( $"Reeeived {mainWindow} " ) ;
-			mainWindow.Show ( ) ;
+
+			try
+			{
+				mainWindow.Show ( ) ;
+			} catch(Exception ex)
+			{
+				Logger?.Error ( ex , ex.Message ) ;
+
+			}
 #if SHOWWINDOW
                 var mainWindow = new MainWindow();
                 mainWindow.Show();
 #endif
-				return null ;
+			return null ;
 		}
 
 		private void MainWindowLoaded ( object o , RoutedEventArgs args )
 		{
-			if ( ! typeof ( MainWindow ).IsAssignableFrom ( o.GetType ( ) ) )
+			if ( ! (o is MainWindow ))
 			{
 				Logger.Error ( $"Bad type for event sender {o.GetType ( )}" ) ;
 			}
@@ -213,220 +283,84 @@ namespace WpfApp1.Application
 		  , DispatcherUnhandledExceptionEventArgs e
 		)
 		{
-			if ( Logger != null )
-			{
-				Logger.Fatal (
-				              e.Exception
-				            , $"{nameof ( Application_DispatcherUnhandledException )}: {e.Exception.Message}"
-				             ) ;
-			}
+			Logger?.Fatal (
+			               e.Exception
+			             , $"{nameof ( Application_DispatcherUnhandledException )}: {e.Exception.Message}"
+			              ) ;
 		}
 
 		private void App_OnExit ( object sender , ExitEventArgs e )
 		{
-			if ( Logger != null )
-			{
-				Logger.Warn ($"Appliccation exiting.  Exit code is {e.ApplicationExitCode}" )  ;
-			}
+			Logger?.Warn ( $"Appliccation exiting.  Exit code is {e.ApplicationExitCode}" ) ;
 		}
 
 		/// <summary>Raises the <see cref="E:System.Windows.Application.Startup" /> event.</summary>
 		/// <param name="e">A <see cref="T:System.Windows.StartupEventArgs" /> that contains the event data.</param>
 		protected override void OnStartup ( StartupEventArgs e )
 		{
-			PresentationTraceSources.Refresh();
-			var nLogTraceListener = new NLogTraceListener ( ) ;
-			var routedEventSource = PresentationTraceSources.RoutedEventSource ;
-			nLogTraceListener.DefaultLogLevel = LogLevel.Debug;
-			nLogTraceListener.ForceLogLevel = LogLevel.Warn ;
-			nLogTraceListener.LogFactory = AppContainer.Resolve < LogFactory > ( ) ;
-			nLogTraceListener.AutoLoggerName = false ;
-			//nLogTraceListener.
-			routedEventSource.Switch.Level = SourceLevels.All ;
-			routedEventSource.Listeners.Add(new AppTraceLisener());
-			routedEventSource.Listeners.Add ( nLogTraceListener ) ;
+			AddEventListeners ( ) ;
+			if ( e.Args.Any ( ) )
+			{
+				var windowName = e.Args[ 0 ] ;
+				var xaml = "../Windows/" + windowName + ".xaml" ;
+				var converter = TypeDescriptor.GetConverter ( typeof ( Uri ) ) ;
+				if ( converter.CanConvertFrom ( typeof ( string ) ) )
+				{
+					StartupUri = ( Uri ) converter.ConvertFrom ( xaml ) ;
+					Logger.Debug ( "Startup URI is {startupUri}" , StartupUri ) ;
+				}
+			}
+			else
+			{
+				Dispatcher.BeginInvoke (
+				                        DispatcherPriority.Send
+				                      , ( DispatcherOperationCallback ) DispatcherOperationCallback
+				                      , null
+				                       ) ;
+			}
 			base.OnStartup ( e ) ;
 		}
-	}
-
-	public class AppTraceLisener : TraceListener
-	{
-		private static Logger Logger = NLog.LogManager.GetCurrentClassLogger ( ) ;
-		private NLogTextWriter _nLogTextWriter ;
-		public AppTraceLisener ( ) { _nLogTextWriter = new NLogTextWriter ( Logger ) ; }
-
-		/// <summary>Writes trace and event information to the listener specific output.</summary>
-		/// <param name="eventCache">A <see cref="T:System.Diagnostics.TraceEventCache" /> object that contains the current process ID, thread ID, and stack trace information.</param>
-		/// <param name="source">A name used to identify the output, typically the name of the application that generated the trace event.</param>
-		/// <param name="eventType">One of the <see cref="T:System.Diagnostics.TraceEventType" /> values specifying the type of event that has caused the trace.</param>
-		/// <param name="id">A numeric identifier for the event.</param>
-		public override void TraceEvent (
-			TraceEventCache eventCache
-		  , string          source
-		  , TraceEventType  eventType
-		  , int             id
-		)
+		private void Application_DispatcherUnhandledException1(object                                                         sender,
+		                                                       System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
 		{
-			int i = 0 ;
-			foreach ( var q in eventCache.LogicalOperationStack )
+			Logger.Error(e.Exception, $"Unhandled exception {e.Exception}");
+			Exception inner = e.Exception.InnerException;
+			HashSet<object> seen = new HashSet<object>();
+			while (inner != null && !seen.Contains(inner))
 			{
-				Logger.Error ( $"{id}{i}: {source} {q.GetType ( )}: {q}" ) ;
-				i ++ ;
+				Logger.Debug(inner, inner.Message);
+				inner = inner.InnerException;
+			}
+
+			ErrorExit(ExitCode.GeneralError);
+			// foreach (var window in Windows)
+			// {
+			//     ((Window) window).Close();
+			// }
+		}
+
+		private void ErrorExit(ExitCode exitcode = ExitCode.GeneralError)
+		{
+			if (exitcode != null)
+			{
+				object code = Convert.ChangeType(exitcode, exitcode.GetTypeCode());
+				if (code != null)
+				{
+					int intCode = (int) code;
+
+					Logger.Info($"Exiting with code {intCode}, {exitcode}");
+					if (System.Windows.Application.Current == null)
+					{
+						Logger.Debug("No application reference");
+						System.Diagnostics.Process.GetCurrentProcess().Kill();
+					}
+					else
+					{
+						System.Windows.Application.Current.Shutdown(intCode);
+					}
+				}
 			}
 		}
 
-		/// <summary>Writes trace information, a message, and event information to the listener specific output.</summary>
-		/// <param name="eventCache">A <see cref="T:System.Diagnostics.TraceEventCache" /> object that contains the current process ID, thread ID, and stack trace information.</param>
-		/// <param name="source">A name used to identify the output, typically the name of the application that generated the trace event.</param>
-		/// <param name="eventType">One of the <see cref="T:System.Diagnostics.TraceEventType" /> values specifying the type of event that has caused the trace.</param>
-		/// <param name="id">A numeric identifier for the event.</param>
-		/// <param name="message">A message to write.</param>
-		public override void TraceEvent (
-			TraceEventCache eventCache
-		  , string          source
-		  , TraceEventType  eventType
-		  , int             id
-		  , string          message
-		)
-		{
-			base.TraceEvent (
-			                 eventCache
-			               , source
-			               , eventType
-			               , id
-			               , message
-			                ) ;
-		}
-
-		/// <summary>Writes trace information, a formatted array of objects and event information to the listener specific output.</summary>
-		/// <param name="eventCache">A <see cref="T:System.Diagnostics.TraceEventCache" /> object that contains the current process ID, thread ID, and stack trace information.</param>
-		/// <param name="source">A name used to identify the output, typically the name of the application that generated the trace event.</param>
-		/// <param name="eventType">One of the <see cref="T:System.Diagnostics.TraceEventType" /> values specifying the type of event that has caused the trace.</param>
-		/// <param name="id">A numeric identifier for the event.</param>
-		/// <param name="format">A format string that contains zero or more format items, which correspond to objects in the <paramref name="args" /> array.</param>
-		/// <param name="args">An <see langword="object" /> array containing zero or more objects to format.</param>
-		public override void TraceEvent (
-			TraceEventCache eventCache
-		  , string          source
-		  , TraceEventType  eventType
-		  , int             id
-		  , string          format
-		  , params object[] args
-		)
-		{
-			SerializableDictionary <string, object> d = new SerializableDictionary < string , object > (); 
-			Dictionary <string, string> xmlDict = new Dictionary < string , string > ();
-			bool doOutput = true ;
-			for ( int i = 0 ; i < args.Length - 1 ; i += 2 )
-			{
-				string key = args[ i ] as string ;
-				var o = args[ i + 1 ] ;
-				string desc = null ;
-				if(o is RoutedEvent re)
-				{
-					if(re.Name == "ScrollChanged")
-					{
-						doOutput = false ;
-					}
-					desc = re.Name ;
-				} else
-				if(o is FrameworkElement fe)
-				{
-					desc = $"{o.GetType ( ).Name}[{fe.Name}]" ;
-				} else if ( o is bool )
-				{
-					desc = o.GetType ( ) + "[" + o + "]" ;
-				} else if(o is RoutedEventArgs a)
-				{
-					desc = o.GetType ( ).ToString ( ) ;
-				}
-			
-				//d[ args[ i ].ToString ( ) ] = args[ i + 1 ] ;
-				if(desc != null)
-				{
-					xmlDict[ key ] = desc ;
-					continue ;
-				}
-				try
-				{
-					// if ( args[ i + 1 ] is RoutedEvent xxxx )
-					// {
-					var xamlXmlWriterSettings = new XamlXmlWriterSettings ( ) ;
-					StringBuilder b = new StringBuilder ( ) ;
-					//XamlWriter persist = new XamlXmlWriter(_nLogTextWriter);
-					System.Windows.Markup.XamlWriter.Save (
-					                                       args[ i + 1 ]
-					                                     , new StringWriter ( b )
-					                                      ) ;
-					xmlDict[ args[ i ].ToString ( ) ] = b.ToString ( ) ;
-				}
-				catch ( Exception )
-				{
-					if(desc == null) throw ;
-					xmlDict[ key ] = desc ;
-
-					try
-					{
-						XmlSerializer serializer = new XmlSerializer ( args[ i + 1 ].GetType ( ) ) ;
-						StringBuilder b = new StringBuilder ( ) ;
-						serializer.Serialize ( new StringWriter ( b ) , args[ i + 1 ] ) ;
-						xmlDict[ args[ i ].ToString ( ) ] = b.ToString ( ) ;
-					}
-					catch(Exception)
-					{
-
-					}
-				} 
-			}
-
-			if ( ! doOutput ) return ;
-			Logger.Trace (
-			             String.Join (
-			                          "; "
-			                        , xmlDict.AsQueryable ( )
-			                                 .Select (
-			                                          ( pair , i ) => $"{pair.Key} = {pair.Value}"
-			                                         )
-			                         )
-			            ) ;
-
-		}
-
-		/// <summary>When overridden in a derived class, writes the specified message to the listener you create in the derived class.</summary>
-		/// <param name="message">A message to write.</param>
-		public override void Write ( string message )
-		{
-			Logger.Debug(message);
-			
-		}
-
-		/// <summary>When overridden in a derived class, writes a message to the listener you create in the derived class, followed by a line terminator.</summary>
-		/// <param name="message">A message to write.</param>
-		public override void WriteLine ( string message )
-		{
-			Logger.Debug ( message ) ;
-		}
-	}
-
-	public class NLogTextWriter : TextWriter
-	{
-		/// <summary>Writes a string followed by a line terminator to the text string or stream.</summary>
-		/// <param name="value">The string to write. If <paramref name="value" /> is <see langword="null" />, only the line terminator is written.</param>
-		/// <exception cref="T:System.ObjectDisposedException">The <see cref="T:System.IO.TextWriter" /> is closed.</exception>
-		/// <exception cref="T:System.IO.IOException">An I/O error occurs.</exception>
-		public override void WriteLine ( string value ) { Logger.Warn ( value ) ; }
-
-		public Logger Logger { get ; }
-
-		public NLogTextWriter ( Logger logger ) { Logger = logger ; }
-
-		/// <summary>When overridden in a derived class, returns the character encoding in which the output is written.</summary>
-		/// <returns>The character encoding in which the output is written.</returns>
-		public override Encoding Encoding { get ; } = Encoding.UTF8;
-	}
-
-	public interface IHaveAppLogger
-	{
-		AppLogger AppLogger { get ; set ; }
 	}
 }

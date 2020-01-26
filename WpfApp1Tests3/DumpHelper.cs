@@ -7,7 +7,7 @@ using WpfApp1Tests3.Utils;
 
 namespace WpfApp1Tests3
 {
-	static internal class DumpHelper
+	internal static class DumpHelper
 	{
 		private static readonly Logger Logger =
 			LogManager.GetCurrentClassLogger();

@@ -55,8 +55,7 @@ namespace FileFinder3
 
             foreach ( var dir2 in dirs )
             {
-                DirectoryObjectInfo subResult;
-                Recurse( doi, dir2, out subResult );
+	            Recurse( doi, dir2, out var subResult );
                 if ( subResult != null )
                 {
                     doi.SummaryInfo.TotalSize +=

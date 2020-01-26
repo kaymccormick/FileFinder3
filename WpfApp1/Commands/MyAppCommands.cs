@@ -35,5 +35,13 @@ namespace WpfApp1.Commands
         public static readonly RoutedUICommand Restart =
 	        new RoutedUICommand( "Restart", nameof( Restart),
 	                             typeof(MyAppCommands) );
+        public static readonly RoutedUICommand DumpDebug =
+	        new RoutedUICommand( "Dump Debug", nameof( DumpDebug),
+	                             typeof(MyAppCommands) );
+        public static readonly RoutedUICommand FilterInstances =
+	        new RoutedUICommand( "Dump Debug", nameof( DumpDebug),
+	                             typeof(MyAppCommands) );
+        
+
     }
 }
