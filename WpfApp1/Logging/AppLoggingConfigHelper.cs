@@ -155,7 +155,8 @@ namespace WpfApp1.Logging
                 if ( DumpExistingConfig )
                 {
                     Action<string> collect = (s_) => {
-                        Debug.WriteLine ( s_ ) ;
+                        DebOutpuug.WriteLine ( s_ ) ;
+                        
                     } ;
                     DoDumpConfig ( collect ) ;
                 }

@@ -7,7 +7,6 @@
              xmlns:app="clr-namespace:WpfApp1.Application"
              xmlns:datasrc="clr-namespace:WpfApp1.DataSource"
              xmlns:myxaml="clr-namespace:WpfApp1.Xaml"
-             xmlns:logging="clr-namespace:WpfApp1.Logging"
              xmlns:interfaces="clr-namespace:AppShared.Interfaces;assembly=AppShared"
              xmlns:aooShared="clr-namespace:AppShared;assembly=AppShared"
              xmlns:autofac="clr-namespace:Autofac;assembly=Autofac"
@@ -23,6 +22,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
         <!-- Converters -->
+        
         <myxaml:RegistrationConverter x:Key="DesignRegistrationConverter" />
         <!-- ResourcesConverter is instaniatd and stored in the the resources
         dictionary at application startup -->
@@ -71,8 +71,7 @@ spedParameter">
         <CollectionViewSource x:Key="LogItems" Source="{Binding LogEvents}" />
         <logging:TargetConverter x:Key="TargetConverter" />
 
-        <Style TargetType="{x:Type local:MainWindow}" x:Key="CoolStyle1">
-            <Setter Property="FontWeight" Value="Medium" />
+        <Style TargetType="{x:Type local:MainWindow}" x:Key="CoolStyle1"><Setter Property="FontWeight" Value="Medium" />
             <Setter Property="Opacity" Value="0.9" />
             <Setter Property="WindowStyle" Value="None" />
             <Setter Property="AllowsTransparency" Value="True" />
