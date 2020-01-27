@@ -138,10 +138,17 @@
     <Compile Include="Logging\AppLogger.cs" />
     <Compile Include="Logging\AppLoggerContainer.cs" />
     <Compile Include="Logging\AppLoggingConfigHelper.cs" />
+    <Compile Include="Logging\CodeConfiguration.cs" />
     <Compile Include="Logging\LoggerTracker.cs" />
     <Compile Include="Logging\LoggingInterceptor.cs" />
     <Compile Include="Logging\MyCacheTarget.cs" />
     <Compile Include="Logging\TargetConverter.cs" />
+    <Compile Include="Logging\TypeBrowserPage.xaml.cs">
+      <DependentUpon>TypeBrowserPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Logging\UserControl1.xaml.cs">
+      <DependentUpon>UserControl1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Menus\ILoggingEntity.cs" />
     <Compile Include="Menus\LoggingEntityMetadataAttribute.cs" />
     <Compile Include="Menus\MenuHelper.cs" />
@@ -206,6 +213,13 @@
     <Compile Include="Xaml\RegistrationConverter.cs" />
     <Compile Include="Xaml\RegistrationConverter2.cs" />
     <Compile Include="Xaml\SmartTypeConverter.cs" />
+    <Compile Include="Xaml\UserControl1.xaml.cs">
+      <DependentUpon>UserControl1.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Application\MenuDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\AssemblyBrowser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -223,6 +237,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\UserControl1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Logging\TypeBrowserPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Logging\UserControl1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -263,6 +285,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\TypeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Xaml\UserControl1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

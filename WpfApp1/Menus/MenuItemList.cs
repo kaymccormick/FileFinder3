@@ -12,7 +12,7 @@ using NLog;
 namespace WpfApp1.Menus
 {
     [LoggingEntityMetadata(typeof(MenuItemList))]
-    public class MenuItemList : ObservableCollection < IMenuItem >, IMenuItemList, ILoggingEntity, IHaveLogger
+    public class MenuItemList : ObservableCollection < IMenuItem >, IMenuItemList , IHaveLogger
     {
 	    public ILogger Logger { get; set; }
 

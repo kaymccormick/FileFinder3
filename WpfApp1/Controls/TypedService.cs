@@ -7,10 +7,9 @@ using Autofac.Core ;
 
 namespace WpfApp1.Controls
 {
-	class TypedService : Service
+	public class TypedService : Service
 	{
-		public TypedService ( ) {
-		}
+		public TypedService ( ) { }
 
 		/// <summary>Gets a human-readable description of the service.</summary>
 		/// <value>The description.</value>

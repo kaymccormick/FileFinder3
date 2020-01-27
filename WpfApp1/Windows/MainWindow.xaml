@@ -6,7 +6,6 @@
         xmlns:local="clr-namespace:WpfApp1.Windows"
         xmlns:myxaml="clr-namespace:WpfApp1.Xaml"
         xmlns:commands="clr-namespace:WpfApp1.Commands"
-        xmlns:logging="clr-namespace:WpfApp1.Logging"
         xmlns:nLog="clr-namespace:NLog;assembly=NLog"
         xmlns:controls="clr-namespace:WpfApp1.Controls"
         xmlns:windows="clr-namespace:WpfApp1.Windows"
@@ -35,7 +34,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
             </Grid>
-        </TabItem>
+        </TabItem>N
         <TabItem Header="Autofac" Padding="15" DataContext="{Binding Path=Container}">
             <core:Container/>
         </TabItem>

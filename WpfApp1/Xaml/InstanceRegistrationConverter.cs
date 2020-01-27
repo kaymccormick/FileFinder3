@@ -12,6 +12,8 @@ using WpfApp1.Commands ;
 
 namespace WpfApp1.Xaml
 {
+
+	[ValueConversion( typeof(InstanceRegistration), typeof(IEnumerable <Type> ))]
 	public class InstanceRegistrationConverter : IValueConverter
 	{
 		/// <summary>Converts a value. </summary>
@@ -28,6 +30,11 @@ namespace WpfApp1.Xaml
 		)
 		{
 			InstanceRegistration x = value as InstanceRegistration;
+			if ( x == null )
+			{
+				return null;
+			}
+			
 			var r = new List < object > ( ) ;
 			if ( x.Type.IsGenericType && x.Type.GetGenericTypeDefinition() == typeof(Lazy <object>).GetGenericTypeDefinition()) 
 			{

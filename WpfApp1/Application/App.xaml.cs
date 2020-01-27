@@ -220,7 +220,9 @@ namespace WpfApp1.Application
 			Logger.Trace ( $"Attempting to resolve MainWindow" ) ;
 
 			var objectIdProvider = AppContainer.Resolve < IObjectIdProvider > ( ) ;
+			
 			RegistrationConverter converter = new RegistrationConverter ( AppContainer, objectIdProvider ) ;
+
 			Resources[ "RegistrationConverter" ] = converter ;
 			var mainWindow = AppContainer.Resolve < MainWindow > ( ) ;
 			Logger.Trace ( $"Reeeived {mainWindow} " ) ;

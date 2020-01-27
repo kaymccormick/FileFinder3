@@ -22,42 +22,58 @@ using Autofac.Core ;
 
 namespace WpfApp1.Windows
 {
-	[ContentProperty("ServicesList")]
-	public class ComponentRegistration : IComponentRegistration, IAddChild
+	[ ContentProperty ( "ServicesList" ) ]
+	public class ComponentRegistration : IComponentRegistration , IAddChild
 	{
 		private IEnumerable < Service > _services ;
 
-		
 		/// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
-		public ComponentRegistration ( Guid id , IInstanceActivator activator , IComponentLifetime lifetime , InstanceSharing sharing , InstanceOwnership ownership , IEnumerable < Service > services , IDictionary < string , object > metadata , IComponentRegistration target )
+		public ComponentRegistration (
+			Guid                            id
+		  , IInstanceActivator              activator
+		  , IComponentLifetime              lifetime
+		  , InstanceSharing                 sharing
+		  , InstanceOwnership               ownership
+		  , IEnumerable < Service >         services
+		  , IDictionary < string , object > metadata
+		  , IComponentRegistration          target
+		)
 		{
-			Id = id ;
+			Id        = id ;
 			Activator = activator ;
-			Lifetime = lifetime ;
-			Sharing = sharing ;
+			Lifetime  = lifetime ;
+			Sharing   = sharing ;
 			Ownership = ownership ;
-			Services = services ;
-			Metadata = metadata ;
-			Target = target ;
+			Services  = services ;
+			Metadata  = metadata ;
+			Target    = target ;
 		}
 
-		public List <object> ServicesList { get ; set ; }
+		public List < object > ServicesList { get ; set ; }
+
 		/// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
-		public ComponentRegistration ( IComponentLifetime lifetime , InstanceSharing sharing , InstanceOwnership ownership , IComponentRegistration target )
+		public ComponentRegistration (
+			IComponentLifetime     lifetime
+		  , InstanceSharing        sharing
+		  , InstanceOwnership      ownership
+		  , IComponentRegistration target
+		)
 		{
-			Id = Guid.NewGuid ( ) ;
-			Lifetime = lifetime ;	
-			Sharing = sharing ;
+			Id        = Guid.NewGuid ( ) ;
+			Lifetime  = lifetime ;
+			Sharing   = sharing ;
 			Ownership = ownership ;
-			Target = target ;
+			Target    = target ;
 		}
 
 		/// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
-		public ComponentRegistration ( ) : IAddChild
+		/// [ContentP
+		
+		public ComponentRegistration ( ) 
 		{
-			Id = Guid.NewGuid ( ) ;
+			Id       = Guid.NewGuid ( ) ;
 			Services = new List < Service > ( ) ;
-			Metadata = new Dictionary<string, object> ();
+			Metadata = new Dictionary < string , object > ( ) ;
 		}
 
 		/// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
@@ -66,7 +82,13 @@ namespace WpfApp1.Windows
 		/// <summary>Called by the container when an instance is required.</summary>
 		/// <param name="context">The context in which the instance will be activated.</param>
 		/// <param name="parameters">Parameters for activation. These may be modified by the event handler.</param>
-		public void RaisePreparing ( IComponentContext context , ref IEnumerable < Parameter > parameters ) { throw new NotImplementedException ( ) ; }
+		public void RaisePreparing (
+			IComponentContext             context
+		  , ref IEnumerable < Parameter > parameters
+		)
+		{
+			throw new NotImplementedException ( ) ;
+		}
 
 		/// <summary>
 		/// Called by the container once an instance has been constructed.
@@ -74,7 +96,14 @@ namespace WpfApp1.Windows
 		/// <param name="context">The context in which the instance was activated.</param>
 		/// <param name="parameters">The parameters supplied to the activator.</param>
 		/// <param name="instance">The instance.</param>
-		public void RaiseActivating ( IComponentContext context , IEnumerable < Parameter > parameters , ref object instance ) { throw new NotImplementedException ( ) ; }
+		public void RaiseActivating (
+			IComponentContext         context
+		  , IEnumerable < Parameter > parameters
+		  , ref object                instance
+		)
+		{
+			throw new NotImplementedException ( ) ;
+		}
 
 		/// <summary>
 		/// Called by the container once an instance has been fully constructed, including
@@ -83,7 +112,14 @@ namespace WpfApp1.Windows
 		/// <param name="context">The context in which the instance was activated.</param>
 		/// <param name="parameters">The parameters supplied to the activator.</param>
 		/// <param name="instance">The instance.</param>
-		public void RaiseActivated ( IComponentContext context , IEnumerable < Parameter > parameters , object instance ) { throw new NotImplementedException ( ) ; }
+		public void RaiseActivated (
+			IComponentContext         context
+		  , IEnumerable < Parameter > parameters
+		  , object                    instance
+		)
+		{
+			throw new NotImplementedException ( ) ;
+		}
 
 		/// <summary>
 		/// Gets a unique identifier for this component (shared in all sub-contexts.)
@@ -116,12 +152,12 @@ namespace WpfApp1.Windows
 				{
 					return ServicesList.AsQueryable ( )
 					                   .Select ( s => s as Service )
-					                   .Where ( s => s != null ) ; }
+					                   .Where ( s => s != null ) ;
+				}
 
 				return _services ;
-
 			}
-			protected set { _services = value ; }
+			protected set => _services = value ;
 		}
 
 
@@ -133,8 +169,7 @@ namespace WpfApp1.Windows
 		/// </summary>
 		public IComponentRegistration Target { get ; set ; }
 
-		public IList<InstanceInfo> Instances
-			{ get ; set ; } = new List < InstanceInfo > ();
+		public IList < InstanceInfo > Instances { get ; set ; } = new List < InstanceInfo > ( ) ;
 
 		/// <summary>
 		/// Fired when a new instance is required, prior to activation.
@@ -160,6 +195,7 @@ namespace WpfApp1.Windows
 
 		/// <summary>Adds the text content of a node to the object.</summary>
 		/// <param name="text">The text to add to the object.</param>
-		public void AddText ( string text ) { throw new NotImplementedException ( ) ; }
+		public void AddText ( string text ) { AddChild ( text ) ; }
+
 	}
 }

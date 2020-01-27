@@ -3,6 +3,7 @@ using System.ComponentModel ;
 using System.Globalization ;
 using System.Windows ;
 using System.Windows.Data ;
+using Autofac ;
 using Autofac.Core ;
 
 namespace WpfApp1.Xaml

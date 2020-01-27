@@ -17,50 +17,30 @@
              xmlns:local="clr-namespace:WpfApp1.Windows"
              Exit="App_OnExit">
     <Application.Resources>
-        <myxaml:RegistrationConverter x:Key="DesignRegistrationConverter"/>
-        <myxaml:InstanceRegistrationConverter x:Key="InstanceRegistrationConverter"/>
-        <myxaml:AssemblyConverter x:Key="AssemblyConverter"/>
-        <logging:AppLoggerContainer x:Key="AppLoggerContainer" logging:AppLogger="{myxaml:AppLogger poo}"/>
-        <menus:MenuMenuItemTemplateSelector x:Key="MenuMenuItemTemplateSelector" AppLogger="{myxaml:AppLogger}" />
-        <menus:MenuItemContainerStyleSelector x:Key="MenuItemContainerStyleSelector"  />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="MenuDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+        <!-- Converters -->
+        <myxaml:RegistrationConverter x:Key="DesignRegistrationConverter" />
+        <!-- ResourcesConverter is instaniatd and stored in the the resources
+        dictionary at application startup -->
 
-        <DataTemplate x:Key="testMenu_ItemTemplate" DataType="interfaces:IMenuItem">
-            <MenuItem Header="{Binding Header}"/>
-        </DataTemplate>
-        <datasrc:MyDS1 x:Key="Ds1"/>
-        <DataTemplate x:Key="Menu_ItemTemplateChildren" DataType="{x:Type menus:XMenuItem}">
-            <MenuItem Header="{Binding Header}" ItemsSource="{Binding Children}" />
-        </DataTemplate>
-        <ControlTemplate x:Key="MenuItemWithChildrenHeaderTemplate">
-        </ControlTemplate>
-        <DataTemplate x:Key="Menu_ItemTemplateNoChildren" DataType="{x:Type menus:XMenuItem}">
-            <MenuItem Header="{Binding Header}" Command="{Binding Command}"
-                      CommandParameter="{Binding CommandParameter}"
-                      CommandTarget="{Binding CommandTarget}" />
-        </DataTemplate>
-        <Style x:Key="MenuItemWithChildren" TargetType="{x:Type MenuItem}">
-            <Setter Property="HeaderTemplate" Value="{DynamicResource MenuItemWithChildrenHeaderTemplate}" />
-        </Style>
-
-        <Style x:Key="MyTest" TargetType="{x:Type Menu}">
-            <Setter Property="ItemsSource" Value="{Binding Path=(aooShared:App.MenuItemListCollectionView)}"/>
-            <Setter Property="ItemTemplate" Value="{DynamicResource testMenu_ItemTemplate}"/>
-        </Style>
-
+        <myxaml:InstanceRegistrationConverter x:Key="InstanceRegistrationConverter" />
+        <myxaml:AssemblyConverter x:Key="AssemblyConverter" />
         <Style TargetType="Window">
             <Setter Property="FontSize" Value="18" />
         </Style>
-        <DataTemplate DataType="nLog:ILogger">
-            <Label Content="{Binding Name}"/>
-        </DataTemplate>
-        <DataTemplate DataType="autofac:TypedParameter">
+        <DataTemplate DataType="autofac:Ty
+spedParameter">
             <WrapPanel>
-            <controls:TypeControl BorderBrush="BlueViolet" BorderThickness="3">
-                <aooShared:App.RenderedType>
-                    <Binding Path="Type"/>
-                </aooShared:App.RenderedType>
-            </controls:TypeControl>
-            <Label Content="{Binding Value}"/>
+                <controls:TypeControl BorderBrush="BlueViolet" BorderThickness="3">
+                    <aooShared:App.RenderedType>
+                        <Binding Path="Type" />
+                    </aooShared:App.RenderedType>
+                </controls:TypeControl>
+                <Label Content="{Binding Value}" />
             </WrapPanel>
         </DataTemplate>
         <DataTemplate x:Key="ServicesTypeTemplate" DataType="autofaccore:IComponentRegistration">
@@ -82,70 +62,81 @@
             </WrapPanel>
         </DataTemplate>
         <myxaml:ComponentLifetimeConverter x:Key="ComponentLifetimeConverter" />
-        <ObjectDataProvider x:Key="designInstanceInfo" ObjectInstance="{x:Static wpfapp1:DesignData.InstanceInfo}"/>
-        <ObjectDataProvider x:Key="designInstanceList" ObjectInstance="{x:Static wpfapp1:DesignData.InstanceList}"/>
-        <wpfapp1:DesignData x:Key="designData"/>
-        <Binding x:Key="lifetimescope" Source="{StaticResource designData}" Path="LifetimeScope"/>
-        
-            <myxaml:SmartTypeConverter x:Key="SmartTypeConverter" />
-            <CollectionViewSource x:Key="LogItems" Source="{Binding LogEvents}" />
-            <logging:TargetConverter x:Key="TargetConverter" />
-            <logging:AppLoggerContainer x:Key="testAppLoggerContainer" logging:AppLogger="{myxaml:AppLogger Test AppLoggerContainer}" />
-            <Style TargetType="{x:Type local:MainWindow}" x:Key="CoolStyle1">
-                <Setter Property="FontWeight" Value="Medium" />
-                <Setter Property="Opacity" Value="0.9" />
-                <Setter Property="WindowStyle" Value="None" />
-                <Setter Property="AllowsTransparency" Value="True" />
-                <Setter Property="Background" Value="{x:Null}" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type TypeName=local:MainWindow}">
-                            <Border BorderThickness="5" BorderBrush="Chartreuse" Padding="10">
-                                <DockPanel>
-                                    <DockPanel.LayoutTransform>
-                                        <ScaleTransform ScaleX="1.7" ScaleY="1.7" />
-                                    </DockPanel.LayoutTransform>
-                                    <Menu DockPanel.Dock="Top" />
-                                    <ContentPresenter DockPanel.Dock="Bottom" />
-                                </DockPanel>
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-            <Style TargetType="{x:Type local:MainWindow}">
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type local:MainWindow}">
+        <ObjectDataProvider x:Key="designInstanceInfo" ObjectInstance="{x:Static wpfapp1:DesignData.InstanceInfo}" />
+        <ObjectDataProvider x:Key="designInstanceList" ObjectInstance="{x:Static wpfapp1:DesignData.InstanceList}" />
+        <wpfapp1:DesignData x:Key="designData" />
+        <Binding x:Key="lifetimescope" Source="{StaticResource designData}" Path="LifetimeScope" />
+
+        <myxaml:SmartTypeConverter x:Key="SmartTypeConverter" />
+        <CollectionViewSource x:Key="LogItems" Source="{Binding LogEvents}" />
+        <logging:TargetConverter x:Key="TargetConverter" />
+
+        <Style TargetType="{x:Type local:MainWindow}" x:Key="CoolStyle1">
+            <Setter Property="FontWeight" Value="Medium" />
+            <Setter Property="Opacity" Value="0.9" />
+            <Setter Property="WindowStyle" Value="None" />
+            <Setter Property="AllowsTransparency" Value="True" />
+            <Setter Property="Background" Value="{x:Null}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TypeName=local:MainWindow}">
+                        <Border BorderThickness="5" BorderBrush="Chartreuse" Padding="10">
                             <DockPanel>
                                 <DockPanel.LayoutTransform>
-                                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                                    <ScaleTransform ScaleX="1.7" ScaleY="1.7" />
                                 </DockPanel.LayoutTransform>
-                                <Menu DockPanel.Dock="Top" Name="appMenu">
-                                    <MenuItem Header="File">
-                                        <MenuItem Header="Open Assembly"
-                                              Command="ApplicationCommands.Open" />
-                                        <MenuItem Header="Restart"
-                                              Command="commands:MyAppCommands.Restart" />
-                                    </MenuItem>
-                                    <MenuItem Header="Debug">
-                                        <MenuItem Header="Dump" Command="commands:MyAppCommands.DumpDebug" />
-                                    </MenuItem>
-                                </Menu>
+                                <Menu DockPanel.Dock="Top" />
                                 <ContentPresenter DockPanel.Dock="Bottom" />
                             </DockPanel>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-            <Style TargetType="TabControl" x:Key="Red1">
-                <Setter Property="Effect">
-                    <Setter.Value>
-                        <DropShadowEffect BlurRadius="10" Color="#FFC52C2C" />
-                    </Setter.Value>
-                </Setter>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type local:MainWindow}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type local:MainWindow}">
+                        <DockPanel>
+                            <DockPanel.LayoutTransform>
+                                <ScaleTransform ScaleX="1" ScaleY="1" />
+                            </DockPanel.LayoutTransform>
+                            <Menu DockPanel.Dock="Top" Name="appMenu">
+                                <MenuItem Header="File">
+                                    <MenuItem Header="Open Assembly"
+                                              Command="ApplicationCommands.Open" />
+                                    <MenuItem Header="Restart"
+                                              Command="commands:MyAppCommands.Restart" />
+                                </MenuItem>
+                                <MenuItem Header="Debug">
+                                    <MenuItem Header="Dump" Command="commands:MyAppCommands.DumpDebug" />
+                                </MenuItem>
+                            </Menu>
+                            <ContentPresenter DockPanel.Dock="Bottom" />
+                        </DockPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="TabControl" x:Key="Red1">
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="10" Color="#FFC52C2C" />
+                </Setter.Value>
+            </Setter>
 
-            </Style>
+        </Style>
+
+        <ObjectDataProvider x:Key="DesignTimeLifetimeScopeDataSource" ObjectType="local:LifetimeScope">
+            <ObjectDataProvider.ConstructorParameters>
+                <system:String>tag1</system:String>
+                <local:ComponentRegistry>
+                    <local:ComponentRegistration>
+                        <controls:TypedService Desc="MyService" />
+                    </local:ComponentRegistration>
+                </local:ComponentRegistry>
+            </ObjectDataProvider.ConstructorParameters>
+        </ObjectDataProvider>
 
     </Application.Resources>
 </Application>

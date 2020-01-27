@@ -30,7 +30,7 @@ namespace WpfApp1.Logging
 		/// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
 		public AppLoggerContainer()
 		{
-			Logging.AppLoggingConfigHelper.EnsureLoggingConfigured();
+			Logging.AppLoggingConfigHelper.EnsureLoggingConfigured( TODO );
 		}
 
 		public LoggingConfiguration Configuration

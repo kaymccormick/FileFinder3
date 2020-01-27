@@ -33,6 +33,7 @@ namespace WpfApp1Tests3
 		        , outputHelper
 		         )
 		{
+
 			Logger.Debug ( $"{nameof ( WpfTests )} constructor"  ) ;
 		}
 

@@ -2,6 +2,7 @@
 using System.Collections ;
 using System.Text ;
 using System.Collections.Generic ;
+using System.Windows.Markup ;
 using Autofac.Core ;
 using WpfApp1.Windows ;
 using Xunit ;
@@ -24,10 +25,11 @@ namespace WpfApp1Tests3
 		public void Tesst1 ( )
 		{
 			var componentRegistry = new ComponentRegistry ( ) ;
+
 			var componentRegistration = new ComponentRegistration ( ) ;
-			componentRegistration.AddChild ( new TypedService ( typeof ( IEnumerable ) ) ) ;
-			componentRegistry.AddChild ( componentRegistration ) ;
-			var x = new LifetimeScope ( componentRegistry ) ;
+			IAddChild c = componentRegistration as IAddChild ;
+			var typedService = new TypedService ( typeof ( IEnumerable ) ) ;
+			//v//ar x = new LifetimeScope ( componentRegistry ) ;
 		}
 	}
 }
