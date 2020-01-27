@@ -81,8 +81,10 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Attributes\AppInitializeAttribute.cs" />
     <Compile Include="Attributes\IDGeneratorAttribute.cs" />
     <Compile Include="Attributes\PushContextAttribute.cs" />
+    <Compile Include="Attributes\PushContextAttributeTests.cs" />
     <Compile Include="Collections\AutofacContainerDef.cs" />
     <Compile Include="Collections\WpfApplication.cs" />
     <Compile Include="DumpHelper.cs" />
@@ -107,6 +109,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TestResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="UnitTest1.cs" />
     <Compile Include="Utils\Factory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WpfTestsBase.cs" />

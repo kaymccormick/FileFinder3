@@ -8,6 +8,7 @@ using System.Reflection ;
 using System.Runtime.ExceptionServices ;
 using System.Runtime.Serialization ;
 using System.Threading ;
+using System.Threading.Tasks ;
 using System.Windows ;
 using System.Windows.Data ;
 using System.Windows.Input ;
@@ -45,6 +46,7 @@ namespace WpfApp1.Application
 	public partial class App : System.Windows.Application , IHaveAppLogger
 	{
 		private IContainer _container ;
+		
 
 		public AppLogger AppLogger { get ; set ; } = null ;
 
@@ -52,6 +54,9 @@ namespace WpfApp1.Application
 
 		public App ( )
 		{
+			TaskCompletionSource<int> s = new TaskCompletionSource < int > ();
+			
+			TCS = s ;
 			var cd = AppDomain.CurrentDomain ;
 			cd.AssemblyLoad += CurrentDomainOnAssemblyLoad;
 			//cd.TypeResolve += CdOnTypeResolve;
@@ -64,6 +69,8 @@ namespace WpfApp1.Application
 			
 			cd.FirstChanceException += CurrentDomainOnFirstChanceException;
 		}
+
+		public TaskCompletionSource < int > TCS { get ; set ; }
 
 		private Assembly CdOnResourceResolve ( object sender , ResolveEventArgs args )
 		{
@@ -93,10 +100,10 @@ namespace WpfApp1.Application
 		{
 			if ( Logger != null )
 			{
-				Logger.Warn ( $"{args.LoadedAssembly}" ) ;
+				Logger.Trace(args.LoadedAssembly ) ;
 			}
 			else
-			{
+			{	
 				Debug.WriteLine ( args.LoadedAssembly ) ;
 			}
 		}
@@ -147,6 +154,7 @@ namespace WpfApp1.Application
 
 		private object DispatcherOperationCallback ( object arg )
 		{
+			Logger?.Info ( $"{nameof(DispatcherOperationCallback)}");
 			AppContainer = ContainerHelper.SetupContainer (out var container ) ;
 			_container = container ;
 
@@ -212,25 +220,38 @@ namespace WpfApp1.Application
 			Logger.Trace ( $"Attempting to resolve MainWindow" ) ;
 
 			var objectIdProvider = AppContainer.Resolve < IObjectIdProvider > ( ) ;
+			
 			RegistrationConverter converter = new RegistrationConverter ( AppContainer, objectIdProvider ) ;
+
 			Resources[ "RegistrationConverter" ] = converter ;
 			var mainWindow = AppContainer.Resolve < MainWindow > ( ) ;
 			Logger.Trace ( $"Reeeived {mainWindow} " ) ;
 
-			try
+			if ( ShowMainWindow )
 			{
-				mainWindow.Show ( ) ;
-			} catch(Exception ex)
-			{
-				Logger?.Error ( ex , ex.Message ) ;
+				try
+				{
+					mainWindow.Show ( ) ;
+				}
+				catch ( Exception ex )
+				{
+					Logger?.Error ( ex , ex.Message ) ;
 
-			}
+				}
 #if SHOWWINDOW
 				var mainWindow = new MainWindow();
 				mainWindow.Show();
 #endif
+			}
+
+			Initialized = true ;
+
 			return null ;
 		}
+
+		public bool Initialized { get ; set ; }
+
+		public bool ShowMainWindow { get ; set ; } = true ;	
 
 		public bool DoTracing { get ; } = false ;
 

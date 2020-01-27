@@ -14,6 +14,8 @@ using System.Collections.Generic ;
 using System.Linq.Expressions ;
 using System.Reflection ;
 using System.Windows.Documents ;
+using Autofac.Builder ;
+using Autofac.Core ;
 using Castle.DynamicProxy ;
 using NLog ;
 
@@ -21,7 +23,7 @@ namespace WpfApp1.Util
 {
 	public class BuilderInterceptor : IInterceptor
 	{
-		private static readonly NLog.Logger Logger = LogManager.GetCurrentClassLogger ( ) ;
+		private static readonly Logger Logger = LogManager.GetCurrentClassLogger ( ) ;
 		public ProxyGenerator ProxyGenerator { get ; }
 
 		public BuilderInterceptor ( ProxyGenerator proxyGenerator )
@@ -39,9 +41,17 @@ namespace WpfApp1.Util
 			i.Arguments = invocation.Arguments ;
 			Invocations.Add ( i ) ;
 			invocation.Proceed ( ) ;
-			i.ReturnValue = invocation.ReturnValue ;
+			i.OriginalReturnValue = invocation.ReturnValue ;
 			try
 			{
+				if(i.OriginalReturnValue is DeferredCallback cb)
+				{
+					Action < IComponentRegistry > cbAction = cb.Callback ;
+					var ret = CreateCallbackProxy ( ProxyGenerator  , cbAction, cb) ;
+					invocation.ReturnValue = ret ;
+					i.ReturnValue = ret ;
+					return ;
+				}
 
 				var classProxyWithTarget =
 					ProxyGenerator.CreateClassProxyWithTarget (
@@ -57,6 +67,21 @@ namespace WpfApp1.Util
 				Logger.Warn ( ex , ex.Message ) ;
 			}
 		}
+
+		public static object  CreateCallbackProxy ( ProxyGenerator proxyGenerator , 
+													
+		                                            Action<IComponentRegistry> callback,
+		                                            DeferredCallback defer)
+		                                            
+		{
+			
+			var x = proxyGenerator.CreateClassProxy (
+			                                         typeof ( DeferredCallback )
+			                                       , new object[] { callback}
+			                                       , new BuilderInterceptor ( proxyGenerator )
+			                                        ) ;
+			return x ;
+		}
 	}
 
 	public class MethodInvocation
@@ -64,6 +89,8 @@ namespace WpfApp1.Util
 		public MethodInfo Method { get ; set ; }
 
 		public object[] Arguments { get ; set ; }
+
+		public object OriginalReturnValue { get ; set ; }
 
 		public object ReturnValue { get ; set ; }
 	}

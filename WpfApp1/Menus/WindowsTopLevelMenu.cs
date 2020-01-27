@@ -21,7 +21,7 @@ namespace WpfApp1.Menus
             Func < IMenuItem >              xMenuItemCreator,
             Func < Type, ILogger > func
         )
-        {
+			{
 	        Logger = func( typeof(WindowsTopLevelMenu) );
 
             _xMenuItemCreator = xMenuItemCreator;

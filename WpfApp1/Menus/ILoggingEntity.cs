@@ -12,9 +12,4 @@
 
 #endregion
 
-namespace WpfApp1.Menus
-{
-	public interface ILoggingEntity
-	{
-	}
-}
+	

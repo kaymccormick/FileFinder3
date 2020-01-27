@@ -6,78 +6,17 @@
         xmlns:local="clr-namespace:WpfApp1.Windows"
         xmlns:myxaml="clr-namespace:WpfApp1.Xaml"
         xmlns:commands="clr-namespace:WpfApp1.Commands"
-        xmlns:logging="clr-namespace:WpfApp1.Logging"
         xmlns:nLog="clr-namespace:NLog;assembly=NLog"
         xmlns:controls="clr-namespace:WpfApp1.Controls"
         xmlns:windows="clr-namespace:WpfApp1.Windows"
         xmlns:nLog1="clr-namespace:Sentinel.NLog;assembly=Sentinel.NLog"
         xmlns:aprops="clr-namespace:AppShared;assembly=AppShared"
+        xmlns:core="clr-namespace:Autofac.Core;assembly=Autofac"
         mc:Ignorable="d"
         DataContext="{Binding ElementName=mainWindow}"
         Title="Main Window" Height="450" Width="1000"
         FontFamily="Deja Vu Sans"
         FontSize="20" MinHeight="800" MinWidth="1202">
-    <Window.Resources>
-        <myxaml:SmartTypeConverter x:Key="SmartTypeConverter" />
-        <CollectionViewSource x:Key="LogItems" Source="{Binding LogEvents}" />
-        <logging:TargetConverter x:Key="TargetConverter" />
-        <logging:AppLoggerContainer x:Key="testAppLoggerContainer" logging:AppLogger="{myxaml:AppLogger Test AppLoggerContainer}" />
-        <Style TargetType="{x:Type local:MainWindow}" x:Key="CoolStyle1">
-            <Setter Property="FontWeight" Value="Medium" />
-            <Setter Property="Opacity" Value="0.9" />
-            <Setter Property="WindowStyle" Value="None" />
-            <Setter Property="AllowsTransparency" Value="True" />
-            <Setter Property="Background" Value="{x:Null}" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="windows:MainWindow">
-                        <Border BorderThickness="5" BorderBrush="Chartreuse" Padding="10">
-                            <DockPanel>
-                                <DockPanel.LayoutTransform>
-                                    <ScaleTransform ScaleX="1.7" ScaleY="1.7" />
-                                </DockPanel.LayoutTransform>
-                                <Menu DockPanel.Dock="Top" />
-                                <ContentPresenter DockPanel.Dock="Bottom" />
-                            </DockPanel>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style TargetType="{x:Type windows:MainWindow}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type windows:MainWindow}">
-                        <DockPanel>
-                            <DockPanel.LayoutTransform>
-                                <ScaleTransform ScaleX="1" ScaleY="1" />
-                            </DockPanel.LayoutTransform>
-                            <Menu DockPanel.Dock="Top" Name="appMenu">
-                                <MenuItem Header="File">
-                                    <MenuItem Header="Open Assembly"
-                                              Command="ApplicationCommands.Open" />
-                                    <MenuItem Header="Restart"
-                                              Command="commands:MyAppCommands.Restart" />
-                                </MenuItem>
-                                <MenuItem Header="Debug">
-                                    <MenuItem Header="Dump" Command="commands:MyAppCommands.DumpDebug" />
-                                </MenuItem>
-                            </Menu>
-                            <ContentPresenter DockPanel.Dock="Bottom" />
-                        </DockPanel>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style TargetType="TabControl" x:Key="Red1">
-            <Setter Property="Effect">
-                <Setter.Value>
-                    <DropShadowEffect BlurRadius="10" Color="#FFC52C2C" />
-                </Setter.Value>
-            </Setter>
-
-        </Style>
-    </Window.Resources>
     <Window.CommandBindings>
         <CommandBinding Command="commands:MyAppCommands.LoadAssemblyList"
                         PreviewExecuted="CommandBinding_OnPreviewExecuted" />
@@ -87,10 +26,7 @@
                         Executed="DumpDebug" />
         <CommandBinding Command="commands:MyAppCommands.Restart" Executed="Restart" />
     </Window.CommandBindings>
-
-    <TabControl
-        Name="MainTabControl" Margin="10"
-        DataContext="{Binding ElementName=mainWindow)}">
+    <TabControl Name="MainTabControl" Margin="10">
         <TabItem Header="Objects">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -98,97 +34,11 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
             </Grid>
-        </TabItem>
+        </TabItem>N
         <TabItem Header="Autofac" Padding="15" DataContext="{Binding Path=Container}">
-            <TabControl>
-                <TabItem Header="Lifetime Scopes" Padding="15">
-
-                    <StackPanel Orientation="Vertical">
-                        <TextBlock Text="{Binding Tag}" />
-                    </StackPanel>
-                </TabItem>
-                <TabItem Header="Registrations">
-                    <DockPanel
-                        DataContext="{Binding ComponentRegistry.Registrations}">
-                        <DockPanel.Resources>
-                            <CollectionViewSource
-                                x:Key="Registrations" Source="{Binding}" />
-                        </DockPanel.Resources>
-                        <DockPanel.CommandBindings>
-                            <CommandBinding Command="commands:MyAppCommands.Load" Executed="LoadInstance" />
-                            <CommandBinding Command="commands:MyAppCommands.Metadata" Executed="Metadata" />
-                        </DockPanel.CommandBindings>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding}" />
-                            <CheckBox Name="InstancesOnly" Checked="InstancesOnly_OnChecked"
-                                      Unchecked="InstancesOnly_OnUnchecked" />
-                        </StackPanel>
-                        <Grid DataContext="{Binding Source={StaticResource Registrations}}">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <ListView Name="compView" ItemsSource="{Binding}">
-                                <ListView.View>
-                                    <GridView>
-                                        <GridViewColumn Header="" DisplayMemberBinding="{Binding Path=Id}" />
-                                        <GridViewColumn
-                                            DisplayMemberBinding="{Binding Converter={StaticResource RegistrationConverter}, ConverterParameter=Count}" />
-                                        <GridViewColumn Header="Limit Type"
-                                                        DisplayMemberBinding="{Binding Path=Activator.LimitType}" />
-                                        <GridViewColumn Header="Sharing" DisplayMemberBinding="{Binding Path=Sharing}" />
-
-                                        <GridViewColumn
-                                            CellTemplate="{StaticResource  ServicesCellTemplate}" Header="Services" />
-                                    </GridView>
-                                </ListView.View>
-                            </ListView>
-                            <StackPanel Grid.Row="2">
-                                <ListView
-                                    ItemsSource="{Binding /,Converter={StaticResource RegistrationConverter}}">
-                                    <ListView.View>
-                                        <GridView>
-                                            <GridViewColumn DisplayMemberBinding="{Binding Path=ObjectId}" />
-                                            <GridViewColumn Header="Actions">
-                                                <GridViewColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <ToolBarTray>
-                                                            <ToolBar
-                                                                ItemsSource="{Binding Converter={StaticResource InstanceRegistrationConverter},ConverterParameter=ToolBar}" />
-                                                        </ToolBarTray>
-                                                    </DataTemplate>
-                                                </GridViewColumn.CellTemplate>
-                                            </GridViewColumn>
-                                            <GridViewColumn>
-                                                <GridViewColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <controls:TypeControl>
-                                                            <aprops:App.RenderedType>
-                                                                <Binding Path="Type" />
-                                                            </aprops:App.RenderedType>
-                                                        </controls:TypeControl>
-                                                    </DataTemplate>
-                                                </GridViewColumn.CellTemplate>
-                                            </GridViewColumn>
-                                            <GridViewColumn DisplayMemberBinding="{Binding Instance}" />
-                                            <GridViewColumn>
-                                                <GridViewColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <ComboBox ItemsSource="{Binding Parameters}" />
-                                                    </DataTemplate>
-                                                </GridViewColumn.CellTemplate>
-                                            </GridViewColumn>
-                                        </GridView>
-                                    </ListView.View>
-                                </ListView>
-                            </StackPanel>
-                        </Grid>
-                    </DockPanel>
-                </TabItem>
-            </TabControl>
+            <core:Container/>
         </TabItem>
-        <TabItem Header="Home"
-                 DataContext="{Binding Source={StaticResource AppLoggerContainer2}}">
+        <TabItem Header="Home">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="41" />
@@ -269,9 +119,6 @@
                     </TreeView.ItemTemplate>
                 </TreeView>
             </Grid>
-        </TabItem>
-        <TabItem Header="Internal Log">
-            <TextBlock Text="{Binding Source={StaticResource AppLoggerContainer2}, Path=InternalLog}" />
         </TabItem>
         <TabItem Header="Assemblies">
             <controls:AssemblyBrowser />

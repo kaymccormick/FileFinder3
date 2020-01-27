@@ -19,6 +19,8 @@ namespace WpfApp1.Attributes
 
         private InfoContext                  _context;
         private ContextStack < InfoContext > _stack;
+        private string v1;
+        private string v2;
 
 
         /// <summary>Initializes a new instance of the <see cref="T:System.Attribute" /> class.</summary>
@@ -27,6 +29,12 @@ namespace WpfApp1.Attributes
         )
         {
             Context = context;
+        }
+
+        public PushContextAttribute ( string v1 , string v2 )
+        {
+            this.v1 = v1;
+            this.v2 = v2;
         }
 
         /// <summary>

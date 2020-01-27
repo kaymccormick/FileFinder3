@@ -9,12 +9,15 @@
 // 
 // ---
 #endregion
+using System.Reflection ;
 using AppShared.Interfaces ;
 using Autofac ;
 using Autofac.Core ;
+using Autofac.Core.Registration ;
 using Autofac.Extras.DynamicProxy ;
 using WpfApp1.Logging ;
 using WpfApp1.Menus ;
+using Module = Autofac.Module ;
 
 namespace WpfApp1.Util
 {
@@ -47,38 +50,6 @@ namespace WpfApp1.Util
 			       .InterceptedBy ( typeof ( LoggingInterceptor ) ) ;
 			#endregion
 
-		}
-
-
-		/// <summary>
-		/// Override to attach module-specific functionality to a
-		/// component registration.
-		/// </summary>
-		/// <remarks>This method will be called for all existing <i>and future</i> component
-		/// registrations - ordering is not important.</remarks>
-		/// <param name="componentRegistry">The component registry.</param>
-		/// <param name="registration">The registration to attach functionality to.</param>
-		protected override void AttachToComponentRegistration (
-			IComponentRegistry     componentRegistry
-		  , IComponentRegistration registration
-		)
-		{
-			base.AttachToComponentRegistration ( componentRegistry , registration ) ;
-		}
-
-		/// <summary>
-		/// Override to perform module-specific processing on a registration source.
-		/// </summary>
-		/// <remarks>This method will be called for all existing <i>and future</i> sources
-		/// - ordering is not important.</remarks>
-		/// <param name="componentRegistry">The component registry into which the source was added.</param>
-		/// <param name="registrationSource">The registration source.</param>
-		protected override void AttachToRegistrationSource (
-			IComponentRegistry  componentRegistry
-		  , IRegistrationSource registrationSource
-		)
-		{
-			base.AttachToRegistrationSource ( componentRegistry , registrationSource ) ;
 		}
 	}
 }

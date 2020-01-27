@@ -1,39 +1,29 @@
 ﻿using System ;
 using System.Collections ;
 using System.Collections.Generic ;
-using System.ComponentModel ;
 using System.Diagnostics ;
 using System.Globalization ;
 using System.IO ;
 using System.Linq ;
-using System.Net ;
 using System.Reactive.Concurrency ;
 using System.Reactive.Linq ;
 using System.Reflection ;
-using System.Threading ;
 using System.Windows ;
 using System.Windows.Controls ;
 using System.Windows.Data ;
-using System.Windows.Forms ;
 using System.Windows.Input ;
 using System.Windows.Markup ;
 using System.Windows.Threading ;
-using AppShared ;
 using AppShared.Interfaces ;
 using Autofac ;
 using Autofac.Core ;
-using Autofac.Core.Lifetime ;
-using Autofac.Features.Metadata ;
-using Autofac.Features.OwnedInstances ;
 using NLog ;
-using NLog.Fluent ;
 using Sentinel.NLog ;
 using Vanara.Extensions.Reflection ;
 using WpfApp1.Application ;
 using WpfApp1.Attributes ;
 using WpfApp1.Logging ;
 using WpfApp1.Menus ;
-using WpfApp1.Xaml ;
 using CheckBox = System.Windows.Controls.CheckBox ;
 using Control = System.Windows.Controls.Control ;
 using ILogger = NLog.ILogger ;
@@ -254,7 +244,7 @@ namespace WpfApp1.Windows
 					menu.Items.Add ( MenuHelper.MakeMenuItem ( menuItem ) ) ;
 				}
 
-				Logger.Warn ( e.RoutedEvent.Name + " changed" ) ;
+				Logger.Trace ( e.RoutedEvent.Name + " changed" ) ;
 				DumpRoutedPropertyChangedEventArgs ( e ) ;
 				e.Handled = true ;
 			}
@@ -268,7 +258,7 @@ namespace WpfApp1.Windows
 			RoutedPropertyChangedEventArgs < T > args
 		)
 		{
-			Logger.Debug ( "OldValue = "    + args.OldValue ) ;
+			Logger.Trace ( "OldValue = "    + args.OldValue ) ;
 			Logger.Debug ( "NewValue = "    + args.NewValue ) ;
 			Logger.Debug ( "RoutedEvent = " + args.RoutedEvent ) ;
 			Logger.Debug ( "Source = "      + args.Source ) ;
@@ -300,7 +290,7 @@ namespace WpfApp1.Windows
 
 			try
 			{
-				Logger.Warn ( $"Loading assembly {f.FullName}" ) ;
+				Logger.Warn ( "Loading assembly {f.FullName}" ) ;
 				var loadFile = Assembly.LoadFile ( f.FullName ) ;
 				var childScope = LifetimeScope.BeginLifetimeScope (
 				                                                   b => {

@@ -23,6 +23,9 @@ namespace WpfApp1.Xaml
 		private readonly ILifetimeScope    _appContainer ;
 		private readonly IObjectIdProvider _provider ;
 
+		/// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
+		public RegistrationConverter ( ) { }
+
 		public RegistrationConverter ( ILifetimeScope appContainer , IObjectIdProvider provider )
 		{
 			_appContainer = appContainer ;
@@ -75,45 +78,9 @@ namespace WpfApp1.Xaml
 
 			return x.AsList ( ) ;
 			return new object[ 0 ] ;
-			// else if ( string.Compare (
-			// xx , "ToolBar" ) )
-			// {
-			// return x.Select ( ( registration , i ) => {
-			// if ( registration.Type.IsAssignableTo < Lazy < object > > ( ) )
-			// {
-			// return new Button ( )
-			// {
-			// Content          = "Load"
-			// , Command          = MyAppCommands.Load
-			// , CommandParameter = registration
-			// ,
-			// } ;
-			// }
-			// }
-
-			// }
-			// }
-			// } )
 		}
 
-		// IComponentRegistration x = new ComponentRegistration();
-		// foreach(var svc in x.Services)
-		// {
-		// if(svc is TypedService ts)
-		// {
-		// var q =  scope.ResolveComponent(.)
-		// ts.ServiceType}
-		// x.Resolve
 
-		// throw new NotImplementedException ( ) ;
-
-
-		/// <summary>Converts a value. </summary>
-		/// <param name="value">The value that is produced by the binding target.</param>
-		/// <param name="targetType">The type to convert to.</param>
-		/// <param name="parameter">The converter parameter to use.</param>
-		/// <param name="culture">The culture to use in the converter.</param>
-		/// <returns>A converted value. If the method returns <see langword="null" />, the valid null value is used.</returns>
 		public object ConvertBack (
 			object      value
 		  , Type        targetType
@@ -121,7 +88,7 @@ namespace WpfApp1.Xaml
 		  , CultureInfo culture
 		)
 		{
-			return - 1 ;
+			return "" ;
 		}
 	}
 }
