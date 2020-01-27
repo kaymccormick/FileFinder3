@@ -9,50 +9,56 @@
 // 
 // ---
 #endregion
-using System ;
-using System.Collections.Generic ;
-using System.ComponentModel ;
-using Sentinel.Interfaces ;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace WpfApp1.Windows
 {
+#if NO
 	public class MyLogger : Sentinel.Interfaces.ILogger
 	{
-		/// <summary>Occurs when a property value changes.</summary>
+		/// <summary>Occurs when a pShare/roperty value changes.</summary>
 		public event PropertyChangedEventHandler PropertyChanged ;
 
 		/// <summary>
 		/// Gets the entries for the logger.
 		/// </summary>
-		public IEnumerable < ILogEntry > Entries { get ; set ; }
+		public IEnumerable<ILogErq
+			
+			
+			ntry> Entries { get; set; }
 
 		/// <summary>
 		/// Gets or sets the name of the logger.
 		/// </summary>
-		public string Name { get ; set ; }
+		public string Name { get; set; }
 
 		/// <summary>
 		/// Indicates whether new entries are added to the Entries collection.
 		/// </summary>
-		public bool Enabled { get ; set ; }
+		public bool Enabled { get; set; }
 
 		/// <summary>
 		/// Gets the newly added entries for the logger.
 		/// </summary>
-		public IEnumerable < ILogEntry > NewEntries { get ; set ; }
+		public IEnumerable<ILogEntry> NewEntries { get; set; }
 
 		/// <summary>
 		/// Clear the log entries.
 		/// </summary>
-		public void Clear ( ) { throw new NotImplementedException ( ) ; }
+		public void Clear () { throw new NotImplementedException ( ); }
 
 		/// <summary>
 		/// Add a batch of new messages to the logger.
 		/// </summary>
 		/// <param name="entries">Ordered list/queue of items to add.</param>
-		public void AddBatch ( Queue < ILogEntry > entries )
+		public void AddBatch ( Queue<ILogEntry> entries )
 		{
-			
+
 		}
 	}
+#endif
+
 }
+
