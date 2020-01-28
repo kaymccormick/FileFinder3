@@ -7,9 +7,6 @@
              MinWidth="300" MinHeight="200"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d">
-    <UserControl.Resources>
-        <Style TargetType=""/>
-    </UserControl.Resources>
     <DockPanel
         LastChildFill="True"
         DataContext="{Binding (TypeName.ComponentRegistry)

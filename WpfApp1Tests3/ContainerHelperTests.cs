@@ -21,18 +21,23 @@ using WpfApp1Tests3.Fixtures ;
 namespace WpfApp1Tests3
 {
     [WpfTestApplication]
+
     public class ContainerHelperTests
     {
         private static readonly NLog.Logger Logger = LogManager.GetCurrentClassLogger();
-	    /// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
-	    public ContainerHelperTests ( WpfApplicationFixture myFixture ) { MyFixture = myFixture ; }
+        /// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
+        // public ContainerHelperTests ( WpfApplicationFixture myFixture ) { MyFixture = myFixture ; }
 
-	    [Fact()]
+        [Fact()]
         public void SetupContainerTest()
         {
-	        IContainer container ;
-	        var c = ContainerHelper.SetupContainer( out container );
+            IContainer container ;
+            var c = ContainerHelper.SetupContainer( out container );
             Assert.NotNull(c);
+        }
+
+        /// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
+        public ContainerHelperTests ( ) {
         }
 
         public WpfApplicationFixture MyFixture { get ; set ; }
@@ -41,8 +46,8 @@ namespace WpfApp1Tests3
         [ UsedImplicitly ]
         public void ContainerTestResolveIMenuItemList()
         {
-	        IContainer container ;
-	        var c = ContainerHelper.SetupContainer( out container );
+            IContainer container ;
+            var c = ContainerHelper.SetupContainer( out container );
             var menuItemList = c.Resolve<IMenuItemList>();
             Assert.NotNull(menuItemList);
             Assert.NotEmpty ( menuItemList.First ( ).Children ) ;
@@ -53,10 +58,10 @@ namespace WpfApp1Tests3
         [Fact]
         public void ResolveWindows()
         {
-	        IContainer container ;
-	        var c = ContainerHelper.SetupContainer( out container );
-	        var enumerable = c.Resolve < IEnumerable < Lazy < Window > > >();
-	        var l = enumerable.ToList ( ) ;
+            IContainer container ;
+            var c = ContainerHelper.SetupContainer( out container );
+            var enumerable = c.Resolve < IEnumerable < Lazy < Window > > >();
+            var l = enumerable.ToList ( ) ;
             Assert.NotEmpty(l);
             Assert.Equal( 3 , l.Count ) ;
         }
@@ -68,17 +73,17 @@ namespace WpfApp1Tests3
         var uri = new Uri ( MyFixture.BasePackUri , "Application/App.xaml" ) ;
 Logger.Info(uri);
 
-	        IContainer container ;
-	        var c = ContainerHelper.SetupContainer( out container );
-	        var mainWindow = c.Resolve < MainWindow >();
+            IContainer container ;
+            var c = ContainerHelper.SetupContainer( out container );
+            var mainWindow = c.Resolve < MainWindow >();
             Assert.NotNull(mainWindow);
         }
 
         [ WpfFact ]
         public void TestPushContext ( )
         {
-	        IContainer container ;
-	        var c = ContainerHelper.SetupContainer ( out container ) ;
+            IContainer container ;
+            var c = ContainerHelper.SetupContainer ( out container ) ;
         }
     }
 

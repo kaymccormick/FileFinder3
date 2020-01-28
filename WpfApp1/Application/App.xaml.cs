@@ -81,15 +81,26 @@ namespace WpfApp1.Application
 		private void CdOnUnhandledException ( object sender , UnhandledExceptionEventArgs e )
 		{
 			var message = "" ;
-			message = e.ExceptionObject.GetPropertyValue<string>( "Message" ) ;
-			UnhandledException
-				err = new UnhandledException ("UnhandledException: " + message , e.ExceptionObject as Exception) ;
-			Logger.Error (err,  $"{err.Message} Terminating={e.IsTerminating}" ) ;
+			message = e.ExceptionObject.GetPropertyValue < string > ( "Message" ) ;
+			UnhandledException err = new UnhandledException (
+			                                                 "UnhandledException: " + message
+			                                               , e.ExceptionObject as Exception
+			                                                ) ;
+			if ( Logger == null )
+			{
+				LogManager.GetCurrentClassLogger ( )
+				          .Error ( err , $"{err.Message} Terminating={e.IsTerminating}" ) ;
 
+			}
+			else
+			{
+
+				Logger?.Error ( err , $"{err.Message} Terminating={e.IsTerminating}" ) ;
+			}
 		}
 
-	
-	private Assembly CdOnTypeResolve ( object sender , ResolveEventArgs args )
+
+		private Assembly CdOnTypeResolve ( object sender , ResolveEventArgs args )
 		{
 			Logger.Warn ( $"{args.Name}" );
 			Logger.Warn($"Requesting assembly is {args.RequestingAssembly.FullName}");

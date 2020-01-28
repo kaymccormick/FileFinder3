@@ -8,6 +8,5 @@
         mc:Ignorable="d"
         Title="ContainerWindow" Height="450" Width="800">
     <DockPanel>
-        <controls:Container/>
     </DockPanel>
 </Window>

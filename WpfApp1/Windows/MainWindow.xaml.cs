@@ -413,11 +413,12 @@ namespace WpfApp1.Windows
 				                                       }
 				                                      ) ;
 				provider.Start ( ) ;
-				provider.Logger = MyLogger ;
+				// provider.Logger = MyLogger ;
 			}
 		}
 
-		public Sentinel.Interfaces.ILogger MyLogger { get ; set ; } = new MyLogger ( ) ;
+
+		// public Sentinel.Interfaces.ILogger MyLogger { get ; set ; } = new MyLogger ( ) ;
 
 		private void LoadInstance ( object sender , ExecutedRoutedEventArgs e )
 		{

@@ -38,12 +38,12 @@ namespace WpfApp1Tests3.Attributes
 		/// <param name="methodUnderTest">The method under test</param>
 		public override void Before ( MethodInfo methodUnderTest )
 		{
-			Logger.Trace ( $"Nefore" ) ;
-			Application.LoadComponent (
-			                           Application.Current
-			                         , new Uri ( "Applications/App.xaml" )
+			// Logger.Trace ( $"Nefore" ) ;
+			// Application.LoadComponent (
+			                           // Application.Current
+			                         // , new Uri ( "Applications/App.xaml" )
 	                                
-			                          ) ;
+			                          // ) ;
 
 			MyApp.TCS.Task.Wait ( ) ;
 			base.Before ( methodUnderTest ) ;

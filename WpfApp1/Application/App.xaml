@@ -1,6 +1,7 @@
 ﻿<Application x:Class="WpfApp1.Application.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="../Windows/NewWindow.xaml"
+             xmlns:x="http://schemasmicrosoft.com/winfx/2006/xaml"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:properties="clr-namespace:WpfApp1.Properties"
              xmlns:menus="clr-namespace:WpfApp1.Menus"
@@ -8,134 +9,20 @@
              xmlns:datasrc="clr-namespace:WpfApp1.DataSource"
              xmlns:myxaml="clr-namespace:WpfApp1.Xaml"
              xmlns:interfaces="clr-namespace:AppShared.Interfaces;assembly=AppShared"
-             xmlns:aooShared="clr-namespace:AppShared;assembly=AppShared"
+             xmlns:shared="clr-namespace:AppShared;assembly=AppShared"
              xmlns:autofac="clr-namespace:Autofac;assembly=Autofac"
              xmlns:autofaccore="clr-namespace:Autofac.Core;assembly=Autofac"
              xmlns:controls="clr-namespace:WpfApp1.Controls"
              xmlns:wpfapp1="clr-namespace:WpfApp1"
+
              xmlns:local="clr-namespace:WpfApp1.Windows"
              Exit="App_OnExit">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="MenuDictionary.xaml" />
+                <ResourceDictionary Source="AppResources.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-        <!-- Converters -->
-        
-        <myxaml:RegistrationConverter x:Key="DesignRegistrationConverter" />
-        <!-- ResourcesConverter is instaniatd and stored in the the resources
-        dictionary at application startup -->
-
-        <myxaml:InstanceRegistrationConverter x:Key="InstanceRegistrationConverter" />
-        <myxaml:AssemblyConverter x:Key="AssemblyConverter" />
-        <Style TargetType="Window">
-            <Setter Property="FontSize" Value="18" />
-        </Style>
-        <DataTemplate DataType="autofac:Ty
-spedParameter">
-            <WrapPanel>
-                <controls:TypeControl BorderBrush="BlueViolet" BorderThickness="3">
-                    <aooShared:App.RenderedType>
-                        <Binding Path="Type" />
-                    </aooShared:App.RenderedType>
-                </controls:TypeControl>
-                <Label Content="{Binding Value}" />
-            </WrapPanel>
-        </DataTemplate>
-        <DataTemplate x:Key="ServicesTypeTemplate" DataType="autofaccore:IComponentRegistration">
-            <ComboBox ItemsSource="{Binding Services}" />
-        </DataTemplate>
-        <DataTemplate x:Key="ServicesCellTemplate" DataType="autofaccore:IComponentRegistration">
-            <ComboBox Width="150" ItemsSource="{Binding Services}" />
-        </DataTemplate>
-        <DataTemplate DataType="autofaccore:TypedService">
-            <WrapPanel>
-                <controls:TypeControl RenderedType="{Binding ServiceType}" />
-                <TextBlock Text="{Binding ServiceType}" />
-            </WrapPanel>
-        </DataTemplate>
-        <DataTemplate DataType="autofaccore:Service">
-            <WrapPanel>
-                <TextBlock Text="{Binding GetType}" />
-                <TextBlock Text="{Binding Description}" />
-            </WrapPanel>
-        </DataTemplate>
-        <myxaml:ComponentLifetimeConverter x:Key="ComponentLifetimeConverter" />
-        <ObjectDataProvider x:Key="designInstanceInfo" ObjectInstance="{x:Static wpfapp1:DesignData.InstanceInfo}" />
-        <ObjectDataProvider x:Key="designInstanceList" ObjectInstance="{x:Static wpfapp1:DesignData.InstanceList}" />
-        <wpfapp1:DesignData x:Key="designData" />
-        <Binding x:Key="lifetimescope" Source="{StaticResource designData}" Path="LifetimeScope" />
-
-        <myxaml:SmartTypeConverter x:Key="SmartTypeConverter" />
-        <CollectionViewSource x:Key="LogItems" Source="{Binding LogEvents}" />
-        <logging:TargetConverter x:Key="TargetConverter" />
-
-        <Style TargetType="{x:Type local:MainWindow}" x:Key="CoolStyle1"><Setter Property="FontWeight" Value="Medium" />
-            <Setter Property="Opacity" Value="0.9" />
-            <Setter Property="WindowStyle" Value="None" />
-            <Setter Property="AllowsTransparency" Value="True" />
-            <Setter Property="Background" Value="{x:Null}" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type TypeName=local:MainWindow}">
-                        <Border BorderThickness="5" BorderBrush="Chartreuse" Padding="10">
-                            <DockPanel>
-                                <DockPanel.LayoutTransform>
-                                    <ScaleTransform ScaleX="1.7" ScaleY="1.7" />
-                                </DockPanel.LayoutTransform>
-                                <Menu DockPanel.Dock="Top" />
-                                <ContentPresenter DockPanel.Dock="Bottom" />
-                            </DockPanel>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style TargetType="{x:Type local:MainWindow}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type local:MainWindow}">
-                        <DockPanel>
-                            <DockPanel.LayoutTransform>
-                                <ScaleTransform ScaleX="1" ScaleY="1" />
-                            </DockPanel.LayoutTransform>
-                            <Menu DockPanel.Dock="Top" Name="appMenu">
-                                <MenuItem Header="File">
-                                    <MenuItem Header="Open Assembly"
-                                              Command="ApplicationCommands.Open" />
-                                    <MenuItem Header="Restart"
-                                              Command="commands:MyAppCommands.Restart" />
-                                </MenuItem>
-                                <MenuItem Header="Debug">
-                                    <MenuItem Header="Dump" Command="commands:MyAppCommands.DumpDebug" />
-                                </MenuItem>
-                            </Menu>
-                            <ContentPresenter DockPanel.Dock="Bottom" />
-                        </DockPanel>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style TargetType="TabControl" x:Key="Red1">
-            <Setter Property="Effect">
-                <Setter.Value>
-                    <DropShadowEffect BlurRadius="10" Color="#FFC52C2C" />
-                </Setter.Value>
-            </Setter>
-
-        </Style>
-
-        <ObjectDataProvider x:Key="DesignTimeLifetimeScopeDataSource" ObjectType="local:LifetimeScope">
-            <ObjectDataProvider.ConstructorParameters>
-                <system:String>tag1</system:String>
-                <local:ComponentRegistry>
-                    <local:ComponentRegistration>
-                        <controls:TypedService Desc="MyService" />
-                    </local:ComponentRegistration>
-                </local:ComponentRegistry>
-            </ObjectDataProvider.ConstructorParameters>
-        </ObjectDataProvider>
-
-    </Application.Resources>
+        </Application.Resources>
 </Application>

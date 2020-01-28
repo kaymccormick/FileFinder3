@@ -18,7 +18,7 @@ namespace WpfApp1.Logging
         /// <returns></returns>
         public static MyCacheTarget GetInstance(int defaultMaxCount)
         {
-            AppLoggingConfigHelper.EnsureLoggingConfigured( TODO );
+            AppLoggingConfigHelper.EnsureLoggingConfigured(  );
             var target = (MyCacheTarget)LogManager.Configuration.AllTargets.FirstOrDefault(t => t is MyCacheTarget);
             if (target == null)
             {

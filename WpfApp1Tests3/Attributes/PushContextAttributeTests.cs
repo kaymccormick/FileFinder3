@@ -17,9 +17,10 @@ namespace WpfApp1.AttributesTests3
 		public void PushContextAttributeTest () { Logger.Debug ( ( "test" ) ) ; }
 
 		[Fact ( )]
+		[PushContext("context1")]
 		public void AfterTest ()
 		{
-			Assert.True ( false , "This test needs an implementation" );
+
 		}
 
 		[Fact ( )]

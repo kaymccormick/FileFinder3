@@ -28,7 +28,7 @@ namespace WpfApp1.Util
 
 		public static ILifetimeScope SetupContainer ( out IContainer container )
 		{
-			AppLoggingConfigHelper.EnsureLoggingConfigured ( TODO );
+			AppLoggingConfigHelper.EnsureLoggingConfigured ( );
 			var proxyGenerator = ProxyGenerator ;
 			var builderInterceptor = new BuilderInterceptor ( proxyGenerator ) ;
 			var proxy =

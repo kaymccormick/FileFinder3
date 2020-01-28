@@ -118,9 +118,6 @@
     <Compile Include="Controls\AssemblyBrowser.xaml.cs">
       <DependentUpon>AssemblyBrowser.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Container.xaml.cs">
-      <DependentUpon>Container.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\InstanceInfoControl.xaml.cs">
       <DependentUpon>InstanceInfoControl.xaml</DependentUpon>
     </Compile>
@@ -191,7 +188,9 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\MyLogger.cs" />
-    <Compile Include="Windows\MyLogger1.cs" />
+    <Compile Include="Windows\NewWindow.xaml.cs">
+      <DependentUpon>NewWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\Page1.xaml.cs">
       <DependentUpon>Page1.xaml</DependentUpon>
     </Compile>
@@ -217,15 +216,23 @@
     <Compile Include="Xaml\UserControl1.xaml.cs">
       <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
+    <Page Include="Application\AppResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Application\Dictionary1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Application\MenuDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\AssemblyBrowser.xaml">
+    <Page Include="Application\MergedResources.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Container.xaml">
+    <Page Include="Controls\AssemblyBrowser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -270,6 +277,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\NewWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -20,7 +20,7 @@ namespace WpfApp1.Xaml
 		/// <summary>Initializes a new instance of a class derived from <see cref="T:System.Windows.Markup.MarkupExtension" />.</summary>
 		public AppLoggerExtension()
 		{
-			AppLoggingConfigHelper.EnsureLoggingConfigured( TODO );
+			AppLoggingConfigHelper.EnsureLoggingConfigured( );
 			Logger = LogManager.GetCurrentClassLogger ( ) ;
 		}
 
