@@ -15,6 +15,7 @@ using System.Collections.Concurrent ;
 using System.Runtime.Serialization ;
 using System.Threading ;
 using System.Threading.Tasks ;
+using AppShared ;
 using AppShared.Interfaces ;
 using Autofac ;
 using JetBrains.Annotations ;
@@ -24,7 +25,6 @@ using WpfApp1.Attributes ;
 using WpfApp1.Util ;
 using WpfApp1Tests3.Attributes ;
 using WpfApp1Tests3.Fixtures ;
-using WpfApp1Tests3.Utils ;
 using Xunit ;
 using Xunit.Abstractions ;
 

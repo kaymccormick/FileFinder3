@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using AppShared ;
 using AppShared.Interfaces ;
+using Common.Context ;
 using NLog;
 using WpfApp1.Attributes ;
 using WpfApp1.Util ;
-using WpfApp1Tests3.Utils;
 using Xunit;
 using Xunit.Sdk;
 

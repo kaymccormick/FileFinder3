@@ -1,7 +1,8 @@
 ﻿using System;
+using AppShared ;
 using Autofac;
+using Common.Context ;
 using WpfApp1.Util ;
-using WpfApp1Tests3.Utils;
 
 namespace WpfApp1Tests3.Fixtures
 {

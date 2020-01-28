@@ -31,6 +31,7 @@ namespace Common.Logging
 		public override IEnumerable < string > FileNamesToWatch { get ; }
 
 		public static StringWriter _stringWriter = null ;
+		private static JsonLayout _fLayout ;
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		internal static LoggingConfiguration ConfigureLogging ( )
@@ -63,7 +64,8 @@ namespace Common.Logging
 			t.Add ( chainsawTarget ) ;
 			#endregion
 			t.Add ( MyFileTarget ( ) ) ;
-			t.Add ( JsonFileTarget ( ) ) ;
+			var jsonFileTarget = JsonFileTarget ( ) ;
+			t.Add ( jsonFileTarget ) ;
 			var byType = new Dictionary < Type , int > ( ) ;
 			var byName = new Dictionary < string , Target > ( ) ;
 			foreach ( var target in t )
@@ -137,9 +139,11 @@ namespace Common.Logging
 			f.Name     = "json_out" ;
 			f.FileName = Layout.FromString ( @"c:\data\logs\${appdomain}-${processid}-out.json" ) ;
 
-			f.Layout = new JsonLayout ( ) { IncludeAllProperties = true } ;
+			_fLayout = new JsonLayout ( ) { IncludeAllProperties = true,  } ;
 
-			var j = new JsonLayout ( ) ;
+			f.Layout = _fLayout ;
+					
+			var j = _fLayout ;
 			var layout = Layout.FromString ( "${appdomain} ${message}" ) ;
 			var messageAttr = new JsonAttribute ( "message" , layout ) ;
 			j.Attributes.AddRange ( new JsonAttribute[] { messageAttr } ) ;
@@ -149,8 +153,8 @@ namespace Common.Logging
 
 		public static FileTarget MyFileTarget ( )
 		{
-			var f = new FileTarget ( "OUT.JSON" ) ;
-			f.Name     = "json_out" ;
+			var f = new FileTarget ( ) ;
+			f.Name     = "text_log" ;
 			f.FileName = Layout.FromString ( @"c:\data\logs\log.txt" ) ;
 
 			f.Layout = Layout.FromString ( "${message}" ) ;

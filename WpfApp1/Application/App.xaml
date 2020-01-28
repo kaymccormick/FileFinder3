@@ -1,8 +1,9 @@
 ﻿<Application x:Class="WpfApp1.Application.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             StartupUri="../Windows/NewWindow.xaml"
-             xmlns:x="http://schemasmicrosoft.com/winfx/2006/xaml"
-             Exit="App_OnExit">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:WpfTestApp"
+                 StartupUri="../Windows/NewWindow.xaml"
+                 Exit="App_OnExit">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

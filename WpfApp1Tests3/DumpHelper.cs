@@ -3,7 +3,6 @@ using System.Reflection;
 using System.Windows;
 using NLog;
 using WpfApp1.Util ;
-using WpfApp1Tests3.Utils;
 
 namespace WpfApp1Tests3
 {

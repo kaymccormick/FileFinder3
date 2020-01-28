@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using WpfApp1Tests3.Utils;
+using AppShared ;
+using AutoFixture ;
 
 namespace WpfApp1Tests3.Fixtures
 {
@@ -27,7 +28,7 @@ namespace WpfApp1Tests3.Fixtures
         public ObjectIDFixture()
         {
             Generator = new ObjectIDGenerator();
-            InstanceFactory = new Factory( Generator );
+            InstanceFactory = new Factory( Generator <> );
             GetObjectId = _GetObjectId;
         }
 

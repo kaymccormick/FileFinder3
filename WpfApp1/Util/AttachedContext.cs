@@ -15,6 +15,7 @@
 using System ;
 using System.Linq.Dynamic ;
 using System.Runtime.Serialization ;
+using AppShared ;
 using Common ;
 using Common.Context ;
 using DynamicData.Annotations ;

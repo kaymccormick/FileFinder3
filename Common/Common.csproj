@@ -52,9 +52,7 @@
   <ItemGroup>
     <Compile Include="BuilderInterceptor.cs" />
     <Compile Include="ComponentRegistration.cs" />
-    <Compile Include="Context\ContextStack.cs" />
     <Compile Include="Context\ContextStackInstanceAttribute.cs" />
-    <Compile Include="Context\InfoContext.cs" />
     <Compile Include="Context\InfoContextFactoryAttribute.cs" />
     <Compile Include="Context\PushContextAttribute.cs" />
     <Compile Include="Controls\Registrations.xaml.cs">
@@ -68,7 +66,6 @@
     <Compile Include="Converters\RegistrationConverter.cs" />
     <Compile Include="Converters\RegistrationConverter2.cs" />
     <Compile Include="Converters\RegistrationSourceConverter.cs" />
-    <Compile Include="DuplicateKeyException.cs" />
     <Compile Include="Hook.cs" />
     <Compile Include="InstanceRegistration.cs" />
     <Compile Include="Logging\AppLogger.cs" />
