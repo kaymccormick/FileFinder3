@@ -6,8 +6,10 @@ using System.Diagnostics ;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using AppShared.Interfaces ;
 using Autofac ;
 using Common ;
+using Common.Tracing ;
 using Common.Utils ;
 using NLog ;
 
@@ -16,7 +18,7 @@ namespace WpfTestApp
 	/// <summary>
 	/// Interaction logic for App.xaml
 	/// </summary>
-	public partial class App : Application
+	public partial class App : Application, IHaveLifetimeScope
 	{
 		private readonly static Logger Logger = LogManager.GetCurrentClassLogger ( ) ;
 		/// <summary>Raises the <see cref="E:System.Windows.Application.Startup" /> event.</summary>
@@ -32,32 +34,42 @@ namespace WpfTestApp
 		{
 			IContainer container ;
 			MyLifetimeScope = ContainerHelper.SetupContainer ( out container ) ;
-
-			InitializeTracing ( ) ;
+			if ( DoTracing )
+			{
+				InitializeTracing ( ) ;
+			}
 		}
+
+		public bool DoTracing
+			{ get ; set ; }
 
 		private void InitializeTracing ( )
 		{
 			PresentationTraceSources.Refresh ( ) ;
 			var nLogTraceListener = new NLogTraceListener ( ) ;
+			List <TraceSource> sources = new List < TraceSource > ();
+
+			sources.Add ( PresentationTraceSources.ResourceDictionarySource ) ;
+			sources.Add ( PresentationTraceSources.DependencyPropertySource ) ;
+			sources.Add ( PresentationTraceSources.NameScopeSource ) ;
+			sources.Add ( PresentationTraceSources.MarkupSource ) ;
+			sources.Add ( PresentationTraceSources.DataBindingSource ) ;
+			sources.Add ( PresentationTraceSources.DependencyPropertySource ) ;
+
+			var s1 = PresentationTraceSources.ResourceDictionarySource ;
 			var source = PresentationTraceSources.DataBindingSource ;
 			nLogTraceListener.DefaultLogLevel = LogLevel.Debug ;
-			nLogTraceListener.ForceLogLevel   = LogLevel.Warn ;
+			// nLogTraceListener.ForceLogLevel = LogLevel.Trace ;
 			//nLogTraceListener.LogFactory      = AppContainer.Resolve < LogFactory > ( ) ;
 			nLogTraceListener.AutoLoggerName = false ;
 			//nLogTraceListener.
-			source.Switch.Level = SourceLevels.All ;
-			#if resolve
-			var foo = AppContainer.Resolve < IEnumerable < TraceListener > > ( ) ;
-			foreach ( var tl in foo )
-			{
-				source.Listeners.Add ( tl ) ;
-			}
-#endif
-
-			//routedEventSource.Listeners.Add ( new AppTraceLisener ( ) ) ;
-			source.Listeners.Add ( nLogTraceListener ) ;
-
+			sources.ForEach (
+			                 traceSource => {
+				                 traceSource.Switch.Level = SourceLevels.All ;
+				                 traceSource.Listeners.Add ( nLogTraceListener ) ;
+				                 traceSource.Listeners.Add ( new AppTraceLisener2 ( ) ) ;
+			                 }
+			                ) ;
 		}
 
 		public ILifetimeScope MyLifetimeScope
@@ -69,6 +81,15 @@ namespace WpfTestApp
 			Logger.Warn  ($"Setting LifetimeScope to {MyLifetimeScope}");
 
 			w.SetValue(AppShared.App.LifetimeScopeProperty, MyLifetimeScope);
+		}
+
+		public ILifetimeScope LifetimeScope
+		{
+			get
+			{
+				return MyLifetimeScope ;
+			}
+			set { MyLifetimeScope = value ; }
 		}
 	}
 }

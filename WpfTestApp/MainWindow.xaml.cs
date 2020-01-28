@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using AppShared.Types ;
+using NLog ;
 
 namespace WpfTestApp
 {
@@ -20,6 +22,7 @@ namespace WpfTestApp
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		private static Logger Logger = NLog.LogManager.GetCurrentClassLogger ( ) ;
 		public MainWindow ()
 		{
 			InitializeComponent ( );
@@ -28,7 +31,20 @@ namespace WpfTestApp
 			          AppShared.App.LifetimeScopeProperty
 			        , ( Application.Current as App ).MyLifetimeScope
 			         ) ;
+			var resolveServiceList = TryFindResource ( "r" ) as ResolveServiceList ;
+			foreach ( var resolveService in resolveServiceList )
+			{
+				var valueSource = DependencyPropertyHelper.GetValueSource (
+				                                                           resolveService
+				                                                         , AppShared.App.LifetimeScopeProperty
+				                                                          ) ;
+				var lifetimeScope = AppShared.App.GetLifetimeScope ( resolveService ) ;
+				Logger.Warn ( $"{resolveService.ServiceType} {lifetimeScope} {valueSource}" ) ;
+				
 
+			}
 		}
+
+
 	}
 }

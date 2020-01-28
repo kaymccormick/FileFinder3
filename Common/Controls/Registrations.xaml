@@ -4,11 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:appShared="clr-namespace:AppShared;assembly=AppShared"
+             xmlns:common="clr-namespace:Common"
              mc:Ignorable="d" 
-             DataContext="{Binding ElementName=userControl, Path=(appShared:App.LifetimeScope)}"
+             
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
+
         <CollectionViewSource x:Key="RegistrationsSource" Source="{Binding ComponentRegistry.Registrations}"/>
+        <common:TestO x:Key="T">
+            <StaticResource ResourceKey="RegistrationsSource"/>
+        </common:TestO>
     </UserControl.Resources>
     <Grid VerticalAlignment="Stretch"
           HorizontalAlignment="Stretch">
@@ -30,9 +35,10 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <StackPanel Grid.Row="2">
-                <ListView ItemsSource="{Binding Source={StaticResource RegistrationsSource}, Path=/}">
-                    <ListView.View>
+        <StackPanel Grid.Row="2" DataContext="{Binding Source={StaticResource RegistrationsSource}, Path=CurrentItem,Converter={StaticResource RegistrationSourceConverter}}">
+            <TextBlock/>
+            <ListView ItemsSource="{Binding Source={StaticResource RegistrationsSource}, Path=CurrentItem}">
+                <ListView.View>
                         <GridView>
                             <GridViewColumn DisplayMemberBinding="{Binding Path=ObjectId}" />
                             <GridViewColumn Header="Actions">

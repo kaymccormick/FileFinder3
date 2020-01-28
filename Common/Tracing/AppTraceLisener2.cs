@@ -15,7 +15,9 @@ using System.Diagnostics ;
 using System.IO ;
 using System.Linq ;
 using System.Text ;
+using System.Text.RegularExpressions ;
 using System.Windows ;
+using System.Windows.Controls ;
 using System.Xaml ;
 using System.Xml.Serialization ;
 using AppShared ;
@@ -88,99 +90,76 @@ namespace Common.Tracing
 		  , params object[] args
 		)
 		{
+			var match = Regex.Match (
+			                         format
+			                       , "Cannot retrieve value using the binding and no valid fallback value exists; using default instead. BindingExpression:(.*)"
+			                        ) ;
+			if ( match != null
+			     && match.Success )
+			{
+				var captureCollection = match.Groups[ 1 ].Captures ;
+				var value = captureCollection[ 0 ].Value ;
+				var strings = Regex.Split ( value , "; *" ) ;
+				Dictionary < string , string > di = new Dictionary < string , string > ( ) ;
+				bool isListView = false ;
+				foreach ( var s in strings )
+				{
+					// s = s.Trim ( ) ;
+					var match1 = Regex.Match ( s , "target element is (.*)" ) ;
+					if ( match1 != null
+					     && match1.Success )
+					{
+						var value1 = match1.Groups[ 1 ].Captures[ 0 ].Value ;
+						if ( Regex.IsMatch ( value1 , "ListView" ) )
+
+						{
+							isListView = true ;
+
+						}
+
+						// Logger.Warn ( $"TARGET ELEMENT {isListView} {value1}" ) ;
+					}
+
+					Regex r = new Regex ( "= *" ) ;
+					var enumerable = r.Split ( s , 2 ) ;
+					if ( enumerable           != null
+					     && enumerable.Length >= 2 )
+					{
+						var key = enumerable[ 0 ] ;
+						var val = enumerable[ 1 ] ;
+						di[ key ] = val ;
+						// Logger.Debug ( $"{key} = {val}" ) ;
+					}
+					else
+					{
+						// Logger.Info ( s ) ;
+					}
+				}
+
+				if ( isListView )
+				{
+					Logger.Debug (
+					              String.Join (
+					                           " / "
+					                         , di.Select (
+					                                      ( pair , i )
+						                                      => $"{pair.Key} = {pair.Value}"
+					                                     )
+					                          )
+					             ) ;
+				}
+			}
+
+			var message = String.Join ( "-", eventCache.LogicalOperationStack.ToArray().Select(( o , i ) => o.ToString())) ;
+			// "Path=Tag; DataItem=null; target element is 'TextBlock' (Name=''); target property is 'Text' (type 'String')"
 			var d = new SerializableDictionary < string , object > ( ) ;
 			var xmlDict = new Dictionary < string , string > ( ) ;
 			var doOutput = true ;
-			for ( var i = 0 ; i < args.Length - 1 ; i += 2 )
-			{
-				var key = args[ i ] as string ;
-				var o = args[ i + 1 ] ;
-				string desc = null ;
-				if ( o is RoutedEvent re )
-				{
-					if ( ! RoutedEvents.TryGetValue ( re.Name , out var info ) )
-					{
-						RoutedEvents[re.Name] = info = new Info(0);
-					}
+			// Logger.Info ( args.Length ) ;
+			Logger.Debug ("x: " + message +  String.Join ( ", " , args ) ) ;
 
-					info.count += 1 ;
-					if ( re.Name == "ScrollChanged" )
-					{
-						doOutput = false ;
-					}
-
-					desc = re.Name ;
-				}
-				else if ( o is FrameworkElement fe )
-				{
-					desc = $"{o.GetType ( ).Name}[{fe.Name}]" ;
-				}
-				else if ( o is bool )
-				{
-					desc = o.GetType ( ) + "[" + o + "]" ;
-				}
-				else if ( o is RoutedEventArgs a )
-				{
-					desc = o.GetType ( ).ToString ( ) ;
-				}
-
-				//d[ args[ i ].ToString ( ) ] = args[ i + 1 ] ;
-				if ( desc != null )
-				{
-					xmlDict[ key ] = desc ;
-					continue ;
-				}
-
-				try
-				{
-					// if ( args[ i + 1 ] is RoutedEvent xxxx )
-					// {
-					var xamlXmlWriterSettings = new XamlXmlWriterSettings ( ) ;
-					var b = new StringBuilder ( ) ;
-					//XamlWriter persist = new XamlXmlWriter(_nLogTextWriter);
-					System.Windows.Markup.XamlWriter.Save (
-					                                       args[ i + 1 ]
-					                                     , new StringWriter ( b )
-					                                      ) ;
-					xmlDict[ args[ i ].ToString ( ) ] = b.ToString ( ) ;
-				}
-				catch ( Exception )
-				{
-					if ( desc == null )
-					{
-						throw ;
-					}
-
-					xmlDict[ key ] = desc ;
-
-					try
-					{
-						var serializer = new XmlSerializer ( args[ i + 1 ].GetType ( ) ) ;
-						var b = new StringBuilder ( ) ;
-						serializer.Serialize ( new StringWriter ( b ) , args[ i + 1 ] ) ;
-						xmlDict[ args[ i ].ToString ( ) ] = b.ToString ( ) ;
-					}
-					catch ( Exception )
-					{
-					}
-				}
-			}
-
-			if ( ! doOutput )
-			{
-				return ;
-			}
-
-			Logger.Trace (
-			              string.Join (
-			                           "; "
-			                         , xmlDict.AsQueryable ( )
-			                                  .Select (
-			                                           ( pair , i ) => $"{pair.Key} = {pair.Value}"
-			                                          )
-			                          )
-			             ) ;
 		}
+
 
 		public Dictionary <string, Info> RoutedEvents { get ; set ; } = new Dictionary < string , Info > ();
 

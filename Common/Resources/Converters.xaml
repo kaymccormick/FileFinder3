@@ -5,4 +5,6 @@
     <converters:AssemblyConverter x:Key="AssemblyConverter" />
     <converters:ComponentLifetimeConverter x:Key="ComponentLifetimeConverter" />
     <converters:RegistrationConverter2 x:Key="RegistrationConverter2"/>
+    <converters:RegistrationSourceConverter x:Key="RegistrationSourceConverter"/>
+    <converters:MyConverter x:Key="MyConverter"/>
 </ResourceDictionary>

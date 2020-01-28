@@ -64,8 +64,10 @@
     <Compile Include="Converters\ComponentLifetimeConverter.cs" />
     <Compile Include="Converters\InstanceRegistrationConverter.cs" />
     <Compile Include="Converters\LoggerInstanceConverter.cs" />
+    <Compile Include="Converters\MyConverter.cs" />
     <Compile Include="Converters\RegistrationConverter.cs" />
     <Compile Include="Converters\RegistrationConverter2.cs" />
+    <Compile Include="Converters\RegistrationSourceConverter.cs" />
     <Compile Include="DuplicateKeyException.cs" />
     <Compile Include="Hook.cs" />
     <Compile Include="InstanceRegistration.cs" />
@@ -88,6 +90,7 @@
     <Compile Include="NLogTextWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResourceMetadata.cs" />
+    <Compile Include="TestO.cs" />
     <Compile Include="Tracing\AppTraceLisener.cs" />
     <Compile Include="Tracing\AppTraceLisener2.cs" />
     <Compile Include="Tracing\Info.cs" />
