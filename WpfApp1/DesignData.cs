@@ -5,6 +5,7 @@ using System.Text ;
 using System.Threading.Tasks ;
 using AppShared ;
 using Autofac ;
+using Common ;
 using WpfApp1.Util ;
 
 namespace WpfApp1

@@ -8,7 +8,6 @@
                     xmlns:autofac="clr-namespace:Autofac;assembly=Autofac"
                     xmlns:wpfApp1="clr-namespace:WpfApp1"
                     xmlns:windows="clr-namespace:WpfApp1.Windows"
-                    xmlns:commands="clr-namespace:WpfApp1.Commands"
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
     <xaml:InstanceRegistrationConverter x:Key="InstanceRegistrationConverter" />
         <xaml:AssemblyConverter x:Key="AssemblyConverter" />

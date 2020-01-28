@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1.Windows"
         xmlns:myxaml="clr-namespace:WpfApp1.Xaml"
-        xmlns:commands="clr-namespace:WpfApp1.Commands"
         xmlns:nLog="clr-namespace:NLog;assembly=NLog"
         xmlns:controls="clr-namespace:WpfApp1.Controls"
         xmlns:windows="clr-namespace:WpfApp1.Windows"

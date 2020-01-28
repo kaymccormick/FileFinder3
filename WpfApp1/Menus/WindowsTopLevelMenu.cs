@@ -5,7 +5,6 @@ using System.Windows;
 using AppShared.Interfaces ;
 using Autofac.Features.Metadata;
 using NLog;
-using WpfApp1.Commands;
 
 namespace WpfApp1.Menus
 {

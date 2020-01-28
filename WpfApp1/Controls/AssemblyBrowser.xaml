@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfApp1.Controls"
-             xmlns:commands="clr-namespace:WpfApp1.Commands"
              xmlns:xaml="clr-namespace:WpfApp1.Xaml"
              xmlns:attachedProperties="clr-namespace:AppShared;assembly=AppShared"
              xmlns:reflection="clr-namespace:System.Reflection;assembly=mscorlib"

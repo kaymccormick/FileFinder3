@@ -17,6 +17,8 @@ using System.Windows.Threading ;
 using AppShared.Interfaces ;
 using Autofac ;
 using Autofac.Core ;
+using Common ;
+using Common.Logging ;
 using NLog ;
 using Sentinel.NLog ;
 using Vanara.Extensions.Reflection ;
@@ -27,6 +29,8 @@ using WpfApp1.Menus ;
 using CheckBox = System.Windows.Controls.CheckBox ;
 using Control = System.Windows.Controls.Control ;
 using ILogger = NLog.ILogger ;
+using LogLevel = NLog.LogLevel ;
+using LogManager = NLog.LogManager ;
 using Menu = System.Windows.Controls.Menu ;
 
 namespace WpfApp1.Windows

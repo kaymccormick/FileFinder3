@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:WpfApp1.Windows"
              xmlns:controls="clr-namespace:WpfApp1.Controls"
              xmlns:menus="clr-namespace:WpfApp1.Menus"
-             xmlns:commands="clr-namespace:WpfApp1.Commands"
              xmlns:appShared="clr-namespace:AppShared;assembly=AppShared"
+             xmlns:common="clr-namespace:Common;assembly=Common"
              mc:Ignorable="d" 
              d:DesignHeight="40" d:DesignWidth="150">
     <UserControl.CommandBindings><CommandBinding 
@@ -15,7 +15,7 @@
                                                  /></UserControl.CommandBindings>
     <Grid>
             <controls:TypeControl>
-        <appShared:App.RenderedType><x:Type TypeName="menus:MenuItemList"/></appShared:App.RenderedType>
+        <appShared:App.RenderedType><x:Type TypeName="common:MenuItemList"/></appShared:App.RenderedType>
                 </controls:TypeControl>
             
     </Grid>

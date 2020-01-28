@@ -13,7 +13,6 @@ using Autofac ;
 using Autofac.Core ;
 using Autofac.Core.Registration ;
 using DynamicData.Kernel ;
-using WpfApp1.Commands ;
 
 
 namespace WpfApp1.Xaml

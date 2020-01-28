@@ -18,18 +18,23 @@ using AppShared.Interfaces ;
 using Autofac ;
 using Autofac.Core ;
 using Autofac.Extras.DynamicProxy ;
+using Common ;
+using Common.Converters ;
+using Common.Logging ;
+using Common.Utils ;
 using DynamicData.Annotations ;
 using Microsoft.Scripting.Utils ;
 using NLog ;
 using Vanara.Extensions ;
 using Vanara.Extensions.Reflection ;
-using WpfApp1.Commands ;
 using WpfApp1.DataSource ;
 using WpfApp1.Logging ;
 using WpfApp1.Util ;
 using WpfApp1.Windows ;
 using WpfApp1.Xaml ;
 using IContainer = Autofac.IContainer ;
+using LogLevel = NLog.LogLevel ;
+using LogManager = NLog.LogManager ;
 
 namespace WpfApp1.Application
 {

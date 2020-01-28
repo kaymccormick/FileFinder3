@@ -5,11 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Markup;
 using System.Xaml;
+using Common ;
+using Common.Logging ;
 using NLog;
 using NLog.Config;
 using NLog.Layouts;
 using NLog.Targets;
 using WpfApp1.Logging;
+using LogManager = NLog.LogManager ;
 
 namespace WpfApp1.Xaml
 {

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NLog;
+using Common ;
+using Common.Logging ;
 using NLog.Config;
+using LogManager = NLog.LogManager ;
 
 namespace WpfApp1.Logging
 {
@@ -16,9 +18,9 @@ namespace WpfApp1.Logging
 		{
 			get
 			{
-				if ( Logging.AppLoggingConfigHelper._stringWriter != null )
+				if ( AppLoggingConfigHelper._stringWriter != null )
 				{
-					return Logging.AppLoggingConfigHelper._stringWriter.ToString();
+					return AppLoggingConfigHelper._stringWriter.ToString();
 				}
 				else
 				{
@@ -30,7 +32,7 @@ namespace WpfApp1.Logging
 		/// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
 		public AppLoggerContainer()
 		{
-			Logging.AppLoggingConfigHelper.EnsureLoggingConfigured ( ) ;
+			AppLoggingConfigHelper.EnsureLoggingConfigured ( ) ;
 		}
 
 		public LoggingConfiguration Configuration

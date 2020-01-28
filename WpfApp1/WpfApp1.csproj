@@ -106,14 +106,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Application\AppTraceLisener.cs" />
     <Compile Include="Application\IHaveAppLogger.cs" />
-    <Compile Include="Application\Info.cs" />
-    <Compile Include="Application\NLogTextWriter.cs" />
-    <Compile Include="Attributes\ContextStackInstanceAttribute.cs" />
-    <Compile Include="Attributes\InfoContextFactoryAttribute.cs" />
     <Compile Include="Attributes\LoggingEntityMetadata.cs" />
-    <Compile Include="Attributes\PushContextAttribute.cs" />
     <Compile Include="Attributes\WindowMetadataAttribute.cs" />
     <Compile Include="Controls\AssemblyBrowser.xaml.cs">
       <DependentUpon>AssemblyBrowser.xaml</DependentUpon>
@@ -129,16 +123,9 @@
       <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataSource\MyDS1.cs" />
-    <Compile Include="DefaultServices\CompInfo.cs" />
     <Compile Include="DesignData.cs" />
     <Compile Include="Events\AttachedEvents.cs" />
-    <Compile Include="Logging\AppLogger.cs" />
     <Compile Include="Logging\AppLoggerContainer.cs" />
-    <Compile Include="Logging\AppLoggingConfigHelper.cs" />
-    <Compile Include="Logging\CodeConfiguration.cs" />
-    <Compile Include="Logging\LoggerTracker.cs" />
-    <Compile Include="Logging\LoggingInterceptor.cs" />
-    <Compile Include="Logging\MyCacheTarget.cs" />
     <Compile Include="Logging\TargetConverter.cs" />
     <Compile Include="Logging\TypeBrowserPage.xaml.cs">
       <DependentUpon>TypeBrowserPage.xaml</DependentUpon>
@@ -147,37 +134,20 @@
       <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
     <Compile Include="Menus\ILoggingEntity.cs" />
-    <Compile Include="Menus\LoggingEntityMetadataAttribute.cs" />
     <Compile Include="Menus\MenuHelper.cs" />
     <Compile Include="Util\AttachedContext.cs" />
-    <Compile Include="Util\BuilderInterceptor.cs" />
-    <Compile Include="Util\ContextStack.cs" />
     <Compile Include="Util\DebugHelper.cs" />
-    <Compile Include="Util\DuplicateKeyException.cs" />
-    <Compile Include="Util\InfoContext.cs" />
     <Compile Include="Util\IObjectId.cs" />
     <Compile Include="Util\LongObjectId.cs" />
-    <Compile Include="Util\MenuModule.cs" />
     <Compile Include="Util\MyActivator.cs" />
-    <Compile Include="Util\MyInterceptor.cs" />
     <Compile Include="Util\ProxyGenerationHook.cs" />
-    <Compile Include="Util\ResourceMetadata.cs" />
     <Compile Include="Windows\AppSettingsWindow.xaml.cs">
       <DependentUpon>AppSettingsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Util\ContainerHelper.cs" />
-    <Compile Include="Menus\MenuItemContainerStyleSelector.cs" />
-    <Compile Include="Menus\MenuItemList.cs" />
-    <Compile Include="Menus\MenuTemplateSelector.cs" />
-    <Compile Include="Menus\MenuMenuItemTemplateSelector.cs" />
-    <Compile Include="Commands\MyAppCommands.cs" />
-    <Compile Include="Util\SerializableDictionary.cs" />
     <Compile Include="Controls\SystemParametersControl.xaml.cs">
       <DependentUpon>SystemParametersControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Menus\WindowsTopLevelMenu.cs" />
-    <Compile Include="Menus\XMenuItem.cs" />
-    <Compile Include="Windows\ComponentRegistration.cs" />
     <Compile Include="Windows\ComponentRegistry.cs" />
     <Compile Include="Windows\ContainerWindow.xaml.cs">
       <DependentUpon>ContainerWindow.xaml</DependentUpon>
@@ -207,11 +177,8 @@
     <Compile Include="Xaml\ComponentLifetimeConverter.cs" />
     <Compile Include="Xaml\Converter.cs" />
     <Compile Include="Xaml\AppLoggerExtension.cs" />
-    <Compile Include="Xaml\InstanceRegistration.cs" />
     <Compile Include="Xaml\InstanceRegistrationConverter.cs" />
-    <Compile Include="Xaml\LoggerInstanceConverter.cs" />
     <Compile Include="Xaml\RegistrationConverter.cs" />
-    <Compile Include="Xaml\RegistrationConverter2.cs" />
     <Compile Include="Xaml\SmartTypeConverter.cs" />
     <Compile Include="Xaml\UserControl1.xaml.cs">
       <DependentUpon>UserControl1.xaml</DependentUpon>
@@ -225,10 +192,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Application\Dictionary1.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Application\MenuDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -359,6 +322,10 @@
       <Project>{a0bff0db-ed9a-4639-ae86-8e709a1efc66}</Project>
       <Name>NLog</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{42288D17-ED17-4F2F-9EA3-C3E64D5302BF}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FileFinder3\FileFinder3.csproj">
       <Project>{5f5ba27f-9ada-4137-b4e8-2108edcac3ef}</Project>
       <Name>FileFinder3</Name>
@@ -450,6 +417,8 @@
   <ItemGroup>
     <Folder Include="AttachedProperties\" />
     <Folder Include="CollectionViews\" />
+    <Folder Include="Commands\" />
+    <Folder Include="DefaultServices\" />
     <Folder Include="Interfaces\" />
   </ItemGroup>
   <ItemGroup>

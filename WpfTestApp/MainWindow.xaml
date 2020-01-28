@@ -1,0 +1,22 @@
+﻿<Window Name="mainWindow" x:Class="WpfTestApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfTestApp"
+        xmlns:appShared="clr-namespace:AppShared;assembly=AppShared"
+        xmlns:controls="clr-namespace:Common.Controls;assembly=Common"
+        MinWidth="1200"
+        MinHeight="800"
+        mc:Ignorable="d" FontSize="20"
+        Title="MainWindow" Height="450" Width="800">
+    <DockPanel LastChildFill="True" DataContext="{Binding ElementName=mainWindow, Path=(appShared:App.LifetimeScope)}">
+        <TextBlock DockPanel.Dock="Top" Text="{Binding Path=Tag}"/>
+        <TabControl Style="{StaticResource TabControlStyle1}">
+            <TabItem Header="Registrations">
+                <controls:Registrations><appShared:App.LifetimeScope><Binding ElementName="mainWindow" Path="(appShared:App.LifetimeScope)"/></appShared:App.LifetimeScope></controls:Registrations>
+            </TabItem>
+
+        </TabControl>
+    </DockPanel>
+</Window>

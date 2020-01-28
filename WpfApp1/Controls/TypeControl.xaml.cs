@@ -19,7 +19,6 @@ using Microsoft.CSharp ;
 using Microsoft.Scripting.Utils ;
 using NLog ;
 using PostSharp.Reflection ;
-using WpfApp1.Commands ;
 
 namespace WpfApp1.Controls
 {

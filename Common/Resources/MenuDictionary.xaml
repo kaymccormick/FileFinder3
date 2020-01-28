@@ -1,0 +1,32 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:interfaces="clr-namespace:AppShared.Interfaces;assembly=AppShared"
+                    xmlns:aooShared="clr-namespace:AppShared;assembly=AppShared"
+                    xmlns:common="clr-namespace:Common;assembly=Common"
+                    xmlns:menus1="clr-namespace:Common.Menus">
+    <menus1:MenuMenuItemTemplateSelector x:Key="MenuMenuItemTemplateSelector" 
+                                        />
+    <menus1:MenuItemContainerStyleSelector x:Key="MenuItemContainerStyleSelector"  />
+
+    <DataTemplate x:Key="testMenu_ItemTemplate" DataType="interfaces:IMenuItem">
+        <MenuItem Header="{Binding Header}"/>
+    </DataTemplate>
+    <DataTemplate x:Key="Menu_ItemTemplateChildren" DataType="{x:Type menus1:XMenuItem}">
+        <MenuItem Header="{Binding Header}" ItemsSource="{Binding Children}" />
+    </DataTemplate>
+    <ControlTemplate x:Key="MenuItemWithChildrenHeaderTemplate">
+    </ControlTemplate>
+    <DataTemplate x:Key="Menu_ItemTemplateNoChildren" DataType="{x:Type interfaces:IMenuItem}">
+        <MenuItem Header="{Binding Header}" Command="{Binding Command}"
+                  CommandParameter="{Binding CommandParameter}"
+                  CommandTarget="{Binding CommandTarget}" />
+    </DataTemplate>
+    <Style x:Key="MenuItemWithChildren" TargetType="{x:Type MenuItem}">
+        <Setter Property="HeaderTemplate" Value="{DynamicResource MenuItemWithChildrenHeaderTemplate}" />
+    </Style>
+
+    <Style x:Key="MyTest" TargetType="{x:Type Menu}">
+        <Setter Property="ItemsSource" Value="{Binding Path=(aooShared:App.MenuItemListCollectionView)}"/>
+        <Setter Property="ItemTemplate" Value="{DynamicResource testMenu_ItemTemplate}"/>
+    </Style>
+</ResourceDictionary>
