@@ -30,15 +30,15 @@ namespace Common.Logging
 		/// </summary>
 		public override IEnumerable < string > FileNamesToWatch { get ; }
 
-		public static StringWriter _stringWriter = null ;
-		private static JsonLayout _fLayout ;
+		public static  StringWriter _stringWriter = null ;
+		private static JsonLayout   _fLayout ;
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		internal static LoggingConfiguration ConfigureLogging ( )
 		{
 			InternalLogging ( ) ;
 
-			var lconf = new LoggingConfiguration ( ) ;
+			var lconf = new CodeConfiguration ( ) ;
 
 			var t = new List < Target > ( ) ;
 
@@ -139,10 +139,10 @@ namespace Common.Logging
 			f.Name     = "json_out" ;
 			f.FileName = Layout.FromString ( @"c:\data\logs\${appdomain}-${processid}-out.json" ) ;
 
-			_fLayout = new JsonLayout ( ) { IncludeAllProperties = true,  } ;
+			_fLayout = new JsonLayout ( ) { IncludeAllProperties = true , } ;
 
 			f.Layout = _fLayout ;
-					
+
 			var j = _fLayout ;
 			var layout = Layout.FromString ( "${appdomain} ${message}" ) ;
 			var messageAttr = new JsonAttribute ( "message" , layout ) ;
@@ -165,18 +165,23 @@ namespace Common.Logging
 		{
 			//LogManager.ThrowConfigExceptions = true;
 			//LogManager.ThrowExceptions = true;
-			if ( ! LoggingIsConfigured
-			     || ForcdcCodeConig == null
-			     || ! ( LogManager.Configuration is CodeConfiguration ) )
-			{
-				if ( DumpExistingConfig )
-				{
-					Action < string > collect = ( s_ ) => {
-						System.Diagnostics.Debug.WriteLine ( s_ ) ;
-					} ;
-					DoDumpConfig ( collect ) ;
-				}
+			var q = LogManager.LogFactory.GetType ( )
+			                  .GetField ( "_configLoaded", BindingFlags.Instance|BindingFlags.NonPublic )
+			                  .GetValue ( LogManager.LogFactory ) ;
 
+			var isMyConfig = LogManager.Configuration != null
+			                 && LogManager.Configuration is CodeConfiguration ;
+			var doConfig = ! LoggingIsConfigured || ForceCodeConfig && ! isMyConfig ;
+			if ( DumpExistingConfig )
+			{
+				Action < string > collect = ( s_ ) => {
+					System.Diagnostics.Debug.WriteLine ( s_ ) ;
+				} ;
+				DoDumpConfig ( collect ) ;
+			}
+
+			if ( doConfig )
+			{
 				ConfigureLogging ( ) ;
 				return ;
 			}
@@ -211,40 +216,26 @@ namespace Common.Logging
 					{
 						if ( a.Layout is JsonLayout jl )
 						{
-							collect (
-							         string.Join (
-							                      "--"
-							                    , jl.Attributes.Select (
-							                                            ( attribute , i ) => {
-								                                            var b =
-									                                            new
-										                                            StringBuilder ( ) ;
-								                                            foreach (
-									                                            var propertyInfo in
-									                                            attribute
-										                                           .GetType ( )
-										                                           .GetProperties (
-										                                                           BindingFlags
-											                                                          .Public
-										                                                           | BindingFlags
-											                                                          .Instance
-										                                                          ) )
-								                                            {
-									                                            var val2 =
-										                                            propertyInfo
-											                                           .GetValue (
-											                                                      attribute
-											                                                     ) ;
-									                                            b.Append (
-									                                                      $"{propertyInfo.Name} = {val2}; "
-									                                                     ) ;
-								                                            }
+							string Selector ( JsonAttribute attribute , int i )
+							{
+								var b = new StringBuilder ( ) ;
+								var propertyInfos = attribute
+								                   .GetType ( )
+								                   .GetProperties (
+								                                   BindingFlags.Public
+								                                   | BindingFlags.Instance
+								                                  ) ;
+								foreach ( var propertyInfo in propertyInfos )
+								{
+									var val2 = propertyInfo.GetValue ( attribute ) ;
+									b.Append ( $"{propertyInfo.Name} = {val2}; " ) ;
+								}
 
-								                                            return b.ToString ( ) ;
-							                                            }
-							                                           )
-							                     )
-							        ) ;
+								return b.ToString ( ) ;
+							}
+
+							var enumerable = jl.Attributes.Select ( Selector ) ;
+							collect ( string.Join ( "--" , enumerable ) ) ;
 						}
 					}
 
@@ -264,7 +255,7 @@ namespace Common.Logging
 		}
 
 
-		public static object ForcdcCodeConig { get ; set ; }
+		public static bool ForceCodeConfig { get ; set ; } = false ;
 
 
 		private static void DumpPossibleConfig ( LoggingConfiguration configuration )
