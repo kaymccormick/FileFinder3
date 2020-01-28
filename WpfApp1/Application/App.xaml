@@ -2,26 +2,13 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              StartupUri="../Windows/NewWindow.xaml"
              xmlns:x="http://schemasmicrosoft.com/winfx/2006/xaml"
-             xmlns:system="clr-namespace:System;assembly=mscorlib"
-             xmlns:properties="clr-namespace:WpfApp1.Properties"
-             xmlns:menus="clr-namespace:WpfApp1.Menus"
-             xmlns:app="clr-namespace:WpfApp1.Application"
-             xmlns:datasrc="clr-namespace:WpfApp1.DataSource"
-             xmlns:myxaml="clr-namespace:WpfApp1.Xaml"
-             xmlns:interfaces="clr-namespace:AppShared.Interfaces;assembly=AppShared"
-             xmlns:shared="clr-namespace:AppShared;assembly=AppShared"
-             xmlns:autofac="clr-namespace:Autofac;assembly=Autofac"
-             xmlns:autofaccore="clr-namespace:Autofac.Core;assembly=Autofac"
-             xmlns:controls="clr-namespace:WpfApp1.Controls"
-             xmlns:wpfapp1="clr-namespace:WpfApp1"
-
-             xmlns:local="clr-namespace:WpfApp1.Windows"
              Exit="App_OnExit">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="MenuDictionary.xaml" />
                 <ResourceDictionary Source="AppResources.xaml" />
+                <ResourceDictionary Source="Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
         </Application.Resources>

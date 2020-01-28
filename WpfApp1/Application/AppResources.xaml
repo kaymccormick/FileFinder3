@@ -10,11 +10,7 @@
              xmlns:commands="clr-namespace:WpfApp1.Commands"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:autofac="clr-namespace:Autofac;assembly=Autofac">
-    <xaml:InstanceRegistrationConverter x:Key="InstanceRegistrationConverter" />
-    <xaml:AssemblyConverter x:Key="AssemblyConverter" />
-    <Style TargetType="Window">
-        <Setter Property="FontSize" Value="18" />
-    </Style>
+
     <DataTemplate DataType="autofac:TypedParameter">
         <WrapPanel>
             <controls:TypeControl BorderBrush="BlueViolet" BorderThickness="3">
@@ -43,13 +39,9 @@
             <TextBlock Text="{Binding Description}" />
         </WrapPanel>
     </DataTemplate>
-    <xaml:ComponentLifetimeConverter x:Key="ComponentLifetimeConverter" />
     <ObjectDataProvider x:Key="designInstanceInfo" ObjectInstance="{x:Static wpfapp1:DesignData.InstanceInfo}" />
     <ObjectDataProvider x:Key="designInstanceList" ObjectInstance="{x:Static wpfapp1:DesignData.InstanceList}" />
     <wpfapp1:DesignData x:Key="designData" />
-    <Binding x:Key="lifetimescope" Source="{StaticResource designData}" Path="LifetimeScope" />
-
-    <xaml:SmartTypeConverter x:Key="SmartTypeConverter" />
     <CollectionViewSource x:Key="LogItems" Source="{Binding LogEvents}" />
 
     <Style TargetType="{x:Type windows:MainWindow}" x:Key="CoolStyle1">

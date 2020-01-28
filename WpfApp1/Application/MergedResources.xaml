@@ -29,7 +29,7 @@
             <ComboBox ItemsSource="{Binding Services}" />
         </DataTemplate>
         <DataTemplate x:Key="ServicesCellTemplate" DataType="core:IComponentRegistration">
-            <ComboBox Width="150"" />
+            <ComboBox Width="150" />
         </DataTemplate>
         <DataTemplate DataType="controls:TypedService">
             <WrapPanel>
