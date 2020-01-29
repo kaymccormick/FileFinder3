@@ -44,11 +44,14 @@ namespace WpfApp1Tests3.Attributes
 			                         // , new Uri ( "Applications/App.xaml" )
 	                                
 			                          // ) ;
+			                          MyApp = ( Application.Current as App ) ;
+			
 
 			                          if ( MyApp != null && MyApp.TCS != null )
 			                          {
 				                          if ( MyApp.TCS.Task != null )
 				                          {
+					                          Logger.Info ( "Waiting for task to complete" ) ;
 					                          MyApp.TCS.Task.Wait ( ) ;
 				                          }
 				                          else

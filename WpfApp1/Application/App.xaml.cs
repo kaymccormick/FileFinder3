@@ -171,75 +171,8 @@ namespace WpfApp1.Application
 		private object DispatcherOperationCallback ( object arg )
 		{
 			Logger?.Info ( $"{nameof(DispatcherOperationCallback)}");
-			AppContainer = ContainerHelper.SetupContainer (out var container ) ;
-			_container = container ;
+			AppInitialize ( ) ;
 
-			
-			PresentationTraceSources.Refresh ( ) ;
-			if ( DoTracing )
-			{
-				var nLogTraceListener = new NLogTraceListener ( ) ;
-				var routedEventSource = PresentationTraceSources.RoutedEventSource ;
-				nLogTraceListener.DefaultLogLevel = LogLevel.Debug ;
-				nLogTraceListener.ForceLogLevel   = LogLevel.Warn ;
-				//nLogTraceListener.LogFactory      = AppContainer.Resolve < LogFactory > ( ) ;
-				nLogTraceListener.AutoLoggerName = false ;
-				//nLogTraceListener.
-				routedEventSource.Switch.Level = SourceLevels.All ;
-				var foo = AppContainer.Resolve < IEnumerable < TraceListener > > ( ) ;
-				foreach ( var tl in foo )
-				{
-					routedEventSource.Listeners.Add ( tl ) ;
-				}
-
-				//routedEventSource.Listeners.Add ( new AppTraceLisener ( ) ) ;
-				routedEventSource.Listeners.Add ( nLogTraceListener ) ;
-			}
-
-
-			var loggerTracker = AppContainer.Resolve < ILoggerTracker > ( ) ;
-			var myLoggerName = typeof ( App ).FullName ;
-			loggerTracker.LoggerRegistered += ( sender , args ) => {
-				if ( args.Logger.Name == myLoggerName )
-				{
-					args.Logger.Trace (
-									   "Received logger for application in LoggerREegistered handler."
-									  ) ;
-				}
-				else
-				{
-					if ( Logger == null )
-					{
-						Debug.WriteLine ( "got a logger but i dont have one yet" ) ;
-					}
-				}
-			} ;
-
-			Logger = AppContainer.Resolve < ILogger > (
-													   new TypedParameter (
-																		   typeof ( Type )
-																		 , typeof ( App )
-																		  )
-													  ) ;
-
-
-			var menuItemList = AppContainer.Resolve < IMenuItemList > ( ) ;
-			MenuItemListCollectionView = new ListCollectionView ( menuItemList ) ;
-			var handler = new RoutedEventHandler ( MainWindowLoaded ) ;
-
-			EventManager.RegisterClassHandler (
-											   typeof ( Window )
-											 , FrameworkElement.LoadedEvent
-											 , handler
-											  ) ;
-			Resources[ "MyMenuItemList" ] = menuItemList ;
-			Logger.Trace ( $"Attempting to resolve MainWindow" ) ;
-
-			var objectIdProvider = AppContainer.Resolve < IObjectIdProvider > ( ) ;
-			
-			RegistrationConverter converter = new RegistrationConverter ( AppContainer, objectIdProvider ) ;
-
-			Resources[ "RegistrationConverter" ] = converter ;
 			MainWindow mainWindow = null ;
 			try
 			{
@@ -271,6 +204,79 @@ namespace WpfApp1.Application
 			Initialized = true ;
 
 			return null ;
+		}
+
+		private void AppInitialize ( )
+		{
+			AppContainer = ContainerHelper.SetupContainer ( out var container ) ;
+			_container   = container ;
+
+
+			PresentationTraceSources.Refresh ( ) ;
+			if ( DoTracing )
+			{
+				var nLogTraceListener = new NLogTraceListener ( ) ;
+				var routedEventSource = PresentationTraceSources.RoutedEventSource ;
+				nLogTraceListener.DefaultLogLevel = LogLevel.Debug ;
+				nLogTraceListener.ForceLogLevel   = LogLevel.Warn ;
+				//nLogTraceListener.LogFactory      = AppContainer.Resolve < LogFactory > ( ) ;
+				nLogTraceListener.AutoLoggerName = false ;
+				//nLogTraceListener.
+				routedEventSource.Switch.Level = SourceLevels.All ;
+				var foo = AppContainer.Resolve < IEnumerable < TraceListener > > ( ) ;
+				foreach ( var tl in foo )
+				{
+					routedEventSource.Listeners.Add ( tl ) ;
+				}
+
+				//routedEventSource.Listeners.Add ( new AppTraceLisener ( ) ) ;
+				routedEventSource.Listeners.Add ( nLogTraceListener ) ;
+			}
+
+
+			var loggerTracker = AppContainer.Resolve < ILoggerTracker > ( ) ;
+			var myLoggerName = typeof ( App ).FullName ;
+			loggerTracker.LoggerRegistered += ( sender , args ) => {
+				if ( args.Logger.Name == myLoggerName )
+				{
+					args.Logger.Trace ( "Received logger for application in LoggerREegistered handler." ) ;
+				}
+				else
+				{
+					if ( Logger == null )
+					{
+						Debug.WriteLine ( "got a logger but i dont have one yet" ) ;
+					}
+				}
+			} ;
+
+			Logger = AppContainer.Resolve < ILogger > (
+			                                           new TypedParameter (
+			                                                               typeof ( Type )
+			                                                             , typeof ( App )
+			                                                              )
+			                                          ) ;
+
+
+			var menuItemList = AppContainer.Resolve < IMenuItemList > ( ) ;
+			MenuItemListCollectionView = new ListCollectionView ( menuItemList ) ;
+			var handler = new RoutedEventHandler ( MainWindowLoaded ) ;
+
+			EventManager.RegisterClassHandler (
+			                                   typeof ( Window )
+			                                 , FrameworkElement.LoadedEvent
+			                                 , handler
+			                                  ) ;
+			Resources[ "MyMenuItemList" ] = menuItemList ;
+			Logger.Trace ( $"Attempting to resolve MainWindow" ) ;
+
+			var objectIdProvider = AppContainer.Resolve < IObjectIdProvider > ( ) ;
+
+			RegistrationConverter
+				converter = new RegistrationConverter ( AppContainer , objectIdProvider ) ;
+			Resources[ "RegistrationConverter" ] = converter ;
+
+			
 		}
 
 		public bool Initialized { get ; set ; }

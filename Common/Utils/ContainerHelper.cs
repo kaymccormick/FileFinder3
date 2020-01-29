@@ -442,7 +442,7 @@ namespace Common.Utils
 		public static void Dump
 			(
 			IComponentRegistration componentRegistryRegistration
-		  , HashSet<object>        seenObjects
+		  , HashSet<object>        seenObjects, Action<string> outFunc
 		)
 		{
 			var activatorLimitType = componentRegistryRegistration.Activator.LimitType ;
@@ -454,8 +454,8 @@ namespace Common.Utils
 			}
 
 			seenObjects.Add ( componentRegistryRegistration );
-			_logger.Debug ( "Id = " + componentRegistryRegistration.Id );
-			_logger.Debug (
+			outFunc( "Id = " + componentRegistryRegistration.Id );
+			outFunc(
 			               "Activator type = " + componentRegistryRegistration.Activator.GetType ( )
 			              );
 
@@ -464,28 +464,28 @@ namespace Common.Utils
 
 			componentRegistryRegistration.Activator.GetType ( );
 
-			_logger.Debug ( "LimitType = " + activatorLimitType );
+			outFunc( "LimitType = " + activatorLimitType );
 
 
 			foreach ( var service in componentRegistryRegistration.Services )
 			{
-				_logger.Debug ( "Service is " + service.Description );
+				outFunc( "Service is " + service.Description );
 			}
 
 			if ( componentRegistryRegistration.Target == null )
 			{
-				Logger.Debug ( "Target registration is null." );
+				outFunc( "Target registration is null." );
 			}
 			else if ( Equals (
 			                  componentRegistryRegistration
 			                , componentRegistryRegistration.Target
 			                 ) )
 			{
-				Logger.Debug ( "Target is same registration." );
+				outFunc( "Target is same registration." );
 			}
 			else
 			{
-				Dump ( componentRegistryRegistration.Target , seenObjects );
+				Dump ( componentRegistryRegistration.Target , seenObjects, outFunc );
 			}
 		}
 	}

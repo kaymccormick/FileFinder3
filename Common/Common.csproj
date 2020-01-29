@@ -68,6 +68,9 @@
     <Compile Include="Hook.cs" />
     <Compile Include="InstanceRegistration.cs" />
     <Compile Include="Logging\AppLogger.cs" />
+    <Compile Include="Logging\LogFactoryInterceptor.cs" />
+    <Compile Include="Logging\LoggerInterceptor.cs" />
+    <Compile Include="Logging\LoggerProxyHelper.cs" />
     <Compile Include="Logging\LoggingEntityMetadataAttribute.cs" />
     <Compile Include="Logging\LoggingInterceptor.cs" />
     <Compile Include="Logging\AppLoggingConfigHelper.cs" />

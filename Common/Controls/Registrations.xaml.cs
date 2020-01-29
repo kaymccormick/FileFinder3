@@ -28,7 +28,7 @@ namespace Common.Controls
 
 		private void Target ( object sender , RoutedPropertyChangedEventArgs < ILifetimeScope > e )
 		{
-			Logger.Debug ( $"LifetimeScopeChanged {sender} {e.NewValue}" ) ;
+			// Logger.Debug ( $"LifetimeScopeChanged {sender} {e.NewValue}" ) ;
 		}
 
 
@@ -37,7 +37,7 @@ namespace Common.Controls
 		protected override void OnPropertyChanged ( DependencyPropertyChangedEventArgs e )
 		{
 			base.OnPropertyChanged ( e ) ;
-			Logger.Debug ( $"{e.Property.Name} = {e.NewValue}" ) ;
+			// Logger.Debug ( $"{e.Property.Name} = {e.NewValue}" ) ;
 		}
 
 	}

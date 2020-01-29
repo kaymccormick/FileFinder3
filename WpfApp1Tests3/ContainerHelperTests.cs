@@ -1,22 +1,17 @@
 ﻿using Xunit;
-using WpfApp1;
 using System;
+using System.Collections ;
 using System.Collections.Generic;
-using System.Diagnostics ;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ServiceModel.Channels ;
 using System.Windows;
+using AppShared ;
 using AppShared.Interfaces ;
-using WpfApp1.Menus;
-using WpfApp1.Util;
 using Autofac;
 using Autofac.Core ;
 using Autofac.Core.Activators.Reflection ;
-using AutoFixture ;
 using Common.Logging ;
 using Common.Utils ;
-using DynamicData ;
 using JetBrains.Annotations;
 using KayMcCormick.Dev.Test.Metadata ;
 using NLog.Config ;
@@ -25,65 +20,94 @@ using NLog.Targets ;
 using WpfApp1.Windows;
 using WpfApp1Tests3.Attributes ;
 using WpfApp1Tests3.Fixtures ;
+using Xunit.Abstractions ;
+using App = WpfApp1.Application.App ;
 using LogLevel = NLog.LogLevel ;
 using LogManager = NLog.LogManager ;
 
 namespace WpfApp1Tests3
 {
     [WpfTestApplication]
-
-    public class ContainerHelperTests
+    [Collection("WpfApp")]
+    [BeforeAfterLogger]
+    public class ContainerHelperTests : IClassFixture <LoggingFixture>
     {
-        /// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
-        // public ContainerHelperTests ( WpfApplicationFixture myFixture ) { MyFixture = myFixture ; }
+	    public LoggingFixture LoggingFixture { get ; }
+
+	    public WpfApplicationFixture WpfApplicationFixture { get ; }
+
+	    public ITestOutputHelper Output { get ; }
+
+	    /// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
+        // public ContainerHelperTests ( WpfApplicationFixture WpfApplicationFixture ) { WpfApplicationFixture = WpfApplicationFixture ; }
 
         private static readonly NLog.Logger Logger = LogManager.GetCurrentClassLogger();
-        /// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
-        // public ContainerHelperTests ( WpfApplicationFixture myFixture ) { MyFixture = myFixture ; }
+
+	    /// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
+	    public ContainerHelperTests (LoggingFixture loggingFixture, WpfApplicationFixture wpfApplicationFixture, ITestOutputHelper output )
+	    {
+		    LoggingFixture = loggingFixture ;
+		    WpfApplicationFixture = wpfApplicationFixture ;
+		    Output = output ;
+	    }
+
+	    /// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
+        // public ContainerHelperTests ( WpfApplicationFixture WpfApplicationFixture ) { WpfApplicationFixture = WpfApplicationFixture ; }
 
         [Fact()]
         public void SetupContainerTest()
         {
             IContainer container ;
             var c = ContainerHelper.SetupContainer( out container );
+            Logger.Info ( $"{c}" ) ;
             Assert.NotNull(c);
         }
         [Fact()]
         public void SetupContainerTest2()
         {
+            AppLoggingConfigHelper.EnsureLoggingConfigured();
 	        AddTestLoggingTarget ( nameof ( SetupContainerTest2 ) ) ;
+	        Logger.Warn ( "I am here" ) ;
             IContainer container ;
             var c = ContainerHelper.SetupContainer( out container );
-            var seen = new HashSet < object > ( ) ;
-            foreach ( var componentRegistryRegistration in c.ComponentRegistry.Registrations )
-            {
-                ContainerHelper.Dump ( componentRegistryRegistration , seen ) ;
-            }
+            DumpContainer ( container ) ;
 
-            foreach ( var comp in container.ComponentRegistry.Registrations
-            )
-            {
-	            if ( comp.Activator is ReflectionActivator a )
-	            {
-                    
-	            }
-
-	            var s = $"{comp.Activator.LimitType}: " ;
-                foreach ( var service in comp.Services )
-                {
-                    if ( service is TypedService ts )
-                    {
-                        Logger.Info ( $"service {s} - {ts.ServiceType}" ) ;
-                    }
-                    else
-                    {
-                        Logger.Info ( $"service is {service}" ) ;
-                    }
-                }
-            }
+           
+            
             Assert.NotNull(c);
         }
 
+        private void DumpContainer ( IContainer container )
+        {
+	        var seen = new HashSet < object > ( ) ;
+            #if DUMP1
+	        foreach ( var componentRegistryRegistration in container.ComponentRegistry.Registrations )
+	        {
+		        ContainerHelper.Dump ( componentRegistryRegistration , seen, s => Output.WriteLine(s)) ;
+	        }
+#endif
+
+	        foreach ( var comp in container.ComponentRegistry.Registrations )
+	        {
+		        if ( comp.Activator is ReflectionActivator a )
+		        {
+
+		        }
+
+		        var s = $"{comp.Activator.LimitType}: " ;
+		        foreach ( var service in comp.Services )
+		        {
+			        if ( service is TypedService ts )
+			        {
+				        Output.WriteLine( $"service {s} - {ts.ServiceType}" ) ;
+			        }
+			        else
+			        {
+				        Output.WriteLine( $"service is {service}" ) ;
+			        }
+		        }
+	        }
+        }
         private void AddTestLoggingTarget ( string setupContainerTest2Name )
         {
             AppLoggingConfigHelper.EnsureLoggingConfigured(true);
@@ -97,14 +121,13 @@ namespace WpfApp1Tests3
         }
 
 
-        public WpfApplicationFixture MyFixture { get ; set ; }
-
         [Fact()]
         [ UsedImplicitly ]
         public void ContainerTestResolveIMenuItemList()
         {
             IContainer container ;
             var c = ContainerHelper.SetupContainer( out container );
+            DumpContainer(container);
             var menuItemList = c.Resolve<IMenuItemList>();
             Assert.NotNull(menuItemList);
             Assert.NotEmpty(menuItemList);
@@ -128,11 +151,20 @@ namespace WpfApp1Tests3
         [AppInitialize]
         public void ResolveMainWindow()
         {
-            Assert.NotNull ( MyFixture ) ;
-            Assert.NotNull ( MyFixture.BasePackUri ) ;
-            var uri = new Uri ( MyFixture.BasePackUri , "Application/App.xaml" ) ;
+            
+	        var customAttribute = Attribute.GetCustomAttribute ( this.GetType().GetMethod(nameof(ResolveMainWindow)), typeof ( AppInitializeAttribute ) )  as AppInitializeAttribute;
+	        customAttribute.MyApp = WpfApplicationFixture.MyApp as App ;
+
+	        Assert.NotNull ( WpfApplicationFixture ) ;
+            Assert.NotNull ( WpfApplicationFixture.BasePackUri ) ;
+            var uri = new Uri ( WpfApplicationFixture.BasePackUri , "Application/App.xaml" ) ;
 Logger.Info(uri);
 
+foreach ( DictionaryEntry resource in ( WpfApplicationFixture.MyApp as WpfApp1.Application.App )
+   .Resources )
+{
+	Logger.Info ( $"{resource.Key}" ) ;
+}
             IContainer container ;
             var c = ContainerHelper.SetupContainer( out container );
             var mainWindow = c.Resolve < MainWindow >();

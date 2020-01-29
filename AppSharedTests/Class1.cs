@@ -32,7 +32,8 @@ namespace AppSharedTests
 		public void Test1 ( )
 		{
 			AppLoggingConfigHelper.EnsureLoggingConfigured();
-			AppLoggingConfigHelper.EnsureLoggingConfigured();
+			//
+			//AppLoggingConfigHelper.EnsureLoggingConfigured();
 			LB (  ).Level ( LogLevel.Warn ).Message("herro").Write();
 		}
 		private void DoLog ( string test )

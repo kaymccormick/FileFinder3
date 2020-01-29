@@ -28,6 +28,18 @@
 
         </StackPanel>
         <TabControl Style="{StaticResource TabControlStyle1}">
+            <TabItem Header="ResolveServiceList">
+                <Grid>
+                    <ListView ItemsSource="{Binding Source={StaticResource r}}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=ServiceType}"></GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=ServiceInstance}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
             <TabItem Header="Registrations">
                 <controls:Registrations><appShared:App.LifetimeScope><Binding ElementName="mainWindow" Path="(appShared:App.LifetimeScope)"/></appShared:App.LifetimeScope></controls:Registrations>
             </TabItem>

@@ -10,7 +10,8 @@ namespace WpfApp1Tests3.Collections
     public class WpfApplication
         : ICollectionFixture < WpfApplicationFixture >,
             ICollectionFixture < ObjectIDFixture >,
-            ICollectionFixture < UtilsContainerFixture >
+            ICollectionFixture < UtilsContainerFixture >, ICollectionFixture <LoggingFixture>
+
            // , ICollectionFixture <LogFixture>
     {
 	    private static readonly Logger Logger =

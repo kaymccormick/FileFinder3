@@ -6,6 +6,7 @@ using System.Linq ;
 using System.Reflection ;
 using System.Text ;
 using System.Text.RegularExpressions ;
+using Castle.DynamicProxy ;
 using DynamicData ;
 using NLog ;
 using NLog.Common ;
@@ -38,8 +39,16 @@ namespace Common.Logging
 		{
 			InternalLogging ( ) ;
 
-			var lconf = new CodeConfiguration ( ) ;
+			
+			var loggerProxyHelper = new LoggerProxyHelper ( new ProxyGenerator ( ) ) ;
+			var lconfLogFactory = loggerProxyHelper.CreateLogFactory (LogManager.LogFactory ) ;
+			var fieldInfo = typeof ( LogManager ).GetField (
+			                                                "factory"
+			                                              , BindingFlags.Static | BindingFlags.NonPublic
+			                                               ) ;
+			fieldInfo.SetValue(null, lconfLogFactory);
 
+			var lconf = new CodeConfiguration ( lconfLogFactory) ;
 			var t = new List < Target > ( ) ;
 
 			#region Cache Target
@@ -167,16 +176,57 @@ namespace Common.Logging
 		}
 		public static void EnsureLoggingConfigured ( bool b )
 		{
+			var fieldInfo2 = LogManager.LogFactory.GetType ( )
+			                           .GetField (
+			                                      "_config"
+			                                    , BindingFlags.Instance | BindingFlags.NonPublic
+			                                     ) ;
+
+			object config ;
+			if(fieldInfo2 == null)
+			{
+				System.Diagnostics.Debug.WriteLine (
+				                                    "no field _configLoaded for "
+				                                    + LogManager.LogFactory.ToString ( )
+				                                   ) ;
+				throw new Exception ( "no config loaded field found" ) ;
+			}
+			else
+			{
+				config = fieldInfo2.GetValue ( LogManager.LogFactory ) ;
+			}
+
 			//LogManager.ThrowConfigExceptions = true;
 			//LogManager.ThrowExceptions = true;
-			var q = (bool) LogManager.LogFactory.GetType ( )
-			                  .GetField (
-			                             "_configLoaded"
-			                           , BindingFlags.Instance | BindingFlags.NonPublic
-			                            )
-			                  .GetValue ( LogManager.LogFactory );
+			var fieldInfo = LogManager.LogFactory.GetType ( )
+			                          .GetField (
+			                                     "_configLoaded"
+			                                   , BindingFlags.Instance | BindingFlags.NonPublic
+			                                    ) ;
 
-			var isMyConfig = !q || LogManager.Configuration is CodeConfiguration ;
+			bool _configLoaded ;
+			if(fieldInfo == null)
+			{
+				if ( config != null )
+				{
+					_configLoaded = true ;
+				}
+				else
+				{
+					_configLoaded = false ;
+				}
+				System.Diagnostics.Debug.WriteLine (
+				                                    "no field _configLoaded for "
+				                                    + LogManager.LogFactory.ToString ( )
+				                                   ) ;
+				// throw new Exception ( "no config loaded field found" ) ;
+			}
+			else
+			{
+				_configLoaded =(bool) fieldInfo.GetValue ( LogManager.LogFactory ) ;
+			}
+
+			var isMyConfig = !_configLoaded|| LogManager.Configuration is CodeConfiguration ;
 			var doConfig = ! LoggingIsConfigured || ForceCodeConfig && ! isMyConfig ;
 			if ( DumpExistingConfig )
 			{

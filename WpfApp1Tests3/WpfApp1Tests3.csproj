@@ -86,11 +86,13 @@
     <Compile Include="Attributes\PushContextAttribute.cs" />
     <Compile Include="Attributes\PushContextAttributeTests.cs" />
     <Compile Include="Collections\AutofacContainerDef.cs" />
+    <Compile Include="Collections\LoggingCollection.cs" />
     <Compile Include="Collections\WpfApplication.cs" />
     <Compile Include="DumpHelper.cs" />
     <Compile Include="Fixtures\CombinedFixture.cs" />
     <Compile Include="Fixtures\ContainerFixture.cs" />
     <Compile Include="Fixtures\LogFixture.cs" />
+    <Compile Include="Fixtures\LoggingFixture.cs" />
     <Compile Include="Fixtures\ObjectIDFixture.cs" />
     <Compile Include="Fixtures\UtilsContainerFixture.cs" />
     <Compile Include="Fixtures\WpfApp1Tests3.cs" />
@@ -322,9 +324,7 @@
   -->
   <Target Name="test" DependsOnTargets="build">
     <!-- $(OutputPath)/$(AssemblyName)$(TargetExt)" -->
-    <xunit Assemblies="$(TargetPath)" IgnoreFailures="true" 
-Html="$(OutputPath)\TestResults.html"
- Xml="$(OutputPath)\TestResults.xml" />
+    <xunit Assemblies="$(TargetPath)" IgnoreFailures="true" Html="$(OutputPath)\TestResults.html" Xml="$(OutputPath)\TestResults.xml" />
   </Target>
   <Target Name="ViewTestResult" AfterTargets="test">
     <exec command="$(OutputPath)\TestResults.html" />
