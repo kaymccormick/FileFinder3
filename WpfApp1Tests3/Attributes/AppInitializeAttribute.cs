@@ -22,8 +22,8 @@ namespace WpfApp1Tests3.Attributes
 	public class AppInitializeAttribute
 		: BeforeAfterTestAttribute
 	{
-		private static readonly Logger Logger =
-			LogManager.GetCurrentClassLogger();
+		private static Logger Logger = null ;
+			// LogManager.GetCurrentClassLogger();
 
 
 		/// <summary>
@@ -51,12 +51,12 @@ namespace WpfApp1Tests3.Attributes
 			                          {
 				                          if ( MyApp.TCS.Task != null )
 				                          {
-					                          Logger.Info ( "Waiting for task to complete" ) ;
+					                          Logger?.Info ( "Waiting for task to complete" ) ;
 					                          MyApp.TCS.Task.Wait ( ) ;
 				                          }
 				                          else
 				                          {
-					                          Logger.Debug ( "null" ) ;
+					                          Logger?.Debug ( "null" ) ;
 				                          }
 			                          }
 			                          else

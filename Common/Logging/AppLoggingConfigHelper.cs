@@ -106,8 +106,7 @@ namespace Common.Logging
 			foreach ( var loggingRule in loggingRules ) { lconf.LoggingRules.Add ( loggingRule ) ; }
 
 			LogManager.Configuration = lconf ;
-			LogManager.GetCurrentClassLogger ( ).Info ( "Logging configured" ) ;
-
+			
 			return lconf ;
 		}
 

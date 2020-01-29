@@ -13,9 +13,7 @@ namespace WpfApp1Tests3.Fixtures
     [ UsedImplicitly ]
     public class WpfApplicationFixture : IAsyncLifetime
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0052:Remove unread private members", Justification = "<Pending>")]
-        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
-
+       
         private readonly WpfApplicationHelper _wpfApplicationHelper;
 
         public Uri BasePackUri
@@ -133,7 +131,7 @@ namespace WpfApp1Tests3.Fixtures
         /// </summary>
         public Task InitializeAsync()
         {
-            Logger.Debug($"{nameof(InitializeAsync)}"  );
+            //Logger.Debug($"{nameof(InitializeAsync)}"  );
             return Task.FromResult < object >( null );
         }
 
@@ -143,7 +141,7 @@ namespace WpfApp1Tests3.Fixtures
         /// </summary>
         public Task DisposeAsync()
         {
-            Logger.Debug($"{nameof(InitializeAsync)}");
+            //Logger.Debug($"{nameof(InitializeAsync)}");
             return _wpfApplicationHelper.DisposeAsync();
             
            

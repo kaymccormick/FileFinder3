@@ -14,13 +14,11 @@ namespace WpfApp1Tests3.Collections
 
            // , ICollectionFixture <LogFixture>
     {
-	    private static readonly Logger Logger =
-		    LogManager.GetCurrentClassLogger();
-
+	    
         /// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
         public WpfApplication()
 	    {
-            Logger.Error($"{nameof(WpfApplication)}"  );
+            
 	    }
     }
 }

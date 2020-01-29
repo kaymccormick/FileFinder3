@@ -15,28 +15,35 @@ namespace WpfApp1Tests3.WpfUtils
 {
 	public class WpfApplicationHelper : IAsyncLifetime
 	{
-		private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
+		private static NLog.Logger Logger = null ;//NLog.LogManager.GetCurrentClassLogger();
 		private                 Uri         _basePackUri;
 
 		public WpfApplicationHelper(
 			Assembly theAssembly
 		)
 		{
-			Application ret ;
+			Application theApp ;
 			if(LoadRealApp)
 			{
-				var application = new App 
-					( ) ;
-				
-				Application app1 = application ;
-					ret = app1 ;
+				try
+				{
+					theApp = new App();
+				}
+				catch ( Exception ex )
+				{
+					if ( Logger != null )
+					{
+						Logger.Error ( ex , ex.Message ) ;
+					}
+
+					throw ex ;
+				}
 			}
 			else
 			{
-				ret = new Application() ;
+				theApp = new Application() ;
 			}
 
-			var app = ret ;
 			
 			CurAssembly = theAssembly ?? throw new ArgumentNullException ( nameof ( theAssembly ) );
 
@@ -47,7 +54,7 @@ namespace WpfApp1Tests3.WpfUtils
 			                  UriKind.RelativeOrAbsolute );
 			BasePackUri = uri;
 			
-			MyApp = app;
+			MyApp = theApp;
 		}
 
 		private Application LoadApplication ( )
