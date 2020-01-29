@@ -4,6 +4,7 @@ using System.Diagnostics ;
 using System.IO ;
 using System.Linq ;
 using System.Reflection ;
+using System.Runtime.CompilerServices ;
 using System.Text ;
 using System.Text.RegularExpressions ;
 using Castle.DynamicProxy ;
@@ -18,45 +19,83 @@ namespace Common.Logging
 {
 	public class AppLoggingConfigHelper : LoggingConfiguration
 	{
-		/// <summary>
-		/// Called by LogManager when one of the log configuration files changes.
-		/// </summary>
-		/// <returns>
-		/// A new instance of <see cref="T:NLog.Config.LoggingConfiguration" /> that represents the updated configuration.
-		/// </returns>
-		public override LoggingConfiguration Reload ( ) { return base.Reload ( ) ; }
+		public static  StringWriter _stringWriter ;
+		private static JsonLayout   _fLayout ;
+
+		[ ThreadStatic ]
+		private static Nullable<int> NumTimesConfigured = null ;
+
 
 		/// <summary>
-		/// Gets the collection of file names which should be watched for changes by NLog.
+		///     Gets the collection of file names which should be watched for changes by
+		///     NLog.
 		/// </summary>
 		public override IEnumerable < string > FileNamesToWatch { get ; }
 
-		public static  StringWriter _stringWriter = null ;
-		private static JsonLayout   _fLayout ;
+		public MyLogFactory logFactory { get ; set ; }
 
-		private static void DoLogMessage ( string message )
+		public static bool DebuggerTargetEnabled { get ; set ; } = false ;
+
+		public static bool LoggingIsConfigured { get ; set ; }
+
+		public static bool DumpExistingConfig { get ; set ; } = true ;
+
+
+		public static bool ForceCodeConfig { get ; set ; } = false ;
+
+		/// <summary>
+		///     Called by LogManager when one of the log configuration files changes.
+		/// </summary>
+		/// <returns>
+		///     A new instance of <see cref="T:NLog.Config.LoggingConfiguration" /> that
+		///     represents the updated configuration.
+		/// </returns>
+		public override LoggingConfiguration Reload ( ) { return base.Reload ( ) ; }
+
+		private static void DoLogMessage (
+			string message
+		  , string callerFilePath
+		  , string callerMemberName
+		)
 		{
-
+			System.Diagnostics.Debug.WriteLine (
+			                                    callerMemberName
+			                                    + ":"
+			                                    + nameof ( AppLoggingConfigHelper )
+			                                    + ":"
+			                                    + message
+			                                   ) ;
+			// System.Diagnostics.Debug.WriteLine ( nameof(AppLoggingConfigHelper) + ":" + message ) ;
 		}
+
 		// ReSharper disable once MemberCanBePrivate.Global
 		internal static LoggingConfiguration ConfigureLogging (
 			LoggerProxyHelper.LogMethod logMethod
 		)
 		{
-			logMethod ( $"Starting logger configuration." ) ;
+			logMethod ( "Starting logger configuration." ) ;
 			InternalLogging ( ) ;
 
 			var proxyGenerator = new ProxyGenerator ( ) ;
-			var loggerProxyHelper = new LoggerProxyHelper ( proxyGenerator,
-			                                               new LoggerProxyHelper.LogMethod(DoLogMessage)) ;
-			var lconfLogFactory = loggerProxyHelper.CreateLogFactory (LogManager.LogFactory ) ;
+			var loggerProxyHelper = new LoggerProxyHelper ( proxyGenerator , DoLogMessage ) ;
+			var logFactory = new MyLogFactory ( DoLogMessage ) ;
+			logFactory = logFactory ;
+			var lconfLogFactory = loggerProxyHelper.CreateLogFactory ( logFactory ) ;
+
 			var fieldInfo = typeof ( LogManager ).GetField (
 			                                                "factory"
-			                                              , BindingFlags.Static | BindingFlags.NonPublic
+			                                              , BindingFlags.Static
+			                                                | BindingFlags.NonPublic
 			                                               ) ;
-			fieldInfo.SetValue(null, lconfLogFactory);
+			logMethod ( $"field info is {fieldInfo.DeclaringType} . {fieldInfo.Name}" ) ;
+			var cur = fieldInfo.GetValue ( null ) ;
+			logMethod ( $"cur is {cur}" ) ;
 
-			var lconf = new CodeConfiguration ( lconfLogFactory) ;
+			fieldInfo.SetValue ( null , lconfLogFactory ) ;
+			var newVal = fieldInfo.GetValue ( null ) ;
+			logMethod ( $"newval is {newVal}" ) ;
+
+			var lconf = new CodeConfiguration ( lconfLogFactory ) ;
 			var t = new List < Target > ( ) ;
 
 			#region Cache Target
@@ -106,11 +145,12 @@ namespace Common.Logging
 			foreach ( var loggingRule in loggingRules ) { lconf.LoggingRules.Add ( loggingRule ) ; }
 
 			LogManager.Configuration = lconf ;
-			
+
+			var logger = lconfLogFactory.GetLogger ( "test" ) ;
+			logger.Debug ( "test123" ) ;
+			logMethod ( logger.ToString ( ) ) ;
 			return lconf ;
 		}
-
-		public static bool DebuggerTargetEnabled { get ; set ; } = false ;
 
 		private static LoggingRule DefaultLoggingRule ( Target target )
 		{
@@ -155,14 +195,14 @@ namespace Common.Logging
 			f.Name     = "json_out" ;
 			f.FileName = Layout.FromString ( @"c:\data\logs\${appdomain}-${processid}-out.json" ) ;
 
-			_fLayout = new JsonLayout ( ) { IncludeAllProperties = true , } ;
+			_fLayout = new JsonLayout { IncludeAllProperties = true } ;
 
 			f.Layout = _fLayout ;
 
 			var j = _fLayout ;
 			var layout = Layout.FromString ( "${appdomain} ${message}" ) ;
 			var messageAttr = new JsonAttribute ( "message" , layout ) ;
-			j.Attributes.AddRange ( new JsonAttribute[] { messageAttr } ) ;
+			j.Attributes.AddRange ( new[] { messageAttr } ) ;
 
 			return f ;
 		}
@@ -179,14 +219,30 @@ namespace Common.Logging
 
 		public static void EnsureLoggingConfigured ( )
 		{
-			EnsureLoggingConfigured(DumpExistingConfig, null);
+			EnsureLoggingConfigured ( DumpExistingConfig , null ) ;
 		}
-		public static void EnsureLoggingConfigured ( bool b, LoggerProxyHelper.LogMethod logMethod )
+
+		public static void EnsureLoggingConfigured (
+			bool                        b
+		  , LoggerProxyHelper.LogMethod logMethod
+		  , [ CallerFilePath ] string   callerFilePath = null
+		)
 		{
+			if ( ! NumTimesConfigured.HasValue )
+			{
+				NumTimesConfigured = 1 ;
+			}
+			else
+			{
+				NumTimesConfigured += 1 ;
+			}
+
 			if ( logMethod == null )
 			{
-				logMethod = new LoggerProxyHelper.LogMethod ( DoLogMessage );
+				logMethod = DoLogMessage ;
 			}
+
+			logMethod ( $"[time {NumTimesConfigured.Value}]\t{nameof ( EnsureLoggingConfigured )} called from {callerFilePath}" ) ;
 
 
 			var fieldInfo2 = LogManager.LogFactory.GetType ( )
@@ -196,18 +252,16 @@ namespace Common.Logging
 			                                     ) ;
 
 			object config ;
-			if(fieldInfo2 == null)
+			if ( fieldInfo2 == null )
 			{
 				System.Diagnostics.Debug.WriteLine (
 				                                    "no field _configLoaded for "
-				                                    + LogManager.LogFactory.ToString ( )
+				                                    + LogManager.LogFactory
 				                                   ) ;
 				throw new Exception ( "no config loaded field found" ) ;
 			}
-			else
-			{
-				config = fieldInfo2.GetValue ( LogManager.LogFactory ) ;
-			}
+
+			config = fieldInfo2.GetValue ( LogManager.LogFactory ) ;
 
 			//LogManager.ThrowConfigExceptions = true;
 			//LogManager.ThrowExceptions = true;
@@ -218,7 +272,7 @@ namespace Common.Logging
 			                                    ) ;
 
 			bool _configLoaded ;
-			if(fieldInfo == null)
+			if ( fieldInfo == null )
 			{
 				if ( config != null )
 				{
@@ -228,22 +282,23 @@ namespace Common.Logging
 				{
 					_configLoaded = false ;
 				}
+
 				System.Diagnostics.Debug.WriteLine (
 				                                    "no field _configLoaded for "
-				                                    + LogManager.LogFactory.ToString ( )
+				                                    + LogManager.LogFactory
 				                                   ) ;
 				// throw new Exception ( "no config loaded field found" ) ;
 			}
 			else
 			{
-				_configLoaded =(bool) fieldInfo.GetValue ( LogManager.LogFactory ) ;
+				_configLoaded = ( bool ) fieldInfo.GetValue ( LogManager.LogFactory ) ;
 			}
 
-			var isMyConfig = !_configLoaded|| LogManager.Configuration is CodeConfiguration ;
+			var isMyConfig = ! _configLoaded     || LogManager.Configuration is CodeConfiguration ;
 			var doConfig = ! LoggingIsConfigured || ForceCodeConfig && ! isMyConfig ;
 			if ( DumpExistingConfig )
 			{
-				Action < string > collect = ( s_ ) => {
+				Action < string > collect = s_ => {
 					System.Diagnostics.Debug.WriteLine ( s_ ) ;
 				} ;
 				DoDumpConfig ( collect ) ;
@@ -251,7 +306,7 @@ namespace Common.Logging
 
 			if ( doConfig )
 			{
-				ConfigureLogging (logMethod ) ;
+				ConfigureLogging ( logMethod ) ;
 				return ;
 			}
 
@@ -262,10 +317,6 @@ namespace Common.Logging
 
 			DumpPossibleConfig ( LogManager.Configuration ) ;
 		}
-
-		public static bool LoggingIsConfigured { get ; set ; }
-
-		public static bool DumpExistingConfig { get ; set ; } = true ;
 
 		private static void DoDumpConfig ( Action < string > collect )
 		{
@@ -324,9 +375,6 @@ namespace Common.Logging
 		}
 
 
-		public static bool ForceCodeConfig { get ; set ; } = false ;
-
-
 		private static void DumpPossibleConfig ( LoggingConfiguration configuration )
 		{
 			var candidateConfigFilePaths = LogManager.LogFactory.GetCandidateConfigFilePaths ( ) ;
@@ -345,7 +393,7 @@ namespace Common.Logging
 				if ( fieldInfo.GetValue ( configuration ) != null )
 				{
 					{
-						Debug ( $"Original NLOG configuration filename" ) ;
+						Debug ( "Original NLOG configuration filename" ) ;
 					}
 				}
 			}

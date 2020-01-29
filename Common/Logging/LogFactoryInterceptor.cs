@@ -30,8 +30,8 @@ namespace Common.Logging
 
 		public void Intercept ( IInvocation invocation )
 		{
-			UseLogMethod ( $"{invocation.Method.Name}" ) ;
-			if ( invocation.Method.Name == "GetCurrentClassLogger" )
+			UseLogMethod ( $"Method name is {invocation.Method.Name}" ) ;
+			if ( invocation.Method.Name == "GetLogger" )
 			{
 				invocation.Proceed();
 				var classProxyWithTarget = Generator.CreateClassProxyWithTarget (

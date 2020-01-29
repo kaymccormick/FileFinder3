@@ -59,20 +59,27 @@ namespace WpfApp1.Application
 
 		public App ( )
 		{
-			TaskCompletionSource<int> s = new TaskCompletionSource < int > ();
-			
-			TCS = s ;
-			var cd = AppDomain.CurrentDomain ;
-			cd.AssemblyLoad += CurrentDomainOnAssemblyLoad;
-			//cd.TypeResolve += CdOnTypeResolve;
-			cd.ProcessExit += ( sender , args ) => {
-				
-				Logger?.Debug ( $"Exiting. args is {args}");
-			};
-			cd.UnhandledException += CdOnUnhandledException;
-			cd.ResourceResolve += CdOnResourceResolve;
-			
-			cd.FirstChanceException += CurrentDomainOnFirstChanceException;
+			try
+			{
+
+				TaskCompletionSource < int > s = new TaskCompletionSource < int > ( ) ;
+
+				TCS = s ;
+				var cd = AppDomain.CurrentDomain ;
+				cd.AssemblyLoad += CurrentDomainOnAssemblyLoad ;
+				//cd.TypeResolve += CdOnTypeResolve;
+				cd.ProcessExit += ( sender , args ) => {
+
+					Logger?.Debug ( $"Exiting. args is {args}" ) ;
+				} ;
+				cd.UnhandledException += CdOnUnhandledException ;
+				cd.ResourceResolve    += CdOnResourceResolve ;
+
+				cd.FirstChanceException += CurrentDomainOnFirstChanceException ;
+			} catch(Exception ex)
+			{
+				Logger.Error ( ex , "exception in constructor" ) ;
+			}
 		}
 
 		public TaskCompletionSource < int > TCS { get ; set ; }
@@ -120,7 +127,7 @@ namespace WpfApp1.Application
 			}
 			else
 			{	
-				Debug.WriteLine ( args.LoadedAssembly ) ;
+				//Debug.WriteLine ( args.LoadedAssembly ) ;
 			}
 		}
 

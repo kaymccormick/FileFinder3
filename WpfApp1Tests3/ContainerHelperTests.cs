@@ -1,10 +1,8 @@
-﻿using Xunit ;
-using System ;
+﻿using System ;
 using System.Collections ;
 using System.Collections.Generic ;
 using System.Diagnostics ;
 using System.Linq ;
-using System.ServiceModel.Channels ;
 using System.Windows ;
 using AppShared ;
 using AppShared.Interfaces ;
@@ -15,12 +13,14 @@ using Common.Logging ;
 using Common.Utils ;
 using JetBrains.Annotations ;
 using KayMcCormick.Dev.Test.Metadata ;
+using NLog ;
 using NLog.Config ;
 using NLog.Layouts ;
 using NLog.Targets ;
 using WpfApp1.Windows ;
 using WpfApp1Tests3.Attributes ;
 using WpfApp1Tests3.Fixtures ;
+using Xunit ;
 using Xunit.Abstractions ;
 using App = WpfApp1.Application.App ;
 using LogLevel = NLog.LogLevel ;
@@ -35,17 +35,10 @@ namespace WpfApp1Tests3
 	{
 		static ContainerHelperTests ( ) { Debug.WriteLine ( "Initializtion" ) ; }
 
-		public LoggingFixture LoggingFixture { get ; }
-
-		public WpfApplicationFixture WpfApplicationFixture { get ; }
-
-		public ITestOutputHelper Output { get ; }
-
-		/// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
-		// public ContainerHelperTests ( WpfApplicationFixture WpfApplicationFixture ) { WpfApplicationFixture = WpfApplicationFixture ; }
-		private static readonly NLog.Logger Logger = LogManager.GetCurrentClassLogger ( ) ;
-
-		/// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
+		/// <summary>
+		///     Initializes a new instance of the <see cref="T:System.Object" />
+		///     class.
+		/// </summary>
 		public ContainerHelperTests (
 			LoggingFixture        loggingFixture
 		  , WpfApplicationFixture wpfApplicationFixture
@@ -53,35 +46,26 @@ namespace WpfApp1Tests3
 		)
 		{
 			UseLogMethod = new LoggerProxyHelper.LogMethod ( LogMethod ) ;
-			UseLogMethod ( $"my logger is {Logger}" ) ;
+			UseLogMethod ( $"my logger is type {Logger.GetType ( )}" ) ;
 			LoggingFixture        = loggingFixture ;
 			WpfApplicationFixture = wpfApplicationFixture ;
 			Output                = output ;
 		}
 
-		public LoggerProxyHelper.LogMethod UseLogMethod { get ; set ; }
+		public LoggingFixture LoggingFixture { get ; }
 
-		/// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
+		public WpfApplicationFixture WpfApplicationFixture { get ; }
+
+		public ITestOutputHelper Output { get ; }
+
+		/// <summary>
+		///     Initializes a new instance of the <see cref="T:System.Object" />
+		///     class.
+		/// </summary>
 		// public ContainerHelperTests ( WpfApplicationFixture WpfApplicationFixture ) { WpfApplicationFixture = WpfApplicationFixture ; }
-		[ Fact ( ) ]
-		public void SetupContainerTest ( )
-		{
-			IContainer container ;
-			var c = ContainerHelper.SetupContainer ( out container ) ;
-			Logger.Info ( $"{c}" ) ;
-			Assert.NotNull ( c ) ;
-		}
+		private static readonly Logger Logger = LoggerProxyHelper.GetCurrentClassLogger ( ) ;
 
-		[ Fact ( ) ]
-		public void SetupContainerTest2 ( )
-		{
-			AppLoggingConfigHelper.EnsureLoggingConfigured ( ) ;
-			// AddTestLoggingTarget ( nameof ( SetupContainerTest2 ) ) ;
-			Logger.Warn ( "I am here" ) ;
-			IContainer container ;
-			var c = ContainerHelper.SetupContainer ( out container ) ;
-			Assert.NotNull ( c ) ;
-		}
+		public LoggerProxyHelper.LogMethod UseLogMethod { get ; set ; }
 
 		private void DumpContainer ( IContainer container )
 		{
@@ -131,35 +115,10 @@ namespace WpfApp1Tests3
 			LogManager.LogFactory.ReconfigExistingLoggers ( ) ;
 		}
 
-		private void LogMethod ( string message )
+		private void LogMethod ( string message , string callerFilePath , string callerMemberName )
 		{
 			Debug.WriteLine ( message ) ;
-			Output.WriteLine ( message ) ;
-		}
-
-
-		[ Fact ( ) ]
-		[ UsedImplicitly ]
-		public void ContainerTestResolveIMenuItemList ( )
-		{
-			IContainer container ;
-			var c = ContainerHelper.SetupContainer ( out container ) ;
-			DumpContainer ( container ) ;
-			var menuItemList = c.Resolve < IMenuItemList > ( ) ;
-			Assert.NotNull ( menuItemList ) ;
-			Assert.NotEmpty ( menuItemList ) ;
-			Assert.NotEmpty ( menuItemList.First ( ).Children ) ;
-		}
-
-		[ Fact ]
-		public void ResolveWindows ( )
-		{
-			IContainer container ;
-			var c = ContainerHelper.SetupContainer ( out container ) ;
-			var enumerable = c.Resolve < IEnumerable < Lazy < Window > > > ( ) ;
-			var l = enumerable.ToList ( ) ;
-			Assert.NotEmpty ( l ) ;
-			Assert.Equal ( 3 , l.Count ) ;
+			Output?.WriteLine ( message ) ;
 		}
 
 		[ WpfFact ]
@@ -198,6 +157,56 @@ namespace WpfApp1Tests3
 		{
 			IContainer container ;
 			var c = ContainerHelper.SetupContainer ( out container ) ;
+		}
+
+
+		[ Fact ]
+		[ UsedImplicitly ]
+		public void ContainerTestResolveIMenuItemList ( )
+		{
+			IContainer container ;
+			var c = ContainerHelper.SetupContainer ( out container ) ;
+			DumpContainer ( container ) ;
+			var menuItemList = c.Resolve < IMenuItemList > ( ) ;
+			Assert.NotNull ( menuItemList ) ;
+			Assert.NotEmpty ( menuItemList ) ;
+			Assert.NotEmpty ( menuItemList.First ( ).Children ) ;
+		}
+
+		[ Fact ]
+		public void ResolveWindows ( )
+		{
+			IContainer container ;
+			var c = ContainerHelper.SetupContainer ( out container ) ;
+			var enumerable = c.Resolve < IEnumerable < Lazy < Window > > > ( ) ;
+			var l = enumerable.ToList ( ) ;
+			Assert.NotEmpty ( l ) ;
+			Assert.Equal ( 3 , l.Count ) ;
+		}
+
+		/// <summary>
+		///     Initializes a new instance of the <see cref="T:System.Object" />
+		///     class.
+		/// </summary>
+		// public ContainerHelperTests ( WpfApplicationFixture WpfApplicationFixture ) { WpfApplicationFixture = WpfApplicationFixture ; }
+		[ Fact ]
+		public void SetupContainerTest ( )
+		{
+			IContainer container ;
+			var c = ContainerHelper.SetupContainer ( out container ) ;
+			Logger.Info ( $"{c}" ) ;
+			Assert.NotNull ( c ) ;
+		}
+
+		[ Fact ]
+		public void SetupContainerTest2 ( )
+		{
+			AppLoggingConfigHelper.EnsureLoggingConfigured ( ) ;
+			// AddTestLoggingTarget ( nameof ( SetupContainerTest2 ) ) ;
+			Logger.Warn ( "I am here" ) ;
+			IContainer container ;
+			var c = ContainerHelper.SetupContainer ( out container ) ;
+			Assert.NotNull ( c ) ;
 		}
 
 		[ Fact ]
