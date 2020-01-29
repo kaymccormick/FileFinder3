@@ -8,15 +8,16 @@
              xmlns:menus="clr-namespace:WpfApp1.Menus"
              xmlns:appShared="clr-namespace:AppShared;assembly=AppShared"
              xmlns:common="clr-namespace:Common;assembly=Common"
+             xmlns:controls1="clr-namespace:Common.Controls;assembly=Common"
              mc:Ignorable="d" 
              d:DesignHeight="40" d:DesignWidth="150">
     <UserControl.CommandBindings><CommandBinding 
                                                  CanExecute="CommandBinding_OnCanExecute"
                                                  /></UserControl.CommandBindings>
     <Grid>
-            <controls:TypeControl>
+            <controls1:TypeControl>
         <appShared:App.RenderedType><x:Type TypeName="common:MenuItemList"/></appShared:App.RenderedType>
-                </controls:TypeControl>
+                </controls1:TypeControl>
             
     </Grid>
 </UserControl>

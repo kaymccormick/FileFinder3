@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:WpfApp1.Logging"
       xmlns:controls="clr-namespace:WpfApp1.Controls"
       xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+      xmlns:controls1="clr-namespace:Common.Controls;assembly=Common"
       mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="TypeBrowserPage">
@@ -24,7 +25,7 @@
         <Grid>
             <Frame Grid.Column="0 Grid.Row" />
             <WrapPanel Grid.Column="0" Grid.Row="0">
-                <controls:TypeControl RenderedType="{x:Type collections:IEnumerable}" />
+                <controls1:TypeControl RenderedType="{x:Type collections:IEnumerable}" />
                 </WrapPanel>
         </Grid>
 </Grid>

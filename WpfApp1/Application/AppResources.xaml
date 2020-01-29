@@ -9,7 +9,8 @@
              xmlns:windows="clr-namespace:WpfApp1.Windows"
               xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:autofac="clr-namespace:Autofac;assembly=Autofac"
-             xmlns:common="clr-namespace:Common;assembly=Common">
+             xmlns:common="clr-namespace:Common;assembly=Common"
+             xmlns:controls1="clr-namespace:Common.Controls;assembly=Common">
     <!--Control colors.-->
     <Color x:Key="WindowColor">#FFE8EDF9</Color>
     <Color x:Key="ContentAreaColorLight">#FFC5CBF9</Color>
@@ -82,20 +83,21 @@
     </LinearGradientBrush>
     <DataTemplate DataType="autofac:TypedParameter">
         <WrapPanel>
-            <controls:TypeControl BorderBrush="BlueViolet" BorderThickness="3">
+            <controls1:TypeControl BorderBrush="BlueViolet" BorderThickness="3">
                 <appShared:App.RenderedType>
                     <Binding Path="Type" />
                 </appShared:App.RenderedType>
-            </controls:TypeControl>
+            </controls1:TypeControl>
             <Label Content="{Binding Value}" />
         </WrapPanel>
     </DataTemplate>
     <DataTemplate x:Key="ServicesTypeTemplate" DataType="core:IComponentRegistration">
         <ComboBox />
     </DataTemplate>
+
     <DataTemplate DataType="core:TypedService">
         <WrapPanel>
-          <controls:TypeControl RenderedType="{Binding ServiceType}" />
+          <controls1:TypeControl RenderedType="{Binding ServiceType}" />
             <TextBlock Text="{Binding ServiceType}" />
         </WrapPanel>
     </DataTemplate>

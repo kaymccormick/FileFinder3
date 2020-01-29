@@ -118,9 +118,6 @@
     <Compile Include="Controls\InstanceInfoControl.xaml.cs">
       <DependentUpon>InstanceInfoControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\TypeControl.xaml.cs">
-      <DependentUpon>TypeControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\typedService.cs" />
     <Compile Include="Controls\UserControl1.xaml.cs">
       <DependentUpon>UserControl1.xaml</DependentUpon>
@@ -211,10 +208,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\InstanceInfoControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\TypeControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -2,7 +2,9 @@
                     
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:converters="clr-namespace:Common.Converters"
-              xmlns:core="clr-namespace:Autofac.Core;assembly=Autofac">
+              xmlns:core="clr-namespace:Autofac.Core;assembly=Autofac"
+              xmlns:system="clr-namespace:System;assembly=mscorlib"
+              xmlns:controls="clr-namespace:Common.Controls">
 
     <!--Control colors.-->
     <Color x:Key="WindowColor">#FFE8EDF9</Color>
@@ -226,4 +228,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <DataTemplate DataType="system:Type" x:Key="CellTemplateType">
+        <controls:TypeControl MinWidth="200" RenderedType="{Binding Path=.}"></controls:TypeControl>
+    </DataTemplate>
 </ResourceDictionary>

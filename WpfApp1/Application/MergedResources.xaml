@@ -9,7 +9,8 @@
                     xmlns:wpfApp1="clr-namespace:WpfApp1"
                     xmlns:windows="clr-namespace:WpfApp1.Windows"
                     xmlns:system="clr-namespace:System;assembly=mscorlib"
-                    xmlns:common="clr-namespace:Common;assembly=Common">
+                    xmlns:common="clr-namespace:Common;assembly=Common"
+                    xmlns:controls1="clr-namespace:Common.Controls;assembly=Common">
     <xaml:InstanceRegistrationConverter x:Key="InstanceRegistrationConverter" />
         <xaml:AssemblyConverter x:Key="AssemblyConverter" />
         <Style TargetType="Window">
@@ -17,11 +18,11 @@
         </Style>
         <DataTemplate DataType="autofac:TypedParameter">
             <WrapPanel>
-                <controls:TypeControl BorderBrush="BlueViolet" BorderThickness="3">
+                <controls1:TypeControl BorderBrush="BlueViolet" BorderThickness="3">
                     <appShared:App.RenderedType>
                         <Binding Path="Type" />
                     </appShared:App.RenderedType>
-                </controls:TypeControl>
+                </controls1:TypeControl>
                 <Label Content="{Binding Value}" />
             </WrapPanel>
         </DataTemplate>
@@ -33,7 +34,7 @@
         </DataTemplate>
         <DataTemplate DataType="controls:TypedService">
             <WrapPanel>
-                <controls:TypeControl RenderedType="{Binding ServiceType}" />
+                <controls1:TypeControl RenderedType="{Binding ServiceType}" />
                 <TextBlock Text="{Binding ServiceType}" />
             </WrapPanel>
         </DataTemplate>

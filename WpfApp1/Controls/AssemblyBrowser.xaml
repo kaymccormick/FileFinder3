@@ -8,6 +8,7 @@
              xmlns:attachedProperties="clr-namespace:AppShared;assembly=AppShared"
              xmlns:reflection="clr-namespace:System.Reflection;assembly=mscorlib"
              xmlns:common="clr-namespace:Common;assembly=Common"
+             xmlns:controls="clr-namespace:Common.Controls;assembly=Common"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" DataContext="{Binding Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
     <UserControl.Resources>
@@ -38,10 +39,10 @@
         <ListBox Grid.Row="1" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  Name="assemblyListBox" ItemTemplate="{StaticResource assemblyTemplate}" ItemsSource="{Binding Source={StaticResource AssemblyCollectionView}}"/>
             
         <ListBox Grid.Row="2" Grid.Column="0"  MinHeight="100" Name="typeBox" ItemsSource="{Binding Source={StaticResource AssemblyCollectionView}, Converter={StaticResource AssemblyConverter}}"/>
-        <local:TypeControl Grid.Row="3" Grid.Column="1">
+        <controls:TypeControl Grid.Row="3" Grid.Column="1">
             <attachedProperties:App.RenderedType>
                 <Binding ElementName="typeBox" Path="SelectedItem"/>
             </attachedProperties:App.RenderedType>
-        </local:TypeControl>
+        </controls:TypeControl>
     </Grid>
 </UserControl>

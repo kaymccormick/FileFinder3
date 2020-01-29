@@ -30,12 +30,13 @@
 
         </StackPanel>
         <TabControl Style="{StaticResource TabControlStyle1}">
+            <TabItem Header=""/>
             <TabItem Header="ResolveServiceList">
                 <Grid>
                     <ListView ItemsSource="{Binding Source={StaticResource resolveServices}}">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=ServiceType}" />
+                                <GridViewColumn CellTemplate="{StaticResource CellTemplateType}" DisplayMemberBinding="{Binding Path=ServiceType}" />
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=ServiceInstance}" />
                             </GridView>
                         </ListView.View>
@@ -76,10 +77,10 @@
                     <ListView ItemsSource="{Binding ElementName=resolveServicesList,Path=SelectedItem}">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn DisplayMemberBinding="{Binding ObjectId}"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding }"/>
                                 <GridViewColumn DisplayMemberBinding="{Binding Instance.Parameters}"/>
                                 <GridViewColumn DisplayMemberBinding="{Binding Instance}"/>
-                            </GridView>/>
+                            </GridView>
                         </ListView.View>
                     </ListView>
                 </Grid>
