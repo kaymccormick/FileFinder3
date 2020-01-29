@@ -33,15 +33,16 @@ namespace Common
 		   .As < ITopLevelMenu > ( ) ;
 			#region Menu Item Lists
 			builder.RegisterType < MenuItemList > ( )
-			       .AsImplementedInterfaces ( )
+			       //.AsImplementedInterfaces ( )
 			       .WithMetadata < 
 				        ResourceMetadata
 			        > ( configurationAction : m => m.For ( propertyAccessor : rn => rn.ResourceName , value : "MenuItemList" ) )
 			       .PreserveExistingDefaults ( )
+			      .As<IMenuItemList>()
 			       .EnableInterfaceInterceptors ( )
 			       .InterceptedBy ( typeof ( LoggingInterceptor ) ) ;
 			builder.RegisterType < XMenuItem > ( )
-			       .AsImplementedInterfaces ( )
+//			       .AsImplementedInterfaces ( )
 			       .PreserveExistingDefaults ( )
 			       .EnableInterfaceInterceptors ( )
 			       .InterceptedBy ( typeof ( LoggingInterceptor ) ) ;

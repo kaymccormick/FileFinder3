@@ -4,6 +4,7 @@ using System.Text ;
 using System.Collections.Generic ;
 using System.Windows.Markup ;
 using Autofac.Core ;
+using Common ;
 using WpfApp1.Windows ;
 using Xunit ;
 

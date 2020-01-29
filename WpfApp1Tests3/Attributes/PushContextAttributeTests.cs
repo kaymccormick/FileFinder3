@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Common.Context ;
 using NLog ;
 
 namespace WpfApp1.AttributesTests3

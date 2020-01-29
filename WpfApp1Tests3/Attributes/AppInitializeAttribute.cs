@@ -45,8 +45,24 @@ namespace WpfApp1Tests3.Attributes
 	                                
 			                          // ) ;
 
-			MyApp.TCS.Task.Wait ( ) ;
-			base.Before ( methodUnderTest ) ;
+			                          if ( MyApp != null && MyApp.TCS != null )
+			                          {
+				                          if ( MyApp.TCS.Task != null )
+				                          {
+					                          MyApp.TCS.Task.Wait ( ) ;
+				                          }
+				                          else
+				                          {
+					                          Logger.Debug ( "null" ) ;
+				                          }
+			                          }
+			                          else
+			                          {
+				Logger.Debug ( "null" );
+				
+			                          }
+
+			                          base.Before ( methodUnderTest ) ;
 		}
 
 		public App MyApp {get ; set ; }

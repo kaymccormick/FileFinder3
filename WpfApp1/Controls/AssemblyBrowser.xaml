@@ -7,6 +7,7 @@
              xmlns:xaml="clr-namespace:WpfApp1.Xaml"
              xmlns:attachedProperties="clr-namespace:AppShared;assembly=AppShared"
              xmlns:reflection="clr-namespace:System.Reflection;assembly=mscorlib"
+             xmlns:common="clr-namespace:Common;assembly=Common"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" DataContext="{Binding Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
     <UserControl.Resources>
@@ -16,7 +17,7 @@
             </DataTemplate>
     </UserControl.Resources>
     <UserControl.CommandBindings>
-        <CommandBinding Command="commands:MyAppCommands.LoadAssemblyList"
+        <CommandBinding Command="common:MyAppCommands.LoadAssemblyList"
                         Executed="LoadAssemblyList" CanExecute="CanLoadAssemblyList"/>
     </UserControl.CommandBindings>
     <Grid>
@@ -31,7 +32,7 @@
         </Grid.RowDefinitions>
         <ToolBarTray>
             <ToolBar Band="1" BandIndex="1">
-                <Button Content="Load" Command="commands:MyAppCommands.LoadAssemblyList"/>
+                <Button Content="Load" Command="common:MyAppCommands.LoadAssemblyList"/>
             </ToolBar>
         </ToolBarTray>
         <ListBox Grid.Row="1" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  Name="assemblyListBox" ItemTemplate="{StaticResource assemblyTemplate}" ItemsSource="{Binding Source={StaticResource AssemblyCollectionView}}"/>

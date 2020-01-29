@@ -1,7 +1,9 @@
 using System ;
 using System.Collections.Generic ;
+using System.Linq ;
 using System.Reflection ;
 using System.Windows ;
+using AppShared ;
 using AppShared.Interfaces ;
 using AppShared.Modules ;
 using Autofac ;
@@ -21,8 +23,22 @@ namespace Common.Utils
 		private static readonly Logger Logger =
 			LogManager.GetLogger ( "Autofac container builder helper" ) ;
 
-		public static ILifetimeScope SetupContainer ( out IContainer container )
+		public static ILifetimeScope SetupContainer (
+			out    IContainer container)
 		{
+			var scan = GetScanAssem ( ) ;
+			return SetupContainer ( out container , scan ) ;
+		}
+
+
+		public static ILifetimeScope SetupContainer ( out IContainer container, IEnumerable <Assembly> assembliesToScan)
+		{
+			Logger.Info ("Assemblies " +
+			             String.Join (
+			                          ", "
+			                        , assembliesToScan.Select ( ( assembly , i1 ) => assembly.GetName ( ).Name )
+			                         )
+			            ) ;
 			AppLoggingConfigHelper.EnsureLoggingConfigured ( );
 			var proxyGenerator = ProxyGenerator ;
 			var builderInterceptor = new BuilderInterceptor ( proxyGenerator ) ;
@@ -66,8 +82,7 @@ namespace Common.Utils
 			#region Assembly scanning
 			var executingAssembly = Assembly.GetExecutingAssembly ( ) ;
 
-			RegistrationExtensions.RegisterAssemblyTypes ( builder , executingAssembly )
-			                      .Where (
+			RegistrationExtensions.RegisterAssemblyTypes ( builder , assembliesToScan.ToArray())			                      .Where (
 			                              delegate ( Type t ) {
 				                              var isAssignableFrom = typeof ( Window ).IsAssignableFrom ( t ) ;
 				                              Logger.Trace ( $"{t} is assignable from {isAssignableFrom}" );
@@ -75,7 +90,7 @@ namespace Common.Utils
 			                              }
 			                             )
 			                      .AsSelf ( )
-			                      .As<Window> ( )
+			                      //.As<Window> ( )
 			                      .OnActivating (
 			                                     args => {
 				                                     var argsInstance = args.Instance ;
@@ -181,6 +196,19 @@ namespace Common.Utils
 			// )
 			// ) ;
 			//return CreateChildLifetimeContext ( setupContainer ) ;
+		}
+
+		private static IEnumerable < Assembly > GetScanAssem ( )
+		{
+			return AppDomain.CurrentDomain.GetAssemblies ( )
+			                .Where (
+			                        ( assembly , i1 ) => Attribute.IsDefined (
+			                                                                  assembly
+			                                                                , typeof (
+				                                                                  AssemblyContainerScanAttribute
+			                                                                  )
+			                                                                 )
+			                       ) ;
 		}
 
 		private static void
@@ -411,7 +439,8 @@ namespace Common.Utils
 			return false ;
 		}
 #endif
-		private static void Dump (
+		public static void Dump
+			(
 			IComponentRegistration componentRegistryRegistration
 		  , HashSet<object>        seenObjects
 		)

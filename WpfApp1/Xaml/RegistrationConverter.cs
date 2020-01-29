@@ -12,6 +12,7 @@ using AppShared.Interfaces ;
 using Autofac ;
 using Autofac.Core ;
 using Autofac.Core.Registration ;
+using Common ;
 using DynamicData.Kernel ;
 
 

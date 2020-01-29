@@ -8,7 +8,8 @@
                     xmlns:autofac="clr-namespace:Autofac;assembly=Autofac"
                     xmlns:wpfApp1="clr-namespace:WpfApp1"
                     xmlns:windows="clr-namespace:WpfApp1.Windows"
-                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+                    xmlns:system="clr-namespace:System;assembly=mscorlib"
+                    xmlns:common="clr-namespace:Common;assembly=Common">
     <xaml:InstanceRegistrationConverter x:Key="InstanceRegistrationConverter" />
         <xaml:AssemblyConverter x:Key="AssemblyConverter" />
         <Style TargetType="Window">
@@ -89,10 +90,10 @@
                                     <MenuItem Header="Open Assembly"
                                               Command="ApplicationCommands.Open" />
                                     <MenuItem Header="Restart"
-                                              Command="commands:MyAppCommands.Restart" />
+                                              Command="common:MyAppCommands.Restart" />
                                 </MenuItem>
                                 <MenuItem Header="Debug">
-                                    <MenuItem Header="Dump" Command="commands:MyAppCommands.DumpDebug" />
+                                    <MenuItem Header="Dump" Command="common:MyAppCommands.DumpDebug" />
                                 </MenuItem>
                             </Menu>
                             <ContentPresenter DockPanel.Dock="Bottom" />
@@ -114,9 +115,9 @@
             <ObjectDataProvider.ConstructorParameters>
                 <system:String>tag1</system:String>
                 <windows:ComponentRegistry>
-                    <local:ComponentRegistration>
+                    <common:ComponentRegistration>
                         <controls:TypedService Desc="MyService" />
-                    </local:ComponentRegistration>
+                    </common:ComponentRegistration>
                 </windows:ComponentRegistry>
             </ObjectDataProvider.ConstructorParameters>
         </ObjectDataProvider>

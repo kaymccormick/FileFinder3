@@ -18,6 +18,7 @@ using System.Threading.Tasks ;
 using AppShared ;
 using AppShared.Interfaces ;
 using Autofac ;
+using Common.Context ;
 using JetBrains.Annotations ;
 using NLog ;
 using NLog.Fluent ;
@@ -166,7 +167,7 @@ namespace WpfApp1Tests3
 			                                                                        ) ;
 		}
 
-		public class MyServices : IMyServices
+		public class MyServices : WpfApp1Tests3.IMyServices
 		{
 			public MyServices ( InfoContext.Factory infoContextFactory )
 			{

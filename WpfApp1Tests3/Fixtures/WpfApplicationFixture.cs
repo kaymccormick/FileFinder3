@@ -133,8 +133,8 @@ namespace WpfApp1Tests3.Fixtures
         /// </summary>
         public Task InitializeAsync()
         {
-	        Logger.Debug($"{nameof(InitializeAsync)}"  );
-	        return Task.FromResult < object >( null );
+            Logger.Debug($"{nameof(InitializeAsync)}"  );
+            return Task.FromResult < object >( null );
         }
 
         /// <summary>
@@ -143,9 +143,9 @@ namespace WpfApp1Tests3.Fixtures
         /// </summary>
         public Task DisposeAsync()
         {
-	        Logger.Debug($"{nameof(InitializeAsync)}");
-	        return _wpfApplicationHelper.DisposeAsync();
-	        
+            Logger.Debug($"{nameof(InitializeAsync)}");
+            return _wpfApplicationHelper.DisposeAsync();
+            
            
         }
     }

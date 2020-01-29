@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using AppShared.Interfaces ;
 using Autofac.Features.Metadata;
+using Common ;
 using NLog;
 
 namespace WpfApp1.Menus

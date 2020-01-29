@@ -240,8 +240,16 @@ namespace WpfApp1.Application
 			RegistrationConverter converter = new RegistrationConverter ( AppContainer, objectIdProvider ) ;
 
 			Resources[ "RegistrationConverter" ] = converter ;
-			var mainWindow = AppContainer.Resolve < MainWindow > ( ) ;
-			Logger.Trace ( $"Reeeived {mainWindow} " ) ;
+			MainWindow mainWindow = null ;
+			try
+			{
+				mainWindow = AppContainer.Resolve < MainWindow > ( ) ;
+				Logger.Trace ( $"Reeeived {mainWindow} " ) ;
+			} catch(Exception ex)
+			{
+				Logger.Error ( "Cant resolve newwindow: " + ex.Message ) ;
+				mainWindow = new MainWindow();
+			}
 
 			if ( ShowMainWindow )
 			{

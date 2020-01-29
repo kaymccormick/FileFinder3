@@ -28,7 +28,7 @@ namespace WpfApp1Tests3.Fixtures
         public ObjectIDFixture()
         {
             Generator = new ObjectIDGenerator();
-            InstanceFactory = new Factory( Generator <> );
+            InstanceFactory = new Factory( Generator );
             GetObjectId = _GetObjectId;
         }
 

@@ -14,7 +14,11 @@ namespace Common
 
 	{
 		/// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
-		public TestO ( ) { Logger.Debug ( "constructeD" ) ; }
+		public TestO ( )
+		{
+			
+			Logger.Debug ( "constructeD" ) ;
+		}
 
 		private ILifetimeScope lifetimeScope ;
 

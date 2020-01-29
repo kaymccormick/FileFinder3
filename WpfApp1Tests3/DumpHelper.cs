@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.Reflection;
 using System.Windows;
+using AppShared ;
 using NLog;
 using WpfApp1.Util ;
 

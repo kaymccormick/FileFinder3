@@ -3,6 +3,7 @@ using System.Linq ;
 using System.Windows ;
 using System.Windows.Baml2006 ;
 using System.Windows.Markup ;
+using AppShared ;
 using AppShared.Interfaces ;
 using Autofac ;
 using NLog ;

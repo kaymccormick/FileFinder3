@@ -3,27 +3,24 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WpfApp1.Windows"
-        xmlns:myxaml="clr-namespace:WpfApp1.Xaml"
         xmlns:nLog="clr-namespace:NLog;assembly=NLog"
         xmlns:controls="clr-namespace:WpfApp1.Controls"
-        xmlns:windows="clr-namespace:WpfApp1.Windows"
         xmlns:nLog1="clr-namespace:Sentinel.NLog;assembly=Sentinel.NLog"
         xmlns:aprops="clr-namespace:AppShared;assembly=AppShared"
-        xmlns:core="clr-namespace:Autofac.Core;assembly=Autofac"
+        xmlns:common="clr-namespace:Common;assembly=Common"
         mc:Ignorable="d"
         DataContext="{Binding ElementName=mainWindow}"
         Title="Main Window" Height="450" Width="1000"
         FontFamily="Deja Vu Sans"
         FontSize="20" MinHeight="800" MinWidth="1202">
     <Window.CommandBindings>
-        <CommandBinding Command="commands:MyAppCommands.LoadAssemblyList"
+        <CommandBinding Command="common:MyAppCommands.LoadAssemblyList"
                         PreviewExecuted="CommandBinding_OnPreviewExecuted" />
         <CommandBinding Command="ApplicationCommands.Open"
                         Executed="CommandBinding_OnExecuted" />
-        <CommandBinding Command="commands:MyAppCommands.DumpDebug"
+        <CommandBinding Command="common:MyAppCommands.DumpDebug"
                         Executed="DumpDebug" />
-        <CommandBinding Command="commands:MyAppCommands.Restart" Executed="Restart" />
+        <CommandBinding Command="common:MyAppCommands.Restart" Executed="Restart" />
     </Window.CommandBindings>
     <TabControl Name="MainTabControl" Margin="10">
         <TabItem Header="Objects">
@@ -35,7 +32,7 @@
             </Grid>
         </TabItem>N
         <TabItem Header="Autofac" Padding="15" DataContext="{Binding Path=Container}">
-            <core:Container/>
+            <controls:Container/>
         </TabItem>
         <TabItem Header="Home">
             <Grid>

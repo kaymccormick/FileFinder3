@@ -8,6 +8,7 @@ using System.Windows.Controls ;
 using System.Windows.Data ;
 using Autofac ;
 using Autofac.Features.Metadata ;
+using Common ;
 
 namespace WpfApp1.Xaml
 {

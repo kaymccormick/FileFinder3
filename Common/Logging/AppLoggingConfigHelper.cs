@@ -163,14 +163,20 @@ namespace Common.Logging
 
 		public static void EnsureLoggingConfigured ( )
 		{
+			EnsureLoggingConfigured(DumpExistingConfig);
+		}
+		public static void EnsureLoggingConfigured ( bool b )
+		{
 			//LogManager.ThrowConfigExceptions = true;
 			//LogManager.ThrowExceptions = true;
-			var q = LogManager.LogFactory.GetType ( )
-			                  .GetField ( "_configLoaded", BindingFlags.Instance|BindingFlags.NonPublic )
-			                  .GetValue ( LogManager.LogFactory ) ;
+			var q = (bool) LogManager.LogFactory.GetType ( )
+			                  .GetField (
+			                             "_configLoaded"
+			                           , BindingFlags.Instance | BindingFlags.NonPublic
+			                            )
+			                  .GetValue ( LogManager.LogFactory );
 
-			var isMyConfig = LogManager.Configuration != null
-			                 && LogManager.Configuration is CodeConfiguration ;
+			var isMyConfig = !q || LogManager.Configuration is CodeConfiguration ;
 			var doConfig = ! LoggingIsConfigured || ForceCodeConfig && ! isMyConfig ;
 			if ( DumpExistingConfig )
 			{

@@ -112,6 +112,9 @@
     <Compile Include="Controls\AssemblyBrowser.xaml.cs">
       <DependentUpon>AssemblyBrowser.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Container.xaml.cs">
+      <DependentUpon>Container.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\InstanceInfoControl.xaml.cs">
       <DependentUpon>InstanceInfoControl.xaml</DependentUpon>
     </Compile>
@@ -202,6 +205,10 @@
     <Page Include="Controls\AssemblyBrowser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Container.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\InstanceInfoControl.xaml">
       <SubType>Designer</SubType>

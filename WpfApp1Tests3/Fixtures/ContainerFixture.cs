@@ -15,6 +15,7 @@
 using System;
 using System.Threading.Tasks ;
 using Autofac;
+using Common.Utils ;
 using JetBrains.Annotations;
 using NLog;
 using WpfApp1.Util;
