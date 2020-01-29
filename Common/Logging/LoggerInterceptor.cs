@@ -7,12 +7,23 @@ namespace Common.Logging
 {
 	public class LoggerInterceptor : IInterceptor
 	{
+		public ProxyGenerator Generator { get ; }
+
+		public LoggerProxyHelper.LogMethod UseLogMethod { get ; }
+
 		/// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
 		public LoggerInterceptor ( ) {
 		}
 
+		public LoggerInterceptor ( ProxyGenerator generator , LoggerProxyHelper.LogMethod useLogMethod )
+		{
+			Generator = generator ;
+			UseLogMethod = useLogMethod ;
+		}
+
 		public void Intercept ( IInvocation invocation )
 		{
+			UseLogMethod ( $"{invocation.Method.Name} on {invocation.InvocationTarget}" ) ;
 			var enumerable = LogLevel.AllLevels.Select ( level => level.Name == invocation.Method.Name ) ;
 			if ( enumerable.Any()) 
 			{

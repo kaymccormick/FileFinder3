@@ -9,8 +9,19 @@ namespace Common.Logging
 	{
 		public ProxyGenerator Generator { get ; }
 
-		/// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
+		public delegate void LogMethod ( string message ) ;
+
+		public LogMethod UseLogMethod { get ; set ; }
+		/// <summary>Initializes a new instance of the <see
+		/// cref="T:System.Object" /> class.</summary>
 		public LoggerProxyHelper ( ProxyGenerator generator ) { Generator = generator ; }
+
+		/// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
+		public LoggerProxyHelper ( ProxyGenerator generator , LogMethod logMethod )
+		{
+			Generator = generator ;
+			UseLogMethod = logMethod ;
+		}
 
 		public LogFactory CreateLogFactory ( LogFactory logFactory )
 		{
@@ -21,8 +32,8 @@ namespace Common.Logging
 
 			return Generator.CreateClassProxyWithTarget (
 			                                             LogManager.LogFactory
-			                                           , new LogFactoryInterceptor ( Generator )
-			                                            ) ;
+			                                           , new LogFactoryInterceptor ( Generator , UseLogMethod
+			                                            ) );
 		}
 	}
 	

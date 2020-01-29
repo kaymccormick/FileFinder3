@@ -2,6 +2,7 @@
 using System;
 using System.Collections ;
 using System.Collections.Generic;
+using System.Diagnostics ;
 using System.Linq;
 using System.ServiceModel.Channels ;
 using System.Windows;
@@ -110,7 +111,7 @@ namespace WpfApp1Tests3
         }
         private void AddTestLoggingTarget ( string setupContainerTest2Name )
         {
-            AppLoggingConfigHelper.EnsureLoggingConfigured(true);
+            AppLoggingConfigHelper.EnsureLoggingConfigured(true, LogMethod);
             FileTarget fileTarget = new FileTarget ( "test target" ) ;
             fileTarget.FileName = Layout.FromString ( "test-" + setupContainerTest2Name + ".txt" ) ;
             LogManager.LogFactory.Configuration.AddTarget ( fileTarget ) ;
@@ -118,6 +119,12 @@ namespace WpfApp1Tests3
             LogManager.LogFactory.ReconfigExistingLoggers (  );
 
 
+        }
+
+        private void LogMethod ( string message )
+        {
+            Debug.WriteLine ( message);
+	        Output.WriteLine(message);
         }
 
 

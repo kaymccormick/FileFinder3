@@ -200,6 +200,9 @@ namespace Common.Utils
 
 		private static IEnumerable < Assembly > GetScanAssem ( )
 		{
+			Logger.Debug (
+			              "Getting assemblies to scan based on AssemblyContainerScan attribute."
+			             ) ;
 			return AppDomain.CurrentDomain.GetAssemblies ( )
 			                .Where (
 			                        ( assembly , i1 ) => Attribute.IsDefined (

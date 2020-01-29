@@ -34,13 +34,21 @@ namespace Common.Logging
 		public static  StringWriter _stringWriter = null ;
 		private static JsonLayout   _fLayout ;
 
-		// ReSharper disable once MemberCanBePrivate.Global
-		internal static LoggingConfiguration ConfigureLogging ( )
+		private static void DoLogMessage ( string message )
 		{
+
+		}
+		// ReSharper disable once MemberCanBePrivate.Global
+		internal static LoggingConfiguration ConfigureLogging (
+			LoggerProxyHelper.LogMethod logMethod
+		)
+		{
+			logMethod ( $"Starting logger configuration." ) ;
 			InternalLogging ( ) ;
 
-			
-			var loggerProxyHelper = new LoggerProxyHelper ( new ProxyGenerator ( ) ) ;
+			var proxyGenerator = new ProxyGenerator ( ) ;
+			var loggerProxyHelper = new LoggerProxyHelper ( proxyGenerator,
+			                                               new LoggerProxyHelper.LogMethod(DoLogMessage)) ;
 			var lconfLogFactory = loggerProxyHelper.CreateLogFactory (LogManager.LogFactory ) ;
 			var fieldInfo = typeof ( LogManager ).GetField (
 			                                                "factory"
@@ -172,10 +180,16 @@ namespace Common.Logging
 
 		public static void EnsureLoggingConfigured ( )
 		{
-			EnsureLoggingConfigured(DumpExistingConfig);
+			EnsureLoggingConfigured(DumpExistingConfig, null);
 		}
-		public static void EnsureLoggingConfigured ( bool b )
+		public static void EnsureLoggingConfigured ( bool b, LoggerProxyHelper.LogMethod logMethod )
 		{
+			if ( logMethod == null )
+			{
+				logMethod = new LoggerProxyHelper.LogMethod ( DoLogMessage );
+			}
+
+
 			var fieldInfo2 = LogManager.LogFactory.GetType ( )
 			                           .GetField (
 			                                      "_config"
@@ -238,14 +252,14 @@ namespace Common.Logging
 
 			if ( doConfig )
 			{
-				ConfigureLogging ( ) ;
+				ConfigureLogging (logMethod ) ;
 				return ;
 			}
 
-			if ( LogManager.Configuration == null )
-			{
-				ConfigureLogging ( ) ;
-			}
+			// if ( LogManager.Configuration == null )
+			// {
+			// 	ConfigureLogging (logMethod ) ;
+			// }
 
 			DumpPossibleConfig ( LogManager.Configuration ) ;
 		}

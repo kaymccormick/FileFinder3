@@ -17,17 +17,31 @@ namespace Common.Logging
 	{
 		public ProxyGenerator Generator { get ; }
 
-		public LogFactoryInterceptor ( ProxyGenerator generator ) { Generator = generator ; }
+		public LoggerProxyHelper.LogMethod UseLogMethod { get ; }
+
+		public LogFactoryInterceptor (
+			ProxyGenerator              generator
+		  , LoggerProxyHelper.LogMethod useLogMethod
+		)
+		{
+			Generator = generator ;
+			UseLogMethod = useLogMethod ;
+		}
 
 		public void Intercept ( IInvocation invocation )
 		{
+			UseLogMethod ( $"{invocation.Method.Name}" ) ;
 			if ( invocation.Method.Name == "GetCurrentClassLogger" )
 			{
 				invocation.Proceed();
 				var classProxyWithTarget = Generator.CreateClassProxyWithTarget (
 				                                                                 invocation.ReturnValue
-				                                                               , new LoggerInterceptor ( )
+				                                                               , new LoggerInterceptor ( Generator, UseLogMethod )
 				                                                                ) ;
+			}
+			else
+			{
+				invocation.Proceed();
 			}
 		}
 	}
