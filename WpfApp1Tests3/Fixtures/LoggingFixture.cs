@@ -20,6 +20,7 @@ namespace WpfApp1Tests3.Fixtures
 		private void LogMethod ( string message , string callerfilepath , string callermembername )
 		{
 			Sink.OnMessage ( new DiagnosticMessage ( message ) ) ;
+			Debug.WriteLine(message);
 		}
 	}
 }

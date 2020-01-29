@@ -22,6 +22,9 @@
                         Executed="DumpDebug" />
         <CommandBinding Command="common:MyAppCommands.Restart" Executed="Restart" />
     </Window.CommandBindings>
+    <Window.Resources>
+        <CollectionViewSource x:Key="LogItems" Source="{Binding LogEvents}" />
+    </Window.Resources>
     <TabControl Name="MainTabControl" Margin="10">
         <TabItem Header="Objects">
             <Grid>
@@ -30,9 +33,13 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
             </Grid>
-        </TabItem>N
+        </TabItem>
         <TabItem Header="Autofac" Padding="15" DataContext="{Binding Path=Container}">
-            <controls:Container/>
+            <controls:Container>
+                <aprops:App.LifetimeScope>
+                    <Binding ElementName="mainWindow" Path="(aprops:App.LifetimeScope)"/>
+                </aprops:App.LifetimeScope>
+                </controls:Container>
         </TabItem>
         <TabItem Header="Home">
             <Grid>
@@ -47,7 +54,7 @@
                 </Grid.RowDefinitions>
                 <WrapPanel Grid.Row="0" Grid.Column="0" DataContext="{Binding Path=Configuration}" Grid.ColumnSpan="3">
                     <WrapPanel.Resources>
-                        <CollectionViewSource x:Key="targets" Source="{Binding AllTargets}" />
+                        <CollectionViewSource x:Key="targets" Source="{Binding Path=AllTargets}" />
 
                     </WrapPanel.Resources>
                     <StackPanel Orientation="Vertical">

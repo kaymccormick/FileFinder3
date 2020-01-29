@@ -132,7 +132,7 @@ namespace WpfApp1Tests3.Fixtures
         public Task InitializeAsync()
         {
             //Logger.Debug($"{nameof(InitializeAsync)}"  );
-            return Task.FromResult < object >( null );
+            return _wpfApplicationHelper.InitializeAsync ( ) ;
         }
 
         /// <summary>

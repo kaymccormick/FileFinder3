@@ -14,51 +14,75 @@
         mc:Ignorable="d" FontSize="20"
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
-<common:TestO LifetimeScope="{appShared:LifetimeScope}" x:Key="test"/>
-        <types:ResolveServiceList x:Key="r">
+        <common:TestO LifetimeScope="{appShared:LifetimeScope}" x:Key="test" />
+        <types:ResolveServiceList x:Key="resolveServices">
             <appShared:ResolveService ServiceType="{x:Type interfaces:IObjectIdProvider}">
-                <appShared:App.LifetimeScope><Binding ElementName="mainWindow" Path="(appShared:App.LifetimeScope)"/></appShared:App.LifetimeScope>
-                </appShared:ResolveService>
-    </types:ResolveServiceList>
+                <appShared:App.LifetimeScope>
+                    <Binding ElementName="mainWindow" Path="(appShared:App.LifetimeScope)" />
+                </appShared:App.LifetimeScope>
+            </appShared:ResolveService>
+        </types:ResolveServiceList>
     </Window.Resources>
     <DockPanel LastChildFill="True" DataContext="{Binding ElementName=mainWindow, Path=(appShared:App.LifetimeScope)}">
-        <StackPanel  DockPanel.Dock="Top" Orientation="Horizontal">
-            <TextBlock Text="{Binding Path=Tag}"/>
-            <TextBlock Text="{Binding Source={appShared:LifetimeScope}, Path=Tag}"/>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            <TextBlock Text="{Binding Path=Tag}" />
+            <TextBlock Text="{Binding Source={appShared:LifetimeScope}, Path=Tag}" />
 
         </StackPanel>
         <TabControl Style="{StaticResource TabControlStyle1}">
             <TabItem Header="ResolveServiceList">
                 <Grid>
-                    <ListView ItemsSource="{Binding Source={StaticResource r}}">
+                    <ListView ItemsSource="{Binding Source={StaticResource resolveServices}}">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=ServiceType}"></GridViewColumn>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=ServiceInstance}"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=ServiceType}" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=ServiceInstance}" />
                             </GridView>
                         </ListView.View>
                     </ListView>
                 </Grid>
             </TabItem>
             <TabItem Header="Registrations">
-                <controls:Registrations><appShared:App.LifetimeScope><Binding ElementName="mainWindow" Path="(appShared:App.LifetimeScope)"/></appShared:App.LifetimeScope></controls:Registrations>
+                <controls:Registrations>
+                    <appShared:App.LifetimeScope>
+                        <Binding ElementName="mainWindow" Path="(appShared:App.LifetimeScope)" />
+                    </appShared:App.LifetimeScope>
+                </controls:Registrations>
             </TabItem>
             <TabItem Header="Y">
                 <StackPanel DataContext="{StaticResource test}">
-                    <TextBlock Text="{Binding Path=LifetimeScope.Tag}"/>
+                    <TextBlock Text="{Binding Path=LifetimeScope.Tag}" />
                 </StackPanel>
             </TabItem>
             <TabItem Header="X">
-                <ListView ItemsSource="{Binding Source={StaticResource r}}">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn DisplayMemberBinding="{Binding Source={appShared:ObjectId}}"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding Path=ServiceType}"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding Path=LifetimeScope.Tag}"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding ConverterParameter={appShared:LifetimeScope}, Converter={StaticResource MyConverter}}"/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <ListView Name="resolveServicesList" ItemsSource="{Binding Source={StaticResource resolveServices}}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Object ID"
+                                                DisplayMemberBinding="{Binding Source={appShared:ObjectId 
+                                LifetimeScope={appShared:LifetimeScope}}}" />
+                                <GridViewColumn Header="Service Type" DisplayMemberBinding="{Binding Path=ServiceType}" />
+                                <GridViewColumn Header="Tag" DisplayMemberBinding="{Binding Path=LifetimeScope.Tag}" />
+                                <GridViewColumn Header="Service Instance"
+                                                DisplayMemberBinding="{Binding ConverterParameter={appShared:LifetimeScope}, Converter={StaticResource MyConverter}}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <ListView ItemsSource="{Binding ElementName=resolveServicesList,Path=SelectedItem}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn DisplayMemberBinding="{Binding ObjectId}"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Instance.Parameters}"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Instance}"/>
+                            </GridView>/>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
             </TabItem>
         </TabControl>
     </DockPanel>

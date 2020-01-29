@@ -6,33 +6,37 @@
              MinWidth="300" MinHeight="200"
              xmlns:system="clr-namespace:System;assembly=mscorlib" 
              xmlns:common="clr-namespace:Common;assembly=Common"
+             xmlns:appShared="clr-namespace:AppShared;assembly=AppShared"
+             xmlns:core="clr-namespace:Autofac.Core;assembly=Autofac"
+             DataContext="{Binding (appShared:App.LifetimeScope)}"
              mc:Ignorable="d">
+    <UserControl.Resources>
+        <CollectionViewSource
+            x:Key="Registrations" Source="{Binding Path=ComponentRegistry.Registrations}" IsLiveGroupingRequested="True" />
+    </UserControl.Resources>
     <Grid>
-    <DockPanel
-                LastChildFill="True"
-                DataContext="{Binding ComponentRegistry.Registrations}">
-        <DockPanel.CommandBindings>
+        <DockPanel
+                LastChildFill="True">
+
+            <DockPanel.CommandBindings>
             <CommandBinding Command="common:MyAppCommands.Load" Executed="LoadInstance" />
             <CommandBinding Command="common:MyAppCommands.Metadata" Executed="Metadata" />
         </DockPanel.CommandBindings>
-        <DockPanel.Resources>
-            <CollectionViewSource
-                        x:Key="Registrations" Source="{Binding}" IsLiveGroupingRequested="True" />
-        </DockPanel.Resources>
+        
         <StackPanel>
-            <TextBlock Text="{Binding}" />
+            <TextBlock Text="{Binding Tag}" />
             <CheckBox Name="InstancesOnly" Checked="InstancesOnly_OnChecked"
                               Content="Only with Instances"
                               Unchecked="InstancesOnly_OnUnchecked" />
         </StackPanel>
-        <Grid DataContext="{Binding Source={StaticResource Registrations}}" VerticalAlignment="Stretch"
+        <Grid VerticalAlignment="Stretch"
                       HorizontalAlignment="Stretch">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <ListView BorderBrush="Violet " BorderThickness="6" Name="ComponentsListView"
-                              d:DataContext="{Binding Source={StaticResource ComponentsListDesignSource}}">
+                <ListView BorderBrush="Violet " BorderThickness="6" Name="ComponentsListView" ItemsSource="{Binding Mode=OneWay, Source={StaticResource Registrations}}">
+                    
                 <ListView.View>
                     <GridView>
                         
@@ -46,8 +50,8 @@
                 </ListView.View>
                 <system:Object />
             </ListView>
-            <StackPanel Grid.Row="2">
-                <ListView ItemsSource="{Binding ElementName=userControl, Path=DataContext}">
+                <StackPanel Grid.Row="2">
+                    <ListView ItemsSource="{Binding Path=CurrentItem,Source={StaticResource Registrations}}">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn DisplayMemberBinding="{Binding Path=ObjectId}" />

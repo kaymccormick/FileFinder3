@@ -137,14 +137,14 @@ namespace WpfApp1Tests3
 			customAttribute.MyApp = WpfApplicationFixture.MyApp as App ;
 
 			Assert.NotNull ( WpfApplicationFixture ) ;
-			Assert.NotNull ( WpfApplicationFixture.BasePackUri ) ;
-			var uri = new Uri ( WpfApplicationFixture.BasePackUri , "Application/App.xaml" ) ;
-			Logger.Info ( uri ) ;
-
-			foreach ( DictionaryEntry resource in ( WpfApplicationFixture.MyApp as App ).Resources )
-			{
-				Logger.Info ( $"{resource.Key}" ) ;
-			}
+			// Assert.NotNull ( WpfApplicationFixture.BasePackUri ) ;
+			// var uri = new Uri ( WpfApplicationFixture.BasePackUri , "Application/App.xaml" ) ;
+			// Logger.Info ( uri ) ;
+			//
+			// foreach ( DictionaryEntry resource in ( WpfApplicationFixture.MyApp as App ).Resources )
+			// {
+			// 	Logger.Info ( $"{resource.Key}" ) ;
+			// }
 
 			IContainer container ;
 			var c = ContainerHelper.SetupContainer ( out container ) ;

@@ -73,13 +73,12 @@ namespace Common.Logging
 			LoggerProxyHelper.LogMethod logMethod
 		)
 		{
-			logMethod ( "Starting logger configuration." ) ;
+			logMethod ( "*** Starting logger configuration." ) ;
 			InternalLogging ( ) ;
 
 			var proxyGenerator = new ProxyGenerator ( ) ;
 			var loggerProxyHelper = new LoggerProxyHelper ( proxyGenerator , DoLogMessage ) ;
 			var logFactory = new MyLogFactory ( DoLogMessage ) ;
-			logFactory = logFactory ;
 			var lconfLogFactory = loggerProxyHelper.CreateLogFactory ( logFactory ) ;
 
 			var fieldInfo = typeof ( LogManager ).GetField (
@@ -126,6 +125,7 @@ namespace Common.Logging
 			var byName = new Dictionary < string , Target > ( ) ;
 			foreach ( var target in t )
 			{
+				// logMethod ( $"target is {target}" ) ;
 				var count = 0 ;
 				var type = target.GetType ( ) ;
 				byType.TryGetValue ( type , out count ) ;
@@ -296,6 +296,9 @@ namespace Common.Logging
 
 			var isMyConfig = ! _configLoaded     || LogManager.Configuration is CodeConfiguration ;
 			var doConfig = ! LoggingIsConfigured || ForceCodeConfig && ! isMyConfig ;
+			logMethod (
+			           $"{nameof ( LoggingIsConfigured )} = {LoggingIsConfigured}; {nameof ( ForceCodeConfig )} = {ForceCodeConfig}; {nameof ( isMyConfig )} = {isMyConfig});"
+			          ) ;
 			if ( DumpExistingConfig )
 			{
 				Action < string > collect = s_ => {

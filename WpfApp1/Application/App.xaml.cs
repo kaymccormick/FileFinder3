@@ -38,12 +38,7 @@ using LogManager = NLog.LogManager ;
 
 namespace WpfApp1.Application
 {
-	public enum ExitCode
-	{
-		Success        = 0,
-		GeneralError   = 1,
-		ArgumentsError = 2,
-	}
+	public enum ExitCode { Success = 0 , GeneralError = 1 , ArgumentsError = 2 , }
 
 	/// <summary>
 	///     Interaction logic for App.xaml
@@ -51,7 +46,7 @@ namespace WpfApp1.Application
 	public partial class App : System.Windows.Application , IHaveAppLogger
 	{
 		private IContainer _container ;
-		
+
 
 		public AppLogger AppLogger { get ; set ; } = null ;
 
@@ -59,34 +54,47 @@ namespace WpfApp1.Application
 
 		public App ( )
 		{
+			DoLogMethod = new LoggerProxyHelper.LogMethod ( doLogMessage ) ;
 			try
 			{
-
-				TaskCompletionSource < int > s = new TaskCompletionSource < int > ( ) ;
+				var s = new TaskCompletionSource < int > ( ) ;
 
 				TCS = s ;
 				var cd = AppDomain.CurrentDomain ;
 				cd.AssemblyLoad += CurrentDomainOnAssemblyLoad ;
 				//cd.TypeResolve += CdOnTypeResolve;
 				cd.ProcessExit += ( sender , args ) => {
-
-					Logger?.Debug ( $"Exiting. args is {args}" ) ;
+					DoLogMethod ( $"Exiting. args is {args}" ) ;
 				} ;
 				cd.UnhandledException += CdOnUnhandledException ;
 				cd.ResourceResolve    += CdOnResourceResolve ;
 
 				cd.FirstChanceException += CurrentDomainOnFirstChanceException ;
-			} catch(Exception ex)
+			}
+			catch ( Exception ex )
 			{
-				Logger.Error ( ex , "exception in constructor" ) ;
+				DoLogMethod ( ex.ToString ( ) + "exception in constructor" ) ;
 			}
 		}
+
+		public LoggerProxyHelper.LogMethod DoLogMethod { get ; set ; }
+
+		private void doLogMessage (
+			string message
+		  , string callerfilepath
+		  , string callermembername
+		)
+		{
+			Logger?.Debug ( message ) ;
+			Debug.WriteLine ( message ) ;
+		}
+
 
 		public TaskCompletionSource < int > TCS { get ; set ; }
 
 		private Assembly CdOnResourceResolve ( object sender , ResolveEventArgs args )
 		{
-			Logger.Warn ( $"nameof(CdOnResourceResolve): {args.Name}" );
+			DoLogMethod ( $"nameof(CdOnResourceResolve): {args.Name}" ) ;
 			return null ;
 		}
 
@@ -94,28 +102,31 @@ namespace WpfApp1.Application
 		{
 			var message = "" ;
 			message = e.ExceptionObject.GetPropertyValue < string > ( "Message" ) ;
-			UnhandledException err = new UnhandledException (
-			                                                 "UnhandledException: " + message
-			                                               , e.ExceptionObject as Exception
-			                                                ) ;
-			if ( Logger == null )
-			{
-				LogManager.GetCurrentClassLogger ( )
-				          .Error ( err , $"{err.Message} Terminating={e.IsTerminating}" ) ;
+			var err = new UnhandledException (
+			                                  "UnhandledException: " + message
+			                                , e.ExceptionObject as Exception
+			                                 ) ;
 
-			}
-			else
-			{
+			var formattableString = $"{err.Message} Terminating={e.IsTerminating}" ;
+			DoLogMethod ( formattableString ) ;
+			// if ( Logger == null )
+			// {
+			// LogManager.GetCurrentClassLogger ( L
+			// .Error ( err , formattableString ) ;
 
-				Logger?.Error ( err , $"{err.Message} Terminating={e.IsTerminating}" ) ;
-			}
+			// }
+			// else
+			// {
+
+			// Logger?.Error ( err , formattableString ) ;
+			// }
 		}
 
 
 		private Assembly CdOnTypeResolve ( object sender , ResolveEventArgs args )
 		{
-			Logger.Warn ( $"{args.Name}" );
-			Logger.Warn($"Requesting assembly is {args.RequestingAssembly.FullName}");
+			DoLogMethod ( $"{args.Name}" ) ;
+			DoLogMethod ( $"Requesting assembly is {args.RequestingAssembly.FullName}" ) ;
 			return null ;
 		}
 
@@ -123,10 +134,10 @@ namespace WpfApp1.Application
 		{
 			if ( Logger != null )
 			{
-				Logger.Trace(args.LoadedAssembly ) ;
+				Logger.Trace ( args.LoadedAssembly ) ;
 			}
 			else
-			{	
+			{
 				//Debug.WriteLine ( args.LoadedAssembly ) ;
 			}
 		}
@@ -138,14 +149,24 @@ namespace WpfApp1.Application
 		{
 			try
 			{
-				Logger?.Trace ( $"{e.Exception.Message}" ) ;
-			} catch(Exception ex)
-			{
-				Debug.WriteLine ( ( ex.Message ) ) ;
+				var msg = $"{e.Exception.Message}" ;
+				DoLogMethod ( msg ) ;
+				Debug.WriteLine ( "Exception: " + e.Exception ) ;
+				var inner = e.Exception.InnerException ;
+				var seen = new HashSet < object > ( ) ;
+				while ( inner != null
+				        && ! seen.Contains ( inner ) )
+				{
+					DoLogMethod ( inner.Message ) ;
+					inner = inner.InnerException ;
+				}
 			}
+			catch ( Exception ex )
+			{
+				Debug.WriteLine ( "Exception: " + ex ) ;
+			}
+		}
 
-	;	}
-			
 		private string RegOutput ( IComponentRegistration registration , int i )
 		{
 			var registrationActivator = registration.Activator ;
@@ -166,41 +187,42 @@ namespace WpfApp1.Application
 
 		private void OpenWindowExecuted ( object sender , ExecutedRoutedEventArgs e )
 		{
-			Logger.Info ( $"{sender} {e.Parameter}" ) ;
+			DoLogMethod ( $"{sender} {e.Parameter}" ) ;
 		}
 
 		[ System.Diagnostics.CodeAnalysis.SuppressMessage (
-															  "Usage"
-															, "VSTHRD001:Avoid legacy thread switching APIs"
-															, Justification = "<Pending>"
-														  ) ]
-
+			                                                  "Usage"
+			                                                , "VSTHRD001:Avoid legacy thread switching APIs"
+			                                                , Justification = "<Pending>"
+		                                                  ) ]
 		private object DispatcherOperationCallback ( object arg )
 		{
-			Logger?.Info ( $"{nameof(DispatcherOperationCallback)}");
+			DoLogMethod ( $"{nameof ( DispatcherOperationCallback )}" ) ;
+
 			AppInitialize ( ) ;
 
 			MainWindow mainWindow = null ;
 			try
 			{
 				mainWindow = AppContainer.Resolve < MainWindow > ( ) ;
-				Logger.Trace ( $"Reeeived {mainWindow} " ) ;
-			} catch(Exception ex)
+				DoLogMethod ( $"Reeeived {mainWindow} " ) ;
+			}
+			catch ( Exception ex )
 			{
-				Logger.Error ( "Cant resolve newwindow: " + ex.Message ) ;
-				mainWindow = new MainWindow();
+				DoLogMethod ( "Cant resolve newwindow: " + ex.Message ) ;
+				mainWindow = new MainWindow ( ) ;
 			}
 
 			if ( ShowMainWindow )
 			{
 				try
 				{
+					//mainWindow.WindowState = WindowState.Minimized ;
 					mainWindow.Show ( ) ;
 				}
 				catch ( Exception ex )
 				{
-					Logger?.Error ( ex , ex.Message ) ;
-
+					DoLogMethod ( ex.Message ) ; //?.Error ( ex , ex.Message ) ;
 				}
 #if SHOWWINDOW
 				var mainWindow = new MainWindow();
@@ -208,16 +230,16 @@ namespace WpfApp1.Application
 #endif
 			}
 
+			
 			Initialized = true ;
 
 			return null ;
 		}
 
-		private void AppInitialize ( )
+		public void AppInitialize ( )
 		{
 			AppContainer = ContainerHelper.SetupContainer ( out var container ) ;
 			_container   = container ;
-
 
 			PresentationTraceSources.Refresh ( ) ;
 			if ( DoTracing )
@@ -246,7 +268,9 @@ namespace WpfApp1.Application
 			loggerTracker.LoggerRegistered += ( sender , args ) => {
 				if ( args.Logger.Name == myLoggerName )
 				{
-					args.Logger.Trace ( "Received logger for application in LoggerREegistered handler." ) ;
+					args.Logger.Trace (
+					                   "Received logger for application in LoggerREegistered handler."
+					                  ) ;
 				}
 				else
 				{
@@ -275,40 +299,47 @@ namespace WpfApp1.Application
 			                                 , handler
 			                                  ) ;
 			Resources[ "MyMenuItemList" ] = menuItemList ;
-			Logger.Trace ( $"Attempting to resolve MainWindow" ) ;
 
 			var objectIdProvider = AppContainer.Resolve < IObjectIdProvider > ( ) ;
 
-			RegistrationConverter
-				converter = new RegistrationConverter ( AppContainer , objectIdProvider ) ;
+			var converter = new RegistrationConverter ( AppContainer , objectIdProvider ) ;
 			Resources[ "RegistrationConverter" ] = converter ;
-
-			
+			Stage2Complete                       = true ;
+			TCS.SetResult ( 1 ) ;
 		}
+
+		public bool Stage2Complete { get ; set ; }
 
 		public bool Initialized { get ; set ; }
 
-		public bool ShowMainWindow { get ; set ; } = true ;	
+		public bool ShowMainWindow { get ; set ; } = true ;
 
 		public bool DoTracing { get ; } = false ;
 
 
 		private void MainWindowLoaded ( object o , RoutedEventArgs args )
 		{
-			MainWindow w = o as MainWindow;
-			if (w == null) {}
+			var w = o as MainWindow ;
+			if ( w == null ) { }
+
 			{
 				Logger.Error ( $"Bad type for event sender {o.GetType ( )}" ) ;
 			}
 
 			var fe = o as FrameworkElement ;
-			Logger.Info ( $"{nameof ( MainWindowLoaded )}" ) ;
+			DoLogMethod ( $"{nameof ( MainWindowLoaded )}" ) ;
 			AppShared.App.SetMenuItemListCollectionView ( fe , MenuItemListCollectionView ) ;
-			Logger.Debug ( $"Setting LifetimeScooe DependencyProperty to {AppContainer}" ) ;
-			AppShared.App.SetAssemblyList(w, new AssemblyList(AppDomain.CurrentDomain.GetAssemblies()));
-			AppShared.App.SetContainer(fe, _container);
+			DoLogMethod ( $"Setting LifetimeScooe DependencyProperty to {AppContainer}" ) ;
+			AppShared.App.SetAssemblyList (
+			                               w
+			                             , new AssemblyList (
+			                                                 AppDomain
+				                                                .CurrentDomain.GetAssemblies ( )
+			                                                )
+			                              ) ;
+			AppShared.App.SetContainer ( fe , _container ) ;
 			AppShared.App.SetLifetimeScope ( fe , AppContainer ) ;
-			Logger.Info ( $"{w.LifetimeScope} - {w.LifetimeScope.Tag}" ) ;
+			DoLogMethod ( $"{w.LifetimeScope} - {w.LifetimeScope.Tag}" ) ;
 		}
 
 		// ReSharper disable once MemberCanBePrivate.Global
@@ -319,28 +350,28 @@ namespace WpfApp1.Application
 			try
 			{
 				EventManager.RegisterClassHandler (
-												   typeof ( Window )
-												 , UIElement.KeyDownEvent
-												 , new KeyEventHandler ( OnKeyDown )
-												  ) ;
+				                                   typeof ( Window )
+				                                 , UIElement.KeyDownEvent
+				                                 , new KeyEventHandler ( OnKeyDown )
+				                                  ) ;
 			}
 			catch ( Exception ex )
 			{
-				Logger.Error ( ex , ex.Message ) ;
+				DoLogMethod ( ex.Message ) ;
 			}
 		}
 
 		private void OnKeyDown ( object sender , KeyEventArgs e )
 		{
 			if ( e.Key                         == Key.T
-				 && e.KeyboardDevice.Modifiers == ( ModifierKeys.Control | ModifierKeys.Alt ) )
+			     && e.KeyboardDevice.Modifiers == ( ModifierKeys.Control | ModifierKeys.Alt ) )
 			{
 				Process.Start (
-							   new ProcessStartInfo (
-													 @".\Demo.XamlDesigner.exe"
-												   , @"..\WpfApp1\Windows\MainWindow.xaml"
-													) { WorkingDirectory = @"..\..\..\tools" }
-							  ) ;
+				               new ProcessStartInfo (
+				                                     @".\Demo.XamlDesigner.exe"
+				                                   , @"..\WpfApp1\Windows\MainWindow.xaml"
+				                                    ) { WorkingDirectory = @"..\..\..\tools" }
+				              ) ;
 			}
 		}
 
@@ -349,25 +380,39 @@ namespace WpfApp1.Application
 		  , DispatcherUnhandledExceptionEventArgs e
 		)
 		{
-			Logger?.Fatal (
-						   e.Exception
-						 , $"{nameof ( Application_DispatcherUnhandledException )}: {e.Exception.Message}"
-						  ) ;
+			var msg =
+				$"{nameof ( Application_DispatcherUnhandledException )}: {e.Exception.Message}" ;
+			DoLogMethod ( msg ) ;
+			var inner = e.Exception.InnerException ;
+			var seen = new HashSet < object > ( ) ;
+			while ( inner != null
+			        && ! seen.Contains ( inner ) )
+			{
+				DoLogMethod ( inner.Message ) ;
+				inner = inner.InnerException ;
+			}
 		}
 
 		private void App_OnExit ( object sender , ExitEventArgs e )
 		{
-			Logger?.Warn ( $"Appliccation exiting.  Exit code is {e.ApplicationExitCode}" ) ;
+			DoLogMethod ( $"Appliccation exiting.  Exit code is {e.ApplicationExitCode}" ) ;
 		}
 
 		/// <summary>Raises the <see cref="E:System.Windows.Application.Startup" /> event.</summary>
 		/// <param name="e">A <see cref="T:System.Windows.StartupEventArgs" /> that contains the event data.</param>
 		protected override void OnStartup ( StartupEventArgs e )
 		{
+			DoOnStartup ( e.Args) ;
+			
+			base.OnStartup ( e ) ;
+		}
+
+		public void DoOnStartup ( string[] args )
+		{
 			AddEventListeners ( ) ;
-			if ( e.Args.Any ( ) )
+			if ( ProcessArgs && args.Any ( ) )
 			{
-				var windowName = e.Args[ 0 ] ;
+				var windowName = args[ 0 ] ;
 				var xaml = "../Windows/" + windowName + ".xaml" ;
 				var converter = TypeDescriptor.GetConverter ( typeof ( Uri ) ) ;
 				if ( converter.CanConvertFrom ( typeof ( string ) ) )
@@ -378,74 +423,81 @@ namespace WpfApp1.Application
 			}
 			else
 			{
-				Dispatcher.BeginInvoke (
-										DispatcherPriority.Send
-									  , ( DispatcherOperationCallback ) DispatcherOperationCallback
-									  , null
-									   ) ;
+				var dispatcherOperation = Dispatcher.BeginInvoke (
+				                                                  DispatcherPriority.Send
+				                                                , ( DispatcherOperationCallback )
+				                                                  DispatcherOperationCallback
+				                                                , null
+				                                                 ) ;
+				DispatcherOp = dispatcherOperation ;
 			}
-			base.OnStartup ( e ) ;
 		}
-		private void Application_DispatcherUnhandledException1(object                                                         sender,
-															   System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+		public DispatcherOperation DispatcherOp { get ; set ; }
+
+		public bool ProcessArgs { get ; set ; } = false ;
+
+		private void Application_DispatcherUnhandledException1 (
+			object                                sender
+		  , DispatcherUnhandledExceptionEventArgs e
+		)
 		{
-			Logger.Error(e.Exception, $"Unhandled exception {e.Exception}");
-			Exception inner = e.Exception.InnerException;
-			HashSet<object> seen = new HashSet<object>();
-			while (inner != null && !seen.Contains(inner))
+			Logger.Error ( e.Exception , $"Unhandled exception {e.Exception}" ) ;
+			var inner = e.Exception.InnerException ;
+			var seen = new HashSet < object > ( ) ;
+			while ( inner != null
+			        && ! seen.Contains ( inner ) )
 			{
-				Logger.Debug(inner, inner.Message);
-				inner = inner.InnerException;
+				Logger.Debug ( inner , inner.Message ) ;
+				inner = inner.InnerException ;
 			}
 
-			ErrorExit(ExitCode.GeneralError);
+			ErrorExit ( ExitCode.GeneralError ) ;
 			// foreach (var window in Windows)
 			// {
 			//     ((Window) window).Close();
 			// }
 		}
 
-		private void ErrorExit(ExitCode exitcode = ExitCode.GeneralError)
+		private void ErrorExit ( ExitCode exitcode = ExitCode.GeneralError )
 		{
-			if (exitcode != null)
+			if ( exitcode != null )
 			{
-				object code = Convert.ChangeType(exitcode, exitcode.GetTypeCode());
-				if (code != null)
+				var code = Convert.ChangeType ( exitcode , exitcode.GetTypeCode ( ) ) ;
+				if ( code != null )
 				{
-					int intCode = (int) code;
+					var intCode = ( int ) code ;
 
-					Logger.Info($"Exiting with code {intCode}, {exitcode}");
-					if (System.Windows.Application.Current == null)
+					DoLogMethod ( $"Exiting with code {intCode}, {exitcode}" ) ;
+					if ( Current == null )
 					{
-						Logger.Debug("No application reference");
-						System.Diagnostics.Process.GetCurrentProcess().Kill();
+						DoLogMethod ( "No application reference" ) ;
+						Process.GetCurrentProcess ( ).Kill ( ) ;
 					}
 					else
 					{
-						System.Windows.Application.Current.Shutdown(intCode);
+						Current.Shutdown ( intCode ) ;
 					}
 				}
 			}
 		}
-
 	}
 
 	public class UnhandledException : Exception
 	{
 		/// <summary>Initializes a new instance of the <see cref="T:System.Exception" /> class.</summary>
-		public UnhandledException ( ) {
-		}
+		public UnhandledException ( ) { }
 
 		/// <summary>Initializes a new instance of the <see cref="T:System.Exception" /> class with a specified error message.</summary>
 		/// <param name="message">The message that describes the error.</param>
-		public UnhandledException ( string message ) : base ( message )
-		{
-		}
+		public UnhandledException ( string message ) : base ( message ) { }
 
 		/// <summary>Initializes a new instance of the <see cref="T:System.Exception" /> class with a specified error message and a reference to the inner exception that is the cause of this exception.</summary>
 		/// <param name="message">The error message that explains the reason for the exception.</param>
 		/// <param name="innerException">The exception that is the cause of the current exception, or a null reference (<see langword="Nothing" /> in Visual Basic) if no inner exception is specified.</param>
-		public UnhandledException ( string message , Exception innerException ) : base ( message , innerException )
+		public UnhandledException ( string message , Exception innerException ) : base (
+		                                                                                message
+		                                                                              , innerException
+		                                                                               )
 		{
 		}
 
@@ -455,9 +507,11 @@ namespace WpfApp1.Application
 		/// <exception cref="T:System.ArgumentNullException">
 		/// <paramref name="info" /> is <see langword="null" />.</exception>
 		/// <exception cref="T:System.Runtime.Serialization.SerializationException">The class name is <see langword="null" /> or <see cref="P:System.Exception.HResult" /> is zero (0).</exception>
-		protected UnhandledException ( [ NotNull ] SerializationInfo info , StreamingContext context ) : base ( info , context )
+		protected UnhandledException (
+			[ NotNull ] SerializationInfo info
+		  , StreamingContext              context
+		) : base ( info , context )
 		{
 		}
 	}
-
 }

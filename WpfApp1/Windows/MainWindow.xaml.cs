@@ -20,6 +20,7 @@ using Autofac.Core ;
 using Common ;
 using Common.Logging ;
 using NLog ;
+using NLog.Config ;
 using Sentinel.NLog ;
 using Vanara.Extensions.Reflection ;
 using WpfApp1.Application ;
@@ -43,7 +44,7 @@ namespace WpfApp1.Windows
 	public partial class MainWindow : Window , IHaveLogger , IHaveAppLogger
 
 	{
-
+public LoggingConfiguration Configuration { get ; set ; }
 		public static DependencyProperty
 			LifetimeScopeProperty = AppShared.App.LifetimeScopeProperty ;
 

@@ -9,66 +9,74 @@
 // 
 // ---
 #endregion
-using System ;
+using System.Diagnostics ;
 using System.Reflection ;
-using System.Threading.Tasks ;
 using System.Windows ;
+using Common.Logging ;
 using NLog ;
 using WpfApp1.Application ;
 using Xunit.Sdk ;
 
 namespace WpfApp1Tests3.Attributes
 {
-	public class AppInitializeAttribute
-		: BeforeAfterTestAttribute
+	public class AppInitializeAttribute : BeforeAfterTestAttribute
 	{
-		private static Logger Logger = null ;
-			// LogManager.GetCurrentClassLogger();
+		private static readonly Logger Logger = null ;
+
+		public App MyApp { get ; set ; }
+		// LogManager.GetCurrentClassLogger();
 
 
 		/// <summary>
-		/// This method is called after the test method is executed.
+		///     This method is called after the test method is executed.
 		/// </summary>
 		/// <param name="methodUnderTest">The method under test</param>
-		public override void After ( MethodInfo methodUnderTest ) { base.After ( methodUnderTest ) ; }
+		public override void After ( MethodInfo methodUnderTest )
+		{
+			base.After ( methodUnderTest ) ;
+		}
 
 		/// <summary>
-		/// This method is called before the test metphod is executed.
+		///     This method is called before the test metphod is executed.
 		/// </summary>
 		/// <param name="methodUnderTest">The method under test</param>
 		public override void Before ( MethodInfo methodUnderTest )
 		{
+			LoggerProxyHelper.LogMethod logMethod = LogMethod;
 			// Logger.Trace ( $"Nefore" ) ;
 			// Application.LoadComponent (
-			                           // Application.Current
-			                         // , new Uri ( "Applications/App.xaml" )
-	                                
-			                          // ) ;
-			                          MyApp = ( Application.Current as App ) ;
-			
+			// Application.Current
+			// , new Uri ( "Applications/App.xaml" )
 
-			                          if ( MyApp != null && MyApp.TCS != null )
-			                          {
-				                          if ( MyApp.TCS.Task != null )
-				                          {
-					                          Logger?.Info ( "Waiting for task to complete" ) ;
-					                          MyApp.TCS.Task.Wait ( ) ;
-				                          }
-				                          else
-				                          {
-					                          Logger?.Debug ( "null" ) ;
-				                          }
-			                          }
-			                          else
-			                          {
-				Logger.Debug ( "null" );
-				
-			                          }
+			// ) ;
+			MyApp = Application.Current as App ;
 
-			                          base.Before ( methodUnderTest ) ;
+
+			if ( MyApp        != null
+			     && MyApp.TCS != null )
+			{
+				if ( MyApp.TCS.Task != null )
+				{
+					logMethod ( "Waiting for task to complete" ) ;
+					MyApp.TCS.Task.Wait ( ) ;
+				}
+				else
+				{
+					logMethod( "null" ) ;
+				}
+			}
+			else
+			{
+logMethod( "null" ) ;
+			}
+
+			base.Before ( methodUnderTest ) ;
 		}
 
-		public App MyApp {get ; set ; }
-	
+		private void LogMethod ( string message , string callerfilepath , string callermembername )
+		{
+			Logger?.Debug ( message ) ;
+			Debug.WriteLine(message);
+		}
 	}
 }

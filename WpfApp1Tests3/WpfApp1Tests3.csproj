@@ -105,6 +105,7 @@
     <Compile Include="MenuHelperTests.cs" />
     <Compile Include="MyService.cs" />
     <Compile Include="ProvideValueTarget.cs" />
+    <Compile Include="RandomXaml.cs" />
     <Compile Include="Resources.cs" />
     <Compile Include="ServiceProviderProxy.cs" />
     <Compile Include="TestIDGeneratorModule.cs" />
