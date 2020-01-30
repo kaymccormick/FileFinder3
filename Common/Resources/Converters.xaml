@@ -12,4 +12,5 @@
     <converters:MyConverter x:Key="MyConverter"/>
     <converters:TargetConverter x:Key="TargetConverter"/>
     <converters:GetTypeConverter x:Key="GetTypeConverter"/>
+    <converters:XamlConverter x:Key="XamlConverter"/>
 </ResourceDictionary>

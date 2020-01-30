@@ -253,11 +253,10 @@ namespace Common.Controls
 
 		private void HyperLinkOnRequestNavigate ( object sender , RequestNavigateEventArgs e )
 		{
-			//
-			// if(findName == null)
-			// {
-			// 	Logger.Debug ( "Cant find " + findName) ;
-			// }
+			if ( UsePageFunction )
+			{
+				
+			}
 			Logger.Debug ( $"{nameof ( HyperLinkOnRequestNavigate )}: Uri={e.Uri}" ) ;
 			var uie = ( ContentElement ) sender ;
 			try
@@ -299,6 +298,8 @@ namespace Common.Controls
 				Logger.Warn ( ex , ex.Message ) ;
 			}
 		}
+
+		public bool UsePageFunction { get ; set ; }
 	}
 
 	internal class NavState

@@ -17,7 +17,14 @@
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
         <DataTemplate DataType="{x:Type DataTemplate}" x:Key="{x:Type DataTemplate}">
-            <TextBlock Text="{Binding Path=DataType}"/>
+            <WrapPanel>
+                <controls:TypeControl>
+                    <appShared:App.RenderedType>
+                        <Binding Path="DataType"/>
+                    </appShared:App.RenderedType>
+                </controls:TypeControl>
+                <TextBlock Text="{Binding Converter={StaticResource XamlConverter}}"></TextBlock>
+            </WrapPanel>
         </DataTemplate>
         <DataTemplate DataType="{x:Type types:ResolveServiceList}" x:Key="{x:Type types:ResolveServiceList}">
             <ListBox ItemsSource="{Binding}"/>
@@ -47,6 +54,7 @@
                 </appShared:App.RenderedType>
             </controls:TypeControl>
         </DataTemplate>
+        <local:ContentTemplateSelector1 x:Key="ContentTemplateSelector1" />
     </Window.Resources>
     <Grid DataContext="{Binding ElementName=mainWindow, Path=(appShared:App.LifetimeScope)}">
         <Grid.ColumnDefinitions><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
@@ -153,9 +161,9 @@
                 <Frame.RenderTransform><ScaleTransform ScaleX="2" ScaleY="2"/></Frame.RenderTransform>
                 </Frame>
 </TabItem>
-            <TabItem Name="Secondary" Header="Secondary">
+            <TabItem Name="Secondary" Header="Secondary" Height="20" Margin="0.4,0,0,0" VerticalAlignment="Top">
                 <Grid>
-                    <ContentControl Content="{Binding ElementName=resourcesListView,Path=SelectedItem.Value}"/>
+                    <ContentControl ContentTemplateSelector="{StaticResource ContentTemplateSelector1}" Content="{Binding ElementName=resourcesListView,Path=SelectedItem.Value}"/>
                 </Grid>
             </TabItem>
             </TabControl>

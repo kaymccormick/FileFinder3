@@ -76,6 +76,7 @@
     <Compile Include="Converters\RegistrationConverter2.cs" />
     <Compile Include="Converters\RegistrationSourceConverter.cs" />
     <Compile Include="Converters\TargetConverter.cs" />
+    <Compile Include="Converters\XamlConverter.cs" />
     <Compile Include="Hook.cs" />
     <Compile Include="InstanceRegistration.cs" />
     <Compile Include="Logging\AppLogger.cs" />
