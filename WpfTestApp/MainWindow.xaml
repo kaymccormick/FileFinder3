@@ -12,10 +12,11 @@
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         MinWidth="800"
         MinHeight="600"
+        Initialized="MainWindow_OnInitialized"
         mc:Ignorable="d" FontSize="20"
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
-
+        <appShared:AssemblyList x:Key="AssemblyList"/>
         <DataTemplate DataType="{x:Type system:Type}" x:Key="CellTemplateType">
             <controls:TypeControl MinWidth="200" Target="{Binding ElementName=frame}">
                 <appShared:App.RenderedType>
@@ -125,18 +126,28 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Assemblies">
+                <controls:AssemblyBrowser>
+                    <appShared:App.AssemblyList>
+                        <StaticResource ResourceKey="AssemblyList"/></appShared:App.AssemblyList>
+                </controls:AssemblyBrowser>
             </TabItem>
 
 </TabControl>
-            <Frame  Grid.Row="2" Grid.Column="0"
+        <TabControl Grid.Row="2" Grid.Column="0" Name="Bottom" TabStripPlacement="Bottom">
+            <TabItem Header="Browser">
+                <Frame  
                 BorderBrush="Brown" BorderThickness="3"
                 Navigating="Frame_OnNavigating" 
-                   NavigationFailed="Frame_OnNavigationFailed" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Name="frame" Source="TypePage2.xaml">
+                   NavigationFailed="Frame_OnNavigationFailed" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Name="frame" Source="TypePage.xaml">
                 <Frame.CommandBindings>
                     <CommandBinding Command="common:MyAppCommands.VisitType" Executed="VisitType"/>
                 </Frame.CommandBindings>
                 <Frame.RenderTransform><ScaleTransform ScaleX="2" ScaleY="2"/></Frame.RenderTransform>
                 </Frame>
-
-        </Grid>
+</TabItem>
+            <TabItem Name="Secondary" Header="Secondary">
+                <DockPanel/>
+            </TabItem>
+            </TabControl>
+    </Grid>
 </Window>

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using AppShared ;
 using AppShared.Types ;
 using Common.Controls ;
 using NLog ;
@@ -77,6 +78,15 @@ namespace WpfTestApp
 				var typeControl2 = new TypeControl2() ;
 				typeControl2.SetValue(AppShared.App.RenderedTypeProperty, eParameter);
 				var navigate = frame.Navigate(typeControl2) ;
+			}
+		}
+
+		private void MainWindow_OnInitialized ( object sender , EventArgs e )
+		{
+			AssemblyList list = TryFindResource("AssemblyList") as AssemblyList;
+			foreach ( var assembly in AppDomain.CurrentDomain.GetAssemblies ( ) )
+			{
+				list.Add ( assembly ) ;
 			}
 		}
 	}
