@@ -62,30 +62,65 @@ namespace Common.Controls
 
 		private void PopulateControl ( Type myType)
 		{
-			Container.Children.Clear();
+			IAddChild addChild ;
+			if(Detailed)
+			{
+				var paragraph = new Paragraph() ;
+				FlowDocumentReader reader =
+					new FlowDocumentReader { Document = new FlowDocument ( paragraph ) } ;
+				addChild = paragraph ;
+				Content = reader ;
+			}
+			else
+			{
+
+				addChild = new TextBlock();
+				Content = addChild ;
+
+				// Container.Children.Clear();
+				// Container.Children.Add ( block ) ;
+			}
+			// Viewer.Document.Blocks.Clear();
+			// doc.Blocks.Clear();
+			// Container.Children.Clear();
 			if(myType == null)
 			{
 				return ;
 			}
-			TextBlock b = new TextBlock();
+			// TextBlock b = new TextBlock();
 			var mainInline = new Span();
 
 			if ( Detailed )
 			{
+				var elem = new List ( ) ;
+
 				var baseType = myType.BaseType ;
 				while ( baseType != null )
 				{
-					Container.Children.Insert ( 0 , new TextBlock ( new Run ( baseType.Name ) ) ) ;
+					var paragraph = new Paragraph() ;
+					ListItem listItem = new ListItem(paragraph);
+
+					GenerateControlsForType ( baseType , paragraph, false) ;
+					elem.ListItems.Add ( listItem ) ;
+					//Container.Children.Insert ( 0 , new TextBlock ( new Hyperlink()) ( baseType.Name ) ) ) ;
+                    baseType = baseType.BaseType;
 				}
 			}
 
-			GenerateControlsForType ( myType, b ) ;
-			Container.Children.Add ( b ) ;
+			var p = new Span ( ) ;
+			GenerateControlsForType ( myType, p, true) ;
+			addChild.AddChild(p);
+			// Viewer.Document.Blocks.Add ( block ) ;
+			// Container.Children.Add ( ) ;
 
 		}
 
-		private void GenerateControlsForType ( Type myType, IAddChild addChild )
+		private void GenerateControlsForType ( Type myType, IAddChild addChild , bool toolTip)
 		{
+			// TextBlock tb = new TextBlock();
+			// var old = addChild ;
+			// addChild = tb ;
+
 			var name = NameForType ( myType ) ;
 			var hyperLink = new Hyperlink ( new Run ( myType.Name ) ) ;
 			Uri.TryCreate ( "obj://" +Uri.EscapeUriString(myType.Name) , UriKind.Absolute , out Uri res ) ;
@@ -93,7 +128,10 @@ namespace Common.Controls
 			hyperLink.NavigateUri = res ;
 			// hyperLink.Command          = MyAppCommands.VisitTypeCommand ;
 			// hyperLink.CommandParameter = myType ;
-			hyperLink.ToolTip = new ToolTip ( ) { Content = ToopTipContent ( myType ) } ;
+			if ( toolTip )
+			{
+				hyperLink.ToolTip = new ToolTip ( ) { Content = ToopTipContent ( myType ) } ;
+			}
 
 			hyperLink.RequestNavigate += HyperLinkOnRequestNavigate;
 			addChild.AddChild( hyperLink ) ;
@@ -103,7 +141,7 @@ namespace Common.Controls
 				int i = 0 ;
 				foreach ( var arg in myType.GenericTypeArguments )
 				{
-					GenerateControlsForType ( arg , addChild ) ;
+					GenerateControlsForType ( arg , addChild, true ) ;
 					if ( i < myType.GenericTypeArguments.Length )
 					{
 						addChild.AddText(", ");
@@ -112,6 +150,8 @@ namespace Common.Controls
 
 				addChild.AddText ( ">" ) ;
 			}
+
+			//old.AddChild ( tb ) ;
 		}
 
 		private object ToopTipContent ( Type myType , StackPanel pp = null)

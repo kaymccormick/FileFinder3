@@ -101,7 +101,7 @@
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Object ID"
-                                                DisplayMemberBinding="{Binding Source={appShared:ObjectId 
+                                                DisplayMemberBinding="{Binding Source={appShared:ObjectId
                                 LifetimeScope={appShared:LifetimeScope}}}" />
                                 <GridViewColumn Header="Service Type" DisplayMemberBinding="{Binding Path=ServiceType}" />
                                 <GridViewColumn Header="Tag" DisplayMemberBinding="{Binding Path=LifetimeScope.Tag}" />
@@ -125,8 +125,8 @@
 
         </TabControl>
             <Frame VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Name="frame" Source="DefaultPage.xaml">
-                <Frame.RenderTransform><ScaleTransform ScaleX="1" ScaleY="2"/></Frame.RenderTransform>
+                <Frame.RenderTransform><ScaleTransform ScaleX="2" ScaleY="2"/></Frame.RenderTransform>
                 </Frame>
             </StackPanel>
-        </DockPanel>   
+        </DockPanel>
 </Window>
