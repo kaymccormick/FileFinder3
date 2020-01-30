@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:nLog="clr-namespace:NLog;assembly=NLog"
-        xmlns:nLog1="clr-namespace:Sentinel.NLog;assembly=Sentinel.NLog"
         xmlns:aprops="clr-namespace:AppShared;assembly=AppShared"
         xmlns:common="clr-namespace:Common;assembly=Common"
         xmlns:controls="clr-namespace:WpfApp1.Controls"
@@ -125,14 +124,6 @@
         </TabItem>
         <TabItem Header="Assemblies">
             <controls:AssemblyBrowser />
-        </TabItem>
-        <TabItem Header="Config">
-            <StackPanel Orientation="Vertical">
-                <nLog1:NetworkConfigurationPage Name="NetConfig" />
-                <StackPanel Orientation="Horizontal">
-                    <Button Click="ButtonBase_OnClick" Content="Connect" Margin="200,20,0,20" FontSize="24" />
-                </StackPanel>
-            </StackPanel>
         </TabItem>
     </TabControl>
 
