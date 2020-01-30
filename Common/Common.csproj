@@ -54,6 +54,9 @@
     <Compile Include="Context\ContextStackInstanceAttribute.cs" />
     <Compile Include="Context\InfoContextFactoryAttribute.cs" />
     <Compile Include="Context\PushContextAttribute.cs" />
+    <Compile Include="Controls\AssemblyBrowser.xaml.cs">
+      <DependentUpon>AssemblyBrowser.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Registrations.xaml.cs">
       <DependentUpon>Registrations.xaml</DependentUpon>
     </Compile>
@@ -104,6 +107,10 @@
     <Compile Include="Utils\ContainerHelper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\AssemblyBrowser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Registrations.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
