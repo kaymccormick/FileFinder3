@@ -8,6 +8,7 @@
         xmlns:nLog1="clr-namespace:Sentinel.NLog;assembly=Sentinel.NLog"
         xmlns:aprops="clr-namespace:AppShared;assembly=AppShared"
         xmlns:common="clr-namespace:Common;assembly=Common"
+        xmlns:controls1="clr-namespace:Common.Controls;assembly=Common"
         mc:Ignorable="d"
         DataContext="{Binding ElementName=mainWindow}"
         Title="Main Window" Height="450" Width="1000"
@@ -124,7 +125,7 @@
             </Grid>
         </TabItem>
         <TabItem Header="Assemblies">
-            <controls:AssemblyBrowser />
+            <controls1:AssemblyBrowser />
         </TabItem>
         <TabItem Header="Config">
             <StackPanel Orientation="Vertical">

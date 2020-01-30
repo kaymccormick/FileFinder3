@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using AppShared.Types ;
+using Common.Controls ;
 using NLog ;
 
 namespace WpfTestApp
@@ -56,5 +57,27 @@ namespace WpfTestApp
 
 
 		public object TypeFrame { get { return frame ; } }
+
+		private void Frame_OnNavigationFailed ( object sender , NavigationFailedEventArgs e )
+		{
+			var msg = $"{e.Exception.Message}; {e.ExtraData}" ;
+			Logger.Error ( $"Nav failed: {msg}" ) ;
+		}
+
+		private void Frame_OnNavigating ( object sender , NavigatingCancelEventArgs e )
+		{
+			Logger.Error ( e.ContentStateToSave ) ;
+		}
+
+		private void VisitType ( object sender , ExecutedRoutedEventArgs e )
+		{
+			var eParameter = e.Parameter as Type ;
+			if ( eParameter != null )
+			{
+				var typeControl2 = new TypeControl2() ;
+				typeControl2.SetValue(AppShared.App.RenderedTypeProperty, eParameter);
+				var navigate = frame.Navigate(typeControl2) ;
+			}
+		}
 	}
 }

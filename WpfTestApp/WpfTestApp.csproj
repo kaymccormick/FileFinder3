@@ -59,6 +59,9 @@
     <Compile Include="TypePage.xaml.cs">
       <DependentUpon>TypePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TypePage2.xaml.cs">
+      <DependentUpon>TypePage2.xaml</DependentUpon>
+    </Compile>
     <Page Include="DefaultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -79,6 +82,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="TypePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TypePage2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

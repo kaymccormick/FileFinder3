@@ -39,6 +39,8 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -54,11 +56,17 @@
     <Compile Include="Context\ContextStackInstanceAttribute.cs" />
     <Compile Include="Context\InfoContextFactoryAttribute.cs" />
     <Compile Include="Context\PushContextAttribute.cs" />
+    <Compile Include="Controls\AssemblyBrowser.xaml.cs">
+      <DependentUpon>AssemblyBrowser.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Registrations.xaml.cs">
       <DependentUpon>Registrations.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\TypeControl.xaml.cs">
       <DependentUpon>TypeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TypeControl2.xaml.cs">
+      <DependentUpon>TypeControl2.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\AssemblyConverter.cs" />
     <Compile Include="Converters\ComponentLifetimeConverter.cs" />
@@ -70,6 +78,7 @@
     <Compile Include="Converters\RegistrationConverter2.cs" />
     <Compile Include="Converters\RegistrationSourceConverter.cs" />
     <Compile Include="Converters\TargetConverter.cs" />
+    <Compile Include="CustomPanel.cs" />
     <Compile Include="Hook.cs" />
     <Compile Include="InstanceRegistration.cs" />
     <Compile Include="Logging\AppLogger.cs" />
@@ -101,6 +110,10 @@
     <Compile Include="Utils\ContainerHelper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <AdditionalFiles Include="Controls\AssemblyBrowser.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </AdditionalFiles>
     <Page Include="Controls\Registrations.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -108,6 +121,10 @@
     <Page Include="Controls\TypeControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\TypeControl2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Templates.xaml">
       <Generator>MSBuild:Compile</Generator>

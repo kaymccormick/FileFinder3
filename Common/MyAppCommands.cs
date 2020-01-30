@@ -47,7 +47,7 @@ namespace Common
 
         public static readonly RoutedUICommand Metadata =
 	        new RoutedUICommand ( "Metadata" , nameof ( Metadata ) , typeof(MyAppCommands)) ;
-        
-
+        public static readonly RoutedUICommand VisitType =
+	        new RoutedUICommand ( "VisitType" , nameof ( VisitType ) , typeof(MyAppCommands)) ;
     }
 }

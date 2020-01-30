@@ -109,9 +109,6 @@
     <Compile Include="Application\IHaveAppLogger.cs" />
     <Compile Include="Attributes\LoggingEntityMetadata.cs" />
     <Compile Include="Attributes\WindowMetadataAttribute.cs" />
-    <Compile Include="Controls\AssemblyBrowser.xaml.cs">
-      <DependentUpon>AssemblyBrowser.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\Container.xaml.cs">
       <DependentUpon>Container.xaml</DependentUpon>
     </Compile>
@@ -196,10 +193,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Application\MergedResources.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\AssemblyBrowser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

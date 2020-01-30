@@ -1,0 +1,21 @@
+﻿<Page x:Class="WpfTestApp.TypePage2"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfTestApp"
+      xmlns:controls="clr-namespace:Common.Controls;assembly=Common"
+      xmlns:appShared="clr-namespace:AppShared;assembly=AppShared"
+      mc:Ignorable="d" 
+      Background="Azure"
+      d:DesignHeight="150" d:DesignWidth="300"
+      Title="TypePage2">
+
+    <DockPanel LastChildFill="True">
+        <controls:TypeControl2 HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <appShared:App.RenderedType>
+                <x:Type TypeName="Window"/>
+            </appShared:App.RenderedType>
+</controls:TypeControl2>
+    </DockPanel>
+</Page>

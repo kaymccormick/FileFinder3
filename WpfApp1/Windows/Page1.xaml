@@ -6,8 +6,9 @@
       xmlns:local="clr-namespace:WpfApp1.Windows"
       xmlns:system="clr-namespace:System;assembly=mscorlib"
       xmlns:controls="clr-namespace:WpfApp1.Controls"
+      xmlns:controls1="clr-namespace:Common.Controls;assembly=Common"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Page1">
-    <controls:AssemblyBrowser/>
+    <controls1:AssemblyBrowser/>
 </Page>
