@@ -2,10 +2,14 @@
 using System.Collections.Generic ;
 using System.Diagnostics ;
 using System.Linq ;
+using System.Reactive.Concurrency ;
+using System.Reactive.Linq ;
 using System.Threading ;
 using System.Threading.Tasks ;
 using System.Windows ;
 using System.Windows.Automation ;
+using System.Windows.Threading ;
+using Common ;
 using Common.Controls ;
 using Xunit ;
 using Xunit.Abstractions ;
@@ -25,6 +29,20 @@ namespace CommonTests
 		[ WpfFact ]
 		public void TestTypeControl1 ( )
 		{
+			MyCacheTarget.GetInstance ( 1000 )
+			             .Cache.SubscribeOn ( Scheduler.Default )
+			             .Buffer ( TimeSpan.FromMilliseconds ( 100 ) )
+			             .Where ( x => x.Any ( ) )
+			             .ObserveOnDispatcher ( DispatcherPriority.Background )
+			             .Subscribe (
+			                         infos => {
+				                         foreach ( var logEventInfo in infos )
+				                         {
+					                         _output.WriteLine ( logEventInfo.FormattedMessage ) ;
+				                         }
+			                         }
+			                        ) ;
+
 			_output.WriteLine ( $"{Thread.CurrentThread.ManagedThreadId}" ) ;
 
 			var c = new TypeControl { Name = "MyControl" } ;

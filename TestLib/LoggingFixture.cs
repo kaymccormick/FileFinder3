@@ -1,10 +1,9 @@
-﻿
-using System.Diagnostics;
+﻿using System.Diagnostics ;
 using Common.Logging ;
-using Xunit.Abstractions ;
 using Xunit.Sdk ;
+using IMessageSink = Xunit.Abstractions.IMessageSink ;
 
-namespace WpfApp1Tests3.Fixtures
+namespace TestLib
 {
 	public class LoggingFixture
 	{
@@ -14,7 +13,7 @@ namespace WpfApp1Tests3.Fixtures
 		public LoggingFixture (IMessageSink sink) {
 			Sink = sink ;
 			AppLoggingConfigHelper.EnsureLoggingConfigured(false, LogMethod);
-			Debug.WriteLine("MY LogFactory is o " + NLog.LogManager.LogFactory.ToString());
+			// Debug.WriteLine("MY LogFactory is o " + NLog.LogManager.LogFactory.ToString());
 		}
 
 		private void LogMethod ( string message , string callerfilepath , string callermembername )

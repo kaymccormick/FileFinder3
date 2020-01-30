@@ -47,6 +47,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NLog">
+      <HintPath>..\..\..\..\NLog\src\NLog\bin\Debug\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -92,9 +95,6 @@
     <Compile Include="Collections\WpfApplication.cs" />
     <Compile Include="DumpHelper.cs" />
     <Compile Include="Fixtures\CombinedFixture.cs" />
-    <Compile Include="Fixtures\ContainerFixture.cs" />
-    <Compile Include="Fixtures\LogFixture.cs" />
-    <Compile Include="Fixtures\LoggingFixture.cs" />
     <Compile Include="Fixtures\ObjectIDFixture.cs" />
     <Compile Include="Fixtures\UtilsContainerFixture.cs" />
     <Compile Include="Fixtures\WpfApp1Tests3.cs" />
@@ -131,14 +131,6 @@
     <ProjectReference Include="..\..\AppShared\AppShared\AppShared.csproj">
       <Project>{C4C404AE-0214-481B-AB46-708ABD99AF9C}</Project>
       <Name>AppShared</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\new\Sentinel\Sentinel.NLog\Sentinel.NLog.csproj">
-      <Project>{eabc1023-a456-44a7-9d8c-fcd0f6323c58}</Project>
-      <Name>Sentinel.NLog</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\NLog\src\NLog\NLog.csproj">
-      <Project>{a0bff0db-ed9a-4639-ae86-8e709a1efc66}</Project>
-      <Name>NLog</Name>
     </ProjectReference>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{42288D17-ED17-4F2F-9EA3-C3E64D5302BF}</Project>
@@ -248,6 +240,12 @@
       <Version>0.7.0</Version>
     </PackageReference>
     <PackageReference Include="xunit">
+      <Version>2.4.1</Version>
+    </PackageReference>
+    <PackageReference Include="xunit.abstractions">
+      <Version>2.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="xunit.extensibility.core">
       <Version>2.4.1</Version>
     </PackageReference>
     <PackageReference Include="Xunit.Extensions.Ordering">

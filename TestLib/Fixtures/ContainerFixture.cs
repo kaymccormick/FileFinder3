@@ -12,16 +12,14 @@
 
 #endregion
 
-using System;
 using System.Threading.Tasks ;
-using Autofac;
+using Autofac ;
 using Common.Utils ;
-using JetBrains.Annotations;
-using NLog;
-using WpfApp1.Util;
+using JetBrains.Annotations ;
+using NLog ;
 using Xunit ;
 
-namespace WpfApp1Tests3.Fixtures
+namespace TestLib.Fixtures
 {
     [ UsedImplicitly ]
     public class ContainerFixture : IAsyncLifetime

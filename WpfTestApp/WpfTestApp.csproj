@@ -36,6 +36,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NLog">
+      <HintPath>..\..\..\..\NLog\src\NLog\bin\Debug\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -116,10 +119,6 @@
     <ProjectReference Include="..\..\AppShared\AppShared\AppShared.csproj">
       <Project>{c4c404ae-0214-481b-ab46-708abd99af9c}</Project>
       <Name>AppShared</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\NLog\src\NLog\NLog.csproj">
-      <Project>{a0bff0db-ed9a-4639-ae86-8e709a1efc66}</Project>
-      <Name>NLog</Name>
     </ProjectReference>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{42288d17-ed17-4f2f-9ea3-c3e64d5302bf}</Project>
