@@ -40,7 +40,7 @@
         </DataTemplate>
         <DataTemplate DataType="core:Service">
             <WrapPanel>
-                <TextBlock Text="{Binding GetType}" />
+                <TextBlock Text="{Binding Converter={StaticResource GetTypeConverter}}" />
                 <TextBlock Text="{Binding Description}" />
             </WrapPanel>
         </DataTemplate>

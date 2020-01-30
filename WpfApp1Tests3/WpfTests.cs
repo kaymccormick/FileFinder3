@@ -74,7 +74,6 @@ namespace WpfApp1Tests3
 			//var stack = InstanceFactory.CreateContextStack < InfoContext >();
 			var stack = MyStack ;
 			var entry = myServices.InfoContextFactory ( nameof ( menuResources ) , menuResources ) ;
-			;
 			stack.Push ( entry ) ;
 
 			foreach ( var q in menuResources.Keys )

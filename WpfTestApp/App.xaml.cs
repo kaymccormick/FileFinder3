@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Diagnostics ;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using AppShared.Interfaces ;
 using Autofac ;
-using Common ;
 using Common.Tracing ;
 using Common.Utils ;
 using NLog ;
@@ -20,7 +14,7 @@ namespace WpfTestApp
 	/// </summary>
 	public partial class App : Application, IHaveLifetimeScope
 	{
-		private readonly static Logger Logger = LogManager.GetCurrentClassLogger ( ) ;
+		private static readonly Logger Logger = LogManager.GetCurrentClassLogger ( ) ;
 		/// <summary>Raises the <see cref="E:System.Windows.Application.Startup" /> event.</summary>
 		/// <param name="e">A <see cref="T:System.Windows.StartupEventArgs" /> that contains the event data.</param>
 		protected override void OnStartup ( StartupEventArgs e )
@@ -77,7 +71,7 @@ namespace WpfTestApp
 
 		private void Target ( object sender , RoutedEventArgs e )
 		{
-			Window w = ( sender as Window ) ;
+			Window w = sender as Window ;
 			Logger.Warn  ($"Setting LifetimeScope to {MyLifetimeScope}");
 
 			w.SetValue(AppShared.App.LifetimeScopeProperty, MyLifetimeScope);
@@ -85,11 +79,8 @@ namespace WpfTestApp
 
 		public ILifetimeScope LifetimeScope
 		{
-			get
-			{
-				return MyLifetimeScope ;
-			}
-			set { MyLifetimeScope = value ; }
+			get => MyLifetimeScope ;
+			set => MyLifetimeScope = value ;
 		}
 	}
 }
