@@ -14,6 +14,7 @@ using System.Collections.Generic ;
 using System.Globalization ;
 using System.Linq ;
 using System.Runtime.Serialization ;
+using AppShared.Interfaces ;
 using AppShared.Services ;
 using Autofac ;
 using Autofac.Core ;
@@ -41,8 +42,11 @@ namespace CommonTests
 		{
 			// takes IComponentLifetime
 			var random = _fixture.Container.Resolve < IRandom > ( ) ;
-			RegistrationConverter converter = new RegistrationConverter(
-				_fixture.Container, provider : new DefaultObjectIdProvider(new ObjectIDGenerator()));
+			var objIdProv = _fixture.Container.Resolve < IObjectIdProvider > ( ) ;
+			RegistrationConverter converter = new RegistrationConverter (
+			                                                             _fixture.Container
+			                                                           , provider : objIdProv
+			                                                            ) ;
 
 			IEnumerable < IComponentRegistration > regs = _fixture.Container.ComponentRegistry.Registrations ;
 			var value = regs.Where(( registration , i ) => registration.Services.Any(service => service is TypedService t && t.ServiceType == typeof(IRandom))).First ( ) ;
