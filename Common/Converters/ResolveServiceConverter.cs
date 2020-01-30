@@ -6,7 +6,7 @@ using Autofac ;
 
 namespace Common.Converters
 {
-	public class MyConverter : IValueConverter
+	public class ResolveServiceConverter : IValueConverter
 	{
 		/// <summary>Converts a value. </summary>
 		/// <param name="value">The value produced by the binding source.</param>

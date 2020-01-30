@@ -68,7 +68,7 @@
     <Compile Include="Converters\GetTypeConverter.cs" />
     <Compile Include="Converters\InstanceRegistrationConverter.cs" />
     <Compile Include="Converters\LoggerInstanceConverter.cs" />
-    <Compile Include="Converters\MyConverter.cs" />
+    <Compile Include="Converters\ResolveServiceConverter.cs" />
     <Compile Include="Converters\RegistrationConverter.cs" />
     <Compile Include="Converters\RegistrationConverter2.cs" />
     <Compile Include="Converters\RegistrationSourceConverter.cs" />

@@ -9,7 +9,7 @@
     <converters:ComponentLifetimeConverter x:Key="ComponentLifetimeConverter" />
     <converters:RegistrationConverter2 x:Key="RegistrationConverter2"/>
     <converters:RegistrationSourceConverter x:Key="RegistrationSourceConverter"/>
-    <converters:MyConverter x:Key="MyConverter"/>
+    <converters:ResolveServiceConverter x:Key="MyConverter"/>
     <converters:TargetConverter x:Key="TargetConverter"/>
     <converters:GetTypeConverter x:Key="GetTypeConverter"/>
 </ResourceDictionary>
