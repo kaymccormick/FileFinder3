@@ -125,7 +125,6 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Assemblies">
-                <controls:AssemblyBrowser />
             </TabItem>
 
 </TabControl>

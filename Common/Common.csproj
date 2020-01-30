@@ -60,6 +60,9 @@
     <Compile Include="Controls\TypeControl.xaml.cs">
       <DependentUpon>TypeControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\TypeControl2.xaml.cs">
+      <DependentUpon>TypeControl2.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\AssemblyConverter.cs" />
     <Compile Include="Converters\ComponentLifetimeConverter.cs" />
     <Compile Include="Converters\GetTypeConverter.cs" />
@@ -106,6 +109,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\TypeControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\TypeControl2.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
