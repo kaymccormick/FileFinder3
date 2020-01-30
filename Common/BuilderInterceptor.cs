@@ -22,7 +22,6 @@ namespace Common
 		public void Intercept ( IInvocation invocation )
 		{
 			var i = new MethodInvocation ( ) ;
-			;
 			i.Method    = invocation.Method ;
 			i.Arguments = invocation.Arguments ;
 			Invocations.Add ( i ) ;

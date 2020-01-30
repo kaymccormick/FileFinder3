@@ -55,7 +55,9 @@
                     <ListView ItemsSource="{Binding Path=CurrentItem,Source={StaticResource Registrations}}">
                     <ListView.View>
                         <GridView>
+                            <!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
                             <GridViewColumn DisplayMemberBinding="{Binding Path=ObjectId}" />
+                            <!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
                             <GridViewColumn Header="Actions">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>

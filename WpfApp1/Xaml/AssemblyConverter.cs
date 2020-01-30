@@ -27,7 +27,6 @@ namespace WpfApp1.Xaml
 		)
 		{
 			Assembly assembly = value as Assembly;
-			;
 			if(assembly == null)
 			{
 				return Type.EmptyTypes ;

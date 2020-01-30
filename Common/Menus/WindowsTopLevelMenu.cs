@@ -1,13 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
+using System ;
+using System.Collections.Generic ;
+using System.Linq ;
+using System.Windows ;
 using AppShared.Interfaces ;
-using Autofac.Features.Metadata;
-using Common ;
-using NLog;
+using Autofac.Features.Metadata ;
+using NLog ;
 
-namespace WpfApp1.Menus
+namespace Common.Menus
 {
     public class WindowsTopLevelMenu : ITopLevelMenu
     {

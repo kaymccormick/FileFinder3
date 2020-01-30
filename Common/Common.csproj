@@ -89,6 +89,7 @@
     <Compile Include="Menus\MenuItemContainerStyleSelector.cs" />
     <Compile Include="Menus\MenuMenuItemTemplateSelector.cs" />
     <Compile Include="Menus\MenuTemplateSelector.cs" />
+    <Compile Include="Menus\WindowsTopLevelMenu.cs" />
     <Compile Include="Menus\XMenuItem.cs" />
     <Compile Include="MethodInvocation.cs" />
     <Compile Include="MyAppCommands.cs" />

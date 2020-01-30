@@ -150,7 +150,6 @@
     <Compile Include="Controls\SystemParametersControl.xaml.cs">
       <DependentUpon>SystemParametersControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Menus\WindowsTopLevelMenu.cs" />
     <Compile Include="Windows\ComponentRegistry.cs" />
     <Compile Include="Windows\ContainerWindow.xaml.cs">
       <DependentUpon>ContainerWindow.xaml</DependentUpon>

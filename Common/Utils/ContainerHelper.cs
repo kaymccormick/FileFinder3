@@ -18,7 +18,7 @@ namespace Common.Utils
 {
 	public static class ContainerHelper
 	{
-		public static ProxyGenerator ProxyGenerator = new ProxyGenerator ( ) ;
+		public static readonly ProxyGenerator ProxyGenerator = new ProxyGenerator ( ) ;
 
 		private static readonly Logger Logger =
 			LogManager.GetLogger ( "Autofac container builder helper" ) ;
@@ -26,17 +26,18 @@ namespace Common.Utils
 		public static ILifetimeScope SetupContainer (
 			out    IContainer container)
 		{
-			var scan = GetScanAssem ( ) ;
+			var scan = GetAssembliesForScanning ( ) ;
 			return SetupContainer ( out container , scan ) ;
 		}
 
 
 		public static ILifetimeScope SetupContainer ( out IContainer container, IEnumerable <Assembly> assembliesToScan)
 		{
+			var toScan = assembliesToScan as Assembly[] ?? assembliesToScan.ToArray ( ) ;
 			Logger.Info ("Assemblies " +
 			             String.Join (
 			                          ", "
-			                        , assembliesToScan.Select ( ( assembly , i1 ) => assembly.GetName ( ).Name )
+			                        , toScan.Select ( ( assembly , i1 ) => assembly.GetName ( ).Name )
 			                         )
 			            ) ;
 			AppLoggingConfigHelper.EnsureLoggingConfigured ( );
@@ -45,80 +46,69 @@ namespace Common.Utils
 			var proxy =
 				proxyGenerator.CreateClassProxy < ContainerBuilder > ( builderInterceptor ) ;
 
-			var proxyGenerationOptions = new ProxyGenerationOptions ( ) ;// new Hook ( ) ) ;
-
-
 			var builder = proxy ;
 			#region Autofac Modules
 			builder.RegisterModule<AttributedMetadataModule> ( );
 			builder.RegisterModule<MenuModule> ( );
-			ModuleRegistrationExtensions.RegisterModule <IdGeneratorModule> ( ( ContainerBuilder ) builder );
+			builder.RegisterModule <IdGeneratorModule> ( );
 			#endregion
 
 			int i = 0 ;
-			Action < int > dump = delegate ( int index ) {
-				builderInterceptor.Invocations.ForEach (
-				                                        invocation
-					                                        => Logger.Debug (
-					                                                         $"{index}]: {invocation.Method.Name} ({string.Join ( ", " , invocation.Arguments )}) => {invocation.OriginalReturnValue}"
-					                                                        )
-				                                       ) ;
-				return ;
-			} ;
 
-			
-			dump ( i );
+			void LogStuff ( int index )
+			{
+				builderInterceptor.Invocations.ForEach ( invocation => Logger.Debug ( $"{index}]: {invocation.Method.Name} ({string.Join ( ", " , invocation.Arguments )}) => {invocation.OriginalReturnValue}" ) ) ;
+			}
+
+
+			LogStuff ( i );
+			// ReSharper disable once RedundantAssignment
 			i += 1 ;
 
-
-
 			// var obIdGenerator = new ObjectIDGenerator();
-
 			// builder.Register < ObjectIDGenerator > ( ).InstancePerLifetimeScope ( ) ;
 			#region Currently unused?
 			//builder.RegisterType<SystemParametersControl> ( ).As<ISettingsPanel> ( );
 			#endregion
 
 			#region Assembly scanning
-			var executingAssembly = Assembly.GetExecutingAssembly ( ) ;
 
-			RegistrationExtensions.RegisterAssemblyTypes ( builder , assembliesToScan.ToArray())			                      .Where (
-			                              delegate ( Type t ) {
-				                              var isAssignableFrom = typeof ( Window ).IsAssignableFrom ( t ) ;
-				                              Logger.Trace ( $"{t} is assignable from {isAssignableFrom}" );
-				                              return isAssignableFrom;
-			                              }
-			                             )
-			                      .AsSelf ( )
-			                      //.As<Window> ( )
-			                      .OnActivating (
-			                                     args => {
-				                                     var argsInstance = args.Instance ;
+			builder.RegisterAssemblyTypes ( toScan.ToArray())			                      .Where (
+			                                                                                          delegate ( Type t ) {
+				                                                                                          var isAssignableFrom = typeof ( Window ).IsAssignableFrom ( t ) ;
+				                                                                                          Logger.Trace ( $"{t} is assignable from {isAssignableFrom}" );
+				                                                                                          return isAssignableFrom;
+			                                                                                          }
+			                                                                                         )
+			       .AsSelf ( )
+			        //.As<Window> ( )
+			       .OnActivating (
+			                      args => {
+				                      var argsInstance = args.Instance ;
 
-				                                     var haveLogger = argsInstance as IHaveLogger ;
-				                                     if ( haveLogger != null )
-				                                     {
-					                                     haveLogger.Logger =
-						                                     args.Context.Resolve < NLog.ILogger > (
-						                                                                            new
-							                                                                            TypedParameter (
-							                                                                                            typeof
-							                                                                                            ( Type
-							                                                                                            )
-							                                                                                          , argsInstance
-								                                                                                           .GetType ( )
-							                                                                                           )
-						                                                                           ) ;
-				                                     }
-			                                     }
-			                                    );
+				                      if ( argsInstance is IHaveLogger haveLogger )
+				                      {
+					                      haveLogger.Logger =
+						                      args.Context.Resolve < ILogger > (
+						                                                        new
+							                                                        TypedParameter (
+							                                                                        typeof
+							                                                                        ( Type
+							                                                                        )
+							                                                                      , argsInstance
+								                                                                       .GetType ( )
+							                                                                       )
+						                                                       ) ;
+				                      }
+			                      }
+			                     );
 
 			// builder.RegisterAssemblyTypes ( executingAssembly )
 			//        .Where ( predicate : t => typeof ( ITopLevelMenu ).IsAssignableFrom ( c : t ) )
 			//        .As < ITopLevelMenu > ( ) ;
 			#endregion
 
-			// builder.RegisterType < AppTraceLisener > ( )
+			// builder.RegisterType < AppTraceListener > ( )
 			//        .As < TraceListener > ( )
 			//        .InstancePerLifetimeScope ( ) ;
 			#region Interceptors
@@ -138,14 +128,14 @@ namespace Common.Utils
 				                  var loggerName = "unset" ;
 				                  try
 				                  {
-					                  loggerName = ParameterExtensions.TypedAs <Type> ( p ).FullName;
+					                  loggerName = p.TypedAs <Type> ( ).FullName;
 				                  }
 				                  catch ( Exception ex )
 				                  {
 					                  Console.WriteLine ( ex.ToString ( ) );
 				                  }
 
-				                  var tracker = ResolutionExtensions.Resolve < ILoggerTracker > ( c ) ;
+				                  var tracker = c.Resolve < ILoggerTracker > ( ) ;
 				                  Logger.Trace ( $"creating logger loggerName = {loggerName}" );
 				                  var logger = LogManager.GetLogger ( loggerName ) ;
 				                  tracker.TrackLogger ( loggerName , logger );
@@ -171,7 +161,7 @@ namespace Common.Utils
 						                        , eventArgs
 					                          ) => {
 						                          Logger.Trace (
-						                                        $"Activated {DesribeComponent ( eventArgs.Component )} (sender={o}, instance={eventArgs.Instance})"
+						                                        $"Activated {DescribeComponent ( eventArgs.Component )} (sender={o}, instance={eventArgs.Instance})"
 						                                       );
 					                          };
 				                          };
@@ -198,7 +188,7 @@ namespace Common.Utils
 			//return CreateChildLifetimeContext ( setupContainer ) ;
 		}
 
-		private static IEnumerable < Assembly > GetScanAssem ( )
+		private static IEnumerable < Assembly > GetAssembliesForScanning ( )
 		{
 			Logger.Debug (
 			              "Getting assemblies to scan based on AssemblyContainerScan attribute."
@@ -212,13 +202,6 @@ namespace Common.Utils
 			                                                                  )
 			                                                                 )
 			                       ) ;
-		}
-
-		private static void
-
-			Target ( IComponentRegistry obj )
-		{
-			throw new NotImplementedException ( );
 		}
 
 		private static void SetupContainerOnCurrentScopeEnding (
@@ -239,7 +222,7 @@ namespace Common.Utils
 			Logger.Info ( $"{sender} {e.LifetimeScope.Tag}" );
 		}
 
-		private static string DesribeComponent ( IComponentRegistration eventArgsComponent )
+		private static string DescribeComponent ( IComponentRegistration eventArgsComponent )
 		{
 			var debugDesc = "no description" ;
 			var key = "DebugDescription" ;
@@ -442,6 +425,7 @@ namespace Common.Utils
 			return false ;
 		}
 #endif
+		// ReSharper disable once UnusedMember.Global
 		public static void Dump
 			(
 			IComponentRegistration componentRegistryRegistration
@@ -449,7 +433,6 @@ namespace Common.Utils
 		)
 		{
 			var activatorLimitType = componentRegistryRegistration.Activator.LimitType ;
-			Logger _logger = LogManager.GetLogger ( activatorLimitType.FullName ) ;
 
 			if ( seenObjects.Contains ( componentRegistryRegistration ) )
 			{
@@ -463,9 +446,6 @@ namespace Common.Utils
 			              );
 
 
-
-
-			componentRegistryRegistration.Activator.GetType ( );
 
 			outFunc( "LimitType = " + activatorLimitType );
 

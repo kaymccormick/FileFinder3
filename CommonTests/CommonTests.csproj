@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\NLog\src\NLog\bin\Debug\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -73,10 +77,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\NLog\src\NLog\NLog.csproj">
-      <Project>{A0BFF0DB-ED9A-4639-AE86-8E709A1EFC66}</Project>
-      <Name>NLog</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\AppShared\AppShared\AppShared.csproj">
       <Project>{C4C404AE-0214-481B-AB46-708ABD99AF9C}</Project>
       <Name>AppShared</Name>

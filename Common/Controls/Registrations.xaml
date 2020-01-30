@@ -31,7 +31,7 @@
                         <GridViewColumn Header="Sharing" DisplayMemberBinding="{Binding Path=Sharing}" />
 
                         <GridViewColumn
-                                    CellTemplate="{StaticResource  ServicesCellTemplate}" Header="Services" />
+                                    CellTemplate="{StaticResource ServicesCellTemplate}" Header="Services" />
                     </GridView>
                 </ListView.View>
             </ListView>
