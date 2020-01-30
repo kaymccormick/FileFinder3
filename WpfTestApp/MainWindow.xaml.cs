@@ -55,5 +55,6 @@ namespace WpfTestApp
 		}
 
 
+		public object TypeFrame { get { return frame ; } }
 	}
 }

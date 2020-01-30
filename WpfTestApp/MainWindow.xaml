@@ -10,14 +10,17 @@
         xmlns:types="clr-namespace:AppShared.Types;assembly=AppShared"
         xmlns:common="clr-namespace:Common;assembly=Common"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
-        MinWidth="1200"
-        MinHeight="800"
+        MinWidth="800"
+        MinHeight="600"
         mc:Ignorable="d" FontSize="20"
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
+
         <DataTemplate DataType="{x:Type system:Type}" x:Key="CellTemplateType">
-            <controls:TypeControl MinWidth="200">
-                <appShared:App.RenderedType><Binding Path="."/></appShared:App.RenderedType>
+            <controls:TypeControl MinWidth="200" Target="{Binding ElementName=frame}">
+                <appShared:App.RenderedType>
+                    <Binding Path="."/>
+                </appShared:App.RenderedType>
             </controls:TypeControl>
         </DataTemplate>
         <common:TestO LifetimeScope="{appShared:LifetimeScope}" x:Key="test" />
@@ -29,29 +32,40 @@
             </appShared:ResolveService>
         </types:ResolveServiceList>
         <DataTemplate x:Key="ResourceValueCell" >
-            <controls:TypeControl>
-                <appShared:App.RenderedType><Binding Path="Value" Converter="{StaticResource GetTypeConverter}"/>
-                    </appShared:App.RenderedType>
-                </controls:TypeControl>
+            <controls:TypeControl Target="{Binding ElementName=frame}" TargetDetailed="true">
+                <appShared:App.RenderedType>
+                    <Binding Path="Value" Converter="{StaticResource GetTypeConverter}"/>
+                </appShared:App.RenderedType>
+            </controls:TypeControl>
         </DataTemplate>
     </Window.Resources>
     <DockPanel LastChildFill="True" DataContext="{Binding ElementName=mainWindow, Path=(appShared:App.LifetimeScope)}">
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
             <TextBlock Text="{Binding Path=Tag}" />
             <TextBlock Text="{Binding Source={appShared:LifetimeScope}, Path=Tag}" />
-
         </StackPanel>
-        <TabControl Style="{StaticResource TabControlStyle1}">
+        <StackPanel Orientation="Vertical">
+            <TabControl Style="{StaticResource TabControlStyle1}">
             <TabItem Header="">
-                <ListView ItemsSource="{Binding ElementName=mainWindow,Path=Resources}">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="Key"  DisplayMemberBinding="{Binding Key}"/>
-                            <GridViewColumn CellTemplate="{StaticResource ResourceValueCell}"/>
-                            <GridViewColumn Header="Value" DisplayMemberBinding="{Binding Value}"/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="15*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <ListView ItemsSource="{Binding ElementName=mainWindow,Path=Resources}" Grid.ColumnSpan="2" Margin="0,0,0,0.2">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Key" Width="200"  DisplayMemberBinding="{Binding Key}"/>
+                                <GridViewColumn Width="150"  Header="Type" CellTemplate="{StaticResource ResourceValueCell}"/>
+                                <GridViewColumn Width="300" Header="Value" DisplayMemberBinding="{Binding Value}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
             </TabItem>
             <TabItem Header="ResolveServiceList">
                 <Grid>
@@ -107,6 +121,12 @@
                     </ListView>
                 </Grid>
             </TabItem>
+
+
         </TabControl>
-    </DockPanel>
+            <Frame VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Name="frame" Source="DefaultPage.xaml">
+                <Frame.RenderTransform><ScaleTransform ScaleX="1" ScaleY="2"/></Frame.RenderTransform>
+                </Frame>
+            </StackPanel>
+        </DockPanel>   
 </Window>

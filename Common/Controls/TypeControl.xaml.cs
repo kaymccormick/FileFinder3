@@ -20,11 +20,25 @@ namespace Common.Controls
 		public static readonly DependencyProperty RenderedTypeProperty =
 			App.RenderedTypeProperty ;
 
+		public static readonly DependencyProperty TargetNameProperty = DependencyProperty.Register ( "TargetName" , typeof ( string ) , typeof ( TypeControl ) , new PropertyMetadata ( default ( string ) ) ) ;
+		public static readonly DependencyProperty TargetProperty = DependencyProperty.Register ( "Target" , typeof ( Frame ) , typeof ( TypeControl ) , new PropertyMetadata ( default ( Frame ) ) ) ;
+		public static readonly DependencyProperty DetailedProperty = DependencyProperty.Register ( "Detailed" , typeof ( bool ) , typeof ( TypeControl ) , new PropertyMetadata ( default ( bool ) ) ) ;
+		public static readonly DependencyProperty TargetDetailedProperty = DependencyProperty.Register ( "TargetDetailed" , typeof ( bool ) , typeof ( TypeControl ) , new PropertyMetadata ( default ( bool ) ) ) ;
+
 		public Type RenderedType
 		{
 			get { return GetValue ( RenderedTypeProperty ) as Type ; }
 			set { SetValue (  RenderedTypeProperty , value  ) ; }
 		}
+
+		public string TargetName { get { return ( string ) GetValue ( TargetNameProperty ) ; } set { SetValue ( TargetNameProperty , value ) ; } }
+
+		public Frame Target { get { return ( Frame ) GetValue ( TargetProperty ) ; } set { SetValue ( TargetProperty , value ) ; } }
+
+		public bool Detailed { get { return ( bool ) GetValue ( DetailedProperty ) ; } set { SetValue ( DetailedProperty , value ) ; } }
+
+		public bool TargetDetailed { get { return ( bool ) GetValue ( TargetDetailedProperty ) ; } set { SetValue ( TargetDetailedProperty , value ) ; } }
+
 
 		public event RoutedPropertyChangedEventHandler <Type> RenderedTypeChanged {
 			add { AddHandler ( App.RenderedTypeChangedEvent , value ) ; }
@@ -55,6 +69,15 @@ namespace Common.Controls
 			}
 			TextBlock b = new TextBlock();
 			var mainInline = new Span();
+
+			if ( Detailed )
+			{
+				var baseType = myType.BaseType ;
+				while ( baseType != null )
+				{
+					Container.Children.Insert ( 0 , new TextBlock ( new Run ( baseType.Name ) ) ) ;
+				}
+			}
 
 			GenerateControlsForType ( myType, b ) ;
 			Container.Children.Add ( b ) ;
@@ -132,26 +155,46 @@ namespace Common.Controls
 
 		private void HyperLinkOnRequestNavigate ( object sender , RequestNavigateEventArgs e )
 		{
+			
+			//
+			// if(findName == null)
+			// {
+			// 	Logger.Debug ( "Cant find " + findName) ;
+			// }
 			Logger.Debug ( $"{nameof(HyperLinkOnRequestNavigate)}: Uri={e.Uri}");
 			ContentElement uie = ( ContentElement ) sender ;
-			var navigationService = NavigationService.GetNavigationService ( uie ) ;
-			if ( navigationService != null )
+			try
 			{
-				navigationService.Navigate (
-				                            new TypeControl ( )
-				                            {
-					                            RenderedType =
-						                            uie.GetValue (
-						                                          App.RenderedTypeProperty
-						                                         ) as Type
-				                            }
-				                           ) ;
-				e.Handled = true ;
-			}
-			else
-			{
-                Logger.Info("find other way to navigate type");
 
+				var navigationService = Target != null
+					                        ? NavigationService.GetNavigationService (
+					                                                                  Target.Content
+						                                                                  as
+						                                                                  DependencyObject
+					                                                                 )
+					                        : NavigationService.GetNavigationService ( this ) ;
+
+				if ( navigationService != null )
+				{
+					navigationService.Navigate (
+					                            new TypeControl () {
+													Detailed = Detailed || TargetDetailed,
+													RenderedType =
+							                            uie.GetValue ( App.RenderedTypeProperty ) as
+								                            Type
+					                            }
+					                           ) ;
+					e.Handled = true ;
+				}
+				else
+				{
+					Logger.Info ( "find other way to navigate type" ) ;
+
+				}
+			}
+			catch ( Exception ex )
+			{
+				Logger.Warn ( ex , ex.Message ) ;
 			}
 
 		}
