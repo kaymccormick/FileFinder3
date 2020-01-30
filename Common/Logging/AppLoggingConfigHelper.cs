@@ -70,16 +70,22 @@ namespace Common.Logging
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		internal static LoggingConfiguration ConfigureLogging (
-			LoggerProxyHelper.LogMethod logMethod
+			LoggerProxyHelper.LogMethod logMethod,
+			bool proxyLogging = false
 		)
 		{
 			logMethod ( "*** Starting logger configuration." ) ;
 			InternalLogging ( ) ;
 
-			var proxyGenerator = new ProxyGenerator ( ) ;
-			var loggerProxyHelper = new LoggerProxyHelper ( proxyGenerator , DoLogMessage ) ;
-			var logFactory = new MyLogFactory ( DoLogMessage ) ;
-			var lconfLogFactory = loggerProxyHelper.CreateLogFactory ( logFactory ) ;
+			NLog.LogFactory proxiedFactory = null ;
+			if ( proxyLogging )
+			{
+				var proxyGenerator = new ProxyGenerator ( ) ;
+				var loggerProxyHelper = new LoggerProxyHelper ( proxyGenerator , DoLogMessage ) ;
+				var logFactory = new MyLogFactory ( DoLogMessage ) ;
+				var lconfLogFactory = loggerProxyHelper.CreateLogFactory ( logFactory ) ;
+				proxiedFactory = lconfLogFactory ;
+			}
 
 			var fieldInfo = typeof ( LogManager ).GetField (
 			                                                "factory"
@@ -90,13 +96,16 @@ namespace Common.Logging
 			var cur = fieldInfo.GetValue ( null ) ;
 			logMethod ( $"cur is {cur}" ) ;
 
-			fieldInfo.SetValue ( null , lconfLogFactory ) ;
-			var newVal = fieldInfo.GetValue ( null ) ;
-			logMethod ( $"newval is {newVal}" ) ;
+			if ( proxyLogging )
+			{
+				fieldInfo.SetValue ( null , proxiedFactory ) ;
+				var newVal = fieldInfo.GetValue ( null ) ;
+				logMethod ( $"newval is {newVal}" ) ;
+			}
 
-			var lconf = new CodeConfiguration ( lconfLogFactory ) ;
+			var useFactory = proxyLogging ? proxiedFactory : LogManager.LogFactory ;
+			var lconf = new CodeConfiguration ( useFactory ) ;
 			var t = new List < Target > ( ) ;
-
 			#region Cache Target
 			var cacheTarget = new MyCacheTarget ( ) ;
 			t.Add ( cacheTarget ) ;
@@ -136,19 +145,12 @@ namespace Common.Logging
 				{
 					target.Name = $"{Regex.Replace ( type.Name , "Target" , "" )}{count:D2}" ;
 				}
-
-
 				lconf.AddTarget ( target ) ;
 			}
 
 			var loggingRules = t.AsQueryable ( ).Select ( DefaultLoggingRule ) ;
 			foreach ( var loggingRule in loggingRules ) { lconf.LoggingRules.Add ( loggingRule ) ; }
-
 			LogManager.Configuration = lconf ;
-
-			var logger = lconfLogFactory.GetLogger ( "test" ) ;
-			logger.Debug ( "test123" ) ;
-			logMethod ( logger.ToString ( ) ) ;
 			return lconf ;
 		}
 

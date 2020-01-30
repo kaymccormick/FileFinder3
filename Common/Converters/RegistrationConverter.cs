@@ -9,7 +9,7 @@ using DynamicData.Kernel ;
 
 namespace Common.Converters
 {
-	internal class RegistrationConverter : IValueConverter
+	public class RegistrationConverter : IValueConverter
 	{
 		private readonly ILifetimeScope    _appContainer ;
 		private readonly IObjectIdProvider _provider ;

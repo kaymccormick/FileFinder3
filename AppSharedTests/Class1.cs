@@ -34,7 +34,7 @@ namespace AppSharedTests
 			AppLoggingConfigHelper.EnsureLoggingConfigured();
 			
 			//AppLoggingConfigHelper.EnsureLoggingConfigured();
-			LB (  ).Level ( LogLevel.Warn ).Message("herro").Write();
+			LB (  ).Level ( LogLevel.Warn ).Message("Test log output message.").Write();
 		}
 		private void DoLog ( string test )
 		{
@@ -44,19 +44,6 @@ namespace AppSharedTests
 		{
 			return new LogBuilder ( LogManager.GetCurrentClassLogger ( ) ).Property ( "stack" , MyStack);
 
-		}
-
-		[ Fact ]
-		public void TestObjectIdExtension1 ( )
-		{
-			AppLoggingConfigHelper.EnsureLoggingConfigured();
-			var s = "<appShared:ObjectId             xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"\r\n             xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\"\r\n             xmlns:mc=\"http://schemas.openxmlformats.org/markup-compatibility/2006\" \r\n             xmlns:d=\"http://schemas.microsoft.com/expression/blend/2008\"\r\n             xmlns:appShared=\"clr-namespace:AppShared;assembly=AppShared\"\r\n             xmlns:common=\"clr-namespace:Common\"\r\n/>" ;
-			StringReader sr = new StringReader (
-			                                    s
-			                                   ) ;
-			var load = XamlReader.Load ( new MemoryStream ( Encoding.UTF8.GetBytes ( s ) ) ) ;
-			var x = load as ObjectIdExtension ;
-			LB ( ).Level ( LogLevel.Info ).Message ( $"{x}" ) ;
 		}
 	}
 }
