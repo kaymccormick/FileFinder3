@@ -11,4 +11,5 @@
     <converters:RegistrationSourceConverter x:Key="RegistrationSourceConverter"/>
     <converters:MyConverter x:Key="MyConverter"/>
     <converters:TargetConverter x:Key="TargetConverter"/>
+    <converters:GetTypeConverter x:Key="GetTypeConverter"/>
 </ResourceDictionary>

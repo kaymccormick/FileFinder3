@@ -36,5 +36,11 @@ namespace WpfApp1Tests3
 		private static readonly Logger Logger = LoggerProxyHelper.GetCurrentClassLogger ( ) ;
 
 		public LoggerProxyHelper.LogMethod UseLogMethod { get ; set ; }
+
+        [Fact]
+public void Test1()
+{
+}
+
 	}
 }

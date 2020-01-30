@@ -41,6 +41,7 @@
                     <GridView>
                         
                         <GridViewColumn Header="Limit Type"
+                                        CellTemplate="{StaticResource CellTemplateType}"
                                                 DisplayMemberBinding="{Binding Path=Activator.LimitType}" />
                         <GridViewColumn Header="Sharing" DisplayMemberBinding="{Binding Path=Sharing}" />
 

@@ -31,16 +31,25 @@ namespace WpfTestApp
 			          AppShared.App.LifetimeScopeProperty
 			        , ( Application.Current as App ).MyLifetimeScope
 			         ) ;
-			var resolveServiceList = TryFindResource ( "r" ) as ResolveServiceList ;
-			foreach ( var resolveService in resolveServiceList )
+			try
 			{
-				var valueSource = DependencyPropertyHelper.GetValueSource (
-				                                                           resolveService
-				                                                         , AppShared.App.LifetimeScopeProperty
-				                                                          ) ;
-				var lifetimeScope = AppShared.App.GetLifetimeScope ( resolveService ) ;
-				Logger.Warn ( $"{resolveService.ServiceType} {lifetimeScope} {valueSource}" ) ;
-				
+				var resolveServiceList = TryFindResource ( "resolveServices" ) as ResolveServiceList ;
+				foreach ( var resolveService in resolveServiceList )
+				{
+					var valueSource = DependencyPropertyHelper.GetValueSource (
+					                                                           resolveService
+					                                                         , AppShared
+					                                                          .App
+					                                                          .LifetimeScopeProperty
+					                                                          ) ;
+					var lifetimeScope = AppShared.App.GetLifetimeScope ( resolveService ) ;
+					Logger.Warn ( $"{resolveService.ServiceType} {lifetimeScope} {valueSource}" ) ;
+
+
+				}
+			}
+			catch ( Exception ex )
+			{
 
 			}
 		}

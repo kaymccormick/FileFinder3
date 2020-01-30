@@ -62,6 +62,7 @@
     </Compile>
     <Compile Include="Converters\AssemblyConverter.cs" />
     <Compile Include="Converters\ComponentLifetimeConverter.cs" />
+    <Compile Include="Converters\GetTypeConverter.cs" />
     <Compile Include="Converters\InstanceRegistrationConverter.cs" />
     <Compile Include="Converters\LoggerInstanceConverter.cs" />
     <Compile Include="Converters\MyConverter.cs" />

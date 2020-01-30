@@ -9,11 +9,17 @@
         xmlns:interfaces="clr-namespace:AppShared.Interfaces;assembly=AppShared"
         xmlns:types="clr-namespace:AppShared.Types;assembly=AppShared"
         xmlns:common="clr-namespace:Common;assembly=Common"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
         MinWidth="1200"
         MinHeight="800"
         mc:Ignorable="d" FontSize="20"
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
+        <DataTemplate DataType="{x:Type system:Type}" x:Key="CellTemplateType">
+            <controls:TypeControl MinWidth="200">
+                <appShared:App.RenderedType><Binding Path="."/></appShared:App.RenderedType>
+            </controls:TypeControl>
+        </DataTemplate>
         <common:TestO LifetimeScope="{appShared:LifetimeScope}" x:Key="test" />
         <types:ResolveServiceList x:Key="resolveServices">
             <appShared:ResolveService ServiceType="{x:Type interfaces:IObjectIdProvider}">
@@ -22,6 +28,12 @@
                 </appShared:App.LifetimeScope>
             </appShared:ResolveService>
         </types:ResolveServiceList>
+        <DataTemplate x:Key="ResourceValueCell" >
+            <controls:TypeControl>
+                <appShared:App.RenderedType><Binding Path="Value" Converter="{StaticResource GetTypeConverter}"/>
+                    </appShared:App.RenderedType>
+                </controls:TypeControl>
+        </DataTemplate>
     </Window.Resources>
     <DockPanel LastChildFill="True" DataContext="{Binding ElementName=mainWindow, Path=(appShared:App.LifetimeScope)}">
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
@@ -30,13 +42,23 @@
 
         </StackPanel>
         <TabControl Style="{StaticResource TabControlStyle1}">
-            <TabItem Header=""/>
+            <TabItem Header="">
+                <ListView ItemsSource="{Binding ElementName=mainWindow,Path=Resources}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Key"  DisplayMemberBinding="{Binding Key}"/>
+                            <GridViewColumn CellTemplate="{StaticResource ResourceValueCell}"/>
+                            <GridViewColumn Header="Value" DisplayMemberBinding="{Binding Value}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </TabItem>
             <TabItem Header="ResolveServiceList">
                 <Grid>
                     <ListView ItemsSource="{Binding Source={StaticResource resolveServices}}">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn CellTemplate="{StaticResource CellTemplateType}" DisplayMemberBinding="{Binding Path=ServiceType}" />
+                                <GridViewColumn CellTemplate="{StaticResource CellTemplateType}"/>
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=ServiceInstance}" />
                             </GridView>
                         </ListView.View>
