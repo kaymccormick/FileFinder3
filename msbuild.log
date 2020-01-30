@@ -5,7 +5,11 @@
   Sentinel.Interfaces -> C:\Users\mccor.LAPTOP-T6T0BN1K\source\repos\new\Sentinel\Sentinel.Interfaces\bin\Debug\Sentinel.Interfaces.dll
   WpfExtras -> C:\Users\mccor.LAPTOP-T6T0BN1K\source\repos\new\Sentinel\WpfExtras\bin\Debug\WpfExtras.dll
   Sentinel.NLog -> C:\Users\mccor.LAPTOP-T6T0BN1K\source\repos\new\Sentinel\Sentinel.NLog\bin\Debug\Sentinel.NLog.dll
+Converters\InstanceRegistrationConverter.cs(62,4): warning CS0162: Unreachable code detected [C:\Users\mccor.LAPTOP-T6T0BN1K\source\repos\FileFinder3\Common\Common_fbhmix43_wpftmp.csproj]
+Converters\RegistrationConverter.cs(71,4): warning CS0162: Unreachable code detected [C:\Users\mccor.LAPTOP-T6T0BN1K\source\repos\FileFinder3\Common\Common_fbhmix43_wpftmp.csproj]
+Tracing\AppTraceLisener2.cs(157,8): warning CS0219: The variable 'doOutput' is assigned but its value is never used [C:\Users\mccor.LAPTOP-T6T0BN1K\source\repos\FileFinder3\Common\Common_fbhmix43_wpftmp.csproj]
+Controls\TypeControl.xaml.cs(277,29): error CS0246: The type or namespace name 'TypeControl2' could not be found (are you missing a using directive or an assembly reference?) [C:\Users\mccor.LAPTOP-T6T0BN1K\source\repos\FileFinder3\Common\Common_fbhmix43_wpftmp.csproj]
+ComponentRegistration.cs(182,64): warning CS0067: The event 'ComponentRegistration.Activating' is never used [C:\Users\mccor.LAPTOP-T6T0BN1K\source\repos\FileFinder3\Common\Common_fbhmix43_wpftmp.csproj]
+ComponentRegistration.cs(187,63): warning CS0067: The event 'ComponentRegistration.Activated' is never used [C:\Users\mccor.LAPTOP-T6T0BN1K\source\repos\FileFinder3\Common\Common_fbhmix43_wpftmp.csproj]
+ComponentRegistration.cs(175,52): warning CS0067: The event 'ComponentRegistration.Preparing' is never used [C:\Users\mccor.LAPTOP-T6T0BN1K\source\repos\FileFinder3\Common\Common_fbhmix43_wpftmp.csproj]
   KayMcCormick.Dev.Test.Metadata -> C:\Users\mccor.LAPTOP-T6T0BN1K\source\repos\FileFinder3\KayMcCormick.Dev.Test.Metadata\bin\Debug\KayMcCormick.Dev.Test.Metadata.dll
-Logging\AppLoggingConfigHelper.cs(230,3): error CS0106: The modifier 'private' is not valid for this item [C:\Users\mccor.LAPTOP-T6T0BN1K\source\repos\FileFinder3\WpfApp1\WpfApp1_bpye5ypt_wpftmp.csproj]
-Logging\AppLoggingConfigHelper.cs(230,11): error CS8370: Feature 'static local functions' is not available in C# 7.3. Please use language version 8.0 or greater. [C:\Users\mccor.LAPTOP-T6T0BN1K\source\repos\FileFinder3\WpfApp1\WpfApp1_bpye5ypt_wpftmp.csproj]
-Logging\AppLoggingConfigHelper.cs(233,2): error CS1513: } expected [C:\Users\mccor.LAPTOP-T6T0BN1K\source\repos\FileFinder3\WpfApp1\WpfApp1_bpye5ypt_wpftmp.csproj]

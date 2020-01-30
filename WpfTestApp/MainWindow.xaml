@@ -39,14 +39,17 @@
             </controls:TypeControl>
         </DataTemplate>
     </Window.Resources>
-    <DockPanel LastChildFill="True" DataContext="{Binding ElementName=mainWindow, Path=(appShared:App.LifetimeScope)}">
-        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+    <Grid DataContext="{Binding ElementName=mainWindow, Path=(appShared:App.LifetimeScope)}">
+        <Grid.ColumnDefinitions><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
             <TextBlock Text="{Binding Path=Tag}" />
             <TextBlock Text="{Binding Source={appShared:LifetimeScope}, Path=Tag}" />
         </StackPanel>
-        <StackPanel Orientation="Vertical">
-            <TabControl Style="{StaticResource TabControlStyle1}">
-            <TabItem Header="">
+        <TabControl  Grid.Column="0" Grid.Row="1"  Style="{StaticResource TabControlStyle1}">
+            <TabItem Header="Tab 1">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -121,12 +124,20 @@
                     </ListView>
                 </Grid>
             </TabItem>
+            <TabItem Header="Assemblies">
+                <controls:AssemblyBrowser />
+            </TabItem>
 
-
-        </TabControl>
-            <Frame VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Name="frame" Source="DefaultPage.xaml">
+</TabControl>
+            <Frame  Grid.Row="2" Grid.Column="0"
+                BorderBrush="Brown" BorderThickness="3"
+                Navigating="Frame_OnNavigating" 
+                   NavigationFailed="Frame_OnNavigationFailed" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Name="frame" Source="TypePage2.xaml">
+                <Frame.CommandBindings>
+                    <CommandBinding Command="common:MyAppCommands.VisitType" Executed="VisitType"/>
+                </Frame.CommandBindings>
                 <Frame.RenderTransform><ScaleTransform ScaleX="2" ScaleY="2"/></Frame.RenderTransform>
                 </Frame>
-            </StackPanel>
-        </DockPanel>
+
+        </Grid>
 </Window>
