@@ -21,11 +21,9 @@ using Common ;
 using Common.Logging ;
 using NLog ;
 using NLog.Config ;
-using Sentinel.NLog ;
 using Vanara.Extensions.Reflection ;
 using WpfApp1.Application ;
 using WpfApp1.Attributes ;
-using WpfApp1.Logging ;
 using WpfApp1.Menus ;
 using CheckBox = System.Windows.Controls.CheckBox ;
 using Control = System.Windows.Controls.Control ;
@@ -402,7 +400,7 @@ public LoggingConfiguration Configuration { get ; set ; }
 			collectionViewSource.Filter -= CheckedHandler ;
 			CheckedHandler              =  null ;
 		}
-
+		#if NLOGVIEWER
 		private void ButtonBase_OnClick ( object sender , RoutedEventArgs e )
 		{
 			{
@@ -421,6 +419,7 @@ public LoggingConfiguration Configuration { get ; set ; }
 				// provider.Logger = MyLogger ;
 			}
 		}
+#endif
 
 
 		// public Sentinel.Interfaces.ILogger MyLogger { get ; set ; } = new MyLogger ( ) ;

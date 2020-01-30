@@ -35,6 +35,7 @@ using WpfApp1.Xaml ;
 using IContainer = Autofac.IContainer ;
 using LogLevel = NLog.LogLevel ;
 using LogManager = NLog.LogManager ;
+using RegistrationConverter = Common.Converters.RegistrationConverter ;
 
 namespace WpfApp1.Application
 {

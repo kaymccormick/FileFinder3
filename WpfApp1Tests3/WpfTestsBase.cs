@@ -22,6 +22,7 @@ using Common.Context ;
 using JetBrains.Annotations ;
 using NLog ;
 using NLog.Fluent ;
+using TestLib.Fixtures ;
 using WpfApp1.Attributes ;
 using WpfApp1.Util ;
 using WpfApp1Tests3.Attributes ;

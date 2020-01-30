@@ -17,6 +17,7 @@ using NLog ;
 using NLog.Config ;
 using NLog.Layouts ;
 using NLog.Targets ;
+using TestLib ;
 using WpfApp1.Windows ;
 using WpfApp1Tests3.Attributes ;
 using WpfApp1Tests3.Fixtures ;

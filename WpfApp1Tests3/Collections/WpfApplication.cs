@@ -1,5 +1,6 @@
 ﻿using JetBrains.Annotations;
 using NLog;
+using TestLib ;
 using WpfApp1Tests3.Fixtures;
 using Xunit;
 

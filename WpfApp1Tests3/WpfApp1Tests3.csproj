@@ -140,6 +140,10 @@
       <Project>{CF1DCCEF-3324-45A2-A194-4A7B768E2291}</Project>
       <Name>KayMcCormick.Dev.Test.Metadata</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TestLib\TestLib.csproj">
+      <Project>{87EAA0AA-C33B-4F8E-9B7A-C01204A22C44}</Project>
+      <Name>TestLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WpfApp1\WpfApp1.csproj">
       <Project>{27E3139A-E525-4CE0-828D-53A58F161D0A}</Project>
       <Name>WpfApp1</Name>

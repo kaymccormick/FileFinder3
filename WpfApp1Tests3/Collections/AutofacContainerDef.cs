@@ -1,4 +1,5 @@
-﻿using WpfApp1Tests3.Fixtures;
+﻿using TestLib ;
+using TestLib.Fixtures ;
 using Xunit;
 
 namespace WpfApp1Tests3.Collections

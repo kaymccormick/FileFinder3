@@ -7,6 +7,7 @@ using AppShared ;
 using AppShared.Interfaces ;
 using Autofac ;
 using NLog ;
+using TestLib.Fixtures ;
 using WpfApp1.Attributes ;
 using WpfApp1.Util ;
 using WpfApp1Tests3.Attributes ;
