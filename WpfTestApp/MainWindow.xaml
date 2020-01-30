@@ -16,6 +16,14 @@
         mc:Ignorable="d" FontSize="20"
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
+        <DataTemplate DataType="{x:Type DataTemplate}" x:Key="{x:Type DataTemplate}">
+            <TextBlock Text="{Binding Path=DataType}"/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type types:ResolveServiceList}" x:Key="{x:Type types:ResolveServiceList}">
+            <ListBox ItemsSource="{Binding}"/>
+        </DataTemplate>
+        <Style TargetType="{x:Type ContentControl}">
+        </Style>
         <appShared:AssemblyList x:Key="AssemblyList"/>
         <DataTemplate DataType="{x:Type system:Type}" x:Key="CellTemplateType">
             <controls:TypeControl MinWidth="200" Target="{Binding ElementName=frame}">
@@ -60,7 +68,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <ListView ItemsSource="{Binding ElementName=mainWindow,Path=Resources}" Grid.ColumnSpan="2" Margin="0,0,0,0.2">
+                    <ListView SelectedIndex="0" Name="resourcesListView" ItemsSource="{Binding ElementName=mainWindow,Path=Resources}" Grid.ColumnSpan="2" Margin="0,0,0,0.2">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Key" Width="200"  DisplayMemberBinding="{Binding Key}"/>
@@ -146,7 +154,9 @@
                 </Frame>
 </TabItem>
             <TabItem Name="Secondary" Header="Secondary">
-                <DockPanel/>
+                <Grid>
+                    <ContentControl Content="{Binding ElementName=resourcesListView,Path=SelectedItem.Value}"/>
+                </Grid>
             </TabItem>
             </TabControl>
     </Grid>
