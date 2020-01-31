@@ -3,7 +3,7 @@ using AppShared.Interfaces ;
 using Castle.DynamicProxy ;
 using Common.Context ;
 
-namespace Common
+namespace Common.Logging
 {
 	public class LoggingInterceptor : IInterceptor
 	{

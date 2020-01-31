@@ -4,11 +4,15 @@ using NLog ;
 
 namespace Common.Logging
 {
-	public class LoggerTracker  : ILoggerTracker
+	public class LoggerTracker : ILoggerTracker
 	{
-		private static ILogger _Logger = LogManager.GetCurrentClassLogger ( ) ;
-		public ILogger Logger { get { return LoggerTracker._Logger ; } }
-		ConcurrentDictionary <string, ILogger> loggers = new ConcurrentDictionary < string , ILogger >();
+		private static readonly ILogger _Logger = LogManager.GetCurrentClassLogger ( ) ;
+
+		private readonly ConcurrentDictionary < string , ILogger > loggers =
+			new ConcurrentDictionary < string , ILogger > ( ) ;
+
+		public ILogger Logger => _Logger ;
+
 		public void TrackLogger ( string loggerName , ILogger logger )
 		{
 			ILogger existingLogger = null ;
@@ -22,14 +26,14 @@ namespace Common.Logging
 				loggers.TryAdd ( loggerName , logger ) ;
 				OnLoggerRegistered ( new LoggerEventArgs ( logger ) ) ;
 			}
-		} 
-
-		protected virtual void OnLoggerRegistered ( LoggerEventArgs args )
-		{
-			LoggerRegisteredEventHandler handler = LoggerRegistered ;
-			handler?.Invoke ( this , args ) ;
 		}
 
 		public event LoggerRegisteredEventHandler LoggerRegistered ;
+
+		protected virtual void OnLoggerRegistered ( LoggerEventArgs args )
+		{
+			var handler = LoggerRegistered ;
+			handler?.Invoke ( this , args ) ;
+		}
 	}
 }

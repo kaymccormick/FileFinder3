@@ -12,12 +12,11 @@ using NLog ;
 namespace Common.Controls
 {
 	/// <summary>
-	/// Interaction logic for TypeControl.xaml
+	///     Interaction logic for TypeControl.xaml
 	/// </summary>
 	public partial class TypeControl : UserControl
 	{
-		private static Logger Logger =
-			LogManager.GetCurrentClassLogger ( ) ;
+		private static readonly Logger Logger = LogManager.GetCurrentClassLogger ( ) ;
 
 		public static readonly DependencyProperty RenderedTypeProperty = App.RenderedTypeProperty ;
 
@@ -53,6 +52,13 @@ namespace Common.Controls
 			                           , new PropertyMetadata ( default ( bool ) )
 			                            ) ;
 
+		public TypeControl ( )
+		{
+			RenderedTypeChanged += OnRenderedTypeChanged ;
+			InitializeComponent ( ) ;
+			PopulateControl ( GetValue ( RenderedTypeProperty ) as Type ) ;
+		}
+
 		public Type RenderedType
 		{
 			get => GetValue ( RenderedTypeProperty ) as Type ;
@@ -83,19 +89,13 @@ namespace Common.Controls
 			set => SetValue ( TargetDetailedProperty , value ) ;
 		}
 
+		public FlowDocument flowDocument { get ; set ; }
+
 
 		public event RoutedPropertyChangedEventHandler < Type > RenderedTypeChanged
 		{
 			add => AddHandler ( App.RenderedTypeChangedEvent , value ) ;
 			remove => RemoveHandler ( App.RenderedTypeChangedEvent , value ) ;
-		}
-
-		public TypeControl ( )
-		{
-			RenderedTypeChanged +=
-				new RoutedPropertyChangedEventHandler < Type > ( OnRenderedTypeChanged ) ;
-			InitializeComponent ( ) ;
-			PopulateControl ( GetValue ( RenderedTypeProperty ) as Type ) ;
 		}
 
 		private void OnRenderedTypeChanged (
@@ -139,7 +139,7 @@ namespace Common.Controls
 
 			if ( Detailed )
 			{
-				var elem = new List ( ) { MarkerStyle = TextMarkerStyle.None} ;
+				var elem = new List { MarkerStyle = TextMarkerStyle.None } ;
 
 				var baseType = myType.BaseType ;
 				while ( baseType != null )
@@ -163,8 +163,6 @@ namespace Common.Controls
 			// Container.Children.Add ( ) ;
 		}
 
-		public FlowDocument flowDocument { get ; set ; }
-
 		private void GenerateControlsForType ( Type myType , IAddChild addChild , bool toolTip )
 		{
 			// TextBlock tb = new TextBlock();
@@ -184,7 +182,7 @@ namespace Common.Controls
 			// hyperLink.CommandParameter = myType ;
 			if ( toolTip )
 			{
-				hyperLink.ToolTip = new ToolTip ( ) { Content = ToopTipContent ( myType ) } ;
+				hyperLink.ToolTip = new ToolTip { Content = ToopTipContent ( myType ) } ;
 			}
 
 			hyperLink.RequestNavigate += HyperLinkOnRequestNavigate ;
@@ -213,16 +211,14 @@ namespace Common.Controls
 			var provider = new CSharpCodeProvider ( ) ;
 			var codeTypeReference = new CodeTypeReference ( myType ) ;
 			var q = codeTypeReference ;
-			var toopTipContent = new TextBlock ( )
+			var toopTipContent = new TextBlock
 			                     {
-				                     Text     = provider.GetTypeOutput ( q )
-				                   , FontSize = 20
+				                     Text = provider.GetTypeOutput ( q ) , FontSize = 20
 				                     //, Margin = new Thickness ( 15 )
-				                    ,
 			                     } ;
 			if ( pp == null )
 			{
-				pp = new StackPanel ( ) { Orientation = Orientation.Vertical } ;
+				pp = new StackPanel { Orientation = Orientation.Vertical } ;
 			}
 
 			pp.Children.Insert ( 0 , toopTipContent ) ;
@@ -275,10 +271,10 @@ namespace Common.Controls
 					var targetDetailed = Detailed || TargetDetailed ;
 					var value = uie.GetValue ( App.RenderedTypeProperty ) as Type ;
 					var typeControl2 = new TypeControl2 ( ) ;
-					typeControl2.SetValue(App.RenderedTypeProperty, value);
+					typeControl2.SetValue ( App.RenderedTypeProperty , value ) ;
 					if ( ! navigationService.Navigate (
 					                                   typeControl2
-					                                 , new NavState ( )
+					                                 , new NavState
 					                                   {
 						                                   Detailed     = targetDetailed
 						                                 , RenderedType = value
@@ -287,6 +283,7 @@ namespace Common.Controls
 					{
 						Logger.Error ( "nav cancelled" ) ;
 					}
+
 					e.Handled = true ;
 				}
 				else

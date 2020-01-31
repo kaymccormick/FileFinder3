@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System ;
 
 namespace KayMcCormick.Dev.Test.Metadata
 {
-    [AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Class | AttributeTargets.Module)]
-    public class WpfTestApplicationAttribute : Attribute
-    {
-    }
+	[ AttributeUsage (
+		                 AttributeTargets.Assembly
+		                 | AttributeTargets.Class
+		                 | AttributeTargets.Module
+	                 ) ]
+	public class WpfTestApplicationAttribute : Attribute
+	{
+	}
 }

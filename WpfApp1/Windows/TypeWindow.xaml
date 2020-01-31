@@ -8,5 +8,5 @@
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="TypeWindow" Height="450" Width="800">
-    <Frame Source="Page1.xaml"/>
+    <Frame Source="Page1.xaml" />
 </Window>

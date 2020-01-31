@@ -12,28 +12,28 @@
 using System ;
 using AppShared ;
 
-
 namespace Common
 {
 	public class InstanceRegistration
 	{
-		public object Instance { get ; }
-
-		public object ObjectId { get ; }
-
-		public InstanceInfo InstanceInfo { get ; }
-
-		public Type   Type     { get ; }
 		public InstanceRegistration (
 			object       instance
 		  , object       objectId
 		  , InstanceInfo instanceInfo
 		)
 		{
-			Instance = instance ;
-			ObjectId = objectId ;
+			Instance     = instance ;
+			ObjectId     = objectId ;
 			InstanceInfo = instanceInfo ;
-			Type     = instance.GetType ( ) ;
+			Type         = instance.GetType ( ) ;
 		}
+
+		public object Instance { get ; }
+
+		public object ObjectId { get ; }
+
+		public InstanceInfo InstanceInfo { get ; }
+
+		public Type Type { get ; }
 	}
 }

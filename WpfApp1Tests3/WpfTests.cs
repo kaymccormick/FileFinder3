@@ -8,8 +8,6 @@ using AppShared.Interfaces ;
 using Autofac ;
 using NLog ;
 using TestLib.Fixtures ;
-using WpfApp1.Attributes ;
-using WpfApp1.Util ;
 using WpfApp1Tests3.Attributes ;
 using WpfApp1Tests3.Fixtures ;
 using Xunit ;
@@ -34,8 +32,7 @@ namespace WpfApp1Tests3
 		        , outputHelper
 		         )
 		{
-
-			Logger.Debug ( $"{nameof ( WpfTests )} constructor"  ) ;
+			Logger.Debug ( $"{nameof ( WpfTests )} constructor" ) ;
 		}
 
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger ( ) ;
@@ -82,18 +79,14 @@ namespace WpfApp1Tests3
 				stack.Push ( myServices.InfoContextFactory ( "key" , q ) ) ;
 				Logger.Debug ( $"{q}: {resource}" ) ;
 				var prefix = $"Resource[{q}]" ;
-				WpfApp1Tests3.DumpHelper.DumpResource (
-				                                       stack
-				                                     , resource
-				                                     , myServices.InfoContextFactory
-				                                      ) ;
+				DumpHelper.DumpResource ( stack , resource , myServices.InfoContextFactory ) ;
 				stack.Pop ( ) ;
 			}
 		}
 
 		[ Fact ]
 		[ Trait ( "MSBuild" , "Include" ) ]
-		[ Attributes.PushContext ( "my pushed context" ) ]
+		[ PushContext ( "my pushed context" ) ]
 		public void Test2 ( )
 		{
 			using var c = C ( "using context" ) ;

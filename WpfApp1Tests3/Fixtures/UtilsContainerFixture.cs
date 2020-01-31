@@ -18,7 +18,7 @@ namespace WpfApp1Tests3.Fixtures
         {
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterType< InfoContext >().AsSelf();
-            containerBuilder.RegisterType < WpfTests.MyServices >().As < IMyServices >();
+            containerBuilder.RegisterType < WpfTestsBase.MyServices >().As < IMyServices >();
             containerBuilder.RegisterType < MyServicesFixture >().AsSelf ();
             _container = containerBuilder.Build();
             _scope = _container.BeginLifetimeScope();

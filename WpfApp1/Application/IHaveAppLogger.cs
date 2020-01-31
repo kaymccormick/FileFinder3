@@ -10,7 +10,6 @@
 // ---
 #endregion
 using Common.Logging ;
-using WpfApp1.Logging ;
 
 namespace WpfApp1.Application
 {

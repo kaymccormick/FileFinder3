@@ -10,10 +10,6 @@
 // ---
 #endregion
 
-using System ;
-using System.Threading.Tasks ;
-using NLog ;
-
 namespace WpfApp1Tests3
 {
 }

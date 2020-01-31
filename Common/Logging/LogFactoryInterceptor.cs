@@ -15,33 +15,38 @@ namespace Common.Logging
 {
 	public class LogFactoryInterceptor : IInterceptor
 	{
-		public ProxyGenerator Generator { get ; }
-
-		public LoggerProxyHelper.LogMethod UseLogMethod { get ; }
-
 		public LogFactoryInterceptor (
 			ProxyGenerator              generator
 		  , LoggerProxyHelper.LogMethod useLogMethod
 		)
 		{
-			Generator = generator ;
+			Generator    = generator ;
 			UseLogMethod = useLogMethod ;
 		}
+
+		public ProxyGenerator Generator { get ; }
+
+		public LoggerProxyHelper.LogMethod UseLogMethod { get ; }
 
 		public void Intercept ( IInvocation invocation )
 		{
 			UseLogMethod ( $"Method name is {invocation.Method.Name}" ) ;
 			if ( invocation.Method.Name == "GetLogger" )
 			{
-				invocation.Proceed();
+				invocation.Proceed ( ) ;
 				var classProxyWithTarget = Generator.CreateClassProxyWithTarget (
-				                                                                 invocation.ReturnValue
-				                                                               , new LoggerInterceptor ( Generator, UseLogMethod )
+				                                                                 invocation
+					                                                                .ReturnValue
+				                                                               , new
+					                                                                 LoggerInterceptor (
+					                                                                                    Generator
+					                                                                                  , UseLogMethod
+					                                                                                   )
 				                                                                ) ;
 			}
 			else
 			{
-				invocation.Proceed();
+				invocation.Proceed ( ) ;
 			}
 		}
 	}

@@ -14,7 +14,7 @@
 
 using System ;
 
-namespace Common
+namespace Common.Logging
 {
 	[System.ComponentModel.Composition.MetadataAttribute]
 	public class LoggingEntityMetadataAttribute

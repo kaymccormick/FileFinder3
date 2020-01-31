@@ -42,7 +42,7 @@ namespace WpfApp1Tests3.Attributes
 		/// <param name="methodUnderTest">The method under test</param>
 		public override void Before ( MethodInfo methodUnderTest )
 		{
-			LoggerProxyHelper.LogMethod logMethod = LogMethod;
+			LoggerProxyHelper.LogMethod logMethod = LogMethod ;
 			// Logger.Trace ( $"Nefore" ) ;
 			// Application.LoadComponent (
 			// Application.Current
@@ -62,12 +62,12 @@ namespace WpfApp1Tests3.Attributes
 				}
 				else
 				{
-					logMethod( "null" ) ;
+					logMethod ( "null" ) ;
 				}
 			}
 			else
 			{
-logMethod( "null" ) ;
+				logMethod ( "null" ) ;
 			}
 
 			base.Before ( methodUnderTest ) ;
@@ -76,7 +76,7 @@ logMethod( "null" ) ;
 		private void LogMethod ( string message , string callerfilepath , string callermembername )
 		{
 			Logger?.Debug ( message ) ;
-			Debug.WriteLine(message);
+			Debug.WriteLine ( message ) ;
 		}
 	}
 }

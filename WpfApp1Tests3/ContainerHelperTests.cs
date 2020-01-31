@@ -1,5 +1,4 @@
 ﻿using System ;
-using System.Collections ;
 using System.Collections.Generic ;
 using System.Diagnostics ;
 using System.Linq ;
@@ -46,7 +45,7 @@ namespace WpfApp1Tests3
 		  , ITestOutputHelper     output
 		)
 		{
-			UseLogMethod = new LoggerProxyHelper.LogMethod ( LogMethod ) ;
+			UseLogMethod = LogMethod ;
 			UseLogMethod ( $"my logger is type {Logger.GetType ( )}" ) ;
 			LoggingFixture        = loggingFixture ;
 			WpfApplicationFixture = wpfApplicationFixture ;

@@ -1,5 +1,5 @@
-﻿using System.Windows;
-using WpfApp1.Attributes;
+﻿using System.Windows ;
+using WpfApp1.Attributes ;
 
 namespace WpfApp1.Windows
 {
@@ -10,7 +10,7 @@ namespace WpfApp1.Windows
     [WindowMetadata("Application Settings")]
     public partial class AppSettingsWindow : Window
     {
-        public AppSettingsWindow()
+	    public AppSettingsWindow()
         {
             InitializeComponent();
         }

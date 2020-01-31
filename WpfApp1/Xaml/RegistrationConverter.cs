@@ -70,14 +70,13 @@ namespace WpfApp1.Xaml
 
 			if ( parameter is string xx )
 			{
-				if ( string.Compare ( xx , "Count" ) == 0 )
+				if ( String.CompareOrdinal ( xx , "Count" ) == 0 )
 				{
 					return _provider.GetInstanceCount ( componentRegistration ) ;
 				}
 			}
 
 			return x.AsList ( ) ;
-			return new object[ 0 ] ;
 		}
 
 

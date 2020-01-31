@@ -1,5 +1,4 @@
 ﻿#region header
-
 // Kay McCormick (mccor)
 // 
 // FileFinder3
@@ -9,38 +8,30 @@
 // 2020-01-22-9:21 AM
 // 
 // ---
-
 #endregion
 
-using NLog;
-using NLog.Targets;
-using Xunit.Abstractions;
+using NLog ;
+using NLog.Targets ;
+using Xunit.Abstractions ;
 
 namespace WpfApp1Tests3
 {
-	[ Target( "Xunit" ) ]
+	[ Target ( "Xunit" ) ]
 	public class XunitTarget : TargetWithLayout
 	{
-		private readonly ITestOutputHelper _outputHelper;
+		private readonly ITestOutputHelper _outputHelper ;
 
-		public XunitTarget(
-			ITestOutputHelper outputHelper
-		)
-		{
-			_outputHelper = outputHelper;
-		}
+		public XunitTarget ( ITestOutputHelper outputHelper ) { _outputHelper = outputHelper ; }
 
 		/// <summary>
 		///     Writes logging event to the log target. Must be overridden in inheriting
 		///     classes.
 		/// </summary>
 		/// <param name="logEvent">Logging event to be written out.</param>
-		public new void Write(
-			LogEventInfo logEvent
-		)
+		public new void Write ( LogEventInfo logEvent )
 		{
-			var renderLogEvent = RenderLogEvent( Layout, logEvent );
-			_outputHelper.WriteLine( renderLogEvent );
+			var renderLogEvent = RenderLogEvent ( Layout , logEvent ) ;
+			_outputHelper.WriteLine ( renderLogEvent ) ;
 		}
 	}
 }

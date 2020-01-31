@@ -1,7 +1,6 @@
+using System ;
 using System.Collections.Generic ;
 using System.ComponentModel ;
-using System.Windows ;
-using System.Windows.Documents ;
 using System.Windows.Markup ;
 using Autofac ;
 using Common.Converters ;
@@ -13,20 +12,18 @@ namespace Common
 	public class TestO : IAddChild
 
 	{
-		/// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
-		public TestO ( )
-		{
-			
-			Logger.Debug ( "constructeD" ) ;
-		}
+		private static readonly Logger Logger = LogManager.GetCurrentClassLogger ( ) ;
 
-		private ILifetimeScope lifetimeScope ;
+		/// <summary>
+		///     Initializes a new instance of the <see cref="T:System.Object" />
+		///     class.
+		/// </summary>
+		public TestO ( ) { Logger.Debug ( "constructeD" ) ; }
 
-		private static Logger Logger = LogManager.GetCurrentClassLogger ( ) ;
-
-		[TypeConverter(typeof(RegistrationSourceConverter))]
+		[ TypeConverter ( typeof ( RegistrationSourceConverter ) ) ]
 		public List < object > Content { get ; set ; } = new List < object > ( ) ;
-		public ILifetimeScope LifetimeScope { get => lifetimeScope; set => lifetimeScope = value; }
+
+		public ILifetimeScope LifetimeScope { get ; set ; }
 
 		/// <summary>Adds a child object.</summary>
 		/// <param name="value">The child object to add.</param>
@@ -39,6 +36,6 @@ namespace Common
 
 		/// <summary>Adds the text content of a node to the object.</summary>
 		/// <param name="text">The text to add to the object.</param>
-		public void AddText ( string text ) { throw new System.NotImplementedException ( ) ; }
+		public void AddText ( string text ) { throw new NotImplementedException ( ) ; }
 	}
 }

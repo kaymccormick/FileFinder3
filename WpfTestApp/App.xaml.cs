@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Generic ;
 using System.Diagnostics ;
-using System.Windows;
+using System.Windows ;
 using AppShared.Interfaces ;
 using Autofac ;
 using Common.Tracing ;
@@ -10,18 +10,31 @@ using NLog ;
 namespace WpfTestApp
 {
 	/// <summary>
-	/// Interaction logic for App.xaml
+	///     Interaction logic for App.xaml
 	/// </summary>
-	public partial class App : Application, IHaveLifetimeScope
+	public partial class App : Application , IHaveLifetimeScope
 	{
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger ( ) ;
+
+		public bool DoTracing { get ; set ; }
+
+		public ILifetimeScope MyLifetimeScope { get ; set ; }
+
+		public ILifetimeScope LifetimeScope
+		{
+			get => MyLifetimeScope ;
+			set => MyLifetimeScope = value ;
+		}
+
 		/// <summary>Raises the <see cref="E:System.Windows.Application.Startup" /> event.</summary>
-		/// <param name="e">A <see cref="T:System.Windows.StartupEventArgs" /> that contains the event data.</param>
+		/// <param name="e">
+		///     A <see cref="T:System.Windows.StartupEventArgs" /> that
+		///     contains the event data.
+		/// </param>
 		protected override void OnStartup ( StartupEventArgs e )
 		{
-			Initialize();
+			Initialize ( ) ;
 			base.OnStartup ( e ) ;
-
 		}
 
 		public void Initialize ( )
@@ -34,14 +47,11 @@ namespace WpfTestApp
 			}
 		}
 
-		public bool DoTracing
-			{ get ; set ; }
-
 		private void InitializeTracing ( )
 		{
 			PresentationTraceSources.Refresh ( ) ;
 			var nLogTraceListener = new NLogTraceListener ( ) ;
-			List <TraceSource> sources = new List < TraceSource > ();
+			var sources = new List < TraceSource > ( ) ;
 
 			sources.Add ( PresentationTraceSources.ResourceDictionarySource ) ;
 			sources.Add ( PresentationTraceSources.DependencyPropertySource ) ;
@@ -66,21 +76,12 @@ namespace WpfTestApp
 			                ) ;
 		}
 
-		public ILifetimeScope MyLifetimeScope
-			{ get ; set ; }
-
 		private void Target ( object sender , RoutedEventArgs e )
 		{
-			Window w = sender as Window ;
-			Logger.Warn  ($"Setting LifetimeScope to {MyLifetimeScope}");
+			var w = sender as Window ;
+			Logger.Warn ( $"Setting LifetimeScope to {MyLifetimeScope}" ) ;
 
-			w.SetValue(AppShared.App.LifetimeScopeProperty, MyLifetimeScope);
-		}
-
-		public ILifetimeScope LifetimeScope
-		{
-			get => MyLifetimeScope ;
-			set => MyLifetimeScope = value ;
+			w.SetValue ( AppShared.App.LifetimeScopeProperty , MyLifetimeScope ) ;
 		}
 	}
 }

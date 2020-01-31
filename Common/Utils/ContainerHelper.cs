@@ -23,24 +23,30 @@ namespace Common.Utils
 		private static readonly Logger Logger =
 			LogManager.GetLogger ( "Autofac container builder helper" ) ;
 
-		public static ILifetimeScope SetupContainer (
-			out    IContainer container)
+		public static ILifetimeScope SetupContainer ( out IContainer container )
 		{
 			var scan = GetAssembliesForScanning ( ) ;
 			return SetupContainer ( out container , scan ) ;
 		}
 
 
-		public static ILifetimeScope SetupContainer ( out IContainer container, IEnumerable <Assembly> assembliesToScan)
+		public static ILifetimeScope SetupContainer (
+			out IContainer           container
+		  , IEnumerable < Assembly > assembliesToScan
+		)
 		{
 			var toScan = assembliesToScan as Assembly[] ?? assembliesToScan.ToArray ( ) ;
-			Logger.Info ("Assemblies " +
-			             String.Join (
-			                          ", "
-			                        , toScan.Select ( ( assembly , i1 ) => assembly.GetName ( ).Name )
-			                         )
+			Logger.Info (
+			             "Assemblies "
+			             + string.Join (
+			                            ", "
+			                          , toScan.Select (
+			                                           ( assembly , i1 )
+				                                           => assembly.GetName ( ).Name
+			                                          )
+			                           )
 			            ) ;
-			AppLoggingConfigHelper.EnsureLoggingConfigured ( );
+			AppLoggingConfigHelper.EnsureLoggingConfigured ( ) ;
 			var proxyGenerator = ProxyGenerator ;
 			var builderInterceptor = new BuilderInterceptor ( proxyGenerator ) ;
 			var proxy =
@@ -48,20 +54,25 @@ namespace Common.Utils
 
 			var builder = proxy ;
 			#region Autofac Modules
-			builder.RegisterModule<AttributedMetadataModule> ( );
-			builder.RegisterModule<MenuModule> ( );
-			builder.RegisterModule <IdGeneratorModule> ( );
+			builder.RegisterModule < AttributedMetadataModule > ( ) ;
+			builder.RegisterModule < MenuModule > ( ) ;
+			builder.RegisterModule < IdGeneratorModule > ( ) ;
 			#endregion
 
-			int i = 0 ;
+			var i = 0 ;
 
 			void LogStuff ( int index )
 			{
-				builderInterceptor.Invocations.ForEach ( invocation => Logger.Debug ( $"{index}]: {invocation.Method.Name} ({string.Join ( ", " , invocation.Arguments )}) => {invocation.OriginalReturnValue}" ) ) ;
+				builderInterceptor.Invocations.ForEach (
+				                                        invocation
+					                                        => Logger.Debug (
+					                                                         $"{index}]: {invocation.Method.Name} ({string.Join ( ", " , invocation.Arguments )}) => {invocation.OriginalReturnValue}"
+					                                                        )
+				                                       ) ;
 			}
 
 
-			LogStuff ( i );
+			LogStuff ( i ) ;
 			// ReSharper disable once RedundantAssignment
 			i += 1 ;
 
@@ -72,14 +83,14 @@ namespace Common.Utils
 			#endregion
 
 			#region Assembly scanning
-
-			builder.RegisterAssemblyTypes ( toScan.ToArray())			                      .Where (
-			                                                                                          delegate ( Type t ) {
-				                                                                                          var isAssignableFrom = typeof ( Window ).IsAssignableFrom ( t ) ;
-				                                                                                          Logger.Trace ( $"{t} is assignable from {isAssignableFrom}" );
-				                                                                                          return isAssignableFrom;
-			                                                                                          }
-			                                                                                         )
+			builder.RegisterAssemblyTypes ( toScan.ToArray ( ) )
+			       .Where (
+			               delegate ( Type t ) {
+				               var isAssignableFrom = typeof ( Window ).IsAssignableFrom ( t ) ;
+				               Logger.Trace ( $"{t} is assignable from {isAssignableFrom}" ) ;
+				               return isAssignableFrom ;
+			               }
+			              )
 			       .AsSelf ( )
 			        //.As<Window> ( )
 			       .OnActivating (
@@ -90,18 +101,17 @@ namespace Common.Utils
 				                      {
 					                      haveLogger.Logger =
 						                      args.Context.Resolve < ILogger > (
-						                                                        new
-							                                                        TypedParameter (
-							                                                                        typeof
-							                                                                        ( Type
-							                                                                        )
-							                                                                      , argsInstance
-								                                                                       .GetType ( )
-							                                                                       )
+						                                                        new TypedParameter (
+						                                                                            typeof
+						                                                                            ( Type
+						                                                                            )
+						                                                                          , argsInstance
+							                                                                           .GetType ( )
+						                                                                           )
 						                                                       ) ;
 				                      }
 			                      }
-			                     );
+			                     ) ;
 
 			// builder.RegisterAssemblyTypes ( executingAssembly )
 			//        .Where ( predicate : t => typeof ( ITopLevelMenu ).IsAssignableFrom ( c : t ) )
@@ -112,14 +122,14 @@ namespace Common.Utils
 			//        .As < TraceListener > ( )
 			//        .InstancePerLifetimeScope ( ) ;
 			#region Interceptors
-			builder.RegisterType<MyInterceptor> ( ).AsSelf ( );
-			builder.RegisterType<LoggingInterceptor> ( ).AsSelf ( );
+			builder.RegisterType < MyInterceptor > ( ).AsSelf ( ) ;
+			builder.RegisterType < LoggingInterceptor > ( ).AsSelf ( ) ;
 			#endregion
 
 			#region Logging
-			builder.RegisterType<LoggerTracker> ( )
-			       .As<ILoggerTracker> ( )
-			       .InstancePerLifetimeScope ( );
+			builder.RegisterType < LoggerTracker > ( )
+			       .As < ILoggerTracker > ( )
+			       .InstancePerLifetimeScope ( ) ;
 
 			// builder.RegisterType < LogFactory > ( ).AsSelf ( ) ;
 
@@ -128,26 +138,26 @@ namespace Common.Utils
 				                  var loggerName = "unset" ;
 				                  try
 				                  {
-					                  loggerName = p.TypedAs <Type> ( ).FullName;
+					                  loggerName = p.TypedAs < Type > ( ).FullName ;
 				                  }
 				                  catch ( Exception ex )
 				                  {
-					                  Console.WriteLine ( ex.ToString ( ) );
+					                  Console.WriteLine ( ex.ToString ( ) ) ;
 				                  }
 
 				                  var tracker = c.Resolve < ILoggerTracker > ( ) ;
-				                  Logger.Trace ( $"creating logger loggerName = {loggerName}" );
+				                  Logger.Trace ( $"creating logger loggerName = {loggerName}" ) ;
 				                  var logger = LogManager.GetLogger ( loggerName ) ;
-				                  tracker.TrackLogger ( loggerName , logger );
-				                  return logger;
+				                  tracker.TrackLogger ( loggerName , logger ) ;
+				                  return logger ;
 			                  }
 			                 )
-			       .As<ILogger> ( );
+			       .As < ILogger > ( ) ;
 			#endregion
 
 
 			#region Callbacks
-			builder.RegisterBuildCallback ( c => Logger.Info ( "Container built." ) );
+			builder.RegisterBuildCallback ( c => Logger.Info ( "Container built." ) ) ;
 			builder.RegisterCallback (
 			                          registry => {
 				                          registry.Registered += ( sender , args ) => {
@@ -155,31 +165,31 @@ namespace Common.Utils
 					                                        "Registered "
 					                                        + args.ComponentRegistration.Activator
 					                                              .LimitType
-					                                       );
+					                                       ) ;
 					                          args.ComponentRegistration.Activated += (
 						                          o
 						                        , eventArgs
 					                          ) => {
 						                          Logger.Trace (
 						                                        $"Activated {DescribeComponent ( eventArgs.Component )} (sender={o}, instance={eventArgs.Instance})"
-						                                       );
-					                          };
-				                          };
+						                                       ) ;
+					                          } ;
+				                          } ;
 			                          }
-			                         );
+			                         ) ;
 			#endregion
 
 			#region Container Build
 			var setupContainer = builder.Build ( ) ;
-			container = setupContainer;
+			container = setupContainer ;
 			setupContainer.ChildLifetimeScopeBeginning +=
-				SetupContainerOnChildLifetimeScopeBeginning;
+				SetupContainerOnChildLifetimeScopeBeginning ;
 			#endregion
-			setupContainer.CurrentScopeEnding += SetupContainerOnCurrentScopeEnding;
+			setupContainer.CurrentScopeEnding += SetupContainerOnCurrentScopeEnding ;
 
 
 			// #region Post-container build reporting
-			return setupContainer.BeginLifetimeScope ( "initial scope" );
+			return setupContainer.BeginLifetimeScope ( "initial scope" ) ;
 			// ,configurationAction : containerBuilder
 			// => ConfigurationAction (
 			// containerBuilder
@@ -211,7 +221,7 @@ namespace Common.Utils
 		{
 			Logger.Info (
 			             $"{nameof ( SetupContainerOnCurrentScopeEnding )} {e.LifetimeScope.Tag}"
-			            );
+			            ) ;
 		}
 
 		private static void SetupContainerOnChildLifetimeScopeBeginning (
@@ -219,7 +229,7 @@ namespace Common.Utils
 		  , LifetimeScopeBeginningEventArgs e
 		)
 		{
-			Logger.Info ( $"{sender} {e.LifetimeScope.Tag}" );
+			Logger.Info ( $"{sender} {e.LifetimeScope.Tag}" ) ;
 		}
 
 		private static string DescribeComponent ( IComponentRegistration eventArgsComponent )
@@ -228,13 +238,12 @@ namespace Common.Utils
 			var key = "DebugDescription" ;
 			if ( eventArgsComponent.Metadata.ContainsKey ( key ) )
 			{
-				debugDesc = eventArgsComponent.Metadata[key].ToString ( );
+				debugDesc = eventArgsComponent.Metadata[ key ].ToString ( ) ;
 			}
 
-			return $" CompReg w({eventArgsComponent.Id}, {debugDesc})";
+			return $" CompReg w({eventArgsComponent.Id}, {debugDesc})" ;
 		}
 #if DOIT
-
 		private static DeferredCallback ConfigurationAction ( ContainerBuilder obj )
 		{
 			return ;
@@ -277,13 +286,13 @@ namespace Common.Utils
 					Logger.Debug ( rf.LimitType.ToString ( ) ) ;
 					var x = new DelegateActivator (
 					                               rf.LimitType
-					                         , ( context , parameters ) => {
+					                     , ( context , parameters ) => {
 						                               Logger.Debug (
 						                                             "delegate activation of reflection component success."
 						                                            ) ;
 						                               var r = rf.ActivateInstance (
 						                                                            context
-						                                                      , parameters
+						                                                  , parameters
 						                                                           ) ;
 						                               Logger.Debug ( "got " + r ) ;
 						                               if ( r is IHaveLogger haveLogger )
@@ -303,7 +312,7 @@ namespace Common.Utils
 										                                                                            typeof
 										                                                                            ( Type
 										                                                                            )
-										                                                                      , r
+										                                                                  , r
 											                                                                           .GetType ( )
 										                                                                           )
 									                                                           ) ;
@@ -317,18 +326,18 @@ namespace Common.Utils
 					IComponentRegistration componentRegistration = new ComponentRegistration (
 					                                                                          Guid
 						                                                                         .NewGuid ( )
-					                                                                    , x
-					                                                                    , componentRegistryRegistration
+					                                                                , x
+					                                                                , componentRegistryRegistration
 						                                                                         .Lifetime
-					                                                                    , componentRegistryRegistration
+					                                                                , componentRegistryRegistration
 						                                                                         .Sharing
-					                                                                    , componentRegistryRegistration
+					                                                                , componentRegistryRegistration
 						                                                                         .Ownership
-					                                                                    , componentRegistryRegistration
+					                                                                , componentRegistryRegistration
 						                                                                         .Services
-					                                                                    , componentRegistryRegistration
+					                                                                , componentRegistryRegistration
 						                                                                         .Metadata
-					                                                                    , componentRegistryRegistration
+					                                                                , componentRegistryRegistration
 					                                                                         ) ;
 
 					Logger.Debug ( "wrapping reflection with delegate" ) ;
@@ -354,11 +363,11 @@ namespace Common.Utils
 						{
 							var x = new DelegateActivator (
 							                               d.LimitType
-							                         , ( context , parameters ) => {
+							                     , ( context , parameters ) => {
 								                               Logger.Debug ( "activating !!" ) ;
 								                               var r = d.ActivateInstance (
 								                                                           context
-								                                                     , parameters
+								                                                 , parameters
 								                                                          ) ;
 								                               Logger.Debug ( "got " + r ) ;
 								                               return r ;
@@ -369,13 +378,13 @@ namespace Common.Utils
 							IComponentRegistration componentRegistration =
 								new ComponentRegistration (
 								                           Guid.NewGuid ( )
-								                     , x
-								                     , componentRegistryRegistration.Lifetime
-								                     , componentRegistryRegistration.Sharing
-								                     , componentRegistryRegistration.Ownership
-								                     , componentRegistryRegistration.Services
-								                     , componentRegistryRegistration.Metadata
-								                     , componentRegistryRegistration
+								                 , x
+								                 , componentRegistryRegistration.Lifetime
+								                 , componentRegistryRegistration.Sharing
+								                 , componentRegistryRegistration.Ownership
+								                 , componentRegistryRegistration.Services
+								                 , componentRegistryRegistration.Metadata
+								                 , componentRegistryRegistration
 								                          ) ;
 
 
@@ -414,7 +423,7 @@ namespace Common.Utils
 			Logger.Debug ( $"{limitTypeAssembly.GetName ( )}" ) ;
 			if ( AssemblyName.ReferenceMatchesDefinition (
 			                                              limitTypeAssembly.GetName ( )
-			                                        , Assembly
+			                                    , Assembly
 			                                             .GetExecutingAssembly ( )
 			                                             .GetName ( )
 			                                             ) )
@@ -426,49 +435,47 @@ namespace Common.Utils
 		}
 #endif
 		// ReSharper disable once UnusedMember.Global
-		public static void Dump
-			(
+		public static void Dump (
 			IComponentRegistration componentRegistryRegistration
-		  , HashSet<object>        seenObjects, Action<string> outFunc
+		  , HashSet < object >     seenObjects
+		  , Action < string >      outFunc
 		)
 		{
 			var activatorLimitType = componentRegistryRegistration.Activator.LimitType ;
 
 			if ( seenObjects.Contains ( componentRegistryRegistration ) )
 			{
-				return;
+				return ;
 			}
 
-			seenObjects.Add ( componentRegistryRegistration );
-			outFunc( "Id = " + componentRegistryRegistration.Id );
-			outFunc(
-			               "Activator type = " + componentRegistryRegistration.Activator.GetType ( )
-			              );
+			seenObjects.Add ( componentRegistryRegistration ) ;
+			outFunc ( "Id = "             + componentRegistryRegistration.Id ) ;
+			outFunc ( "Activator type = " + componentRegistryRegistration.Activator.GetType ( ) ) ;
 
 
 
-			outFunc( "LimitType = " + activatorLimitType );
+			outFunc ( "LimitType = " + activatorLimitType ) ;
 
 
 			foreach ( var service in componentRegistryRegistration.Services )
 			{
-				outFunc( "Service is " + service.Description );
+				outFunc ( "Service is " + service.Description ) ;
 			}
 
 			if ( componentRegistryRegistration.Target == null )
 			{
-				outFunc( "Target registration is null." );
+				outFunc ( "Target registration is null." ) ;
 			}
 			else if ( Equals (
 			                  componentRegistryRegistration
 			                , componentRegistryRegistration.Target
 			                 ) )
 			{
-				outFunc( "Target is same registration." );
+				outFunc ( "Target is same registration." ) ;
 			}
 			else
 			{
-				Dump ( componentRegistryRegistration.Target , seenObjects, outFunc );
+				Dump ( componentRegistryRegistration.Target , seenObjects , outFunc ) ;
 			}
 		}
 	}

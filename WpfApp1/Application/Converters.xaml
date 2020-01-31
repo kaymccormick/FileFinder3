@@ -12,5 +12,4 @@
     <xaml:InstanceRegistrationConverter x:Key="InstanceRegistrationConverter" />
     <xaml:AssemblyConverter x:Key="AssemblyConverter" />
     <xaml:ComponentLifetimeConverter x:Key="ComponentLifetimeConverter" />
-    <xaml:InstanceRegistrationConverter x:Key="InstanceRegistrationConverter" />
 </ResourceDictionary>

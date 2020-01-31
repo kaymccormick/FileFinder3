@@ -1,9 +1,6 @@
 using System ;
-using System.ComponentModel ;
 using System.Globalization ;
-using System.Windows ;
 using System.Windows.Data ;
-using Autofac ;
 using Autofac.Core ;
 
 namespace WpfApp1.Xaml
@@ -15,7 +12,10 @@ namespace WpfApp1.Xaml
 		/// <param name="targetType">The type of the binding target property.</param>
 		/// <param name="`parameter">The converter parameter to use.</param>
 		/// <param name="culture">The culture to use in the converter.</param>
-		/// <returns>A converted value. If the method returns <see langword="null" />, the valid null value is used.</returns>
+		/// <returns>
+		///     A converted value. If the method returns <see langword="null" />, the
+		///     valid null value is used.
+		/// </returns>
 		public object Convert (
 			object      value
 		  , Type        targetType
@@ -25,8 +25,9 @@ namespace WpfApp1.Xaml
 		{
 			if ( targetType == typeof ( string ) )
 			{
-				IComponentLifetime lifetime = value as IComponentLifetime;
+				var lifetime = value as IComponentLifetime ;
 			}
+
 			throw new NotImplementedException ( ) ;
 		}
 
@@ -35,7 +36,18 @@ namespace WpfApp1.Xaml
 		/// <param name="targetType">The type to convert to.</param>
 		/// <param name="parameter">The converter parameter to use.</param>
 		/// <param name="culture">The culture to use in the converter.</param>
-		/// <returns>A converted value. If the method returns <see langword="null" />, the valid null value is used.</returns>
-		public object ConvertBack ( object value , Type targetType , object parameter , CultureInfo culture ) { throw new NotImplementedException ( ) ; }
+		/// <returns>
+		///     A converted value. If the method returns <see langword="null" />, the
+		///     valid null value is used.
+		/// </returns>
+		public object ConvertBack (
+			object      value
+		  , Type        targetType
+		  , object      parameter
+		  , CultureInfo culture
+		)
+		{
+			throw new NotImplementedException ( ) ;
+		}
 	}
 }

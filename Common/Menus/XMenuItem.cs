@@ -8,30 +8,30 @@ using NLog ;
 
 namespace Common.Menus
 {
-    public class XMenuItem : IMenuItem
-    {
-        private ILogger Logger { get;  }
+	public class XMenuItem : IMenuItem
+	{
+		public XMenuItem ( Owned < Func < Type , ILogger > > func )
+		{
+			Logger = func.Value ( typeof ( XMenuItem ) ) ;
+		}
 
-        public XMenuItem(Owned <Func <Type, ILogger> > func)
-        {
-	        Logger = func.Value( typeof(XMenuItem) );
-        }
-        
+		private ILogger Logger { get ; }
 
-        public string Header { get; set; }
 
-        public IEnumerable < IMenuItem > Children { get; set; }
-        
-        public ICommand Command { get; set; }
+		public string Header { get ; set ; }
 
-        public object CommandParameter { get; set; }
+		public IEnumerable < IMenuItem > Children { get ; set ; }
 
-        public IInputElement CommandTarget { get; set; }
+		public ICommand Command { get ; set ; }
 
-        public override string ToString()
-        {
-            return
-                $"{nameof( Header )}: {Header}, {nameof( Children )}: {Children}, {nameof( Command )}: {Command}, {nameof( CommandParameter )}: {CommandParameter}, {nameof( CommandTarget )}: {CommandTarget}";
-        }
-    }
+		public object CommandParameter { get ; set ; }
+
+		public IInputElement CommandTarget { get ; set ; }
+
+		public override string ToString ( )
+		{
+			return
+				$"{nameof ( Header )}: {Header}, {nameof ( Children )}: {Children}, {nameof ( Command )}: {Command}, {nameof ( CommandParameter )}: {CommandParameter}, {nameof ( CommandTarget )}: {CommandTarget}" ;
+		}
+	}
 }

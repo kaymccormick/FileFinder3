@@ -25,12 +25,9 @@ using Vanara.Extensions.Reflection ;
 using WpfApp1.Application ;
 using WpfApp1.Attributes ;
 using WpfApp1.Menus ;
-using CheckBox = System.Windows.Controls.CheckBox ;
-using Control = System.Windows.Controls.Control ;
-using ILogger = NLog.ILogger ;
+using App = AppShared.App ;
 using LogLevel = NLog.LogLevel ;
 using LogManager = NLog.LogManager ;
-using Menu = System.Windows.Controls.Menu ;
 
 namespace WpfApp1.Windows
 {
@@ -42,12 +39,17 @@ namespace WpfApp1.Windows
 	public partial class MainWindow : Window , IHaveLogger , IHaveAppLogger
 
 	{
-public LoggingConfiguration Configuration { get ; set ; }
-		public static DependencyProperty
-			LifetimeScopeProperty = AppShared.App.LifetimeScopeProperty ;
+		public LoggingConfiguration Configuration { get ; set ; }
 
-		public static DependencyProperty MenuItemListCollectionViewProperty = AppShared.App.MenuItemListCollectionViewProperty ;
-		/// <summary>Adds a specified object as the child of a <see cref="T:System.Windows.Controls.ContentControl" />. </summary>
+		public static DependencyProperty LifetimeScopeProperty = App.LifetimeScopeProperty ;
+
+		public static DependencyProperty MenuItemListCollectionViewProperty =
+			App.MenuItemListCollectionViewProperty ;
+
+		/// <summary>
+		///     Adds a specified object as the child of a
+		///     <see cref="T:System.Windows.Controls.ContentControl" />.
+		/// </summary>
 		/// <param name="value">The object to add.</param>
 		protected override void AddChild ( object value )
 		{
@@ -59,7 +61,7 @@ public LoggingConfiguration Configuration { get ; set ; }
 		{
 			if ( ui == null )
 			{
-				Logger.Warn ( $"null" ) ;
+				Logger.Warn ( "null" ) ;
 				return ;
 			}
 
@@ -138,8 +140,11 @@ public LoggingConfiguration Configuration { get ; set ; }
 		{
 			InitializeComponent ( ) ;
 
-			AddHandler ( AppShared.App.LifetimeScopeChangedEvent, new RoutedPropertyChangedEventHandler < ILifetimeScope > ( UpdatedScope ));
-			Loaded += OnLoaded;
+			AddHandler (
+			            App.LifetimeScopeChangedEvent
+			          , new RoutedPropertyChangedEventHandler < ILifetimeScope > ( UpdatedScope )
+			           ) ;
+			Loaded += OnLoaded ;
 
 			//RecurseDiscover(Content ) ;
 			var target = MyCacheTarget.GetInstance ( 1000 ) ;
@@ -177,16 +182,16 @@ public LoggingConfiguration Configuration { get ; set ; }
 				*/
 
 			AddHandler (
-			            AppShared.App.MenuItemListCollectionViewChangedEvent
+			            App.MenuItemListCollectionViewChangedEvent
 			          , new RoutedPropertyChangedEventHandler < CollectionView > (
-			                                                                       OnMenuItemListCollectionViewChanged
-			                                                                      )
+			                                                                      OnMenuItemListCollectionViewChanged
+			                                                                     )
 			           ) ;
 			//Vanara.PInvoke.User32.SetWindowLong( Vanara.PInvoke.User32.GetActiveWindow(), User32.WindowLongFlags.GWL_EXSTYLE )
 		}
 
 		private void UpdatedScope (
-			object                                           sender
+			object                                            sender
 		  , RoutedPropertyChangedEventArgs < ILifetimeScope > e
 		)
 		{
@@ -233,7 +238,7 @@ public LoggingConfiguration Configuration { get ; set ; }
 		public ILogger Logger { get ; set ; } = LogManager.GetCurrentClassLogger ( ) ;
 
 		private void OnMenuItemListCollectionViewChanged (
-			object                                             sender
+			object                                            sender
 		  , RoutedPropertyChangedEventArgs < CollectionView > e
 		)
 		{
@@ -327,7 +332,10 @@ public LoggingConfiguration Configuration { get ; set ; }
 		}
 
 		/// <summary>Raises the <see cref="E:System.Windows.Window.Closed" /> event.</summary>
-		/// <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
+		/// <param name="e">
+		///     An <see cref="T:System.EventArgs" /> that contains the event
+		///     data.
+		/// </param>
 		protected override void OnClosed ( EventArgs e )
 		{
 			if ( DoRestart )
@@ -343,16 +351,17 @@ public LoggingConfiguration Configuration { get ; set ; }
 
 		private void Restart ( object sender , ExecutedRoutedEventArgs e )
 		{
-			DoRestart = true ;
-			System.Windows.Application.Current.ShutdownMode =ShutdownMode.OnExplicitShutdown; 
+			DoRestart                                       = true ;
+			System.Windows.Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown ;
 			Close ( ) ;
 		}
 
 		private void InstancesOnly_OnChecked ( object sender , RoutedEventArgs e )
 		{
 			Logger.Debug ( "checked" ) ;
-			CheckBox x = sender as CheckBox ;
-			var collectionViewSource = x.TryFindResource("Registrations") as CollectionViewSource ;
+			var x = sender as CheckBox ;
+			var collectionViewSource =
+				x.TryFindResource ( "Registrations" ) as CollectionViewSource ;
 			var tryFindResource = TryFindResource ( "RegistrationConverter" ) ;
 			if ( tryFindResource == null )
 			{
@@ -365,7 +374,7 @@ public LoggingConfiguration Configuration { get ; set ; }
 				return ;
 			}
 
-			CheckedHandler = ( object o , FilterEventArgs args ) => {
+			CheckedHandler = ( o , args ) => {
 				args.Accepted = false ;
 				var componentRegistration = args.Item as IComponentRegistration ;
 				var convert = converter.Convert (
@@ -382,9 +391,8 @@ public LoggingConfiguration Configuration { get ; set ; }
 						args.Accepted = true ;
 					}
 				}
-				catch ( Exception  )
+				catch ( Exception )
 				{
-					return ;
 				}
 			} ;
 			collectionViewSource.Filter += CheckedHandler ;
@@ -395,12 +403,13 @@ public LoggingConfiguration Configuration { get ; set ; }
 
 		private void InstancesOnly_OnUnchecked ( object sender , RoutedEventArgs e )
 		{
-			CheckBox x = sender as CheckBox ;
-			var collectionViewSource = x.TryFindResource("Registrations") as CollectionViewSource ;
+			var x = sender as CheckBox ;
+			var collectionViewSource =
+				x.TryFindResource ( "Registrations" ) as CollectionViewSource ;
 			collectionViewSource.Filter -= CheckedHandler ;
 			CheckedHandler              =  null ;
 		}
-		#if NLOGVIEWER
+#if NLOGVIEWER
 		private void ButtonBase_OnClick ( object sender , RoutedEventArgs e )
 		{
 			{
@@ -408,11 +417,11 @@ public LoggingConfiguration Configuration { get ; set ; }
 				                                       new NetworkSettings ( )
 				                                       {
 					                                       Port = NetConfig.Port
-					                                     , Protocol =
+					                                 , Protocol =
 						                                       NetConfig.IsUdp
 							                                       ? NetworkProtocol.Udp
 							                                       : NetworkProtocol.Tcp
-					                                      ,
+					                                    ,
 				                                       }
 				                                      ) ;
 				provider.Start ( ) ;
@@ -426,7 +435,7 @@ public LoggingConfiguration Configuration { get ; set ; }
 
 		private void LoadInstance ( object sender , ExecutedRoutedEventArgs e )
 		{
-			var v = e.Parameter.GetPropertyValue<object> ( "Value" ) ;
+			var v = e.Parameter.GetPropertyValue < object > ( "Value" ) ;
 			//Lazy<object> l = e.Parameter as Lazy < object > ;
 			//var v = l.Value ;
 			Logger.Debug ( "loaded " + v ) ;
@@ -434,15 +443,15 @@ public LoggingConfiguration Configuration { get ; set ; }
 
 		private void Metadata ( object sender , ExecutedRoutedEventArgs e )
 		{
-
-			var v = e.Parameter.GetPropertyValue<IDictionary<string, object>> ( "Metadata" ) ;
+			var v =
+				e.Parameter.GetPropertyValue < IDictionary < string , object > > ( "Metadata" ) ;
 			foreach ( var keyValuePair in v )
 			{
 				Logger.Debug ( $"{keyValuePair.Key} = {keyValuePair.Value}" ) ;
 			}
+
 			//Lazy<object> l = e.Parameter as Lazy < object > ;
 			//var v = l.Value ;
-			
 		}
 	}
 }

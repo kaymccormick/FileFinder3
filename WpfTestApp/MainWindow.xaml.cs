@@ -49,7 +49,7 @@ namespace WpfTestApp
 
 				}
 			}
-			catch ( Exception ex )
+			catch ( Exception )
 			{
 
 			}

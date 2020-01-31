@@ -3,6 +3,7 @@ using System.Collections.Generic ;
 using System.Collections.ObjectModel ;
 using System.Linq ;
 using AppShared.Interfaces ;
+using Common.Logging ;
 using NLog ;
 
 namespace Common

@@ -36,9 +36,9 @@
         <TabItem Header="Autofac" Padding="15" DataContext="{Binding Path=Container}">
             <controls:Container>
                 <aprops:App.LifetimeScope>
-                    <Binding ElementName="mainWindow" Path="(aprops:App.LifetimeScope)"/>
+                    <Binding ElementName="mainWindow" Path="(aprops:App.LifetimeScope)" />
                 </aprops:App.LifetimeScope>
-                </controls:Container>
+            </controls:Container>
         </TabItem>
         <TabItem Header="Home">
             <Grid>

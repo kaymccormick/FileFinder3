@@ -1,6 +1,6 @@
 ﻿namespace FileFinder3
 {
-    public class Summarizer
-    {
-    }
+	public class Summarizer
+	{
+	}
 }

@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections ;
-using System.Collections.Generic;
+﻿using System ;
+using System.Collections.Generic ;
 using System.Globalization ;
-using System.Linq;
 using System.Reflection ;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data ;
 
 namespace WpfApp1.Xaml
 {
-	[ValueConversion(typeof(Assembly), typeof(IEnumerable <Type> ))]
+	[ ValueConversion ( typeof ( Assembly ) , typeof ( IEnumerable < Type > ) ) ]
 	public class AssemblyConverter : IValueConverter
 	{
 		/// <summary>Converts a value. </summary>
@@ -18,7 +14,10 @@ namespace WpfApp1.Xaml
 		/// <param name="targetType">The type of the binding target property.</param>
 		/// <param name="parameter">The converter parameter to use.</param>
 		/// <param name="culture">The culture to use in the converter.</param>
-		/// <returns>A converted value. If the method returns <see langword="null" />, the valid null value is used.</returns>
+		/// <returns>
+		///     A converted value. If the method returns <see langword="null" />, the
+		///     valid null value is used.
+		/// </returns>
 		public object Convert (
 			object      value
 		  , Type        targetType
@@ -26,18 +25,18 @@ namespace WpfApp1.Xaml
 		  , CultureInfo culture
 		)
 		{
-			Assembly assembly = value as Assembly;
-			if(assembly == null)
+			var assembly = value as Assembly ;
+			if ( assembly == null )
 			{
 				return Type.EmptyTypes ;
 			}
-			if(typeof(IEnumerable <Type> ).IsAssignableFrom(targetType))
+
+			if ( typeof ( IEnumerable < Type > ).IsAssignableFrom ( targetType ) )
 			{
 				return assembly.ExportedTypes ;
 			}
 
-			throw new NotImplementedException();
-				
+			throw new NotImplementedException ( ) ;
 		}
 
 		/// <summary>Converts a value. </summary>
@@ -45,7 +44,18 @@ namespace WpfApp1.Xaml
 		/// <param name="targetType">The type to convert to.</param>
 		/// <param name="parameter">The converter parameter to use.</param>
 		/// <param name="culture">The culture to use in the converter.</param>
-		/// <returns>A converted value. If the method returns <see langword="null" />, the valid null value is used.</returns>
-		public object ConvertBack ( object value , Type targetType , object parameter , CultureInfo culture ) { throw new NotImplementedException ( ) ; }
+		/// <returns>
+		///     A converted value. If the method returns <see langword="null" />, the
+		///     valid null value is used.
+		/// </returns>
+		public object ConvertBack (
+			object      value
+		  , Type        targetType
+		  , object      parameter
+		  , CultureInfo culture
+		)
+		{
+			throw new NotImplementedException ( ) ;
+		}
 	}
 }

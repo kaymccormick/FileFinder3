@@ -1,5 +1,4 @@
 ﻿#region header
-
 // Kay McCormick (mccor)
 // 
 // FileFinder3
@@ -9,10 +8,9 @@
 // 2020-01-22-9:21 AM
 // 
 // ---
-
 #endregion
 
-using System.Windows.Markup;
+using System.Windows.Markup ;
 
 namespace WpfApp1Tests3
 {
@@ -22,21 +20,18 @@ namespace WpfApp1Tests3
 		///     Initializes a new instance of the <see cref="T:System.Object" />
 		///     class.
 		/// </summary>
-		public ProvideValueTarget(
-			object targetObject,
-			object targetProperty
-		)
+		public ProvideValueTarget ( object targetObject , object targetProperty )
 		{
-			TargetObject   = targetObject;
-			TargetProperty = targetProperty;
+			TargetObject   = targetObject ;
+			TargetProperty = targetProperty ;
 		}
 
 		/// <summary>Gets the target object being reported.</summary>
 		/// <returns>The target object being reported.</returns>
-		public object TargetObject { get; }
+		public object TargetObject { get ; }
 
 		/// <summary>Gets an identifier for the target property being reported.</summary>
 		/// <returns>An identifier for the target property being reported.</returns>
-		public object TargetProperty { get; }
+		public object TargetProperty { get ; }
 	}
 }

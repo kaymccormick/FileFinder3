@@ -24,7 +24,10 @@ namespace Common
 	{
 		private IEnumerable < Service > _services ;
 
-		/// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
+		/// <summary>
+		///     Initializes a new instance of the <see cref="T:System.Object" />
+		///     class.
+		/// </summary>
 		public ComponentRegistration (
 			Guid                            id
 		  , IInstanceActivator              activator
@@ -46,9 +49,10 @@ namespace Common
 			Target    = target ;
 		}
 
-		public List < object > ServicesList { get ; set ; }
-
-		/// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
+		/// <summary>
+		///     Initializes a new instance of the <see cref="T:System.Object" />
+		///     class.
+		/// </summary>
 		public ComponentRegistration (
 			IComponentLifetime     lifetime
 		  , InstanceSharing        sharing
@@ -63,22 +67,42 @@ namespace Common
 			Target    = target ;
 		}
 
-		/// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
+		/// <summary>
+		///     Initializes a new instance of the <see cref="T:System.Object" />
+		///     class.
+		/// </summary>
 		/// [ContentP
-		
-		public ComponentRegistration ( ) 
+		public ComponentRegistration ( )
 		{
 			Id       = Guid.NewGuid ( ) ;
 			Services = new List < Service > ( ) ;
 			Metadata = new Dictionary < string , object > ( ) ;
 		}
 
-		/// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
+		public List < object > ServicesList { get ; set ; }
+
+		public IList < InstanceInfo > Instances { get ; set ; } = new List < InstanceInfo > ( ) ;
+
+		/// <summary>Adds a child object.</summary>
+		/// <param name="value">The child object to add.</param>
+		public void AddChild ( object value ) { ServicesList.Add ( value ) ; }
+
+		/// <summary>Adds the text content of a node to the object.</summary>
+		/// <param name="text">The text to add to the object.</param>
+		public void AddText ( string text ) { AddChild ( text ) ; }
+
+		/// <summary>
+		///     Performs application-defined tasks associated with freeing, releasing,
+		///     or resetting unmanaged resources.
+		/// </summary>
 		public void Dispose ( ) { throw new NotImplementedException ( ) ; }
 
 		/// <summary>Called by the container when an instance is required.</summary>
 		/// <param name="context">The context in which the instance will be activated.</param>
-		/// <param name="parameters">Parameters for activation. These may be modified by the event handler.</param>
+		/// <param name="parameters">
+		///     Parameters for activation. These may be modified by
+		///     the event handler.
+		/// </param>
 		public void RaisePreparing (
 			IComponentContext             context
 		  , ref IEnumerable < Parameter > parameters
@@ -88,7 +112,7 @@ namespace Common
 		}
 
 		/// <summary>
-		/// Called by the container once an instance has been constructed.
+		///     Called by the container once an instance has been constructed.
 		/// </summary>
 		/// <param name="context">The context in which the instance was activated.</param>
 		/// <param name="parameters">The parameters supplied to the activator.</param>
@@ -103,8 +127,9 @@ namespace Common
 		}
 
 		/// <summary>
-		/// Called by the container once an instance has been fully constructed, including
-		/// any requested objects that depend on the instance.
+		///     Called by the container once an instance has been fully constructed,
+		///     including
+		///     any requested objects that depend on the instance.
 		/// </summary>
 		/// <param name="context">The context in which the instance was activated.</param>
 		/// <param name="parameters">The parameters supplied to the activator.</param>
@@ -119,10 +144,10 @@ namespace Common
 		}
 
 		/// <summary>
-		/// Gets a unique identifier for this component (shared in all sub-contexts.)
-		/// This value also appears in Services.
+		///     Gets a unique identifier for this component (shared in all sub-contexts.)
+		///     This value also appears in Services.
 		/// </summary>
-		public Guid Id { get ; set ; }
+		public Guid Id { get ; }
 
 		/// <summary>Gets the activator used to create instances.</summary>
 		public IInstanceActivator Activator { get ; set ; }
@@ -131,12 +156,13 @@ namespace Common
 		public IComponentLifetime Lifetime { get ; set ; }
 
 		/// <summary>
-		/// Gets a value indicating whether the component instances are shared or not.
+		///     Gets a value indicating whether the component instances are shared or not.
 		/// </summary>
 		public InstanceSharing Sharing { get ; set ; }
 
 		/// <summary>
-		/// Gets a value indicating whether the instances of the component should be disposed by the container.
+		///     Gets a value indicating whether the instances of the component should be
+		///     disposed by the container.
 		/// </summary>
 		public InstanceOwnership Ownership { get ; set ; }
 
@@ -162,37 +188,27 @@ namespace Common
 		public IDictionary < string , object > Metadata { get ; set ; }
 
 		/// <summary>
-		/// Gets the component registration upon which this registration is based.
+		///     Gets the component registration upon which this registration is based.
 		/// </summary>
 		public IComponentRegistration Target { get ; set ; }
 
-		public IList < InstanceInfo > Instances { get ; set ; } = new List < InstanceInfo > ( ) ;
-
 		/// <summary>
-		/// Fired when a new instance is required, prior to activation.
-		/// Can be used to provide Autofac with additional parameters, used during activation.
+		///     Fired when a new instance is required, prior to activation.
+		///     Can be used to provide Autofac with additional parameters, used during
+		///     activation.
 		/// </summary>
 		public event EventHandler < PreparingEventArgs > Preparing ;
 
 		/// <summary>
-		/// Fired when a new instance is being activated. The instance can be
-		/// wrapped or switched at this time by setting the Instance property in
-		/// the provided event arguments.
+		///     Fired when a new instance is being activated. The instance can be
+		///     wrapped or switched at this time by setting the Instance property in
+		///     the provided event arguments.
 		/// </summary>
 		public event EventHandler < ActivatingEventArgs < object > > Activating ;
 
 		/// <summary>
-		/// Fired when the activation process for a new instance is complete.
+		///     Fired when the activation process for a new instance is complete.
 		/// </summary>
 		public event EventHandler < ActivatedEventArgs < object > > Activated ;
-
-		/// <summary>Adds a child object.</summary>
-		/// <param name="value">The child object to add.</param>
-		public void AddChild ( object value ) { ServicesList.Add ( value ) ; }
-
-		/// <summary>Adds the text content of a node to the object.</summary>
-		/// <param name="text">The text to add to the object.</param>
-		public void AddText ( string text ) { AddChild ( text ) ; }
-
 	}
 }

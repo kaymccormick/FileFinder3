@@ -26,10 +26,9 @@
             <Frame Grid.Column="0 Grid.Row" />
             <WrapPanel Grid.Column="0" Grid.Row="0">
                 <controls1:TypeControl RenderedType="{x:Type collections:IEnumerable}" />
-                </WrapPanel>
+            </WrapPanel>
         </Grid>
-</Grid>
-
+    </Grid>
 
 
 </Page>

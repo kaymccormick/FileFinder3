@@ -9,10 +9,6 @@
 // 
 // ---
 #endregion
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-
 namespace WpfApp1.Windows
 {
 #if NO
@@ -59,6 +55,4 @@ namespace WpfApp1.Windows
 		}
 	}
 #endif
-
 }
-

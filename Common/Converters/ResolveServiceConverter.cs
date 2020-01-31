@@ -13,7 +13,10 @@ namespace Common.Converters
 		/// <param name="targetType">The type of the binding target property.</param>
 		/// <param name="parameter">The converter parameter to use.</param>
 		/// <param name="culture">The culture to use in the converter.</param>
-		/// <returns>A converted value. If the method returns <see langword="null" />, the valid null value is used.</returns>
+		/// <returns>
+		///     A converted value. If the method returns <see langword="null" />, the
+		///     valid null value is used.
+		/// </returns>
 		public object Convert (
 			object      value
 		  , Type        targetType
@@ -21,20 +24,20 @@ namespace Common.Converters
 		  , CultureInfo culture
 		)
 		{
-			 ResolveService s = value as ResolveService;
-			 var lifetimeScope = App.GetLifetimeScope ( s ) ;
-			 if ( lifetimeScope == null )
-			 {
-				 lifetimeScope = parameter as ILifetimeScope;
-				 
-			 }
-			 if ( lifetimeScope == null )
-			 {
-				 return null ;
+			var s = value as ResolveService ;
+			var lifetimeScope = App.GetLifetimeScope ( s ) ;
+			if ( lifetimeScope == null )
+			{
+				lifetimeScope = parameter as ILifetimeScope ;
+			}
 
-			 }
-			 object service = lifetimeScope.Resolve ( s.ServiceType ) ;
-			 return service ;
+			if ( lifetimeScope == null )
+			{
+				return null ;
+			}
+
+			var service = lifetimeScope.Resolve ( s.ServiceType ) ;
+			return service ;
 		}
 
 		/// <summary>Converts a value. </summary>
@@ -42,7 +45,18 @@ namespace Common.Converters
 		/// <param name="targetType">The type to convert to.</param>
 		/// <param name="parameter">The converter parameter to use.</param>
 		/// <param name="culture">The culture to use in the converter.</param>
-		/// <returns>A converted value. If the method returns <see langword="null" />, the valid null value is used.</returns>
-		public object ConvertBack ( object value , Type targetType , object parameter , CultureInfo culture ) { throw new NotImplementedException ( ) ; }
+		/// <returns>
+		///     A converted value. If the method returns <see langword="null" />, the
+		///     valid null value is used.
+		/// </returns>
+		public object ConvertBack (
+			object      value
+		  , Type        targetType
+		  , object      parameter
+		  , CultureInfo culture
+		)
+		{
+			throw new NotImplementedException ( ) ;
+		}
 	}
 }

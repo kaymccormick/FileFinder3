@@ -1,19 +1,21 @@
 ﻿<Page x:Class="WpfTestApp.TypePage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:WpfTestApp"
       xmlns:controls="clr-namespace:Common.Controls;assembly=Common"
       xmlns:appShared="clr-namespace:AppShared;assembly=AppShared"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"
       Background="AliceBlue"
       d:DesignHeight="200" d:DesignWidth="300"
       Title="TypePage">
 
     <DockPanel LastChildFill="True">
         <controls:TypeControl Detailed="true">
-            <appShared:App.RenderedType><x:Type TypeName="Window"/></appShared:App.RenderedType>
+            <appShared:App.RenderedType>
+                <x:Type TypeName="Window" />
+            </appShared:App.RenderedType>
         </controls:TypeControl>
     </DockPanel>
 </Page>

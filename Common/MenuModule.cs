@@ -12,6 +12,7 @@
 using AppShared.Interfaces ;
 using Autofac ;
 using Autofac.Extras.DynamicProxy ;
+using Common.Logging ;
 using Common.Menus ;
 using Module = Autofac.Module ;
 

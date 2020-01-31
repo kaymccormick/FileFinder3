@@ -1,50 +1,53 @@
-﻿using System;
+﻿using System ;
 using AppShared.Interfaces ;
-using Autofac;
-using NLog;
+using Autofac ;
+using NLog ;
 using TestLib.Fixtures ;
-using WpfApp1.Menus;
-using WpfApp1Tests3.Fixtures;
-using Xunit;
-using Xunit.Abstractions;
+using WpfApp1.Menus ;
+using WpfApp1Tests3.Fixtures ;
+using Xunit ;
+using Xunit.Abstractions ;
 
 namespace WpfApp1Tests3
 {
-	[Collection( "WpfApp")]
+	[ Collection ( "WpfApp" ) ]
 	public class MenuHelperTests : WpfTestsBase
 	{
-		private static readonly Logger Logger =
-			LogManager.GetCurrentClassLogger();
+		private static readonly Logger Logger = LogManager.GetCurrentClassLogger ( ) ;
 
-		private Func < IMenuItem > _xMenuItemCreator;
+		private readonly Func < IMenuItem > _xMenuItemCreator ;
 
 		/// <summary>
 		///     Initializes a new instance of the <see cref="T:System.Object" />
 		///     class.
 		/// </summary>
-		public MenuHelperTests(
-			WpfApplicationFixture fixture,
-			ContainerFixture      containerFixture,
-			ObjectIDFixture       objectIdFixture,
-			UtilsContainerFixture utilsContainerFixture,
-			ITestOutputHelper     outputHelper
-		) : base( fixture, containerFixture, objectIdFixture, utilsContainerFixture, outputHelper )
+		public MenuHelperTests (
+			WpfApplicationFixture fixture
+		  , ContainerFixture      containerFixture
+		  , ObjectIDFixture       objectIdFixture
+		  , UtilsContainerFixture utilsContainerFixture
+		  , ITestOutputHelper     outputHelper
+		) : base (
+		          fixture
+		        , containerFixture
+		        , objectIdFixture
+		        , utilsContainerFixture
+		        , outputHelper
+		         )
 		{
-			_xMenuItemCreator = containerScope.Resolve<Func<IMenuItem>>();
+			_xMenuItemCreator = containerScope.Resolve < Func < IMenuItem > > ( ) ;
 		}
 
-		[WpfFact()]
-		public void MakeMenuItemTest()
+		[ WpfFact ]
+		public void MakeMenuItemTest ( )
 		{
-			var header = "test";
-			IMenuItem arg = _xMenuItemCreator();
-			arg.Header = header;
-			Assert.NotNull(arg);
-			var item = MenuHelper.MakeMenuItem( arg );
-			Assert.NotNull( item );
-			Assert.Equal(header, item.Header );
-
-
+			var header = "test" ;
+			var arg = _xMenuItemCreator ( ) ;
+			arg.Header = header ;
+			Assert.NotNull ( arg ) ;
+			var item = MenuHelper.MakeMenuItem ( arg ) ;
+			Assert.NotNull ( item ) ;
+			Assert.Equal ( header , item.Header ) ;
 		}
 	}
 }

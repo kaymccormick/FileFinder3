@@ -1,5 +1,4 @@
-﻿
-#region header
+﻿#region header
 // Kay McCormick (mccor)
 // 
 // FileFinder3
@@ -21,19 +20,34 @@ using System.Xaml ;
 using System.Xml.Serialization ;
 using AppShared ;
 using NLog ;
+using XamlWriter = System.Windows.Markup.XamlWriter ;
 
 namespace Common.Tracing
 {
 	public class AppTraceLisener : TraceListener
 	{
-		private static Logger         Logger = LogManager.GetCurrentClassLogger ( ) ;
-		private        NLogTextWriter _nLogTextWriter ;
+		private static readonly Logger         Logger = LogManager.GetCurrentClassLogger ( ) ;
+		private                 NLogTextWriter _nLogTextWriter ;
 		public AppTraceLisener ( ) { _nLogTextWriter = new NLogTextWriter ( Logger ) ; }
 
+		public Dictionary < string , Info > RoutedEvents { get ; set ; } =
+			new Dictionary < string , Info > ( ) ;
+
 		/// <summary>Writes trace and event information to the listener specific output.</summary>
-		/// <param name="eventCache">A <see cref="T:System.Diagnostics.TraceEventCache" /> object that contains the current process ID, thread ID, and stack trace information.</param>
-		/// <param name="source">A name used to identify the output, typically the name of the application that generated the trace event.</param>
-		/// <param name="eventType">One of the <see cref="T:System.Diagnostics.TraceEventType" /> values specifying the type of event that has caused the trace.</param>
+		/// <param name="eventCache">
+		///     A <see cref="T:System.Diagnostics.TraceEventCache" />
+		///     object that contains the current process ID, thread ID, and stack trace
+		///     information.
+		/// </param>
+		/// <param name="source">
+		///     A name used to identify the output, typically the name of
+		///     the application that generated the trace event.
+		/// </param>
+		/// <param name="eventType">
+		///     One of the
+		///     <see cref="T:System.Diagnostics.TraceEventType" /> values specifying the
+		///     type of event that has caused the trace.
+		/// </param>
 		/// <param name="id">A numeric identifier for the event.</param>
 		public override void TraceEvent (
 			TraceEventCache eventCache
@@ -50,10 +64,24 @@ namespace Common.Tracing
 			}
 		}
 
-		/// <summary>Writes trace information, a message, and event information to the listener specific output.</summary>
-		/// <param name="eventCache">A <see cref="T:System.Diagnostics.TraceEventCache" /> object that contains the current process ID, thread ID, and stack trace information.</param>
-		/// <param name="source">A name used to identify the output, typically the name of the application that generated the trace event.</param>
-		/// <param name="eventType">One of the <see cref="T:System.Diagnostics.TraceEventType" /> values specifying the type of event that has caused the trace.</param>
+		/// <summary>
+		///     Writes trace information, a message, and event information to the
+		///     listener specific output.
+		/// </summary>
+		/// <param name="eventCache">
+		///     A <see cref="T:System.Diagnostics.TraceEventCache" />
+		///     object that contains the current process ID, thread ID, and stack trace
+		///     information.
+		/// </param>
+		/// <param name="source">
+		///     A name used to identify the output, typically the name of
+		///     the application that generated the trace event.
+		/// </param>
+		/// <param name="eventType">
+		///     One of the
+		///     <see cref="T:System.Diagnostics.TraceEventType" /> values specifying the
+		///     type of event that has caused the trace.
+		/// </param>
 		/// <param name="id">A numeric identifier for the event.</param>
 		/// <param name="message">A message to write.</param>
 		public override void TraceEvent (
@@ -73,13 +101,33 @@ namespace Common.Tracing
 			                ) ;
 		}
 
-		/// <summary>Writes trace information, a formatted array of objects and event information to the listener specific output.</summary>
-		/// <param name="eventCache">A <see cref="T:System.Diagnostics.TraceEventCache" /> object that contains the current process ID, thread ID, and stack trace information.</param>
-		/// <param name="source">A name used to identify the output, typically the name of the application that generated the trace event.</param>
-		/// <param name="eventType">One of the <see cref="T:System.Diagnostics.TraceEventType" /> values specifying the type of event that has caused the trace.</param>
+		/// <summary>
+		///     Writes trace information, a formatted array of objects and event
+		///     information to the listener specific output.
+		/// </summary>
+		/// <param name="eventCache">
+		///     A <see cref="T:System.Diagnostics.TraceEventCache" />
+		///     object that contains the current process ID, thread ID, and stack trace
+		///     information.
+		/// </param>
+		/// <param name="source">
+		///     A name used to identify the output, typically the name of
+		///     the application that generated the trace event.
+		/// </param>
+		/// <param name="eventType">
+		///     One of the
+		///     <see cref="T:System.Diagnostics.TraceEventType" /> values specifying the
+		///     type of event that has caused the trace.
+		/// </param>
 		/// <param name="id">A numeric identifier for the event.</param>
-		/// <param name="format">A format string that contains zero or more format items, which correspond to objects in the <paramref name="args" /> array.</param>
-		/// <param name="args">An <see langword="object" /> array containing zero or more objects to format.</param>
+		/// <param name="format">
+		///     A format string that contains zero or more format items,
+		///     which correspond to objects in the <paramref name="args" /> array.
+		/// </param>
+		/// <param name="args">
+		///     An <see langword="object" /> array containing zero or more
+		///     objects to format.
+		/// </param>
 		public override void TraceEvent (
 			TraceEventCache eventCache
 		  , string          source
@@ -101,7 +149,7 @@ namespace Common.Tracing
 				{
 					if ( ! RoutedEvents.TryGetValue ( re.Name , out var info ) )
 					{
-						RoutedEvents[re.Name] = info = new Info(0);
+						RoutedEvents[ re.Name ] = info = new Info ( 0 ) ;
 					}
 
 					info.count += 1 ;
@@ -139,10 +187,7 @@ namespace Common.Tracing
 					var xamlXmlWriterSettings = new XamlXmlWriterSettings ( ) ;
 					var b = new StringBuilder ( ) ;
 					//XamlWriter persist = new XamlXmlWriter(_nLogTextWriter);
-					System.Windows.Markup.XamlWriter.Save (
-					                                       args[ i + 1 ]
-					                                     , new StringWriter ( b )
-					                                      ) ;
+					XamlWriter.Save ( args[ i + 1 ] , new StringWriter ( b ) ) ;
 					xmlDict[ args[ i ].ToString ( ) ] = b.ToString ( ) ;
 				}
 				catch ( Exception )
@@ -183,13 +228,17 @@ namespace Common.Tracing
 			             ) ;
 		}
 
-		public Dictionary <string, Info> RoutedEvents { get ; set ; }= new Dictionary < string , Info > ();
-
-		/// <summary>When overridden in a derived class, writes the specified message to the listener you create in the derived class.</summary>
+		/// <summary>
+		///     When overridden in a derived class, writes the specified message to
+		///     the listener you create in the derived class.
+		/// </summary>
 		/// <param name="message">A message to write.</param>
 		public override void Write ( string message ) { Logger.Debug ( message ) ; }
 
-		/// <summary>When overridden in a derived class, writes a message to the listener you create in the derived class, followed by a line terminator.</summary>
+		/// <summary>
+		///     When overridden in a derived class, writes a message to the listener
+		///     you create in the derived class, followed by a line terminator.
+		/// </summary>
 		/// <param name="message">A message to write.</param>
 		public override void WriteLine ( string message ) { Logger.Debug ( message ) ; }
 	}

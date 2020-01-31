@@ -1,5 +1,4 @@
 ﻿#region header
-
 // Kay McCormick (mccor)
 // 
 // FileFinder3
@@ -9,7 +8,6 @@
 // 2020-01-22-2:51 PM
 // 
 // ---
-
 #endregion
 
 using System.ComponentModel ;
@@ -18,6 +16,5 @@ namespace Common.Converters
 {
 	public class LoggerInstanceConverter : TypeConverter
 	{
-
 	}
 }

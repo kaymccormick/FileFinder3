@@ -132,7 +132,6 @@ namespace WpfApp1Tests3.WpfUtils
 				// }
 				// ) ;
 				// thread.Start(myApp);
-				return Task.CompletedTask ;
 			}
 			else
 			{

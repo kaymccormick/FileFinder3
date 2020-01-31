@@ -9,77 +9,91 @@ using NLog.Targets ;
 
 namespace Common
 {
-    [Target(nameof(MyCacheTarget))]
-    public class MyCacheTarget : Target
-    {
-        /// <summary>
-        /// If there is no target in nlog.config definedm a new one is registered with the default maxcount
-        /// </summary>
-        /// <param name="defaultMaxCount"></param>
-        /// <returns></returns>
-        public static MyCacheTarget GetInstance(int defaultMaxCount)
-        {
-            AppLoggingConfigHelper.EnsureLoggingConfigured(  );
-            var target = (MyCacheTarget)LogManager.Configuration.AllTargets.FirstOrDefault(t => t is MyCacheTarget);
-            if (target == null)
-            {
-                target = new MyCacheTarget { MaxCount = defaultMaxCount, Name = nameof(MyCacheTarget)};
-                LogManager.Configuration.AddTarget(target.Name, target);
-                LogManager.Configuration.LoggingRules.Insert(0, new LoggingRule("*", LogLevel.FromString("Trace"), target));
-                LogManager.ReconfigExistingLoggers();
-            }
-            return target;
-        }
+	[ Target ( nameof ( MyCacheTarget ) ) ]
+	public class MyCacheTarget : Target
+	{
+		// ##############################################################################################################################
+		// Constructor
+		// ##############################################################################################################################
 
-        // ##############################################################################################################################
-        // Properties
-        // ##############################################################################################################################
+		#region Constructor
+		public MyCacheTarget ( )
+		{
+			_CacheSubject = new ReplaySubject < LogEventInfo > ( MaxCount ) ;
+		}
+		#endregion
 
-        #region Properties
+		/// <summary>
+		///     If there is no target in nlog.config definedm a new one is registered with
+		///     the default maxcount
+		/// </summary>
+		/// <param name="defaultMaxCount"></param>
+		/// <returns></returns>
+		public static MyCacheTarget GetInstance ( int defaultMaxCount )
+		{
+			AppLoggingConfigHelper.EnsureLoggingConfigured ( ) ;
+			var target =
+				( MyCacheTarget ) LogManager.Configuration.AllTargets.FirstOrDefault (
+				                                                                      t
+					                                                                      => t is
+						                                                                         MyCacheTarget
+				                                                                     ) ;
+			if ( target == null )
+			{
+				target = new MyCacheTarget
+				         {
+					         MaxCount = defaultMaxCount , Name = nameof ( MyCacheTarget )
+				         } ;
+				LogManager.Configuration.AddTarget ( target.Name , target ) ;
+				LogManager.Configuration.LoggingRules.Insert (
+				                                              0
+				                                            , new LoggingRule (
+				                                                               "*"
+				                                                             , LogLevel.FromString (
+				                                                                                    "Trace"
+				                                                                                   )
+				                                                             , target
+				                                                              )
+				                                             ) ;
+				LogManager.ReconfigExistingLoggers ( ) ;
+			}
 
-        // ##########################################################################################
-        // Public Properties
-        // ##########################################################################################
+			return target ;
+		}
 
-        /// <summary>
-        /// The maximum amount of entries held
-        /// </summary>
-        [RequiredParameter]
-        public int MaxCount { get; set; } = 1000;
-        
-        public IObservable<LogEventInfo> Cache => _CacheSubject.AsObservable();
-        private readonly ReplaySubject<LogEventInfo> _CacheSubject;
+		// ##############################################################################################################################
+		// override
+		// ##############################################################################################################################
 
-        // ##########################################################################################
-        // Private Properties
-        // ##########################################################################################
+		#region override
+		protected override void Write ( LogEventInfo logEvent )
+		{
+			_CacheSubject.OnNext ( logEvent ) ;
+		}
+		#endregion
 
-        #endregion
+		// ##############################################################################################################################
+		// Properties
+		// ##############################################################################################################################
 
-        // ##############################################################################################################################
-        // Constructor
-        // ##############################################################################################################################
+		#region Properties
+		// ##########################################################################################
+		// Public Properties
+		// ##########################################################################################
 
-        #region Constructor
+		/// <summary>
+		///     The maximum amount of entries held
+		/// </summary>
+		[ RequiredParameter ]
+		public int MaxCount { get ; set ; } = 1000 ;
 
-        public MyCacheTarget()
-        {
-            _CacheSubject = new ReplaySubject<LogEventInfo>(MaxCount);
-        }
+		public IObservable < LogEventInfo > Cache => _CacheSubject.AsObservable ( ) ;
 
-        #endregion
+		private readonly ReplaySubject < LogEventInfo > _CacheSubject ;
 
-        // ##############################################################################################################################
-        // override
-        // ##############################################################################################################################
-
-        #region override
-
-        protected override void Write(LogEventInfo logEvent)
-        {
-            _CacheSubject.OnNext(logEvent);
-        }
-
-        #endregion
-    }
+		// ##########################################################################################
+		// Private Properties
+		// ##########################################################################################
+		#endregion
+	}
 }

@@ -23,7 +23,7 @@ namespace WpfApp1.Windows
 		///     <see cref="T:System.Collections.ObjectModel.ObservableCollection`1" />
 		///     class.
 		/// </summary>
-		public LogEventInfoCollection (  ) { }
+		public LogEventInfoCollection ( ) { }
 
 		/// <summary>
 		///     Initializes a new instance of the

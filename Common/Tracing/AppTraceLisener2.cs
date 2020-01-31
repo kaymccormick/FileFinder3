@@ -154,7 +154,6 @@ namespace Common.Tracing
 			// "Path=Tag; DataItem=null; target element is 'TextBlock' (Name=''); target property is 'Text' (type 'String')"
 			var d = new SerializableDictionary < string , object > ( ) ;
 			var xmlDict = new Dictionary < string , string > ( ) ;
-			var doOutput = true ;
 			// Logger.Info ( args.Length ) ;
 			Logger.Debug ("x: " + message +  String.Join ( ", " , args ) ) ;
 

@@ -58,9 +58,6 @@ namespace Common.Converters
 
 			}
 			return r ;
-
-			return new object[ 0 ] ;
-			throw new NotImplementedException ( ) ;
 		}
 
 		/// <summary>Converts a value. </summary>

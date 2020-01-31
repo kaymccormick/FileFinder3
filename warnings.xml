@@ -1,0 +1,1451 @@
+﻿<model>
+  <node column0="Build Succeeded (1039 warnings)">
+    <node column0="AppShared (176 items)">
+      <node column0="App (76 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App' (15, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App' (15, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.MenuItemListCollectionViewChangedEvent' (20, 38)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.MenuItemListCollectionViewChangedEvent' (20, 38)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.MenuItemListCollectionViewProperty' (29, 45)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.MenuItemListCollectionViewProperty' (29, 45)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.LoggerRegisteredEvent' (48, 38)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.LoggerRegisteredEvent' (48, 38)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.LifetimeScopeChangedEvent' (57, 38)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.LifetimeScopeChangedEvent' (57, 38)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.LifetimeScopeProperty' (66, 45)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.LifetimeScopeProperty' (66, 45)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.RenderedTypeChangedEvent' (83, 38)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.RenderedTypeChangedEvent' (83, 38)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.RenderedTypeProperty' (91, 45)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.RenderedTypeProperty' (91, 45)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.AssemblyListChangedEvent' (109, 38)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.AssemblyListChangedEvent' (109, 38)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.AssemblyListProperty' (118, 45)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.AssemblyListProperty' (118, 45)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.ContainerChangedEvent' (135, 38)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.ContainerChangedEvent' (135, 38)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.ContainerProperty' (144, 45)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.ContainerProperty' (144, 45)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.ResolveServiceListChangedEvent' (162, 38)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.ResolveServiceListChangedEvent' (162, 38)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.ResolveServiceListProperty' (171, 45)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.ResolveServiceListProperty' (171, 45)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.AddOnMenuItemListCollectionViewChangedHandler(DependencyObject, RoutedEventHandler)' (231, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.AddOnMenuItemListCollectionViewChangedHandler(DependencyObject, RoutedEventHandler)' (231, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.RemoveOnMenuItemListCollectionViewChangedHandler(DependencyObject, RoutedEventHandler)' (247, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.RemoveOnMenuItemListCollectionViewChangedHandler(DependencyObject, RoutedEventHandler)' (247, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.GetMenuItemListCollectionView(DependencyObject)' (265, 32)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.GetMenuItemListCollectionView(DependencyObject)' (265, 32)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.SetMenuItemListCollectionView(DependencyObject, CollectionView)' (271, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.SetMenuItemListCollectionView(DependencyObject, CollectionView)' (271, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.AddLoggerRegisteredHandler(DependencyObject, RoutedEventHandler)' (284, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.AddLoggerRegisteredHandler(DependencyObject, RoutedEventHandler)' (284, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.RemoveLoggerRegisteredHandler(DependencyObject, RoutedEventHandler)' (301, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.RemoveLoggerRegisteredHandler(DependencyObject, RoutedEventHandler)' (301, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.AddLifetimeScopeChangedEventHandler(DependencyObject, RoutedEventHandler)' (358, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.AddLifetimeScopeChangedEventHandler(DependencyObject, RoutedEventHandler)' (358, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.RemoveLifetimeScopeChangedEventHandler(DependencyObject, RoutedEventHandler)' (373, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.RemoveLifetimeScopeChangedEventHandler(DependencyObject, RoutedEventHandler)' (373, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.GetLifetimeScope(DependencyObject)' (392, 32)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.GetLifetimeScope(DependencyObject)' (392, 32)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.SetLifetimeScope(DependencyObject, ILifetimeScope)' (397, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.SetLifetimeScope(DependencyObject, ILifetimeScope)' (397, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.AddRenderedTypeChangedEventHandler(DependencyObject, RoutedEventHandler)' (446, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.AddRenderedTypeChangedEventHandler(DependencyObject, RoutedEventHandler)' (446, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.RemoveRenderedTypeChangedEventHandler(DependencyObject, RoutedEventHandler)' (461, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.RemoveRenderedTypeChangedEventHandler(DependencyObject, RoutedEventHandler)' (461, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.GetRenderedType(DependencyObject)' (477, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.GetRenderedType(DependencyObject)' (477, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.SetRenderedType(DependencyObject, Type)' (482, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.SetRenderedType(DependencyObject, Type)' (482, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.AddOnAssemblyListChangedHandler(DependencyObject, RoutedEventHandler)' (532, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.AddOnAssemblyListChangedHandler(DependencyObject, RoutedEventHandler)' (532, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.RemoveOnAssemblyListChangedHandler(DependencyObject, RoutedEventHandler)' (547, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.RemoveOnAssemblyListChangedHandler(DependencyObject, RoutedEventHandler)' (547, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.SetAssemblyList(DependencyObject, AssemblyList)' (581, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.SetAssemblyList(DependencyObject, AssemblyList)' (581, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.AddContainerChangedEventHandler(DependencyObject, RoutedEventHandler)' (629, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.AddContainerChangedEventHandler(DependencyObject, RoutedEventHandler)' (629, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.RemoveContainerChangedEventHandler(DependencyObject, RoutedEventHandler)' (644, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.RemoveContainerChangedEventHandler(DependencyObject, RoutedEventHandler)' (644, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.GetContainer(DependencyObject)' (661, 28)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.GetContainer(DependencyObject)' (661, 28)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.SetContainer(DependencyObject, IContainer)' (666, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.SetContainer(DependencyObject, IContainer)' (666, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.AddOnResolveServiceListChangedHandler(DependencyObject, RoutedEventHandler)' (716, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.AddOnResolveServiceListChangedHandler(DependencyObject, RoutedEventHandler)' (716, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.RemoveOnResolveServiceListChangedHandler(DependencyObject, RoutedEventHandler)' (731, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.RemoveOnResolveServiceListChangedHandler(DependencyObject, RoutedEventHandler)' (731, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.SetResolveServiceList(DependencyObject, ResolveServiceList)' (767, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.SetResolveServiceList(DependencyObject, ResolveServiceList)' (767, 22)" />
+      </node>
+      <node column0="AssemblyContainerScanAttribute (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AssemblyContainerScanAttribute' (5, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AssemblyContainerScanAttribute' (5, 15)" />
+      </node>
+      <node column0="AssemblyList (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AssemblyList' (7, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AssemblyList' (7, 15)" />
+      </node>
+      <node column0="BeforeAfterLoggerAttribute (6 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'BeforeAfterLoggerAttribute' (11, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'BeforeAfterLoggerAttribute' (11, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'BeforeAfterLoggerAttribute.TesTLoggingRule' (15, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'BeforeAfterLoggerAttribute.TesTLoggingRule' (15, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'BeforeAfterLoggerAttribute.TestFileTarget' (17, 21)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'BeforeAfterLoggerAttribute.TestFileTarget' (17, 21)" />
+      </node>
+      <node column0="CompInfo (4 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'CompInfo' (5, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'CompInfo' (5, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'CompInfo.Instances' (7, 33)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'CompInfo.Instances' (7, 33)" />
+      </node>
+      <node column0="ContextStack&lt;T&gt; (8 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContextStack&lt;T&gt;' (20, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContextStack&lt;T&gt;' (20, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContextStack&lt;T&gt;.AllowDuplicateNames' (70, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContextStack&lt;T&gt;.AllowDuplicateNames' (70, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContextStack&lt;T&gt;.Push(T)' (72, 19)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContextStack&lt;T&gt;.Push(T)' (72, 19)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContextStack&lt;T&gt;.ToOrderedDictionary()' (89, 28)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContextStack&lt;T&gt;.ToOrderedDictionary()' (89, 28)" />
+      </node>
+      <node column0="CustomResourceLoader (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'CustomResourceLoader' (9, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'CustomResourceLoader' (9, 15)" />
+      </node>
+      <node column0="DuplicateKeyException (6 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DuplicateKeyException' (19, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DuplicateKeyException' (19, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DuplicateKeyException.DuplicateKeyException(object)' (99, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DuplicateKeyException.DuplicateKeyException(object)' (99, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DuplicateKeyException.Key' (106, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DuplicateKeyException.Key' (106, 17)" />
+      </node>
+      <node column0="Factory (8 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'Factory' (6, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'Factory' (6, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'Factory.Factory(ObjectIDGenerator)' (10, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'Factory.Factory(ObjectIDGenerator)' (10, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'Factory.CreateContextStack&lt;T&gt;()' (12, 29)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'Factory.CreateContextStack&lt;T&gt;()' (12, 29)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'Factory.CreateContextStack&lt;T&gt;(bool)' (31, 29)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'Factory.CreateContextStack&lt;T&gt;(bool)' (31, 29)" />
+      </node>
+      <node column0="InfoContext (10 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InfoContext' (19, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InfoContext' (19, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InfoContext.Factory' (21, 31)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InfoContext.Factory' (21, 31)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InfoContext.InfoContext(string, object)' (23, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InfoContext.InfoContext(string, object)' (23, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InfoContext.Name' (29, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InfoContext.Name' (29, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InfoContext.ObjectContext' (31, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InfoContext.ObjectContext' (31, 17)" />
+      </node>
+      <node column0="InstanceInfo (6 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InstanceInfo' (17, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InstanceInfo' (17, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InstanceInfo.Instance' (35, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InstanceInfo.Instance' (35, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InstanceInfo.Parameters' (37, 36)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InstanceInfo.Parameters' (37, 36)" />
+      </node>
+      <node column0="LifetimeScopeExtension (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LifetimeScopeExtension' (11, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LifetimeScopeExtension' (11, 15)" />
+      </node>
+      <node column0="ObjectIdControl (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ObjectIdControl.ObjectIdControl()' (10, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ObjectIdControl.ObjectIdControl()' (10, 10)" />
+      </node>
+      <node column0="ObjectIdExtension (6 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ObjectIdExtension' (14, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ObjectIdExtension' (14, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ObjectIdExtension.Target' (19, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ObjectIdExtension.Target' (19, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ObjectIdExtension.LifetimeScope' (21, 25)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ObjectIdExtension.LifetimeScope' (21, 25)" />
+      </node>
+      <node column0="ResolveService (16 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ResolveService' (19, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ResolveService' (19, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ResolveService.LifetimeScopeProperty' (24, 4)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ResolveService.LifetimeScopeProperty' (24, 4)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ResolveService.ServiceInstanceChangedEvent' (26, 38)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ResolveService.ServiceInstanceChangedEvent' (26, 38)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ResolveService.ServiceInstanceProperty' (35, 45)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ResolveService.ServiceInstanceProperty' (35, 45)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ResolveService.ServiceType' (49, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ResolveService.ServiceType' (49, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ResolveService.ServiceInstance' (51, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ResolveService.ServiceInstance' (51, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ResolveService.Service' (57, 18)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ResolveService.Service' (57, 18)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ResolveService.ServiceInstanceChanged' (77, 61)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ResolveService.ServiceInstanceChanged' (77, 61)" />
+      </node>
+      <node column0="SerializableDictionary&lt;TKey,TValue&gt; (20 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'SerializableDictionary&lt;TKey, TValue&gt;' (9, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'SerializableDictionary&lt;TKey, TValue&gt;' (9, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'SerializableDictionary&lt;TKey, TValue&gt;.SerializableDictionary()' (12, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'SerializableDictionary&lt;TKey, TValue&gt;.SerializableDictionary()' (12, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'SerializableDictionary&lt;TKey, TValue&gt;.SerializableDictionary(IDictionary&lt;TKey, TValue&gt;)' (14, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'SerializableDictionary&lt;TKey, TValue&gt;.SerializableDictionary(IDictionary&lt;TKey, TValue&gt;)' (14, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'SerializableDictionary&lt;TKey, TValue&gt;.SerializableDictionary(IDictionary&lt;TKey, TValue&gt;, IEqualityComparer&lt;TKey&gt;)' (19, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'SerializableDictionary&lt;TKey, TValue&gt;.SerializableDictionary(IDictionary&lt;TKey, TValue&gt;, IEqualityComparer&lt;TKey&gt;)' (19, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'SerializableDictionary&lt;TKey, TValue&gt;.SerializableDictionary(IEqualityComparer&lt;TKey&gt;)' (26, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'SerializableDictionary&lt;TKey, TValue&gt;.SerializableDictionary(IEqualityComparer&lt;TKey&gt;)' (26, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'SerializableDictionary&lt;TKey, TValue&gt;.SerializableDictionary(int)' (30, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'SerializableDictionary&lt;TKey, TValue&gt;.SerializableDictionary(int)' (30, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'SerializableDictionary&lt;TKey, TValue&gt;.SerializableDictionary(int, IEqualityComparer&lt;TKey&gt;)' (32, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'SerializableDictionary&lt;TKey, TValue&gt;.SerializableDictionary(int, IEqualityComparer&lt;TKey&gt;)' (32, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'SerializableDictionary&lt;TKey, TValue&gt;.GetSchema()' (38, 20)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'SerializableDictionary&lt;TKey, TValue&gt;.GetSchema()' (38, 20)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'SerializableDictionary&lt;TKey, TValue&gt;.ReadXml(XmlReader)' (40, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'SerializableDictionary&lt;TKey, TValue&gt;.ReadXml(XmlReader)' (40, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'SerializableDictionary&lt;TKey, TValue&gt;.WriteXml(XmlWriter)' (74, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'SerializableDictionary&lt;TKey, TValue&gt;.WriteXml(XmlWriter)' (74, 15)" />
+      </node>
+    </node>
+    <node column0="AppShared.Attributes (4 items)">
+      <node column0="InterfaceMetadataAttribute (4 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InterfaceMetadataAttribute' (7, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InterfaceMetadataAttribute' (7, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InterfaceMetadataAttribute.InterfaceType' (17, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InterfaceMetadataAttribute.InterfaceType' (17, 15)" />
+      </node>
+    </node>
+    <node column0="AppShared.Interfaces (62 items)">
+      <node column0="IAppLogger (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IAppLogger' (3, 19)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IAppLogger' (3, 19)" />
+      </node>
+      <node column0="IHasId (4 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IHasId' (15, 19)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IHasId' (15, 19)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IHasId.ObjectId' (17, 8)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IHasId.ObjectId' (17, 8)" />
+      </node>
+      <node column0="IHaveLifetimeScope (4 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IHaveLifetimeScope' (5, 19)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IHaveLifetimeScope' (5, 19)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IHaveLifetimeScope.LifetimeScope' (8, 18)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IHaveLifetimeScope.LifetimeScope' (8, 18)" />
+      </node>
+      <node column0="IHaveLogger (4 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IHaveLogger' (17, 19)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IHaveLogger' (17, 19)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IHaveLogger.Logger' (20, 11)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IHaveLogger.Logger' (20, 11)" />
+      </node>
+      <node column0="IHaveObjectId (4 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IHaveObjectId' (14, 19)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IHaveObjectId' (14, 19)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IHaveObjectId.InstanceObjectId' (16, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IHaveObjectId.InstanceObjectId' (16, 10)" />
+      </node>
+      <node column0="ILoggerTracker (6 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ILoggerTracker' (5, 19)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ILoggerTracker' (5, 19)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ILoggerTracker.TrackLogger(string, ILogger)' (7, 8)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ILoggerTracker.TrackLogger(string, ILogger)' (7, 8)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ILoggerTracker.LoggerRegistered' (9, 38)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ILoggerTracker.LoggerRegistered' (9, 38)" />
+      </node>
+      <node column0="IMenuItem (10 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IMenuItem' (6, 19)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IMenuItem' (6, 19)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IMenuItem.Header' (8, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IMenuItem.Header' (8, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IMenuItem.CommandParameter' (10, 14)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IMenuItem.CommandParameter' (10, 14)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IMenuItem.Command' (12, 16)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IMenuItem.Command' (12, 16)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IMenuItem.Children' (14, 29)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IMenuItem.Children' (14, 29)" />
+      </node>
+      <node column0="IMenuItemList (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IMenuItemList' (6, 19)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IMenuItemList' (6, 19)" />
+      </node>
+      <node column0="IObjectIdProvider (12 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IObjectIdProvider' (20, 19)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IObjectIdProvider' (20, 19)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IObjectIdProvider.GetInstanceByComponentRegistration(IComponentRegistration)' (22, 26)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IObjectIdProvider.GetInstanceByComponentRegistration(IComponentRegistration)' (22, 26)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IObjectIdProvider.GetInstanceCount(IComponentRegistration)' (23, 26)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IObjectIdProvider.GetInstanceCount(IComponentRegistration)' (23, 26)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IObjectIdProvider.GetObjectInstances()' (24, 26)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IObjectIdProvider.GetObjectInstances()' (24, 26)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IObjectIdProvider.GetObjectInstanceIdentifier(object)' (26, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IObjectIdProvider.GetObjectInstanceIdentifier(object)' (26, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IObjectIdProvider.ProvideObjectInstanceIdentifier(object, IComponentRegistration, IEnumerable&lt;Parameter&gt;)' (28, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IObjectIdProvider.ProvideObjectInstanceIdentifier(object, IComponentRegistration, IEnumerable&lt;Parameter&gt;)' (28, 10)" />
+      </node>
+      <node column0="ISettingsPanel (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ISettingsPanel' (3, 19)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ISettingsPanel' (3, 19)" />
+      </node>
+      <node column0="ITopLevelMenu (4 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ITopLevelMenu' (3, 19)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ITopLevelMenu' (3, 19)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ITopLevelMenu.GetXMenuItem()' (5, 13)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ITopLevelMenu.GetXMenuItem()' (5, 13)" />
+      </node>
+      <node column0="LoggerEventArgs (4 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerEventArgs' (6, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerEventArgs' (6, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerEventArgs.Logger' (14, 18)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerEventArgs.Logger' (14, 18)" />
+      </node>
+      <node column0="LoggerRegisteredEventHandler (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerRegisteredEventHandler' (3, 23)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerRegisteredEventHandler' (3, 23)" />
+      </node>
+      <node column0="MyLogBuilder (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyLogBuilder' (18, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyLogBuilder' (18, 15)" />
+      </node>
+    </node>
+    <node column0="AppShared.Modules (6 items)">
+      <node column0="IdGeneratorModule (6 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IdGeneratorModule' (11, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IdGeneratorModule' (11, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IdGeneratorModule.DefaultObject' (15, 34)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IdGeneratorModule.DefaultObject' (15, 34)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IdGeneratorModule.Generator' (17, 28)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IdGeneratorModule.Generator' (17, 28)" />
+      </node>
+    </node>
+    <node column0="AppShared.Services (22 items)">
+      <node column0="DefaultObjectIdProvider (20 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DefaultObjectIdProvider' (12, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DefaultObjectIdProvider' (12, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DefaultObjectIdProvider.Registry' (18, 58)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DefaultObjectIdProvider.Registry' (18, 58)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DefaultObjectIdProvider.Generator' (33, 28)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DefaultObjectIdProvider.Generator' (33, 28)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DefaultObjectIdProvider.ByComponent' (35, 51)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DefaultObjectIdProvider.ByComponent' (35, 51)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DefaultObjectIdProvider.GetInstanceByComponentRegistration(IComponentRegistration)' (38, 33)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DefaultObjectIdProvider.GetInstanceByComponentRegistration(IComponentRegistration)' (38, 33)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DefaultObjectIdProvider.GetInstanceCount(IComponentRegistration)' (56, 14)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DefaultObjectIdProvider.GetInstanceCount(IComponentRegistration)' (56, 14)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DefaultObjectIdProvider.GetObjectInstances()' (61, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DefaultObjectIdProvider.GetObjectInstances()' (61, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DefaultObjectIdProvider.GetObjectInstanceIdentifier(object)' (63, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DefaultObjectIdProvider.GetObjectInstanceIdentifier(object)' (63, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DefaultObjectIdProvider.ProvideObjectInstanceIdentifier(object, IComponentRegistration, IEnumerable&lt;Parameter&gt;)' (69, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DefaultObjectIdProvider.ProvideObjectInstanceIdentifier(object, IComponentRegistration, IEnumerable&lt;Parameter&gt;)' (69, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DefaultObjectIdProvider.GetRootNodes()' (106, 31)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DefaultObjectIdProvider.GetRootNodes()' (106, 31)" />
+      </node>
+      <node column0="UnableToRegisterObjectIdException (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'UnableToRegisterObjectIdException' (16, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'UnableToRegisterObjectIdException' (16, 15)" />
+      </node>
+    </node>
+    <node column0="AppShared.Types (2 items)">
+      <node column0="ResolveServiceList (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ResolveServiceList' (17, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ResolveServiceList' (17, 15)" />
+      </node>
+    </node>
+    <node column0="AppSharedTests (7 items)">
+      <node column0="Class1 (5 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'Class1' (10, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'Class1.MyStack' (22, 39)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'Class1.InstanceFactory' (24, 18)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'Class1.LB()' (33, 24)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'Class1.Test1()' (43, 15)" />
+      </node>
+      <node column0="TestObjectIdExtension (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TestObjectIdExtension' (9, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TestObjectIdExtension.TestObjectIdExtension1()' (12, 15)" />
+      </node>
+    </node>
+    <node column0="Common (108 items)">
+      <node column0="BuilderInterceptor (12 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'BuilderInterceptor' (10, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'BuilderInterceptor' (10, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'BuilderInterceptor.BuilderInterceptor(ProxyGenerator)' (14, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'BuilderInterceptor.BuilderInterceptor(ProxyGenerator)' (14, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'BuilderInterceptor.ProxyGenerator' (19, 25)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'BuilderInterceptor.ProxyGenerator' (19, 25)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'BuilderInterceptor.Invocations' (21, 36)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'BuilderInterceptor.Invocations' (21, 36)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'BuilderInterceptor.Intercept(IInvocation)' (23, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'BuilderInterceptor.Intercept(IInvocation)' (23, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'BuilderInterceptor.CreateCallbackProxy(ProxyGenerator, Action&lt;IComponentRegistry&gt;, DeferredCallback)' (58, 24)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'BuilderInterceptor.CreateCallbackProxy(ProxyGenerator, Action&lt;IComponentRegistry&gt;, DeferredCallback)' (58, 24)" />
+      </node>
+      <node column0="ComponentRegistration (12 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ComponentRegistration' (23, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ComponentRegistration' (23, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ComponentRegistration.ServicesList' (82, 26)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ComponentRegistration.ServicesList' (82, 26)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ComponentRegistration.Instances' (84, 33)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ComponentRegistration.Instances' (84, 33)" />
+        <node column0="Warning CS0067: The event 'ComponentRegistration.Preparing' is never used (200, 52)" />
+        <node column0="Warning CS0067: The event 'ComponentRegistration.Preparing' is never used (200, 52)" />
+        <node column0="Warning CS0067: The event 'ComponentRegistration.Activating' is never used (207, 64)" />
+        <node column0="Warning CS0067: The event 'ComponentRegistration.Activating' is never used (207, 64)" />
+        <node column0="Warning CS0067: The event 'ComponentRegistration.Activated' is never used (212, 63)" />
+        <node column0="Warning CS0067: The event 'ComponentRegistration.Activated' is never used (212, 63)" />
+      </node>
+      <node column0="Hook (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'Hook' (7, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'Hook' (7, 15)" />
+      </node>
+      <node column0="InstanceRegistration (12 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InstanceRegistration' (17, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InstanceRegistration' (17, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InstanceRegistration.InstanceRegistration(object, object, InstanceInfo)' (19, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InstanceRegistration.InstanceRegistration(object, object, InstanceInfo)' (19, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InstanceRegistration.Instance' (31, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InstanceRegistration.Instance' (31, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InstanceRegistration.ObjectId' (33, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InstanceRegistration.ObjectId' (33, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InstanceRegistration.InstanceInfo' (35, 23)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InstanceRegistration.InstanceInfo' (35, 23)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InstanceRegistration.Type' (37, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InstanceRegistration.Type' (37, 15)" />
+      </node>
+      <node column0="MethodInvocation (10 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MethodInvocation' (16, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MethodInvocation' (16, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MethodInvocation.Method' (18, 21)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MethodInvocation.Method' (18, 21)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MethodInvocation.Arguments' (20, 19)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MethodInvocation.Arguments' (20, 19)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MethodInvocation.OriginalReturnValue' (22, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MethodInvocation.OriginalReturnValue' (22, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MethodInvocation.ReturnValue' (24, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MethodInvocation.ReturnValue' (24, 17)" />
+      </node>
+      <node column0="MyAppCommands (26 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyAppCommands' (5, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyAppCommands' (5, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyAppCommands.AppSettings' (7, 42)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyAppCommands.AppSettings' (7, 42)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyAppCommands.NavigateShellItem' (10, 42)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyAppCommands.NavigateShellItem' (10, 42)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyAppCommands.OpenWindow' (17, 42)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyAppCommands.OpenWindow' (17, 42)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyAppCommands.QuitApplication' (24, 42)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyAppCommands.QuitApplication' (24, 42)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyAppCommands.VisitTypeCommand' (31, 42)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyAppCommands.VisitTypeCommand' (31, 42)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyAppCommands.LoadAssemblyList' (38, 42)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyAppCommands.LoadAssemblyList' (38, 42)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyAppCommands.Restart' (45, 42)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyAppCommands.Restart' (45, 42)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyAppCommands.DumpDebug' (48, 42)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyAppCommands.DumpDebug' (48, 42)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyAppCommands.FilterInstances' (51, 42)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyAppCommands.FilterInstances' (51, 42)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyAppCommands.Load' (58, 42)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyAppCommands.Load' (58, 42)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyAppCommands.Metadata' (61, 42)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyAppCommands.Metadata' (61, 42)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyAppCommands.VisitType' (64, 42)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyAppCommands.VisitType' (64, 42)" />
+      </node>
+      <node column0="MyCacheTarget (8 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyCacheTarget' (13, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyCacheTarget' (13, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyCacheTarget.MyCacheTarget()' (20, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyCacheTarget.MyCacheTarget()' (20, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyCacheTarget.Write(LogEventInfo)' (69, 27)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyCacheTarget.Write(LogEventInfo)' (69, 27)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyCacheTarget.Cache' (90, 39)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyCacheTarget.Cache' (90, 39)" />
+      </node>
+      <node column0="MyInterceptor (6 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyInterceptor' (20, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyInterceptor' (20, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyInterceptor.Logger' (22, 18)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyInterceptor.Logger' (22, 18)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyInterceptor.Intercept(IInvocation)' (24, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyInterceptor.Intercept(IInvocation)' (24, 15)" />
+      </node>
+      <node column0="NLogTextWriter (4 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'NLogTextWriter' (18, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'NLogTextWriter' (18, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'NLogTextWriter.NLogTextWriter(Logger)' (20, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'NLogTextWriter.NLogTextWriter(Logger)' (20, 10)" />
+      </node>
+      <node column0="ResourceMetadata (4 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ResourceMetadata' (3, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ResourceMetadata' (3, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ResourceMetadata.ResourceName' (5, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ResourceMetadata.ResourceName' (5, 17)" />
+      </node>
+      <node column0="TestO (6 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TestO' (12, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TestO' (12, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TestO.Content' (24, 26)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TestO.Content' (24, 26)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TestO.LifetimeScope' (26, 25)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TestO.LifetimeScope' (26, 25)" />
+      </node>
+      <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MenuItemList' (12, 18)" />
+      <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MenuItemList' (12, 18)" />
+      <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MenuItemList.Logger' (14, 21)" />
+      <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MenuItemList.Logger' (14, 21)" />
+      <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MenuItemList.MenuItemList(IEnumerable&lt;ITopLevelMenu&gt;, Func&lt;Type, ILogger&gt;)' (16, 13)" />
+      <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MenuItemList.MenuItemList(IEnumerable&lt;ITopLevelMenu&gt;, Func&lt;Type, ILogger&gt;)' (16, 13)" />
+    </node>
+    <node column0="Common.Context (12 items)">
+      <node column0="ContextStackInstanceAttribute (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContextStackInstanceAttribute' (6, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContextStackInstanceAttribute' (6, 15)" />
+      </node>
+      <node column0="InfoContextFactoryAttribute (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InfoContextFactoryAttribute' (6, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InfoContextFactoryAttribute' (6, 15)" />
+      </node>
+      <node column0="PushContextAttribute (8 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'PushContextAttribute' (11, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'PushContextAttribute' (11, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'PushContextAttribute.PushContextAttribute(string, string)' (26, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'PushContextAttribute.PushContextAttribute(string, string)' (26, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'PushContextAttribute.Context' (31, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'PushContextAttribute.Context' (31, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'PushContextAttribute.Instances' (33, 57)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'PushContextAttribute.Instances' (33, 57)" />
+      </node>
+    </node>
+    <node column0="Common.Controls (32 items)">
+      <node column0="Registrations (4 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'Registrations.LifetimeScopeProperty' (15, 4)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'Registrations.LifetimeScopeProperty' (15, 4)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'Registrations.Registrations()' (19, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'Registrations.Registrations()' (19, 10)" />
+      </node>
+      <node column0="TypeControl (26 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypeControl.RenderedTypeProperty' (21, 45)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypeControl.RenderedTypeProperty' (21, 45)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypeControl.TargetNameProperty' (23, 45)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypeControl.TargetNameProperty' (23, 45)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypeControl.TargetProperty' (31, 45)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypeControl.TargetProperty' (31, 45)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypeControl.DetailedProperty' (39, 45)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypeControl.DetailedProperty' (39, 45)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypeControl.TargetDetailedProperty' (47, 45)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypeControl.TargetDetailedProperty' (47, 45)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypeControl.TypeControl()' (55, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypeControl.TypeControl()' (55, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypeControl.RenderedType' (62, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypeControl.RenderedType' (62, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypeControl.TargetName' (68, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypeControl.TargetName' (68, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypeControl.Target' (74, 16)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypeControl.Target' (74, 16)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypeControl.Detailed' (80, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypeControl.Detailed' (80, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypeControl.TargetDetailed' (86, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypeControl.TargetDetailed' (86, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypeControl.flowDocument' (92, 23)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypeControl.flowDocument' (92, 23)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypeControl.RenderedTypeChanged' (95, 59)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypeControl.RenderedTypeChanged' (95, 59)" />
+      </node>
+      <node column0="TypeControl2 (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypeControl2.TypeControl2()' (10, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypeControl2.TypeControl2()' (10, 10)" />
+      </node>
+    </node>
+    <node column0="Common.Converters (26 items)">
+      <node column0="AssemblyConverter (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AssemblyConverter' (10, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AssemblyConverter' (10, 15)" />
+      </node>
+      <node column0="ComponentLifetimeConverter (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ComponentLifetimeConverter' (8, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ComponentLifetimeConverter' (8, 15)" />
+      </node>
+      <node column0="GetTypeConverter (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'GetTypeConverter' (21, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'GetTypeConverter' (21, 15)" />
+      </node>
+      <node column0="LoggerInstanceConverter (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerInstanceConverter' (17, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerInstanceConverter' (17, 15)" />
+      </node>
+      <node column0="RegistrationConverter (6 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'RegistrationConverter' (12, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'RegistrationConverter' (12, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'RegistrationConverter.RegistrationConverter(ILifetimeScope, IObjectIdProvider)' (20, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'RegistrationConverter.RegistrationConverter(ILifetimeScope, IObjectIdProvider)' (20, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'RegistrationConverter.ConvertBack(object, Type, object, CultureInfo)' (74, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'RegistrationConverter.ConvertBack(object, Type, object, CultureInfo)' (74, 17)" />
+      </node>
+      <node column0="RegistrationConverter2 (4 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'RegistrationConverter2' (25, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'RegistrationConverter2' (25, 15)" />
+        <node column0="Warning CS1570: XML comment has badly formed XML -- '/' (91, 56)" />
+        <node column0="Warning CS1570: XML comment has badly formed XML -- '/' (91, 56)" />
+      </node>
+      <node column0="RegistrationSourceConverter (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'RegistrationSourceConverter' (10, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'RegistrationSourceConverter' (10, 15)" />
+      </node>
+      <node column0="ResolveServiceConverter (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ResolveServiceConverter' (9, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ResolveServiceConverter' (9, 15)" />
+      </node>
+      <node column0="TargetConverter (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TargetConverter' (10, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TargetConverter' (10, 15)" />
+      </node>
+      <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InstanceRegistrationConverter' (12, 15)" />
+      <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InstanceRegistrationConverter' (12, 15)" />
+    </node>
+    <node column0="Common.Logging (89 items)">
+      <node column0="AppLogger (8 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLogger' (11, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLogger' (11, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLogger.Arg' (35, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLogger.Arg' (35, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLogger.LoggerInstance' (37, 18)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLogger.LoggerInstance' (37, 18)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLogger.GetLoggerInstance(object)' (133, 24)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLogger.GetLoggerInstance(object)' (133, 24)" />
+      </node>
+      <node column0="AppLoggingConfigHelper (22 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLoggingConfigHelper' (20, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLoggingConfigHelper' (20, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLoggingConfigHelper._stringWriter' (22, 31)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLoggingConfigHelper._stringWriter' (22, 31)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLoggingConfigHelper.logFactory' (35, 23)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLoggingConfigHelper.logFactory' (35, 23)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLoggingConfigHelper.DebuggerTargetEnabled' (37, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLoggingConfigHelper.DebuggerTargetEnabled' (37, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLoggingConfigHelper.LoggingIsConfigured' (39, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLoggingConfigHelper.LoggingIsConfigured' (39, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLoggingConfigHelper.DumpExistingConfig' (41, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLoggingConfigHelper.DumpExistingConfig' (41, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLoggingConfigHelper.ForceCodeConfig' (44, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLoggingConfigHelper.ForceCodeConfig' (44, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLoggingConfigHelper.JsonFileTarget()' (194, 28)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLoggingConfigHelper.JsonFileTarget()' (194, 28)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLoggingConfigHelper.MyFileTarget()' (212, 28)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLoggingConfigHelper.MyFileTarget()' (212, 28)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLoggingConfigHelper.EnsureLoggingConfigured()' (222, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLoggingConfigHelper.EnsureLoggingConfigured()' (222, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLoggingConfigHelper.EnsureLoggingConfigured(bool, LoggerProxyHelper.LogMethod, string)' (227, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLoggingConfigHelper.EnsureLoggingConfigured(bool, LoggerProxyHelper.LogMethod, string)' (227, 22)" />
+      </node>
+      <node column0="CodeConfiguration (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'CodeConfiguration' (6, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'CodeConfiguration' (6, 15)" />
+      </node>
+      <node column0="LogFactoryInterceptor (10 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LogFactoryInterceptor' (16, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LogFactoryInterceptor' (16, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LogFactoryInterceptor.LogFactoryInterceptor(ProxyGenerator, LoggerProxyHelper.LogMethod)' (18, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LogFactoryInterceptor.LogFactoryInterceptor(ProxyGenerator, LoggerProxyHelper.LogMethod)' (18, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LogFactoryInterceptor.Generator' (27, 25)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LogFactoryInterceptor.Generator' (27, 25)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LogFactoryInterceptor.UseLogMethod' (29, 38)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LogFactoryInterceptor.UseLogMethod' (29, 38)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LogFactoryInterceptor.Intercept(IInvocation)' (31, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LogFactoryInterceptor.Intercept(IInvocation)' (31, 15)" />
+      </node>
+      <node column0="LoggerFactoryHook (4 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerFactoryHook' (94, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerFactoryHook' (94, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerFactoryHook.LoggerFactoryHook(LoggerProxyHelper.LogMethod)' (98, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerFactoryHook.LoggerFactoryHook(LoggerProxyHelper.LogMethod)' (98, 10)" />
+      </node>
+      <node column0="LoggerInterceptor (10 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerInterceptor' (8, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerInterceptor' (8, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerInterceptor.LoggerInterceptor(ProxyGenerator, LoggerProxyHelper.LogMethod)' (16, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerInterceptor.LoggerInterceptor(ProxyGenerator, LoggerProxyHelper.LogMethod)' (16, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerInterceptor.Generator' (25, 25)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerInterceptor.Generator' (25, 25)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerInterceptor.UseLogMethod' (27, 38)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerInterceptor.UseLogMethod' (27, 38)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerInterceptor.Intercept(IInvocation)' (29, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerInterceptor.Intercept(IInvocation)' (29, 15)" />
+      </node>
+      <node column0="LoggerProxyHelper (12 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerProxyHelper' (11, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerProxyHelper' (11, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerProxyHelper.LogMethod' (13, 24)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerProxyHelper.LogMethod' (13, 24)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerProxyHelper.Generator' (37, 25)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerProxyHelper.Generator' (37, 25)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerProxyHelper.UseLogMethod' (39, 20)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerProxyHelper.UseLogMethod' (39, 20)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerProxyHelper.CreateLogFactory(LogFactory)' (41, 21)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerProxyHelper.CreateLogFactory(LogFactory)' (41, 21)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerProxyHelper.GetCurrentClassLogger(string)' (64, 24)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerProxyHelper.GetCurrentClassLogger(string)' (64, 24)" />
+      </node>
+      <node column0="LoggerTracker (10 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerTracker' (7, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerTracker' (7, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerTracker.Logger' (14, 18)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerTracker.Logger' (14, 18)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerTracker.TrackLogger(string, ILogger)' (16, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerTracker.TrackLogger(string, ILogger)' (16, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerTracker.LoggerRegistered' (31, 45)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerTracker.LoggerRegistered' (31, 45)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerTracker.OnLoggerRegistered(LoggerEventArgs)' (33, 26)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerTracker.OnLoggerRegistered(LoggerEventArgs)' (33, 26)" />
+      </node>
+      <node column0="LoggingInterceptor (3 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggingInterceptor' (8, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggingInterceptor.Intercept(IInvocation)' (10, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggingInterceptor.Intercept(IInvocation)' (10, 15)" />
+      </node>
+      <node column0="MyLogFactory (8 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyLogFactory' (145, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyLogFactory' (145, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyLogFactory.MyLogFactory(LoggerProxyHelper.LogMethod)' (154, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyLogFactory.MyLogFactory(LoggerProxyHelper.LogMethod)' (154, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyLogFactory.GetDoLogMessage()' (159, 46)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyLogFactory.GetDoLogMessage()' (159, 46)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyLogFactory.GetLogger(string)' (161, 21)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyLogFactory.GetLogger(string)' (161, 21)" />
+      </node>
+    </node>
+    <node column0="Common.Menus (36 items)">
+      <node column0="MenuItemContainerStyleSelector (4 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MenuItemContainerStyleSelector' (7, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MenuItemContainerStyleSelector' (7, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MenuItemContainerStyleSelector.SelectStyle(object, DependencyObject)' (9, 25)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MenuItemContainerStyleSelector.SelectStyle(object, DependencyObject)' (9, 25)" />
+      </node>
+      <node column0="MenuMenuItemTemplateSelector (8 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MenuMenuItemTemplateSelector' (10, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MenuMenuItemTemplateSelector' (10, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MenuMenuItemTemplateSelector.AppLogger' (13, 20)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MenuMenuItemTemplateSelector.AppLogger' (13, 20)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MenuMenuItemTemplateSelector.Logger' (15, 18)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MenuMenuItemTemplateSelector.Logger' (15, 18)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MenuMenuItemTemplateSelector.SelectTemplate(object, DependencyObject)' (22, 32)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MenuMenuItemTemplateSelector.SelectTemplate(object, DependencyObject)' (22, 32)" />
+      </node>
+      <node column0="WindowsTopLevelMenu (8 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WindowsTopLevelMenu' (11, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WindowsTopLevelMenu' (11, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WindowsTopLevelMenu.WindowsTopLevelMenu(IEnumerable&lt;Meta&lt;Lazy&lt;Window&gt;&gt;&gt;, Func&lt;IMenuItem&gt;, Func&lt;Type, ILogger&gt;)' (18, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WindowsTopLevelMenu.WindowsTopLevelMenu(IEnumerable&lt;Meta&lt;Lazy&lt;Window&gt;&gt;&gt;, Func&lt;IMenuItem&gt;, Func&lt;Type, ILogger&gt;)' (18, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WindowsTopLevelMenu.Windows' (31, 51)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WindowsTopLevelMenu.Windows' (31, 51)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WindowsTopLevelMenu.GetXMenuItem()' (33, 20)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WindowsTopLevelMenu.GetXMenuItem()' (33, 20)" />
+      </node>
+      <node column0="XMenuItem (16 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'XMenuItem' (11, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'XMenuItem' (11, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'XMenuItem.XMenuItem(Owned&lt;Func&lt;Type, ILogger&gt;&gt;)' (13, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'XMenuItem.XMenuItem(Owned&lt;Func&lt;Type, ILogger&gt;&gt;)' (13, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'XMenuItem.Header' (21, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'XMenuItem.Header' (21, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'XMenuItem.Children' (23, 36)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'XMenuItem.Children' (23, 36)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'XMenuItem.Command' (25, 19)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'XMenuItem.Command' (25, 19)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'XMenuItem.CommandParameter' (27, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'XMenuItem.CommandParameter' (27, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'XMenuItem.CommandTarget' (29, 24)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'XMenuItem.CommandTarget' (29, 24)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'XMenuItem.ToString()' (31, 26)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'XMenuItem.ToString()' (31, 26)" />
+      </node>
+    </node>
+    <node column0="Common.Tracing (10 items)">
+      <node column0="AppTraceLisener (6 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppTraceLisener' (27, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppTraceLisener' (27, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppTraceLisener.AppTraceLisener()' (31, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppTraceLisener.AppTraceLisener()' (31, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppTraceLisener.RoutedEvents' (33, 39)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppTraceLisener.RoutedEvents' (33, 39)" />
+      </node>
+      <node column0="Info (4 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'Info' (14, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'Info' (14, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'Info.count' (16, 14)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'Info.count' (16, 14)" />
+      </node>
+    </node>
+    <node column0="Common.Utils (10 items)">
+      <node column0="ContainerHelper (10 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContainerHelper' (19, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContainerHelper' (19, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContainerHelper.ProxyGenerator' (21, 41)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContainerHelper.ProxyGenerator' (21, 41)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContainerHelper.SetupContainer(out IContainer)' (26, 32)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContainerHelper.SetupContainer(out IContainer)' (26, 32)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContainerHelper.SetupContainer(out IContainer, IEnumerable&lt;Assembly&gt;)' (33, 32)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContainerHelper.SetupContainer(out IContainer, IEnumerable&lt;Assembly&gt;)' (33, 32)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContainerHelper.Dump(IComponentRegistration, HashSet&lt;object&gt;, Action&lt;string&gt;)' (438, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContainerHelper.Dump(IComponentRegistration, HashSet&lt;object&gt;, Action&lt;string&gt;)' (438, 22)" />
+      </node>
+    </node>
+    <node column0="CommonTests (14 items)">
+      <node column0="Class1 (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'Class1' (6, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'Class1.Test1()' (20, 15)" />
+      </node>
+      <node column0="LogConfigTest (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LogConfigTest' (13, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LogConfigTest.TestEnsureConfigTwoArgs()' (59, 15)" />
+      </node>
+      <node column0="Result (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'Result' (171, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'Result.AutoElem' (173, 28)" />
+      </node>
+      <node column0="TestConverter (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TestConverter' (17, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TestConverter.TestConversion1()' (33, 15)" />
+      </node>
+      <node column0="TestConverter2 (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TestConverter2' (25, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TestConverter2.TestConversion1()' (41, 15)" />
+      </node>
+      <node column0="TestResolveServiceConverter (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TestResolveServiceConverter' (24, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TestResolveServiceConverter.TestConversion1()' (40, 15)" />
+      </node>
+      <node column0="TypeControlTests (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypeControlTests' (19, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypeControlTests.TestTypeControl1()' (30, 15)" />
+      </node>
+    </node>
+    <node column0="CommonTests.Fixtures (4 items)">
+      <node column0="ContainerFixture (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContainerFixture' (7, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContainerFixture.Container' (15, 21)" />
+      </node>
+      <node column0="IRandom (1 item)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IRandom' (28, 19)" />
+      </node>
+      <node column0="RandomClass (1 item)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'RandomClass' (32, 15)" />
+      </node>
+    </node>
+    <node column0="FileFinder3 (37 items)">
+      <node column0="ContainerMetadata (1 item)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContainerMetadata' (3, 15)" />
+      </node>
+      <node column0="DirectoryObjectInfo (7 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DirectoryObjectInfo' (7, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DirectoryObjectInfo.Children' (9, 46)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DirectoryObjectInfo.Extensions' (12, 49)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DirectoryObjectInfo.DirectoryObjectInfo(DirectoryInfo)' (15, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DirectoryObjectInfo.DirectoryObjectInfo()' (17, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DirectoryObjectInfo.SummaryInfo' (19, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DirectoryObjectInfo.AddChild(ObjectInfo)' (27, 15)" />
+      </node>
+      <node column0="ExtensionInfo (3 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ExtensionInfo' (34, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ExtensionInfo.Items' (36, 30)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ExtensionInfo.SummaryInfo' (37, 30)" />
+      </node>
+      <node column0="FileFinderImpl (6 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'FileFinderImpl' (8, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'FileFinderImpl.infos' (12, 45)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'FileFinderImpl.FindDir' (16, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'FileFinderImpl.Root' (18, 30)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'FileFinderImpl.Observer' (20, 33)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'FileFinderImpl.FindFiles()' (22, 15)" />
+      </node>
+      <node column0="FileFinderImpl3 (6 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'FileFinderImpl3' (8, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'FileFinderImpl3.MyObservable' (12, 41)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'FileFinderImpl3.Observer' (13, 41)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'FileFinderImpl3.FindDir' (17, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'FileFinderImpl3.Root' (19, 30)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'FileFinderImpl3.FindFiles()' (21, 15)" />
+      </node>
+      <node column0="MountReflectImage (3 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MountReflectImage' (9, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MountReflectImage.ReflectPath' (11, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MountReflectImage.MountImage(string)' (14, 15)" />
+      </node>
+      <node column0="ObjectInfo (6 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ObjectInfo' (5, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ObjectInfo.ObjectInfo()' (7, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ObjectInfo.ObjectInfo(FileSystemInfo)' (9, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ObjectInfo.ObjectInfo(string)' (15, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ObjectInfo.Path' (17, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ObjectInfo.Component' (19, 17)" />
+      </node>
+      <node column0="Summarizer (1 item)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'Summarizer' (3, 15)" />
+      </node>
+      <node column0="SummaryInfo (4 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'SummaryInfo' (3, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'SummaryInfo.NumEntries' (5, 14)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'SummaryInfo.TotalSize' (7, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'SummaryInfo.ToString()' (10, 26)" />
+      </node>
+    </node>
+    <node column0="TestLib (2 items)">
+      <node column0="LoggingFixture (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggingFixture' (10, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggingFixture.Sink' (23, 23)" />
+      </node>
+    </node>
+    <node column0="TestLib.Fixtures (2 items)">
+      <node column0="ContainerFixture (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContainerFixture' (23, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContainerFixture.LifetimeScope' (39, 25)" />
+      </node>
+    </node>
+    <node column0="WpfApp1 (10 items)">
+      <node column0="DesignData (8 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DesignData' (8, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DesignData' (8, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DesignData.LifetimeScope' (21, 25)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DesignData.LifetimeScope' (21, 25)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DesignData.InstanceList' (23, 39)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DesignData.InstanceList' (23, 39)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DesignData.InstanceInfo' (25, 30)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DesignData.InstanceInfo' (25, 30)" />
+      </node>
+      <node column0="SysProp (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'SysProp' (86, 18)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'SysProp' (86, 18)" />
+      </node>
+    </node>
+    <node column0="WpfApp1.Application (44 items)">
+      <node column0="App (30 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.App()' (40, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.App()' (40, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.Logger' (65, 18)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.Logger' (65, 18)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.DoLogMethod' (67, 38)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.DoLogMethod' (67, 38)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.TCS' (70, 39)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.TCS' (70, 39)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.Stage2Complete' (75, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.Stage2Complete' (75, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.Initialized' (77, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.Initialized' (77, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.ShowMainWindow' (79, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.ShowMainWindow' (79, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.DoTracing' (81, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.DoTracing' (81, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.MenuItemListCollectionView' (84, 29)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.MenuItemListCollectionView' (84, 29)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.DispatcherOp' (86, 30)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.DispatcherOp' (86, 30)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.ProcessArgs' (88, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.ProcessArgs' (88, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.AppLogger' (91, 20)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.AppLogger' (91, 20)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.AppInitialize()' (240, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.AppInitialize()' (240, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.DoOnStartup(string[])' (403, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.DoOnStartup(string[])' (403, 15)" />
+        <node column0="Warning CS0472: The result of the expression is always 'true' since a value of type 'ExitCode' is never equal to 'null' of type 'ExitCode?' (453, 9)" />
+        <node column0="Warning CS0472: The result of the expression is always 'true' since a value of type 'ExitCode' is never equal to 'null' of type 'ExitCode?' (453, 9)" />
+      </node>
+      <node column0="ExitCode (8 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ExitCode' (31, 14)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ExitCode' (31, 14)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ExitCode.Success' (31, 25)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ExitCode.Success' (31, 25)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ExitCode.GeneralError' (31, 39)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ExitCode.GeneralError' (31, 39)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ExitCode.ArgumentsError' (31, 58)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ExitCode.ArgumentsError' (31, 58)" />
+      </node>
+      <node column0="IHaveAppLogger (4 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IHaveAppLogger' (16, 19)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IHaveAppLogger' (16, 19)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IHaveAppLogger.AppLogger' (18, 13)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IHaveAppLogger.AppLogger' (18, 13)" />
+      </node>
+      <node column0="UnhandledException (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'UnhandledException' (475, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'UnhandledException' (475, 15)" />
+      </node>
+    </node>
+    <node column0="WpfApp1.Attributes (4 items)">
+      <node column0="LoggingEntityMetadata (4 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggingEntityMetadata' (5, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggingEntityMetadata' (5, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggingEntityMetadata.LoggingType' (7, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggingEntityMetadata.LoggingType' (7, 15)" />
+      </node>
+    </node>
+    <node column0="WpfApp1.Controls (18 items)">
+      <node column0="AssemblyBrowser (4 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AssemblyBrowser.AssemblyListPrroperty' (15, 45)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AssemblyBrowser.AssemblyListPrroperty' (15, 45)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AssemblyBrowser.AssemblyBrowser()' (19, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AssemblyBrowser.AssemblyBrowser()' (19, 10)" />
+      </node>
+      <node column0="Container (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'Container.Container()' (13, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'Container.Container()' (13, 10)" />
+      </node>
+      <node column0="InstanceInfoControl (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InstanceInfoControl.InstanceInfoControl()' (10, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InstanceInfoControl.InstanceInfoControl()' (10, 10)" />
+      </node>
+      <node column0="SystemParametersControl (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'SystemParametersControl.SystemParametersControl()' (29, 13)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'SystemParametersControl.SystemParametersControl()' (29, 13)" />
+      </node>
+      <node column0="TypedService (6 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypedService' (6, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypedService' (6, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypedService.Desc' (12, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypedService.Desc' (12, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypedService.ServiceType' (14, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypedService.ServiceType' (14, 15)" />
+      </node>
+      <node column0="UserControl1 (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'UserControl1.UserControl1()' (10, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'UserControl1.UserControl1()' (10, 10)" />
+      </node>
+    </node>
+    <node column0="WpfApp1.Events (10 items)">
+      <node column0="AttachedEvents (4 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AttachedEvents' (6, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AttachedEvents' (6, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AttachedEvents.LoggerRegisteredEventHandler' (8, 24)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AttachedEvents.LoggerRegisteredEventHandler' (8, 24)" />
+      </node>
+      <node column0="LoggerRegisteredEventArgs (6 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerRegisteredEventArgs' (14, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerRegisteredEventArgs' (14, 15)" />
+        <node column0="Warning CS1573: Parameter 'logger' has no matching param tag in the XML comment for 'LoggerRegisteredEventArgs.LoggerRegisteredEventArgs(RoutedEvent, object, ILogger)' (but other parameters do) (34, 19)" />
+        <node column0="Warning CS1573: Parameter 'logger' has no matching param tag in the XML comment for 'LoggerRegisteredEventArgs.LoggerRegisteredEventArgs(RoutedEvent, object, ILogger)' (but other parameters do) (34, 19)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerRegisteredEventArgs.Logger' (40, 18)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggerRegisteredEventArgs.Logger' (40, 18)" />
+      </node>
+    </node>
+    <node column0="WpfApp1.Logging (16 items)">
+      <node column0="AppLoggerContainer (10 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLoggerContainer' (8, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLoggerContainer' (8, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLoggerContainer.AppLogger' (16, 20)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLoggerContainer.AppLogger' (16, 20)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLoggerContainer.InternalLog' (18, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLoggerContainer.InternalLog' (18, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLoggerContainer.Configuration' (31, 31)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLoggerContainer.Configuration' (31, 31)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLoggerContainer.Config' (33, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppLoggerContainer.Config' (33, 17)" />
+      </node>
+      <node column0="TargetConverter (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TargetConverter' (10, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TargetConverter' (10, 15)" />
+      </node>
+      <node column0="TypeBrowserPage (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypeBrowserPage.TypeBrowserPage()' (10, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypeBrowserPage.TypeBrowserPage()' (10, 10)" />
+      </node>
+      <node column0="UserControl1 (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'UserControl1.UserControl1()' (10, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'UserControl1.UserControl1()' (10, 10)" />
+      </node>
+    </node>
+    <node column0="WpfApp1.Menus (4 items)">
+      <node column0="MenuHelper (4 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MenuHelper' (7, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MenuHelper' (7, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MenuHelper.MakeMenuItem(IMenuItem)' (9, 26)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MenuHelper.MakeMenuItem(IMenuItem)' (9, 26)" />
+      </node>
+    </node>
+    <node column0="WpfApp1.Util (30 items)">
+      <node column0="AttachedContext (6 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AttachedContext' (21, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AttachedContext' (21, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AttachedContext.AttachedContext(ContextStack&lt;InfoContext&gt;, InfoContext)' (26, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AttachedContext.AttachedContext(ContextStack&lt;InfoContext&gt;, InfoContext)' (26, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AttachedContext.Dispose(bool)' (44, 26)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AttachedContext.Dispose(bool)' (44, 26)" />
+      </node>
+      <node column0="ContextStackException (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContextStackException' (67, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContextStackException' (67, 15)" />
+      </node>
+      <node column0="DebugHelper (8 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DebugHelper' (5, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DebugHelper' (5, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DebugHelper.ShortenGuid(Guid)' (7, 24)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DebugHelper.ShortenGuid(Guid)' (7, 24)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DebugHelper.ToShortGuid(Guid)' (13, 24)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DebugHelper.ToShortGuid(Guid)' (13, 24)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DebugHelper.ParseShortGuid(string)' (22, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DebugHelper.ParseShortGuid(string)' (22, 22)" />
+      </node>
+      <node column0="IObjectId (4 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IObjectId' (14, 19)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IObjectId' (14, 19)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IObjectId.InstanceObjectId' (16, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IObjectId.InstanceObjectId' (16, 10)" />
+      </node>
+      <node column0="MyActivator (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyActivator' (20, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyActivator' (20, 15)" />
+      </node>
+      <node column0="ProxyGenerationHook (8 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ProxyGenerationHook' (21, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ProxyGenerationHook' (21, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ProxyGenerationHook.NonProxyableMemberNotification(Type, MemberInfo)' (30, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ProxyGenerationHook.NonProxyableMemberNotification(Type, MemberInfo)' (30, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ProxyGenerationHook.ShouldInterceptMethod(Type, MethodInfo)' (37, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ProxyGenerationHook.ShouldInterceptMethod(Type, MethodInfo)' (37, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ProxyGenerationHook.MethodsInspected()' (45, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ProxyGenerationHook.MethodsInspected()' (45, 15)" />
+      </node>
+    </node>
+    <node column0="WpfApp1.Windows (59 items)">
+      <node column0="AppSettingsWindow (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppSettingsWindow.AppSettingsWindow()' (13, 13)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppSettingsWindow.AppSettingsWindow()' (13, 13)" />
+      </node>
+      <node column0="ComponentRegistry (9 items)">
+        <node column0="Warning WPF0150: Use nameof(RegistrationsList). (19, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ComponentRegistry' (20, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ComponentRegistry' (20, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ComponentRegistry.RegistrationsList' (51, 42)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ComponentRegistry.RegistrationsList' (51, 42)" />
+        <node column0="Warning CS0067: The event 'ComponentRegistry.Registered' is never used (191, 62)" />
+        <node column0="Warning CS0067: The event 'ComponentRegistry.Registered' is never used (191, 62)" />
+        <node column0="Warning CS0067: The event 'ComponentRegistry.RegistrationSourceAdded' is never used (197, 66)" />
+        <node column0="Warning CS0067: The event 'ComponentRegistry.RegistrationSourceAdded' is never used (197, 66)" />
+      </node>
+      <node column0="ContainerWindow (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContainerWindow.ContainerWindow()' (10, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContainerWindow.ContainerWindow()' (10, 10)" />
+      </node>
+      <node column0="LifetimeScope (8 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LifetimeScope' (10, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LifetimeScope' (10, 15)" />
+        <node column0="Warning CS0067: The event 'LifetimeScope.ChildLifetimeScopeBeginning' is never used (155, 65)" />
+        <node column0="Warning CS0067: The event 'LifetimeScope.ChildLifetimeScopeBeginning' is never used (155, 65)" />
+        <node column0="Warning CS0067: The event 'LifetimeScope.CurrentScopeEnding' is never used (158, 62)" />
+        <node column0="Warning CS0067: The event 'LifetimeScope.CurrentScopeEnding' is never used (158, 62)" />
+        <node column0="Warning CS0067: The event 'LifetimeScope.ResolveOperationBeginning' is never used (163, 68)" />
+        <node column0="Warning CS0067: The event 'LifetimeScope.ResolveOperationBeginning' is never used (163, 68)" />
+      </node>
+      <node column0="LogEventInfoCollection (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LogEventInfoCollection' (19, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LogEventInfoCollection' (19, 15)" />
+      </node>
+      <node column0="MainWindow (24 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MainWindow.Configuration' (42, 31)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MainWindow.Configuration' (42, 31)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MainWindow.LifetimeScopeProperty' (44, 36)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MainWindow.LifetimeScopeProperty' (44, 36)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MainWindow.MenuItemListCollectionViewProperty' (46, 36)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MainWindow.MenuItemListCollectionViewProperty' (46, 36)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MainWindow.RecurseDiscover(object)' (60, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MainWindow.RecurseDiscover(object)' (60, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MainWindow.MainWindow()' (139, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MainWindow.MainWindow()' (139, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MainWindow.LogEvents' (207, 33)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MainWindow.LogEvents' (207, 33)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MainWindow._LogEventInfos' (234, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MainWindow._LogEventInfos' (234, 17)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MainWindow.AppLogger' (236, 20)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MainWindow.AppLogger' (236, 20)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MainWindow.Logger' (238, 18)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MainWindow.Logger' (238, 18)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MainWindow.LifetimeScope' (282, 25)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MainWindow.LifetimeScope' (282, 25)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MainWindow.DoRestart' (350, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MainWindow.DoRestart' (350, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MainWindow.CheckedHandler' (401, 29)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MainWindow.CheckedHandler' (401, 29)" />
+      </node>
+      <node column0="NewWindow (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'NewWindow.NewWindow()' (10, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'NewWindow.NewWindow()' (10, 10)" />
+      </node>
+      <node column0="Page1 (4 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'Page1.AssemblyList' (18, 44)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'Page1.AssemblyList' (18, 44)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'Page1.Page1()' (21, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'Page1.Page1()' (21, 10)" />
+      </node>
+      <node column0="RenderedType (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'RenderedType.RenderedType()' (11, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'RenderedType.RenderedType()' (11, 10)" />
+      </node>
+      <node column0="SampleWindow (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'SampleWindow.SampleWindow()' (13, 13)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'SampleWindow.SampleWindow()' (13, 13)" />
+      </node>
+      <node column0="TypeWindow (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypeWindow.TypeWindow()' (10, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypeWindow.TypeWindow()' (10, 10)" />
+      </node>
+    </node>
+    <node column0="WpfApp1.Xaml (16 items)">
+      <node column0="AssemblyConverter (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AssemblyConverter' (10, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AssemblyConverter' (10, 15)" />
+      </node>
+      <node column0="ComponentLifetimeConverter (6 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ComponentLifetimeConverter' (8, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ComponentLifetimeConverter' (8, 15)" />
+        <node column0="Warning CS1658: Unexpected character '`'. See also error CS1056. (13, 20)" />
+        <node column0="Warning CS1658: Unexpected character '`'. See also error CS1056. (13, 20)" />
+        <node column0="Warning CS1573: Parameter 'parameter' has no matching param tag in the XML comment for 'ComponentLifetimeConverter.Convert(object, Type, object, CultureInfo)' (but other parameters do) (22, 19)" />
+        <node column0="Warning CS1573: Parameter 'parameter' has no matching param tag in the XML comment for 'ComponentLifetimeConverter.Convert(object, Type, object, CultureInfo)' (but other parameters do) (22, 19)" />
+      </node>
+      <node column0="InstanceRegistrationConverter (4 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InstanceRegistrationConverter' (12, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InstanceRegistrationConverter' (12, 15)" />
+        <node column0="Warning CS0162: Unreachable code detected (67, 4)" />
+        <node column0="Warning CS0162: Unreachable code detected (67, 4)" />
+      </node>
+      <node column0="SmartTypeConverter (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'SmartTypeConverter' (3, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'SmartTypeConverter' (3, 15)" />
+      </node>
+      <node column0="UserControl1 (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'UserControl1.UserControl1()' (10, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'UserControl1.UserControl1()' (10, 10)" />
+      </node>
+    </node>
+    <node column0="WpfApp1Tests3 (85 items)">
+      <node column0="ContainerHelperTests (21 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContainerHelperTests' (34, 15)" />
+        <node column0="Warning CA1200: Avoid using cref tags with a prefix (39, 56)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContainerHelperTests.LoggingFixture' (55, 25)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContainerHelperTests.WpfApplicationFixture' (57, 32)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContainerHelperTests.Output' (59, 28)" />
+        <node column0="Warning CA1200: Avoid using cref tags with a prefix (62, 56)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContainerHelperTests.UseLogMethod' (68, 38)" />
+        <node column0="Warning CA2000: Call System.IDisposable.Dispose on object created by 'new FileTarget ( &quot;test target&quot; )' before all references to it are out of scope. (104, 21)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContainerHelperTests.ResolveMainWindow()' (126, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContainerHelperTests.TestPushContext()' (156, 15)" />
+        <node column0="Warning CA2000: Call System.IDisposable.Dispose on object created by 'out container' before all references to it are out of scope. (159, 45)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContainerHelperTests.ContainerTestResolveIMenuItemList()' (165, 15)" />
+        <node column0="Warning CA2000: Call System.IDisposable.Dispose on object created by 'out container' before all references to it are out of scope. (168, 45)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContainerHelperTests.ResolveWindows()' (177, 15)" />
+        <node column0="Warning CA2000: Call System.IDisposable.Dispose on object created by 'out container' before all references to it are out of scope. (180, 45)" />
+        <node column0="Warning CA1200: Avoid using cref tags with a prefix (188, 56)" />
+        <node column0="Warning CA2000: Call System.IDisposable.Dispose on object created by 'out container' before all references to it are out of scope. (196, 45)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContainerHelperTests.SetupContainerTest2()' (202, 15)" />
+        <node column0="Warning CA2000: Call System.IDisposable.Dispose on object created by 'out container' before all references to it are out of scope. (208, 45)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ContainerHelperTests.TestResolveTopLevelMenu()' (213, 15)" />
+        <node column0="Warning CA2000: Call System.IDisposable.Dispose on object created by 'out container' before all references to it are out of scope. (216, 45)" />
+      </node>
+      <node column0="IMyServices (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IMyServices' (117, 19)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'IMyServices.InfoContextFactory' (120, 23)" />
+      </node>
+      <node column0="InfoContextTests (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InfoContextTests' (7, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'InfoContextTests.EnumeratorTest()' (10, 15)" />
+      </node>
+      <node column0="MenuHelperTests (4 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MenuHelperTests' (14, 15)" />
+        <node column0="Warning CA1823: Unused field 'Logger'. (16, 34)" />
+        <node column0="Warning CA1200: Avoid using cref tags with a prefix (21, 56)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MenuHelperTests.MakeMenuItemTest()' (42, 15)" />
+      </node>
+      <node column0="MyService (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyService' (16, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyService.InstanceObjectId' (18, 17)" />
+      </node>
+      <node column0="MyServicesFixture (3 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyServicesFixture' (106, 15)" />
+        <node column0="Warning CA1200: Avoid using cref tags with a prefix (109, 56)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MyServicesFixture.MyServices' (114, 22)" />
+      </node>
+      <node column0="ProvideValueTarget (1 item)">
+        <node column0="Warning CA1200: Avoid using cref tags with a prefix (20, 56)" />
+      </node>
+      <node column0="RandomXaml (4 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'RandomXaml' (12, 15)" />
+        <node column0="Warning CA1823: Unused field 'Logger'. (14, 34)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'RandomXaml.UseLogMethod' (16, 38)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'RandomXaml.Test1()' (19, 15)" />
+      </node>
+      <node column0="Resources (3 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'Resources' (3, 22)" />
+        <node column0="Warning CA1724: The type name Resources conflicts in whole or in part with the namespace name 'System.Resources' defined in the .NET Framework. Rename the type to eliminate the conflict. (3, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'Resources.MenuResourcesPath' (5, 23)" />
+      </node>
+      <node column0="TestIDGeneratorModule (3 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TestIDGeneratorModule' (9, 15)" />
+        <node column0="Warning CA1200: Avoid using cref tags with a prefix (12, 56)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TestIDGeneratorModule.Test1()' (29, 15)" />
+      </node>
+      <node column0="UnitTest1 (3 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'UnitTest1.Tesst1()' (15, 15)" />
+        <node column0="Warning CA2000: Call System.IDisposable.Dispose on object created by 'new ComponentRegistry ( )' before all references to it are out of scope. (17, 28)" />
+        <node column0="Warning CA2000: Call System.IDisposable.Dispose on object created by 'new ComponentRegistration ( )' before all references to it are out of scope. (19, 32)" />
+      </node>
+      <node column0="WpfTests (7 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WpfTests' (19, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WpfTests.WpfTests(WpfApplicationFixture, ContainerFixture, ObjectIDFixture, UtilsContainerFixture, ITestOutputHelper)' (21, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WpfTests.Test1()' (47, 15)" />
+        <node column0="Warning CA2000: Call System.IDisposable.Dispose on object created by 'new Baml2006Reader ( stream.Stream )' before all references to it are out of scope. (63, 25)" />
+        <node column0="Warning CS1587: XML comment is not placed on a valid language element (68, 4)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WpfTests.Test2()' (90, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WpfTests.Test3()' (98, 15)" />
+      </node>
+      <node column0="WpfTestsBase (24 items)">
+        <node column0="MyServices (4 items)">
+          <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WpfTestsBase.MyServices' (163, 16)" />
+          <node column0="Warning CA1034: Do not nest type MyServices. Alternatively, change its accessibility so that it is not externally visible. (163, 16)" />
+          <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WpfTestsBase.MyServices.MyServices(InfoContext.Factory)' (165, 11)" />
+          <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WpfTestsBase.MyServices.InfoContextFactory' (170, 31)" />
+        </node>
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WpfTestsBase' (33, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WpfTestsBase._containerFixture' (40, 39)" />
+        <node column0="Warning CA1051: Do not declare visible instance fields (40, 39)" />
+        <node column0="Warning CA1200: Avoid using cref tags with a prefix (47, 56)" />
+        <node column0="Warning CA1062: In externally visible method 'WpfTestsBase.WpfTestsBase(WpfApplicationFixture fixture, ContainerFixture containerFixture, ObjectIDFixture objectIdFixture, UtilsContainerFixture utilsContainerFixture, ITestOutputHelper outputHelper)', validate parameter 'utilsContainerFixture' is non-null before using it. If appropriate, throw an ArgumentNullException when the argument is null or add a Code Contract precondition asserting non-null argument. (58, 25)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WpfTestsBase.containerScope' (96, 25)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WpfTestsBase.Fixture' (98, 32)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WpfTestsBase.ObjectIdFixture' (100, 26)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WpfTestsBase.OutputHelper' (102, 28)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WpfTestsBase.MyStack' (104, 64)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WpfTestsBase.InfoContextFactory' (108, 30)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WpfTestsBase.GetObjIdFunc' (110, 46)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WpfTestsBase.Generator' (112, 28)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WpfTestsBase.myServices' (116, 25)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WpfTestsBase.InstanceFactory' (118, 18)" />
+        <node column0="Warning CA1200: Avoid using cref tags with a prefix (131, 22)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WpfTestsBase.ObjectId' (142, 15)" />
+        <node column0="Warning CA1822: Member Dispose does not access instance data and can be marked as static (Shared in VisualBasic) (148, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WpfTestsBase.C(object, string)' (150, 25)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WpfTestsBase.LB()' (155, 24)" />
+      </node>
+      <node column0="XunitTarget (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'XunitTarget' (20, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'XunitTarget.XunitTarget(ITestOutputHelper)' (24, 10)" />
+      </node>
+      <node column0="ZeroconfTests (4 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ZeroconfTests' (8, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ZeroconfTests.AdvertiseTest()' (11, 15)" />
+        <node column0="Warning CA1822: Member AdvertiseTest does not access instance data and can be marked as static (Shared in VisualBasic) (11, 15)" />
+        <node column0="Warning CA2000: Call System.IDisposable.Dispose on object created by 'new ServiceDiscovery ( )' before all references to it are out of scope. (14, 13)" />
+      </node>
+    </node>
+    <node column0="WpfApp1Tests3.Attributes (5 items)">
+      <node column0="AppInitializeAttribute (5 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppInitializeAttribute' (22, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppInitializeAttribute.MyApp' (26, 14)" />
+        <node column0="Warning CA1303: Method 'void AppInitializeAttribute.Before(MethodInfo methodUnderTest)' passes a literal string as parameter 'message' of a call to 'void LogMethod.Invoke(string message, string callerFilePath = &quot;&quot;, string callerMemberName = &quot;&quot;)'. Retrieve the following string(s) from a resource table instead: &quot;Waiting for task to complete&quot;. (60, 18)" />
+        <node column0="Warning CA1303: Method 'void AppInitializeAttribute.Before(MethodInfo methodUnderTest)' passes a literal string as parameter 'message' of a call to 'void LogMethod.Invoke(string message, string callerFilePath = &quot;&quot;, string callerMemberName = &quot;&quot;)'. Retrieve the following string(s) from a resource table instead: &quot;null&quot;. (65, 18)" />
+        <node column0="Warning CA1303: Method 'void AppInitializeAttribute.Before(MethodInfo methodUnderTest)' passes a literal string as parameter 'message' of a call to 'void LogMethod.Invoke(string message, string callerFilePath = &quot;&quot;, string callerMemberName = &quot;&quot;)'. Retrieve the following string(s) from a resource table instead: &quot;null&quot;. (70, 17)" />
+      </node>
+    </node>
+    <node column0="WpfApp1Tests3.Collections (1 item)">
+      <node column0="WpfApplication (1 item)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WpfApplication' (9, 15)" />
+      </node>
+    </node>
+    <node column0="WpfApp1Tests3.Fixtures (15 items)">
+      <node column0="CombinedFixture (3 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'CombinedFixture' (22, 15)" />
+        <node column0="Warning CA1823: Unused field 'Logger'. (25, 34)" />
+        <node column0="Warning CA1200: Avoid using cref tags with a prefix (35, 22)" />
+      </node>
+      <node column0="ObjectIDFixture (6 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ObjectIDFixture' (7, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ObjectIDFixture.GetObjectIdDelegate' (9, 24)" />
+        <node column0="Warning CA1200: Avoid using cref tags with a prefix (18, 56)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ObjectIDFixture.Generator' (28, 28)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ObjectIDFixture.GetObjectId' (30, 30)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'ObjectIDFixture.InstanceFactory' (33, 18)" />
+      </node>
+      <node column0="WpfApplicationFixture (6 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WpfApplicationFixture' (14, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WpfApplicationFixture.BasePackUri' (18, 14)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WpfApplicationFixture.MyApp' (24, 22)" />
+        <node column0="Warning CA1200: Avoid using cref tags with a prefix (31, 56)" />
+        <node column0="Warning CS1587: XML comment is not placed on a valid language element (133, 3)" />
+        <node column0="Warning CA1200: Avoid using cref tags with a prefix (150, 22)" />
+      </node>
+    </node>
+    <node column0="WpfApp1Tests3.WpfUtils (2 items)">
+      <node column0="WindowWrap&lt;T&gt; (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WindowWrap&lt;T&gt;' (8, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WindowWrap&lt;T&gt;.WindowWrap()' (13, 10)" />
+      </node>
+    </node>
+    <node column0="WpfTestApp (12 items)">
+      <node column0="App (8 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.DoTracing' (19, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.DoTracing' (19, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.MyLifetimeScope' (21, 25)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.MyLifetimeScope' (21, 25)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.LifetimeScope' (23, 25)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.LifetimeScope' (23, 25)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.Initialize()' (40, 15)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'App.Initialize()' (40, 15)" />
+      </node>
+      <node column0="DefaultPage (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DefaultPage.DefaultPage()' (10, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'DefaultPage.DefaultPage()' (10, 10)" />
+      </node>
+      <node column0="TypePage (2 items)">
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypePage.TypePage()' (10, 10)" />
+        <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'TypePage.TypePage()' (10, 10)" />
+      </node>
+    </node>
+    <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggingEntityMetadataAttribute' (20, 15)" />
+    <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggingEntityMetadataAttribute' (20, 15)" />
+    <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggingEntityMetadataAttribute.LoggingType' (23, 15)" />
+    <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggingEntityMetadataAttribute.LoggingType' (23, 15)" />
+    <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'LoggingInterceptor' (8, 15)" />
+    <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MenuModule' (21, 15)" />
+    <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MenuModule' (21, 15)" />
+    <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppTraceLisener2' (28, 15)" />
+    <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppTraceLisener2' (28, 15)" />
+    <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppTraceLisener2.AppTraceLisener2()' (32, 10)" />
+    <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppTraceLisener2.AppTraceLisener2()' (32, 10)" />
+    <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppTraceLisener2.RoutedEvents' (163, 36)" />
+    <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'AppTraceLisener2.RoutedEvents' (163, 36)" />
+    <node column0="Warning PS0131: The project 'WpfApp1.exe' does not contain any aspect or other transformation. You can disable PostSharp for this project by editing the project properties in Visual Studio. Remember to enable PostSharp back if you add an aspect to this project. (1, 1)" />
+    <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'PushContextAttribute' (15, 18)" />
+    <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'PushContextAttribute.Context' (18, 23)" />
+    <node column0="Warning CA1200: Avoid using cref tags with a prefix (27, 67)" />
+    <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'PushContextAttributeTests' (13, 15)" />
+    <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'PushContextAttributeTests.PushContextAttributeTest()' (18, 15)" />
+    <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'PushContextAttributeTests.AfterTest()' (22, 15)" />
+    <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'PushContextAttributeTests.BeforeTest()' (28, 15)" />
+    <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'UtilsContainerFixture' (10, 18)" />
+    <node column0="Warning CA2213: 'UtilsContainerFixture' contains field '_container' that is of IDisposable type 'IContainer', but it is never disposed. Change the Dispose method on 'UtilsContainerFixture' to call Close or Dispose on this field. (12, 37)" />
+    <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'UtilsContainerFixture.Container' (14, 34)" />
+    <node column0="Warning CA1200: Avoid using cref tags with a prefix (16, 67)" />
+    <node column0="Warning CA1816: Change UtilsContainerFixture.Dispose() to call GC.SuppressFinalize(object). This will prevent derived types that introduce a finalizer from needing to re-implement 'IDisposable' to call it. (29, 21)" />
+    <node column0="Warning: Post-build Code Analysis (FxCopCmd.exe) has been deprecated in favor of FxCop analyzers, which run during build. Refer to https://aka.ms/fxcopanalyzers to migrate to FxCop analyzers." />
+    <node column0="Warning CA1824: Mark assemblies with NeutralResourcesLanguageAttribute" />
+    <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WpfApplicationHelper' (17, 15)" />
+    <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WpfApplicationHelper.WpfApplicationHelper(Assembly)' (21, 10)" />
+    <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WpfApplicationHelper.TheAssembly' (23, 19)" />
+    <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WpfApplicationHelper.LoadRealApp' (25, 15)" />
+    <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WpfApplicationHelper.BasePackUri' (27, 14)" />
+    <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WpfApplicationHelper.CurAssembly' (29, 19)" />
+    <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WpfApplicationHelper.MyApp' (31, 22)" />
+    <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WpfApplicationHelper.Op' (33, 30)" />
+    <node column0="Warning CA1200: Avoid using cref tags with a prefix (51, 22)" />
+    <node column0="Warning CA2000: Call System.IDisposable.Dispose on object created by 'new CancellationTokenSource ( )' before all references to it are out of scope. (57, 12)" />
+    <node column0="Warning CA1801: Parameter theAssembly of method CreateApplication is never used. Remove the parameter or use it in the method body. (93, 45)" />
+    <node column0="Warning CS8321: The local function 'doApp' is declared but never used (102, 11)" />
+    <node column0="Warning CA1825: Avoid unnecessary zero-length array allocations.  Use Array.Empty&lt;string&gt;() instead. (111, 25)" />
+    <node column0="Warning CA2200: Re-throwing caught exception changes stack information. (118, 6)" />
+    <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'WpfApplicationHelper.MakeWindowWrap(Type, Type)' (171, 15)" />
+    <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MainWindow.MainWindow()' (27, 10)" />
+    <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MainWindow.MainWindow()' (27, 10)" />
+    <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MainWindow.TypeFrame' (59, 17)" />
+    <node column0="Warning CS1591: Missing XML comment for publicly visible type or member 'MainWindow.TypeFrame' (59, 17)" />
+  </node>
+</model>

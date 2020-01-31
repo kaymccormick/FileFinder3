@@ -1,5 +1,4 @@
 #region header
-
 // Kay McCormick (mccor)
 // 
 // FileFinder3
@@ -9,7 +8,6 @@
 // 2020-01-22-7:29 AM
 // 
 // ---
-
 #endregion
 
 	

@@ -46,7 +46,7 @@ namespace Common.Logging
 			}
 
 			var opts = new ProxyGenerationOptions ( new LoggerFactoryHook ( UseLogMethod ) ) ;
-			opts.Initialize();
+			opts.Initialize ( ) ;
 			var proxy = ( LogFactory ) Generator.CreateClassProxyWithTarget (
 			                                                                 logFactory.GetType ( )
 			                                                               , Type.EmptyTypes
@@ -69,25 +69,24 @@ namespace Common.Logging
 				name = Path.GetFileNameWithoutExtension ( path ) ;
 			}
 
-			var myLogFactory = ( LogManager.Configuration as CodeConfiguration ).LogFactory as MyLogFactory ;
+			var myLogFactory =
+				( LogManager.Configuration as CodeConfiguration ).LogFactory as MyLogFactory ;
 			if ( myLogFactory == null )
 			{
 				Debug.WriteLine ( "no log factory of my type" ) ;
-				throw new NotImplementedException();
+				throw new NotImplementedException ( ) ;
 			}
 
-			if ( myLogFactory.GetDoLogMessage() != null )
+			if ( myLogFactory.GetDoLogMessage ( ) != null )
 			{
-				Debug.WriteLine ( myLogFactory.GetDoLogMessage().ToString ( ) ) ;
+				Debug.WriteLine ( myLogFactory.GetDoLogMessage ( ).ToString ( ) ) ;
 			}
 			else
 			{
 				Debug.WriteLine ( "no dologmessage" ) ;
 			}
 
-			var logger =
-				myLogFactory
-			   .GetLogger ( name ) ;
+			var logger = myLogFactory.GetLogger ( name ) ;
 			return logger ;
 		}
 	}
@@ -122,7 +121,6 @@ namespace Common.Logging
 		public void NonProxyableMemberNotification ( Type type , MemberInfo memberInfo )
 		{
 			// _useLogMethod ( $"Unproxyable: {memberInfo.Name}" );
-
 		}
 
 		/// <summary>
@@ -148,25 +146,24 @@ namespace Common.Logging
 	{
 		private readonly LoggerProxyHelper.LogMethod _doLogMessage ;
 
-		public virtual LoggerProxyHelper.LogMethod GetDoLogMessage ( ) { return _doLogMessage ; }
-
 		/// <summary>
-		/// Initializes a new instance of the <see cref="T:NLog.LogFactory" /> class.
+		///     Initializes a new instance of the <see cref="T:NLog.LogFactory" /> class.
 		/// </summary>
-		public MyLogFactory ( ) {
-		}
+		public MyLogFactory ( ) { }
 
 		public MyLogFactory ( LoggerProxyHelper.LogMethod doLogMessage )
 		{
 			_doLogMessage = doLogMessage ;
 		}
 
+		public virtual LoggerProxyHelper.LogMethod GetDoLogMessage ( ) { return _doLogMessage ; }
+
 		public new Logger GetLogger ( string name )
 		{
 			var logger = base.GetLogger ( name ) ;
-			if ( GetDoLogMessage() != null )
+			if ( GetDoLogMessage ( ) != null )
 			{
-				GetDoLogMessage()( $"{name} = {logger}" ) ;
+				GetDoLogMessage ( ) ( $"{name} = {logger}" ) ;
 			}
 			else
 			{

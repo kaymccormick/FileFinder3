@@ -12,12 +12,12 @@
         <Style x:Key="ButtonFocusStyle" TargetType="Button">
             <Setter Property="Control.Template">
                 <Setter.Value>
-                <ControlTemplate>
-                    <Border>
-                        <Rectangle StrokeThickness="1" Stroke="Aqua" StrokeDashArray="1 2"/>
-                    </Border>
-                </ControlTemplate>
-                    </Setter.Value>
+                    <ControlTemplate>
+                        <Border>
+                            <Rectangle StrokeThickness="1" Stroke="Aqua" StrokeDashArray="1 2" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
             </Setter>
         </Style>
         <Style TargetType="Button">
@@ -25,57 +25,67 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <WrapPanel>
-                        <VisualStateManager.VisualStateGroups>
-                        <VisualStateGroup x:Name="CommonStates">
-                            <VisualStateGroup.Transitions>
-                                <VisualTransition GeneratedDuration="0:0:0:5" />
-                                <VisualTransition GeneratedDuration="0" To="Pressed" />
-                            </VisualStateGroup.Transitions>
-                            <VisualState x:Name="Normal" />
-                            <VisualState x:Name="MouseOver" />
-                            <VisualState x:Name="Pressed" />
-                            <VisualState x:Name="Disabled" />
-                        </VisualStateGroup>
-                    </VisualStateManager.VisualStateGroups>
-                     
-                    <ContentPresenter Margin="2" />
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition GeneratedDuration="0:0:0:5" />
+                                        <VisualTransition GeneratedDuration="0" To="Pressed" />
+                                    </VisualStateGroup.Transitions>
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="MouseOver" />
+                                    <VisualState x:Name="Pressed" />
+                                    <VisualState x:Name="Disabled" />
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+
+                            <ContentPresenter Margin="2" />
                         </WrapPanel>
-                </ControlTemplate>
-                    
-                    </Setter.Value>
+                    </ControlTemplate>
+
+                </Setter.Value>
             </Setter>
         </Style>
     </UserControl.Resources>
-    <Grid DataContext="{Binding Path=(appShared:App.RenderedType),ElementName=userControl,FallbackValue={x:Type common:MenuItemList}}" ShowGridLines="True">
+    <Grid
+        DataContext="{Binding Path=(appShared:App.RenderedType),ElementName=userControl,FallbackValue={x:Type common:MenuItemList}}"
+        ShowGridLines="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Canvas Grid.Column="0" Grid.Row="0">
             <Border>
                 <WrapPanel>
-                <Button Content="{Binding Name}" Command="common:MyAppCommands.VisitType" CommandParameter="{Binding}"/>
+                    <Button Content="{Binding Name}" Command="common:MyAppCommands.VisitType"
+                            CommandParameter="{Binding}" />
                 </WrapPanel>
             </Border>
-            </Canvas>
-        
-        <Expander Grid.Column="1" Grid.Row="0" Header="Details" IsExpanded="False" ExpandDirection="Down" HorizontalAlignment="Stretch">
+        </Canvas>
+
+        <Expander Grid.Column="1" Grid.Row="0" Header="Details" IsExpanded="False" ExpandDirection="Down"
+                  HorizontalAlignment="Stretch">
             <Grid>
-                <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
-                <Grid.ColumnDefinitions><ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/></Grid.ColumnDefinitions><TextBlock FontWeight="Bold" Text="Assembly"/>
-                <TextBlock Grid.Column="1" Text="{Binding Assembly.FullName}"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" /><RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock FontWeight="Bold" Text="Assembly" />
+                <TextBlock Grid.Column="1" Text="{Binding Assembly.FullName}" />
                 <ListView Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Path=Attributes}">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Attribute" DisplayMemberBinding="{Binding Converter={StaticResource GetTypeConverter}}"/>
+                            <GridViewColumn Header="Attribute"
+                                            DisplayMemberBinding="{Binding Converter={StaticResource GetTypeConverter}}" />
                         </GridView>
                     </ListView.View>
                 </ListView>
-                </Grid>
+            </Grid>
         </Expander>
     </Grid>
 </UserControl>

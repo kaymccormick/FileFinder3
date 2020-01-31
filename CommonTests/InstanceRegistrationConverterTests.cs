@@ -1,10 +1,8 @@
 ﻿using System ;
 using System.Collections ;
 using System.Collections.Generic ;
-using System.ComponentModel ;
 using System.Globalization ;
 using System.Linq ;
-using AppShared ;
 using AppShared.Interfaces ;
 using Autofac ;
 using Autofac.Core ;
@@ -13,17 +11,19 @@ using Common.Converters ;
 using CommonTests.Fixtures ;
 using Xunit ;
 using Xunit.Abstractions ;
-using Container = Autofac.Core.Container ;
 
 namespace CommonTests
 {
-	public class TestConverter : IClassFixture < ContainerFixture >
+	public class InstanceRegistrationConverterTests : IClassFixture < ContainerFixture >
 	{
 		private readonly ContainerFixture  _fixture ;
 		private readonly ITestOutputHelper _output ;
 
-		/// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
-		public TestConverter ( ContainerFixture fixture , ITestOutputHelper output )
+		/// <summary>
+		///     Initializes a new instance of the <see cref="T:System.Object" />
+		///     class.
+		/// </summary>
+		public InstanceRegistrationConverterTests ( ContainerFixture fixture , ITestOutputHelper output )
 		{
 			_fixture = fixture ;
 			_output  = output ;
@@ -34,11 +34,14 @@ namespace CommonTests
 		{
 			// takes IComponentLifetime
 
-			var random = _fixture.Container.Resolve < Lazy<IRandom>> ( ) ;
+			var random = _fixture.Container.Resolve < Lazy < IRandom > > ( ) ;
 			var objIdProv = _fixture.Container.Resolve < IObjectIdProvider > ( ) ;
 
 			var instConv =
-				new RegistrationConverter (_fixture.Container, objIdProv ) ; // TypeDescriptor.GetConverter ( typeof (IComponentRegistration) ) ;
+				new RegistrationConverter (
+				                           _fixture.Container
+				                         , objIdProv
+				                          ) ; // TypeDescriptor.GetConverter ( typeof (IComponentRegistration) ) ;
 			Assert.NotNull ( instConv ) ;
 			_output.WriteLine ( $"{instConv}" ) ;
 
@@ -54,8 +57,8 @@ namespace CommonTests
 					                                                      => service is TypedService
 						                                                         t
 					                                                         && t.ServiceType
-					                                                         == random.GetType() )
-				                                                     
+					                                                         == random.GetType ( )
+				                                                     )
 			                       )
 			                .First ( ) ;
 
@@ -68,14 +71,16 @@ namespace CommonTests
 
 			Assert.NotNull ( myVal ) ;
 			Assert.IsAssignableFrom < IList < InstanceRegistration > > ( myVal ) ;
-			IList < InstanceRegistration> list = ( IList < InstanceRegistration> ) myVal ;
-			Assert.Collection ( list , info => {
+			var list = ( IList < InstanceRegistration > ) myVal ;
+			Assert.Collection (
+			                   list
+			                 , info => {
 				                   Assert.NotNull ( info.Instance ) ;
 			                   }
 			                  ) ;
-			
+
 			var result = converter.Convert (
-			                                list[0]
+			                                list[ 0 ]
 			                              , typeof ( IEnumerable )
 			                              , null
 			                              , CultureInfo.CurrentCulture

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System ;
 
 namespace WpfApp1Tests3.Attributes
 {
-    [AttributeUsage( AttributeTargets.Property)]
-    class IDGeneratorAttribute : Attribute
-    {
-    }
+	[ AttributeUsage ( AttributeTargets.Property ) ]
+	internal class IDGeneratorAttribute : Attribute
+	{
+	}
 }

@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\CommonTests.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -53,8 +54,8 @@
     <Compile Include="Fixtures\ContainerFixture.cs" />
     <Compile Include="LogConfigTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestConverter.cs" />
-    <Compile Include="TestConverter2.cs" />
+    <Compile Include="InstanceRegistrationConverterTests.cs" />
+    <Compile Include="RegistrationConverterTests.cs" />
     <Compile Include="TestResolveServiceConverter.cs" />
     <Compile Include="TypeControlTests.cs" />
   </ItemGroup>

@@ -7,6 +7,5 @@
         xmlns:controls="clr-namespace:WpfApp1.Controls"
         mc:Ignorable="d"
         Title="ContainerWindow" Height="450" Width="800">
-    <DockPanel>
-    </DockPanel>
+    <DockPanel />
 </Window>

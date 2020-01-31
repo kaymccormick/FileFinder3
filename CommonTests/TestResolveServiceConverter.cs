@@ -10,13 +10,10 @@
 // ---
 #endregion
 using System ;
-using System.Collections ;
 using System.Globalization ;
-using System.Linq ;
 using AppShared ;
 using AppShared.Interfaces ;
 using Autofac ;
-using Common ;
 using Common.Converters ;
 using CommonTests.Fixtures ;
 using Xunit ;
@@ -29,7 +26,10 @@ namespace CommonTests
 		private readonly ContainerFixture  _fixture ;
 		private readonly ITestOutputHelper _output ;
 
-		/// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
+		/// <summary>
+		///     Initializes a new instance of the <see cref="T:System.Object" />
+		///     class.
+		/// </summary>
 		public TestResolveServiceConverter ( ContainerFixture fixture , ITestOutputHelper output )
 		{
 			_fixture = fixture ;
@@ -40,21 +40,26 @@ namespace CommonTests
 		public void TestConversion1 ( )
 		{
 			// takes IComponentLifetime
-			ResolveService svc = new ResolveService ( ) ;
+			var svc = new ResolveService ( ) ;
 			svc.ServiceType = typeof ( Lazy < IRandom > ) ;
-			
-			var random = _fixture.Container.Resolve < Lazy<IRandom>> ( ) ;
+
+			var random = _fixture.Container.Resolve < Lazy < IRandom > > ( ) ;
 			var objIdProv = _fixture.Container.Resolve < IObjectIdProvider > ( ) ;
 
 			var resolveConv = new ResolveServiceConverter ( ) ;
-			Assert.NotNull ( resolveConv) ;
+			Assert.NotNull ( resolveConv ) ;
 
-			var value = resolveConv.Convert(svc, null, _fixture.Container, CultureInfo.CurrentCulture);
+			var value = resolveConv.Convert (
+			                                 svc
+			                               , null
+			                               , _fixture.Container
+			                               , CultureInfo.CurrentCulture
+			                                ) ;
 			Assert.NotNull ( value ) ;
-			Assert.IsAssignableFrom < Lazy<IRandom>>(value);
-			Lazy < IRandom > lazy = ( Lazy < IRandom > ) value ;
+			Assert.IsAssignableFrom < Lazy < IRandom > > ( value ) ;
+			var lazy = ( Lazy < IRandom > ) value ;
 			_output.WriteLine ( $"IsValueCreated = {lazy.IsValueCreated}" ) ;
-			_output.WriteLine($"Value = {lazy.Value}");
+			_output.WriteLine ( $"Value = {lazy.Value}" ) ;
 		}
 	}
 }

@@ -6,7 +6,5 @@
         xmlns:local="clr-namespace:WpfApp1.Windows"
         mc:Ignorable="d"
         Title="SampleWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+    <Grid />
 </Window>

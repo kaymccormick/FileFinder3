@@ -1,13 +1,12 @@
 ﻿using System ;
-using System.Collections ;
 using System.Collections.Generic ;
 using System.ComponentModel ;
 using System.Diagnostics ;
+using System.Diagnostics.CodeAnalysis ;
 using System.Linq ;
 using System.Reflection ;
 using System.Runtime.ExceptionServices ;
 using System.Runtime.Serialization ;
-using System.Threading ;
 using System.Threading.Tasks ;
 using System.Windows ;
 using System.Windows.Data ;
@@ -17,29 +16,19 @@ using AppShared ;
 using AppShared.Interfaces ;
 using Autofac ;
 using Autofac.Core ;
-using Autofac.Extras.DynamicProxy ;
-using Common ;
 using Common.Converters ;
 using Common.Logging ;
 using Common.Utils ;
 using DynamicData.Annotations ;
-using Microsoft.Scripting.Utils ;
 using NLog ;
-using Vanara.Extensions ;
 using Vanara.Extensions.Reflection ;
-using WpfApp1.DataSource ;
-using WpfApp1.Logging ;
-using WpfApp1.Util ;
 using WpfApp1.Windows ;
-using WpfApp1.Xaml ;
 using IContainer = Autofac.IContainer ;
 using LogLevel = NLog.LogLevel ;
-using LogManager = NLog.LogManager ;
-using RegistrationConverter = Common.Converters.RegistrationConverter ;
 
 namespace WpfApp1.Application
 {
-	public enum ExitCode { Success = 0 , GeneralError = 1 , ArgumentsError = 2 , }
+	public enum ExitCode { Success = 0 , GeneralError = 1 , ArgumentsError = 2 }
 
 	/// <summary>
 	///     Interaction logic for App.xaml
@@ -48,14 +37,9 @@ namespace WpfApp1.Application
 	{
 		private IContainer _container ;
 
-
-		public AppLogger AppLogger { get ; set ; } = null ;
-
-		public ILogger Logger { get ; set ; }
-
 		public App ( )
 		{
-			DoLogMethod = new LoggerProxyHelper.LogMethod ( doLogMessage ) ;
+			DoLogMethod = doLogMessage ;
 			try
 			{
 				var s = new TaskCompletionSource < int > ( ) ;
@@ -74,11 +58,37 @@ namespace WpfApp1.Application
 			}
 			catch ( Exception ex )
 			{
-				DoLogMethod ( ex.ToString ( ) + "exception in constructor" ) ;
+				DoLogMethod ( ex + "exception in constructor" ) ;
 			}
 		}
 
+		public ILogger Logger { get ; set ; }
+
 		public LoggerProxyHelper.LogMethod DoLogMethod { get ; set ; }
+
+
+		public TaskCompletionSource < int > TCS { get ; set ; }
+
+
+		private ILifetimeScope AppContainer { get ; set ; }
+
+		public bool Stage2Complete { get ; set ; }
+
+		public bool Initialized { get ; set ; }
+
+		public bool ShowMainWindow { get ; set ; } = true ;
+
+		public bool DoTracing { get ; } = false ;
+
+		// ReSharper disable once MemberCanBePrivate.Global
+		public ListCollectionView MenuItemListCollectionView { get ; set ; }
+
+		public DispatcherOperation DispatcherOp { get ; set ; }
+
+		public bool ProcessArgs { get ; set ; } = false ;
+
+
+		public AppLogger AppLogger { get ; set ; } = null ;
 
 		private void doLogMessage (
 			string message
@@ -89,9 +99,6 @@ namespace WpfApp1.Application
 			Logger?.Debug ( message ) ;
 			Debug.WriteLine ( message ) ;
 		}
-
-
-		public TaskCompletionSource < int > TCS { get ; set ; }
 
 		private Assembly CdOnResourceResolve ( object sender , ResolveEventArgs args )
 		{
@@ -137,10 +144,6 @@ namespace WpfApp1.Application
 			{
 				Logger.Trace ( args.LoadedAssembly ) ;
 			}
-			else
-			{
-				//Debug.WriteLine ( args.LoadedAssembly ) ;
-			}
 		}
 
 		private void CurrentDomainOnFirstChanceException (
@@ -183,19 +186,16 @@ namespace WpfApp1.Application
 			return "" ;
 		}
 
-
-		private ILifetimeScope AppContainer { get ; set ; }
-
 		private void OpenWindowExecuted ( object sender , ExecutedRoutedEventArgs e )
 		{
 			DoLogMethod ( $"{sender} {e.Parameter}" ) ;
 		}
 
-		[ System.Diagnostics.CodeAnalysis.SuppressMessage (
-			                                                  "Usage"
-			                                                , "VSTHRD001:Avoid legacy thread switching APIs"
-			                                                , Justification = "<Pending>"
-		                                                  ) ]
+		[ SuppressMessage (
+			                  "Usage"
+			                , "VSTHRD001:Avoid legacy thread switching APIs"
+			                , Justification = "<Pending>"
+		                  ) ]
 		private object DispatcherOperationCallback ( object arg )
 		{
 			DoLogMethod ( $"{nameof ( DispatcherOperationCallback )}" ) ;
@@ -231,7 +231,7 @@ namespace WpfApp1.Application
 #endif
 			}
 
-			
+
 			Initialized = true ;
 
 			return null ;
@@ -309,14 +309,6 @@ namespace WpfApp1.Application
 			TCS.SetResult ( 1 ) ;
 		}
 
-		public bool Stage2Complete { get ; set ; }
-
-		public bool Initialized { get ; set ; }
-
-		public bool ShowMainWindow { get ; set ; } = true ;
-
-		public bool DoTracing { get ; } = false ;
-
 
 		private void MainWindowLoaded ( object o , RoutedEventArgs args )
 		{
@@ -342,9 +334,6 @@ namespace WpfApp1.Application
 			AppShared.App.SetLifetimeScope ( fe , AppContainer ) ;
 			DoLogMethod ( $"{w.LifetimeScope} - {w.LifetimeScope.Tag}" ) ;
 		}
-
-		// ReSharper disable once MemberCanBePrivate.Global
-		public ListCollectionView MenuItemListCollectionView { get ; set ; }
 
 		private void AddEventListeners ( )
 		{
@@ -400,11 +389,14 @@ namespace WpfApp1.Application
 		}
 
 		/// <summary>Raises the <see cref="E:System.Windows.Application.Startup" /> event.</summary>
-		/// <param name="e">A <see cref="T:System.Windows.StartupEventArgs" /> that contains the event data.</param>
+		/// <param name="e">
+		///     A <see cref="T:System.Windows.StartupEventArgs" /> that
+		///     contains the event data.
+		/// </param>
 		protected override void OnStartup ( StartupEventArgs e )
 		{
-			DoOnStartup ( e.Args) ;
-			
+			DoOnStartup ( e.Args ) ;
+
 			base.OnStartup ( e ) ;
 		}
 
@@ -433,9 +425,6 @@ namespace WpfApp1.Application
 				DispatcherOp = dispatcherOperation ;
 			}
 		}
-		public DispatcherOperation DispatcherOp { get ; set ; }
-
-		public bool ProcessArgs { get ; set ; } = false ;
 
 		private void Application_DispatcherUnhandledException1 (
 			object                                sender
@@ -452,7 +441,7 @@ namespace WpfApp1.Application
 				inner = inner.InnerException ;
 			}
 
-			ErrorExit ( ExitCode.GeneralError ) ;
+			ErrorExit ( ) ;
 			// foreach (var window in Windows)
 			// {
 			//     ((Window) window).Close();
@@ -485,16 +474,33 @@ namespace WpfApp1.Application
 
 	public class UnhandledException : Exception
 	{
-		/// <summary>Initializes a new instance of the <see cref="T:System.Exception" /> class.</summary>
+		/// <summary>
+		///     Initializes a new instance of the <see cref="T:System.Exception" />
+		///     class.
+		/// </summary>
 		public UnhandledException ( ) { }
 
-		/// <summary>Initializes a new instance of the <see cref="T:System.Exception" /> class with a specified error message.</summary>
+		/// <summary>
+		///     Initializes a new instance of the <see cref="T:System.Exception" />
+		///     class with a specified error message.
+		/// </summary>
 		/// <param name="message">The message that describes the error.</param>
 		public UnhandledException ( string message ) : base ( message ) { }
 
-		/// <summary>Initializes a new instance of the <see cref="T:System.Exception" /> class with a specified error message and a reference to the inner exception that is the cause of this exception.</summary>
-		/// <param name="message">The error message that explains the reason for the exception.</param>
-		/// <param name="innerException">The exception that is the cause of the current exception, or a null reference (<see langword="Nothing" /> in Visual Basic) if no inner exception is specified.</param>
+		/// <summary>
+		///     Initializes a new instance of the <see cref="T:System.Exception" />
+		///     class with a specified error message and a reference to the inner exception
+		///     that is the cause of this exception.
+		/// </summary>
+		/// <param name="message">
+		///     The error message that explains the reason for the
+		///     exception.
+		/// </param>
+		/// <param name="innerException">
+		///     The exception that is the cause of the current
+		///     exception, or a null reference (<see langword="Nothing" /> in Visual Basic)
+		///     if no inner exception is specified.
+		/// </param>
 		public UnhandledException ( string message , Exception innerException ) : base (
 		                                                                                message
 		                                                                              , innerException
@@ -502,12 +508,28 @@ namespace WpfApp1.Application
 		{
 		}
 
-		/// <summary>Initializes a new instance of the <see cref="T:System.Exception" /> class with serialized data.</summary>
-		/// <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo" /> that holds the serialized object data about the exception being thrown.</param>
-		/// <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext" /> that contains contextual information about the source or destination.</param>
+		/// <summary>
+		///     Initializes a new instance of the <see cref="T:System.Exception" />
+		///     class with serialized data.
+		/// </summary>
+		/// <param name="info">
+		///     The
+		///     <see cref="T:System.Runtime.Serialization.SerializationInfo" /> that holds
+		///     the serialized object data about the exception being thrown.
+		/// </param>
+		/// <param name="context">
+		///     The
+		///     <see cref="T:System.Runtime.Serialization.StreamingContext" /> that
+		///     contains contextual information about the source or destination.
+		/// </param>
 		/// <exception cref="T:System.ArgumentNullException">
-		/// <paramref name="info" /> is <see langword="null" />.</exception>
-		/// <exception cref="T:System.Runtime.Serialization.SerializationException">The class name is <see langword="null" /> or <see cref="P:System.Exception.HResult" /> is zero (0).</exception>
+		///     <paramref name="info" /> is <see langword="null" />.
+		/// </exception>
+		/// <exception cref="T:System.Runtime.Serialization.SerializationException">
+		///     The
+		///     class name is <see langword="null" /> or
+		///     <see cref="P:System.Exception.HResult" /> is zero (0).
+		/// </exception>
 		protected UnhandledException (
 			[ NotNull ] SerializationInfo info
 		  , StreamingContext              context

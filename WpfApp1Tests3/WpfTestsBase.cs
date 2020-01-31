@@ -23,9 +23,7 @@ using JetBrains.Annotations ;
 using NLog ;
 using NLog.Fluent ;
 using TestLib.Fixtures ;
-using WpfApp1.Attributes ;
 using WpfApp1.Util ;
-using WpfApp1Tests3.Attributes ;
 using WpfApp1Tests3.Fixtures ;
 using Xunit ;
 using Xunit.Abstractions ;
@@ -36,9 +34,10 @@ namespace WpfApp1Tests3
 	{
 		private static readonly ILogger Logger = LogManager.GetCurrentClassLogger ( ) ;
 
-		[ ThreadStatic ] internal static ConcurrentDictionary < object , long > Instances  ;
+		[ ThreadStatic ] internal static ConcurrentDictionary < object , long > Instances ;
+
 		// ReSharper disable once MemberCanBePrivate.Global
-		protected readonly               ContainerFixture                       _containerFixture ;
+		protected readonly ContainerFixture _containerFixture ;
 
 
 		private readonly MyServicesFixture     _myServicesFixture ;
@@ -57,20 +56,13 @@ namespace WpfApp1Tests3
 		)
 		{
 			_myServicesFixture = utilsContainerFixture.Container.Resolve < MyServicesFixture > ( ) ;
-			Fixture =
-				fixture ?? throw new ArgumentNullException ( nameof ( fixture ) ) ;
+			Fixture            = fixture ?? throw new ArgumentNullException ( nameof ( fixture ) ) ;
 			ObjectIdFixture = objectIdFixture
-			                  ?? throw new ArgumentNullException (
-			                                                      nameof ( objectIdFixture )
-			                                                     ) ;
+			                  ?? throw new ArgumentNullException ( nameof ( objectIdFixture ) ) ;
 			OutputHelper = outputHelper
-			               ?? throw new ArgumentNullException (
-			                                                   nameof ( outputHelper )
-			                                                  ) ;
+			               ?? throw new ArgumentNullException ( nameof ( outputHelper ) ) ;
 			_containerFixture = containerFixture
-			                    ?? throw new ArgumentNullException (
-			                                                        nameof ( containerFixture )
-			                                                       ) ;
+			                    ?? throw new ArgumentNullException ( nameof ( containerFixture ) ) ;
 			containerScope = _containerFixture.LifetimeScope.BeginLifetimeScope ( ) ;
 			_utilsContainerFixture = utilsContainerFixture
 			                         ?? throw new ArgumentNullException (
@@ -168,7 +160,7 @@ namespace WpfApp1Tests3
 			                                                                        ) ;
 		}
 
-		public class MyServices : WpfApp1Tests3.IMyServices
+		public class MyServices : IMyServices
 		{
 			public MyServices ( InfoContext.Factory infoContextFactory )
 			{

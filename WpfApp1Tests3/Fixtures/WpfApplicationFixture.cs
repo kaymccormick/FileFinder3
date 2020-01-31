@@ -1,44 +1,53 @@
-﻿using System;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using System.Windows;
-using JetBrains.Annotations;
-using KayMcCormick.Dev.Test.Metadata;
-using WpfApp1Tests3.WpfUtils;
-using Xunit;
+﻿using System ;
+using System.Linq ;
+using System.Threading.Tasks ;
+using System.Windows ;
+using JetBrains.Annotations ;
+using KayMcCormick.Dev.Test.Metadata ;
+using WpfApp1.Application ;
+using WpfApp1Tests3.WpfUtils ;
+using Xunit ;
 
 namespace WpfApp1Tests3.Fixtures
 {
-    [ UsedImplicitly ]
-    public class WpfApplicationFixture : IAsyncLifetime
-    {
-       
-        private readonly WpfApplicationHelper _wpfApplicationHelper;
+	[ UsedImplicitly ]
+	public class WpfApplicationFixture : IAsyncLifetime
+	{
+		private readonly WpfApplicationHelper _wpfApplicationHelper ;
 
-        public Uri BasePackUri
-        {
-            get => _wpfApplicationHelper.BasePackUri;
-            set => _wpfApplicationHelper.BasePackUri = value;
-        }
+		public Uri BasePackUri
+		{
+			get => _wpfApplicationHelper.BasePackUri ;
+			set => _wpfApplicationHelper.BasePackUri = value ;
+		}
 
-        public Application MyApp
-        {
-            get => _wpfApplicationHelper.MyApp;
-            set => _wpfApplicationHelper.MyApp = value;
-        }
+		public Application MyApp
+		{
+			get => _wpfApplicationHelper.MyApp ;
+			set => _wpfApplicationHelper.MyApp = value ;
+		}
 
-        /// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
-        public WpfApplicationFixture()
-        {
-            var qq = AppDomain.CurrentDomain.GetAssemblies()
-                              .Where( a => Attribute.IsDefined( (Assembly)a, typeof(WpfTestApplicationAttribute) ) );
-            var assembly = typeof(WpfApp1.Application.App).Assembly;
-            Assert.True( Attribute.IsDefined( assembly, typeof(WpfTestApplicationAttribute) ) );
-            _wpfApplicationHelper = new WpfApplicationHelper(assembly);
-        }
+		/// <summary>
+		///     Initializes a new instance of the <see cref="T:System.Object" />
+		///     class.
+		/// </summary>
+		public WpfApplicationFixture ( )
+		{
+			var qq = AppDomain.CurrentDomain.GetAssemblies ( )
+			                  .Where (
+			                          a => Attribute.IsDefined (
+			                                                    a
+			                                                  , typeof ( WpfTestApplicationAttribute
+			                                                    )
+			                                                   )
+			                         ) ;
+			var assembly = typeof ( App ).Assembly ;
+			Assert.True (
+			             Attribute.IsDefined ( assembly , typeof ( WpfTestApplicationAttribute ) )
+			            ) ;
+			_wpfApplicationHelper = new WpfApplicationHelper ( assembly ) ;
+		}
 #if randomcode
-
         var a = AppDomain.CurrentDomain.GetAssemblies()
                          .Where( assembly => Attribute.IsDefined( assembly, typeof(WpfTestApplicationAttribute) ) );
             //var q = from refA in GetType().Assembly.GetReferencedAssemblies() join a in AppDomain.CurrentDomain.GetAssemblies() on refA equals a.GetName() into aGroup
@@ -113,38 +122,38 @@ namespace WpfApp1Tests3.Fixtures
             }
 
 
-            var r = q.Where( assembly => Attribute.IsDefined( assembly, typeof(WpfTestApplicationAttribute) ) );
+            var r =
+ q.Where( assembly => Attribute.IsDefined( assembly, typeof(WpfTestApplicationAttribute) ) );
             Assert.NotEmpty( q );
 
             var theAssembly = q.First();
             _wpfApplicationHelper = new WpfApplicationHelper( theAssembly );
         }
 #endif
-        /// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
-        // public void Dispose()
-        // {
-        //     _wpfApplicationHelper?.Dispose();
-        // }
+		/// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
+		// public void Dispose()
+		// {
+		//     _wpfApplicationHelper?.Dispose();
+		// }
 
-        /// <summary>
-        /// Called immediately after the class has been created, before it is used.
-        /// </summary>
-        public Task InitializeAsync()
-        {
-            //Logger.Debug($"{nameof(InitializeAsync)}"  );
-            return _wpfApplicationHelper.InitializeAsync ( ) ;
-        }
+		/// <summary>
+		///     Called immediately after the class has been created, before it is used.
+		/// </summary>
+		public Task InitializeAsync ( )
+		{
+			//Logger.Debug($"{nameof(InitializeAsync)}"  );
+			return _wpfApplicationHelper.InitializeAsync ( ) ;
+		}
 
-        /// <summary>
-        /// Called when an object is no longer needed. Called just before <see cref="M:System.IDisposable.Dispose" />
-        /// if the class also implements that.
-        /// </summary>
-        public Task DisposeAsync()
-        {
-            //Logger.Debug($"{nameof(InitializeAsync)}");
-            return _wpfApplicationHelper.DisposeAsync();
-            
-           
-        }
-    }
+		/// <summary>
+		///     Called when an object is no longer needed. Called just before
+		///     <see cref="M:System.IDisposable.Dispose" />
+		///     if the class also implements that.
+		/// </summary>
+		public Task DisposeAsync ( )
+		{
+			//Logger.Debug($"{nameof(InitializeAsync)}");
+			return _wpfApplicationHelper.DisposeAsync ( ) ;
+		}
+	}
 }

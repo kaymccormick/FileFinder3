@@ -7,12 +7,12 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/Common;component/Resources/Converters.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/Common;component/Resources/MenuDictionary.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/Common;component/Resources/Templates.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Common;component/Resources/Converters.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Common;component/Resources/MenuDictionary.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Common;component/Resources/Templates.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
         </ResourceDictionary>
-       
-        </Application.Resources>
+
+    </Application.Resources>
 </Application>
