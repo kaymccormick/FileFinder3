@@ -55,6 +55,9 @@
     <Compile Include="Context\ContextStackInstanceAttribute.cs" />
     <Compile Include="Context\InfoContextFactoryAttribute.cs" />
     <Compile Include="Context\PushContextAttribute.cs" />
+    <Compile Include="Controls\DefaultPage.xaml.cs">
+      <DependentUpon>DefaultPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Registrations.xaml.cs">
       <DependentUpon>Registrations.xaml</DependentUpon>
     </Compile>
@@ -63,6 +66,9 @@
     </Compile>
     <Compile Include="Controls\TypeControl2.xaml.cs">
       <DependentUpon>TypeControl2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TypeNavigator.xaml.cs">
+      <DependentUpon>TypeNavigator.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\AssemblyConverter.cs" />
     <Compile Include="Converters\ComponentLifetimeConverter.cs" />
@@ -106,6 +112,10 @@
     <Compile Include="Utils\ContainerHelper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\DefaultPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\Registrations.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -117,6 +127,10 @@
     <Page Include="Controls\TypeControl2.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\TypeNavigator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Templates.xaml">
       <Generator>MSBuild:Compile</Generator>

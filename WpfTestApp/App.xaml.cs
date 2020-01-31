@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic ;
 using System.Diagnostics ;
+using System.Linq ;
 using System.Windows ;
 using AppShared.Interfaces ;
 using Autofac ;
@@ -34,6 +35,10 @@ namespace WpfTestApp
 		protected override void OnStartup ( StartupEventArgs e )
 		{
 			Initialize ( ) ;
+			if(e.Args.Any())
+            {
+
+            }
 			base.OnStartup ( e ) ;
 		}
 

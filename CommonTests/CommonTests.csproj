@@ -86,6 +86,10 @@
       <Project>{42288D17-ED17-4F2F-9EA3-C3E64D5302BF}</Project>
       <Name>Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TestLib\TestLib.csproj">
+      <Project>{87EAA0AA-C33B-4F8E-9B7A-C01204A22C44}</Project>
+      <Name>TestLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

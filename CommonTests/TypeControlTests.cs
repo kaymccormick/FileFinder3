@@ -1,25 +1,28 @@
-﻿using System ;
-using System.Collections.Generic ;
-using System.Diagnostics ;
-using System.Linq ;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Reactive.Concurrency ;
 using System.Reactive.Linq ;
-using System.Threading ;
-using System.Threading.Tasks ;
-using System.Windows ;
-using System.Windows.Automation ;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Automation;
 using System.Windows.Threading ;
-using Common ;
-using Common.Controls ;
+using AppShared ;
+using Common;
+using Common.Controls;
+using CommonTests.Fixtures ;
+using TestLib ;
 using Xunit ;
 using Xunit.Abstractions ;
 
 namespace CommonTests
 {
     /// <summary>
-    /// Test class for tests pf <see cref="TypeControl"/>
+    /// Test class for tests of <see cref="TypeControl"/>
     /// </summary>
-    public class TypeControlTests
+    public class TypeControlTests : IClassFixture<LoggingFixture>
     {
         private readonly ITestOutputHelper _output ;
 
@@ -28,55 +31,13 @@ namespace CommonTests
         [ WpfFact ]
         public void TestTypeControl1 ( )
         {
-            MyCacheTarget.GetInstance ( 1000 )
-                         .Cache.SubscribeOn ( Scheduler.Default )
-                         .Buffer ( TimeSpan.FromMilliseconds ( 100 ) )
-                         .Where ( x => x.Any ( ) )
-                         .ObserveOnDispatcher ( DispatcherPriority.Background )
-                         .Subscribe (
-                                     infos => {
-                                         foreach ( var logEventInfo in infos )
-                                         {
-                                             _output.WriteLine ( logEventInfo.FormattedMessage ) ;
-                                         }
-                                     }
-                                    ) ;
-
-            _output.WriteLine ( $"{Thread.CurrentThread.ManagedThreadId}" ) ;
-
-            var c = new TypeControl { Name = "MyControl" } ;
-            c.RenderedType = typeof ( Dictionary < string , List < Tuple < int , object > > > ) ;
-            c.Detailed     = true ;
-            var w = new Window ( ) ;
-            w.Name    = "MYWin" ;
-            w.Content = c ;
-            var r = new TaskCompletionSource < Result > ( ) ;
-
-            w.Loaded += ( sender , args ) => {
-                try
-                {
-                    _output.WriteLine ( $"{Thread.CurrentThread.ManagedThreadId}" ) ;
-                    var e = AutomationElement.RootElement.FindFirst (
-                                                                     TreeScope.Children
-                                                                   , new PropertyCondition (
-                                                                                            AutomationElement
-                                                                                               .ProcessIdProperty
-                                                                                          , Process
-                                                                                           .GetCurrentProcess ( )
-                                                                                           .Id
-                                                                                           )
-                                                                    ) ;
-
-                    var rr = new Result ( ) ;
-                    rr.AutoElem = e ;
-                    r.SetResult ( rr ) ;
-                }
-                catch ( Exception ex )
-                {
-                    r.TrySetException ( ex ) ;
-                }
-            } ;
-            w.Show ( ) ;
+            SetupCacheSubscriber ( ) ;
+            var controlName = "MyControl" ;
+            var control = new TypeControl { Name = controlName } ;
+            control.SetValue(App.RenderedTypeProperty, typeof( string ) );
+            control.Detailed     = true ;
+            var window = MakeWindow ( control , out var r ) ;
+            window.Show ( ) ;
             Assert.NotNull ( r.Task.Result ) ;
             if ( r.Task.IsFaulted )
             {
@@ -124,25 +85,13 @@ namespace CommonTests
                 _output.WriteLine ( "pattern is " + automationPattern.ProgrammaticName ) ;
             }
 
-            var controlae = e2.FindFirst (
-                                          TreeScope.Descendants
-                                        , new PropertyCondition (
-                                                                 AutomationElement
-                                                                    .AutomationIdProperty
-                                                               , "MyControl"
-                                                                )
-                                         ) ;
+            var controlae = FindControlA ( e2 , controlName ) ;
+            Assert.NotNull ( controlae ) ;
 
-            var hyperlinks = controlae.FindAll (
-                                                TreeScope.Descendants
-                                              , new PropertyCondition (
-                                                                       AutomationElement
-                                                                          .ClassNameProperty
-                                                                     , "Hyperlink"
-                                                                      )
-                                               ) ;
+            var hyperlinks = FindHyperlinks ( controlae ) ;
 
-
+//            WalkContentElements(controlae, true);
+            WalkControlElements(controlae, true);
             Automation.AddStructureChangedEventHandler(controlae, TreeScope.Descendants, (
                                                            sender
                                                          , args
@@ -153,7 +102,8 @@ namespace CommonTests
                                                        });
             
 
-            Assert.True ( hyperlinks.Count > 2 ) ;
+            Assert.NotEmpty(hyperlinks);
+            // Assert.True ( hyperlinks.Count > 2 ) ;
             foreach ( AutomationElement hyperlink in hyperlinks )
             {
                 Point pt ;
@@ -214,6 +164,178 @@ namespace CommonTests
             //WalkControlElements (controlae , true ) ;
 
             //WalkContentElements()
+        }
+
+         [ WpfFact ]
+        public void TestTypeNavigator ( )
+        {
+            SetupCacheSubscriber ( ) ;
+
+            var controlName = SetupTypeNavControl ( out var control ) ;
+            var window = MakeWindow ( control , out var r ) ;
+            window.Show ( ) ;
+            Assert.NotNull ( r.Task.Result ) ;
+            if ( r.Task.IsFaulted )
+            {
+                if ( r.Task.Exception != null )
+                {
+                    throw r.Task.Exception ;
+                }
+            }
+
+            var e2 = r.Task.Result.AutoElem ;
+
+            var controlae = FindControlA ( e2 , controlName ) ;
+            Assert.NotNull ( controlae ) ;
+
+            var hyperlinks = FindHyperlinks ( controlae ) ;
+
+//            WalkContentElements(controlae, true);
+            // WalkControlElements(controlae, true);
+            Automation.AddStructureChangedEventHandler(controlae, TreeScope.Descendants, (
+                                                           sender
+                                                         , args
+                                                       ) => {
+                                                           _output.WriteLine (
+                                                                              $"structure: {args.StructureChangeType}"
+                                                                             ) ;
+                                                       });
+            
+
+            Assert.NotEmpty(hyperlinks);
+            foreach ( AutomationElement hyperlink in hyperlinks )
+            {
+                Point pt ;
+                var v = hyperlink.TryGetClickablePoint ( out pt ) ;
+                var linkText =
+                    hyperlink.GetCurrentPropertyValue ( AutomationElement.NameProperty ) ;
+                if ( hyperlink.TryGetCurrentPattern (
+                                                     InvokePattern.Pattern
+                                                   , out var patternObject
+                                                    ) )
+                {
+                    if ( patternObject is InvokePattern inboke )
+                    {
+                        Automation.AddAutomationPropertyChangedEventHandler (
+                                                                            hyperlink
+                                                                          , TreeScope.Element
+                                                                          , ( sender , args ) => {
+
+                                                                                _output.WriteLine ("update: " + 
+                                                                                                   args
+                                                                                                      .Property
+                                                                                                      .ProgrammaticName + " = " + args.NewValue
+                                                                                                  ) ;
+                                                                            }
+             ,hyperlink.GetSupportedProperties()                                            ) ;
+
+                        _output.WriteLine ( "yay" ) ;
+                        inboke.Invoke ( ) ;
+                        Thread.Sleep ( 2000 ) ;
+                        break ;
+                    }
+
+                }
+
+                if ( v )
+                {
+                    _output.WriteLine ( $"{linkText}: {pt}" ) ;
+                    foreach ( var automationPattern in hyperlink.GetSupportedPatterns ( ) )
+                    {
+                        _output.WriteLine ( $"{automationPattern.ProgrammaticName}" ) ;
+                        var currentPattern = hyperlink.GetCurrentPattern ( automationPattern ) ;
+                        _output.WriteLine ( $"{currentPattern}" ) ;
+                    }
+                }
+            }
+
+        }
+
+        private static AutomationElementCollection FindHyperlinks ( AutomationElement controlae )
+        {
+            var hyperlinks = controlae.FindAll (
+                                                TreeScope.Descendants
+                                              , new PropertyCondition (
+                                                                       AutomationElement.ClassNameProperty
+                                                                     , "Hyperlink"
+                                                                      )
+                                               ) ;
+            return hyperlinks ;
+        }
+
+        private static AutomationElement FindControlA ( AutomationElement e2 , string controlName )
+        {
+            var controlae = e2.FindFirst (
+                                          TreeScope.Descendants
+                                        , new PropertyCondition (
+                                                                 AutomationElement.AutomationIdProperty
+                                                               , controlName
+                                                                )
+                                         ) ;
+            return controlae ;
+        }
+
+        private Window MakeWindow ( UIElement control , out TaskCompletionSource < Result > taskCompetionSource )
+        {
+            var w = new Window {
+                Name = "MYWin" ,
+                Content = control
+            };
+            taskCompetionSource = new TaskCompletionSource < Result > ( ) ;
+
+            var source = taskCompetionSource ;
+            w.Loaded += ( sender , args ) => {
+                try
+                {
+                    // _output.WriteLine ( $"{Thread.CurrentThread.ManagedThreadId}" ) ;
+                    // var e = AutomationElement.RootElement.FindFirst (
+                    //                                                  TreeScope.Children
+                    //                                                , new PropertyCondition (
+                    //                                                                         AutomationElement
+                    //                                                                            .ProcessIdProperty
+                    //                                                                       , Process
+                    //                                                                        .GetCurrentProcess ( )
+                    //                                                                        .Id
+                    //                                                                        )
+                    //                                                 ) ;
+                    //
+                    var rr = new Result();
+                    source.SetResult ( rr ) ;
+                }
+                catch ( Exception ex )
+                {
+                    source.TrySetException ( ex ) ;
+                }
+            } ;
+            return w ;
+        }
+
+        private string SetupTypeNavControl ( out TypeNavigator control )
+        {
+            var controlName = "typeNav" ;
+            control = new TypeNavigator ( ) { Name = controlName } ;
+            control.SetValue (
+                              AppShared.App.RenderedTypeProperty
+                            , typeof ( Dictionary < string , List < Tuple < int , object > > > )
+                             ) ;
+            return controlName ;
+        }
+
+        private void SetupCacheSubscriber ( )
+        {
+            MyCacheTarget.GetInstance ( 1000 )
+                         .Cache.SubscribeOn ( Scheduler.Default )
+                         .Buffer ( TimeSpan.FromMilliseconds ( 100 ) )
+                         .Where ( x => x.Any ( ) )
+                         .ObserveOnDispatcher ( DispatcherPriority.Background )
+                         .Subscribe (
+                                     infos => {
+                                         foreach ( var logEventInfo in infos )
+                                         {
+                                             _output.WriteLine ( logEventInfo.FormattedMessage ) ;
+                                         }
+                                     }
+                                    ) ;
         }
 
         private void WalkContentElements ( AutomationElement controlae , bool b )
