@@ -56,39 +56,47 @@ namespace WpfApp1Tests3.WpfUtils
 			var tcs = new TaskCompletionSource < bool > ( ) ;
 			var s = new CancellationTokenSource ( ) ;
 			var token = s.Token ;
-			var dispatcherOperation = MyApp.Dispatcher.InvokeAsync (
-			                                                        ( ) => {
-				                                                        Logger.Error (
-				                                                                      "on dispatcher thread"
-				                                                                     ) ;
-				                                                        MyApp.Exit += (
-					                                                        sender
-					                                                      , args
-				                                                        ) => {
-					                                                        Logger.Error (
-					                                                                      "exit handler"
-					                                                                     ) ;
-					                                                        Logger.Error (
-					                                                                      "setting result to true"
-					                                                                     ) ;
-					                                                        tcs.SetResult ( true ) ;
-				                                                        } ;
-				                                                        Logger.Error (
-				                                                                      "calling shutdown"
-				                                                                     ) ;
-				                                                        MyApp.Shutdown ( ) ;
-				                                                        Logger.Error (
-				                                                                      "shutdown returned"
-				                                                                     ) ;
-			                                                        }
-			                                                      , DispatcherPriority.Send
-			                                                      , token
-			                                                       ) ;
-			return Task.WhenAny (
-			                     Task.WhenAll ( dispatcherOperation.Task , tcs.Task )
-			                   , Task.Delay ( 3000 )
-			                    ) ;
-		}
+            if ( MyApp != null && MyApp.Dispatcher != null ) {
+                var dispatcherOperation = MyApp.Dispatcher.InvokeAsync (
+                                                                        ( ) => {
+                                                                            Logger.Error (
+                                                                                          "on dispatcher thread"
+                                                                                         ) ;
+                                                                            MyApp.Exit += (
+                                                                                sender
+                                                                              , args
+                                                                            ) => {
+                                                                                Logger.Error (
+                                                                                              "exit handler"
+                                                                                             ) ;
+                                                                                Logger.Error (
+                                                                                              "setting result to true"
+                                                                                             ) ;
+                                                                                tcs.SetResult ( true ) ;
+                                                                            } ;
+                                                                            Logger.Error (
+                                                                                          "calling shutdown"
+                                                                                         ) ;
+                                                                            MyApp.Shutdown ( ) ;
+                                                                            Logger.Error (
+                                                                                          "shutdown returned"
+                                                                                         ) ;
+                                                                        }
+                                                                      , DispatcherPriority.Send
+                                                                      , token
+                                                                       ) ;
+                return Task.WhenAny (
+                                     Task.WhenAll ( dispatcherOperation.Task , tcs.Task )
+                                   , Task.Delay ( 3000 )
+                                    ) ;
+            }
+            else
+            {
+                Logger.Error ( "MyApp is null" ) ;
+            }
+
+            return Task.CompletedTask ;
+        }
 
 		private Task CreateApplication ( Assembly theAssembly )
 		{

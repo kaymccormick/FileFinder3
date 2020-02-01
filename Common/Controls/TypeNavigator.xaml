@@ -9,9 +9,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="180" d:DesignWidth="300">
     <DockPanel>
-        <local:TypeControl Detailed="False" Target="{Binding ElementName=typeNavigationFrame}"  DockPanel.Dock="Top">
+        <local:TypeControl Detailed="False" Target="{Binding ElementName=TypeNavigationFrame}"  DockPanel.Dock="Top">
             <appShared:App.RenderedType><Binding ElementName="userControl" Path="(appShared:App.RenderedType)" FallbackValue="{x:Type system:String}"/></appShared:App.RenderedType>
         </local:TypeControl>
-        <Frame Name="typeNavigationFrame" Source="DefaultPage.xaml"></Frame>
+        <Frame Name="TypeNavigationFrame" Source="DefaultPage.xaml"></Frame>
     </DockPanel>
 </UserControl>

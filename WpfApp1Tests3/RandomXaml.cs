@@ -2,6 +2,7 @@
 using Common.Logging ;
 using KayMcCormick.Dev.Test.Metadata ;
 using NLog ;
+using TestLib.Attributes ;
 using Xunit ;
 
 namespace WpfApp1Tests3

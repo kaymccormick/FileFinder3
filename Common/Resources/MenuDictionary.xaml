@@ -2,7 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:interfaces="clr-namespace:AppShared.Interfaces;assembly=AppShared"
                     xmlns:aooShared="clr-namespace:AppShared;assembly=AppShared"
-                    xmlns:common="clr-namespace:Common;assembly=Common"
                     xmlns:menus1="clr-namespace:Common.Menus">
     <menus1:MenuMenuItemTemplateSelector x:Key="MenuMenuItemTemplateSelector" 
                                         />

@@ -94,6 +94,7 @@
     <Compile Include="Collections\AutofacContainerDef.cs" />
     <Compile Include="Collections\LoggingCollection.cs" />
     <Compile Include="Collections\WpfApplication.cs" />
+    <Compile Include="ContainerHelperTests2.cs" />
     <Compile Include="DumpHelper.cs" />
     <Compile Include="Fixtures\CombinedFixture.cs" />
     <Compile Include="Fixtures\ObjectIDFixture.cs" />

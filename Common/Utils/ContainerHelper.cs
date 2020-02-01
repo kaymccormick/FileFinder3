@@ -16,6 +16,9 @@ using NLog ;
 
 namespace Common.Utils
 {
+	/// <summary>
+	/// static helper class for autofac container
+	/// </summary>
 	public static class ContainerHelper
 	{
 		public static readonly ProxyGenerator ProxyGenerator = new ProxyGenerator ( ) ;

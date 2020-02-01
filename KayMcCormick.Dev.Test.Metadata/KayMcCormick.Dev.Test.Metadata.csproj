@@ -44,6 +44,11 @@
     <Compile Include="WpfTestApplicationAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Autofac">
+      <Version>4.9.4</Version>
+    </PackageReference>
+  </ItemGroup>
   <Target Name="test" DependsOnTargets="build">
   </Target>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

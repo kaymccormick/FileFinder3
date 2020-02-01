@@ -8,6 +8,9 @@ using NLog ;
 
 namespace Common.Menus
 {
+	/// <summary>
+	/// Definition of primary top level menu
+	/// </summary>
 	public class WindowsTopLevelMenu : ITopLevelMenu
 	{
 		private readonly IMenuItem          _xMenuItem ;

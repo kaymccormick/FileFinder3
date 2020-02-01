@@ -3,7 +3,6 @@ using System.Collections.Generic ;
 using System.Diagnostics ;
 using System.Linq ;
 using System.Windows ;
-using AppShared ;
 using AppShared.Interfaces ;
 using Autofac ;
 using Autofac.Core ;
@@ -17,6 +16,7 @@ using NLog.Config ;
 using NLog.Layouts ;
 using NLog.Targets ;
 using TestLib ;
+using TestLib.Attributes ;
 using WpfApp1.Windows ;
 using WpfApp1Tests3.Attributes ;
 using WpfApp1Tests3.Fixtures ;
@@ -121,8 +121,12 @@ namespace WpfApp1Tests3
 			Output?.WriteLine ( message ) ;
 		}
 
+		/// <summary>
+		/// Test resolution of MainWindow
+		/// </summary>
 		[ WpfFact ]
 		[ AppInitialize ]
+		[Trait("VS", "false")]
 		public void ResolveMainWindow ( )
 		{
 			var customAttribute = Attribute.GetCustomAttribute (
@@ -162,6 +166,7 @@ namespace WpfApp1Tests3
 
 		[ Fact ]
 		[ UsedImplicitly ]
+		[ Trait("Working", "false")]
 		public void ContainerTestResolveIMenuItemList ( )
 		{
 			IContainer container ;

@@ -45,6 +45,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\BeforeAfterLoggerAttribute.cs" />
+    <Compile Include="Attributes\LogTestMethodAttribute.cs" />
     <Compile Include="Fixtures\ContainerFixture.cs" />
     <Compile Include="LoggingFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -56,9 +58,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Autofac">
+      <Version>4.9.4</Version>
+    </PackageReference>
     <PackageReference Include="xunit.extensibility.execution">
       <Version>2.4.1</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -60,6 +60,9 @@
     <Compile Include="TypeControlTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Autofac">
+      <Version>4.9.4</Version>
+    </PackageReference>
     <PackageReference Include="xunit.extensibility.core">
       <Version>2.4.1</Version>
     </PackageReference>
