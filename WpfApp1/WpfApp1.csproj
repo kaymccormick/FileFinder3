@@ -119,9 +119,6 @@
     <Compile Include="Controls\Container.xaml.cs">
       <DependentUpon>Container.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\InstanceInfoControl.xaml.cs">
-      <DependentUpon>InstanceInfoControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\typedService.cs" />
     <Compile Include="Controls\UserControl1.xaml.cs">
       <DependentUpon>UserControl1.xaml</DependentUpon>
@@ -130,12 +127,9 @@
     <Compile Include="DesignData.cs" />
     <Compile Include="Events\AttachedEvents.cs" />
     <Compile Include="Logging\AppLoggerContainer.cs" />
-    <Compile Include="Logging\TargetConverter.cs" />
+    <Compile Include="Logging\NLogTargetConverter.cs" />
     <Compile Include="Logging\TypeBrowserPage.xaml.cs">
       <DependentUpon>TypeBrowserPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Logging\UserControl1.xaml.cs">
-      <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
     <Compile Include="Menus\ILoggingEntity.cs" />
     <Compile Include="Menus\MenuHelper.cs" />
@@ -152,15 +146,11 @@
       <DependentUpon>SystemParametersControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\ComponentRegistry.cs" />
-    <Compile Include="Windows\ContainerWindow.xaml.cs">
-      <DependentUpon>ContainerWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Windows\LifetimeScope.cs" />
     <Compile Include="Windows\LogEventInfoCollection.cs" />
     <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\MyLogger.cs" />
     <Compile Include="Windows\NewWindow.xaml.cs">
       <DependentUpon>NewWindow.xaml</DependentUpon>
     </Compile>
@@ -210,19 +200,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\InstanceInfoControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\UserControl1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Logging\TypeBrowserPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Logging\UserControl1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -239,10 +221,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Controls\SystemParametersControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\ContainerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

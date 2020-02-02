@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:nLog="clr-namespace:NLog;assembly=NLog"
-        xmlns:aprops="clr-namespace:AppShared;assembly=AppShared"
+        xmlns:appShared="clr-namespace:AppShared;assembly=AppShared"
         xmlns:common="clr-namespace:Common;assembly=Common"
         xmlns:controls="clr-namespace:WpfApp1.Controls"
         mc:Ignorable="d"
@@ -13,8 +13,7 @@
         FontFamily="Deja Vu Sans"
         FontSize="20" MinHeight="800" MinWidth="1202">
     <Window.CommandBindings>
-        <CommandBinding Command="common:MyAppCommands.LoadAssemblyList"
-                        PreviewExecuted="CommandBinding_OnPreviewExecuted" />
+        <CommandBinding Command="common:MyAppCommands.LoadAssemblyList" />
         <CommandBinding Command="ApplicationCommands.Open"
                         Executed="CommandBinding_OnExecuted" />
         <CommandBinding Command="common:MyAppCommands.DumpDebug"
@@ -24,7 +23,7 @@
     <Window.Resources>
         <CollectionViewSource x:Key="LogItems" Source="{Binding LogEvents}" />
     </Window.Resources>
-    <TabControl Name="MainTabControl" Margin="10">
+    <TabControl Margin="10">
         <TabItem Header="Objects">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -35,9 +34,9 @@
         </TabItem>
         <TabItem Header="Autofac" Padding="15" DataContext="{Binding Path=Container}">
             <controls:Container>
-                <aprops:App.LifetimeScope>
-                    <Binding ElementName="mainWindow" Path="(aprops:App.LifetimeScope)" />
-                </aprops:App.LifetimeScope>
+                <appShared:App.LifetimeScope>
+                    <Binding ElementName="mainWindow" Path="(appShared:App.LifetimeScope)" />
+                </appShared:App.LifetimeScope>
             </controls:Container>
         </TabItem>
         <TabItem Header="Home">
@@ -53,13 +52,13 @@
                 </Grid.RowDefinitions>
                 <WrapPanel Grid.Row="0" Grid.Column="0" DataContext="{Binding Path=Configuration}" Grid.ColumnSpan="3">
                     <WrapPanel.Resources>
-                        <CollectionViewSource x:Key="targets" Source="{Binding Path=AllTargets}" />
+                        <CollectionViewSource x:Key="Targets" Source="{Binding Path=AllTargets}" />
 
                     </WrapPanel.Resources>
                     <StackPanel Orientation="Vertical">
                         <TextBlock Margin="5,5,5,20"><Run Text="{Binding Mode=OneWay,Path=AllTargets.Count}" /> Targets</TextBlock>
-                        <ListView Name="TargetsListView" MinWidth="200"
-                                  ItemsSource="{Binding Source={StaticResource targets}}">
+                        <ListView MinWidth="200"
+                                  ItemsSource="{Binding Source={StaticResource Targets}}">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Header="Type"
@@ -72,7 +71,7 @@
                             </ListView.View>
                         </ListView>
                         <WrapPanel Margin="5,10,0,0">
-                            <Button Margin="25,0,25,0" Padding="25,0,25,0" Name="RefreshButton" Content="Refresh"
+                            <Button Margin="25,0,25,0" Padding="25,0,25,0" Content="Refresh"
                                     Click="Refresh_OnClick" />
                         </WrapPanel>
                     </StackPanel>
@@ -109,10 +108,7 @@
                     <ColumnDefinition Width="2*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <TreeView ItemsSource="{Binding Path=(aprops:App.MenuItemListCollectionView)}"
+                <TreeView ItemsSource="{Binding Path=(appShared:App.MenuItemListCollectionView)}"
                           Grid.Row="0" Grid.Column="0" DataContext="{Binding ElementName=mainWindow, Mode=OneWay}">
                     <TreeView.ItemTemplate>
                         <HierarchicalDataTemplate ItemsSource="{Binding Path=Children}">

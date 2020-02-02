@@ -3,8 +3,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:WpfApp1.Logging"
-      xmlns:controls="clr-namespace:WpfApp1.Controls"
       xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
       xmlns:controls1="clr-namespace:Common.Controls;assembly=Common"
       mc:Ignorable="d"
@@ -23,8 +21,8 @@
         </Grid.ColumnDefinitions>
 
         <Grid>
-            <Frame Grid.Column="0 Grid.Row" />
-            <WrapPanel Grid.Column="0" Grid.Row="0">
+            <Frame Grid.Column="0" Grid.Row="0" />
+            <WrapPanel Grid.Column="0" Grid.Row="1">
                 <controls1:TypeControl RenderedType="{x:Type collections:IEnumerable}" />
             </WrapPanel>
         </Grid>
