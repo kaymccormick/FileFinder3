@@ -34,7 +34,7 @@ namespace Common.Logging
 		/// <summary>
 		///     Gets the collection of file names which should be watched for changes by
 		///     NLog.
-		/// </summary>
+		/// </summary>gi
 		public override IEnumerable < string > FileNamesToWatch { get ; }
 
 		public MyLogFactory logFactory { get ; set ; }

@@ -29,7 +29,7 @@ namespace CommonTests
     public class TypeControlTests : IClassFixture < LoggingFixture >
     {
         private readonly ITestOutputHelper _output ;
-        private readonly ITestOutputHelper originalOutput ;
+        private readonly ITestOutputHelper _originalOutput ;
 
         /// <summary>
         /// Constructor for test class
@@ -37,7 +37,7 @@ namespace CommonTests
         /// <param name="output"></param>
         public TypeControlTests ( ITestOutputHelper output )
         {
-            originalOutput = output ;
+            _originalOutput = output ;
             _output        = new OutputHelperWrapper ( output ) ;
         }
 
@@ -48,7 +48,7 @@ namespace CommonTests
         /// <exception cref="AggregateException"></exception>
         [ WpfFact ]
         [Trait("UITest", "true")]
-        public void TestTypeControl ( )
+        protected void TestTypeControl ( )
         {
             SetupCacheSubscriber ( ) ;
             var controlName = SetupTypeControl ( out var control ) ;
@@ -58,9 +58,9 @@ namespace CommonTests
             var window = MakeWindow ( control , out var taskCompletionSource ) ;
             _output.WriteLine ( "showing window" ) ;
             window.Show ( ) ;
-            _output.WriteLine ( $"Asserting that the task completion source result is not null." ) ;
+            _output.WriteLine ( "Asserting that the task completion source result is not null." ) ;
             Assert.NotNull ( taskCompletionSource.Task.Result ) ;
-            _output.WriteLine ( $"Assertion complete." ) ;
+            _output.WriteLine ( "Assertion complete." ) ;
             if ( taskCompletionSource.Task.IsFaulted )
             {
                 _output.WriteLine ( "task faulted" ) ;
@@ -72,14 +72,14 @@ namespace CommonTests
 
             Task.Factory.StartNew (
                                    ( ) => {
-                                       var controlae =
+                                       var autoElem =
                                            FindControlAutomationElement ( controlName ) ;
-                                       Assert.NotNull ( controlae ) ;
+                                       Assert.NotNull ( autoElem ) ;
 
-                                       var hyperlinks = FindHyperlinks ( controlae ) ;
+                                       var hyperlinks = FindHyperlinks ( autoElem ) ;
 
                                        Automation.AddStructureChangedEventHandler (
-                                                                                   controlae
+                                                                                   autoElem
                                                                                  , TreeScope
                                                                                       .Descendants
                                                                                  , ( sender , args )
@@ -95,8 +95,7 @@ namespace CommonTests
                                        Assert.NotEmpty ( hyperlinks ) ;
                                        foreach ( AutomationElement hyperlink in hyperlinks )
                                        {
-                                           Point pt ;
-                                           var v = hyperlink.TryGetClickablePoint ( out pt ) ;
+                                           // ReSharper disable once UnusedVariable
                                            var linkText =
                                                hyperlink.GetCurrentPropertyValue (
                                                                                   AutomationElement
@@ -109,7 +108,7 @@ namespace CommonTests
                                                                                 var patternObject
                                                                                ) )
                                            {
-                                               if ( patternObject is InvokePattern inboke )
+                                               if ( patternObject is InvokePattern invoke )
                                                {
                                                    Automation
                                                       .AddAutomationPropertyChangedEventHandler (
@@ -136,7 +135,7 @@ namespace CommonTests
                                                                                                 ) ;
 
                                                    _output.WriteLine ( "yay" ) ;
-                                                   inboke.Invoke ( ) ;
+                                                   invoke.Invoke ( ) ;
                                                    Thread.Sleep ( 2000 ) ;
                                                }
                                            }
@@ -148,9 +147,13 @@ namespace CommonTests
                 .Wait ( 5000 ) ;
         }
 
-        [ WpfFact ]
+        /// <summary>Tests the type navigator.</summary>
+        /// <exception cref="Exception"></exception>
+        /// <autogeneratedoc />
+        /// TODO Edit XML Comment Template for TestTypeNavigator
+        [WpfFact ]
         [Trait("UITest", "true")]
-        public void TestTypeNavigator ( )
+        private void TestTypeNavigator ( )
         {
             SetupCacheSubscriber ( ) ;
 
@@ -169,13 +172,13 @@ namespace CommonTests
             }
 
 
-            var controlae = FindControlAutomationElement ( controlName ) ;
-            Assert.NotNull ( controlae ) ;
+            var autoElem = FindControlAutomationElement ( controlName ) ;
+            Assert.NotNull ( autoElem ) ;
 
-            var hyperlinks = FindHyperlinks ( controlae ) ;
+            var hyperlinks = FindHyperlinks ( autoElem ) ;
 
             Automation.AddStructureChangedEventHandler (
-                                                        controlae
+                                                        autoElem
                                                       , TreeScope.Descendants
                                                       , StructureChangedEventHandler
                                                        ) ;
@@ -184,22 +187,26 @@ namespace CommonTests
             Assert.NotEmpty ( hyperlinks ) ;
             foreach ( AutomationElement hyperlink in hyperlinks )
             {
-                // Point pt ;
-                // var v = hyperlink.TryGetClickablePoint ( out pt ) ;
+                // ReSharper disable once UnusedVariable
                 var linkText =
                     hyperlink.GetCurrentPropertyValue ( AutomationElement.NameProperty ) ;
-                if ( DoInvokeHyperlinnk ( hyperlink ) )
+                if ( DoInvokeHyperlink ( hyperlink ) )
                 {
                     break ;
                 }
             }
         }
 
-        private bool DoInvokeHyperlinnk ( AutomationElement hyperlink )
+        /// <summary>Does the invoke hyperlink.</summary>
+        /// <param name="hyperlink">The hyperlink.</param>
+        /// <returns></returns>
+        /// <autogeneratedoc />
+        /// TODO Edit XML Comment Template for DoInvokeHyperlinnk
+        private bool DoInvokeHyperlink ( AutomationElement hyperlink )
         {
             if ( hyperlink.TryGetCurrentPattern ( InvokePattern.Pattern , out var patternObject ) )
             {
-                if ( patternObject is InvokePattern inboke )
+                if ( patternObject is InvokePattern invoke )
                 {
                     Automation.AddAutomationPropertyChangedEventHandler (
                                                                          hyperlink
@@ -220,7 +227,7 @@ namespace CommonTests
                                                                         ) ;
 
                     _output.WriteLine ( "yay" ) ;
-                    inboke.Invoke ( ) ;
+                    invoke.Invoke ( ) ;
                     Thread.Sleep ( 2000 ) ;
                     return true ;
                 }
@@ -229,17 +236,19 @@ namespace CommonTests
             return false ;
         }
 
+        // ReSharper disable once InternalOrPrivateMemberNotDocumented
         private void StructureChangedEventHandler ( object sender , StructureChangedEventArgs args )
         {
             _output.WriteLine ( $"structure: {args.StructureChangeType}" ) ;
         }
 
 
-        private AutomationElementCollection FindHyperlinks ( AutomationElement controlae )
+        // ReSharper disable once InternalOrPrivateMemberNotDocumented
+        private AutomationElementCollection FindHyperlinks ( AutomationElement autoElem )
         {
             _output.WriteLine ( "About to find hyperlinks" ) ;
 
-            var hyperlinks = controlae.FindAll (
+            var hyperlinks = autoElem.FindAll (
                                                 TreeScope.Descendants
                                               , new PropertyCondition (
                                                                        AutomationElement
@@ -251,6 +260,7 @@ namespace CommonTests
             return hyperlinks ;
         }
 
+        // ReSharper disable once InternalOrPrivateMemberNotDocumented
         private AutomationElement FindControlAutomationElement ( string controlName )
         {
             _output.WriteLine ( "About to find automation element" ) ;
@@ -262,13 +272,13 @@ namespace CommonTests
                                                                                       , "MYWin"
                                                                                        )
                                                                 ) ;
-            _output.WriteLine ( "Found automation element " + first.ToString ( ) ) ;
+            _output.WriteLine ( "Found automation element " + first ) ;
             Assert.NotNull ( first ) ;
 
             _output.WriteLine (
                                "Trying to find control with Automation ID property " + controlName
                               ) ;
-            var controlae = first.FindFirst (
+            var autoElem = first.FindFirst (
                                              TreeScope.Descendants
                                            , new PropertyCondition (
                                                                     AutomationElement
@@ -276,27 +286,28 @@ namespace CommonTests
                                                                   , controlName
                                                                    )
                                             ) ;
-            _output.WriteLine ( "Found automation element " + controlae ) ;
-            return controlae ;
+            _output.WriteLine ( "Found automation element " + autoElem ) ;
+            return autoElem ;
         }
 
+        // ReSharper disable once InternalOrPrivateMemberNotDocumented
         private Window MakeWindow (
             UIElement                           control
-          , out TaskCompletionSource < Result > taskCompetionSource
+          , out TaskCompletionSource < Result > taskCompletionSource
         )
         {
             var window = new Window { Name = "MYWin" , Content = control } ;
-            taskCompetionSource = new TaskCompletionSource < Result > ( ) ;
+            taskCompletionSource = new TaskCompletionSource < Result > ( ) ;
 
-            var source = taskCompetionSource ;
+            var source = taskCompletionSource ;
             window.Loaded += ( sender , args ) => {
                 try
                 {
                     _output.WriteLine ( "Window loaded." ) ;
-                    var rr = new Result ( ) ;
+                    var res = new Result ( true) ;
                     throw new TestException ( ) ;
                     _output.WriteLine ( "Setting task source." ) ;
-                    source.SetResult ( rr ) ;
+                    source.SetResult ( res ) ;
                 }
                 catch ( Exception ex )
                 {
@@ -307,6 +318,7 @@ namespace CommonTests
             return window ;
         }
 
+        // ReSharper disable once InternalOrPrivateMemberNotDocumented
         private string SetupTypeNavControl ( out TypeNavigator control )
         {
             var controlName = "typeNav" ;
@@ -318,6 +330,7 @@ namespace CommonTests
             return controlName ;
         }
 
+        // ReSharper disable once InternalOrPrivateMemberNotDocumented
         private string SetupTypeControl ( out TypeControl control )
         {
             var controlName = "typeControl" ;
@@ -329,6 +342,7 @@ namespace CommonTests
             return controlName ;
         }
 
+        // ReSharper disable once InternalOrPrivateMemberNotDocumented
         private void SetupCacheSubscriber ( )
         {
             var myCacheTarget = MyCacheTarget.GetInstance ( 1000 ) ;
@@ -341,7 +355,7 @@ namespace CommonTests
                                      infos => {
                                          foreach ( var logEventInfo in infos )
                                          {
-                                             originalOutput.WriteLine (
+                                             _originalOutput.WriteLine (
                                                                        logEventInfo.FormattedMessage
                                                                       ) ;
                                          }
@@ -349,9 +363,11 @@ namespace CommonTests
                                     ) ;
         }
 
-        private void WalkContentElements ( AutomationElement controlae , bool b )
+        // ReSharper disable once InternalOrPrivateMemberNotDocumented
+        // ReSharper disable once UnusedMember.Local
+        private void WalkContentElements ( AutomationElement autoElem , bool b )
         {
-            var elementNode = TreeWalker.ContentViewWalker.GetFirstChild ( controlae ) ;
+            var elementNode = TreeWalker.ContentViewWalker.GetFirstChild ( autoElem ) ;
 
             while ( elementNode != null )
             {
@@ -384,6 +400,8 @@ namespace CommonTests
         }
 
 
+        // ReSharper disable once InternalOrPrivateMemberNotDocumented
+        // ReSharper disable once UnusedMember.Local
         private void WalkControlElements ( AutomationElement rootElement , bool dumpProps )
         {
             // Conditions for the basic views of the subtree (content, control, and raw) 
@@ -429,19 +447,24 @@ namespace CommonTests
     {
     }
 
+#pragma warning disable 1591
     public class OutputHelperWrapper : ITestOutputHelper
+#pragma warning restore 1591
     {
         private readonly ITestOutputHelper _output ;
-        private readonly string            _filePath ;
-        private          Logger            _logger ;
+        private readonly Logger            _logger ;
 
+        /// <summary>Initializes a new instance of the <see cref="OutputHelperWrapper"/> class.</summary>
+        /// <param name="output">The output.</param>
+        /// <param name="filePath">The file path.</param>
+        /// <autogeneratedoc />
+        /// TODO Edit XML Comment Template for #ctor
         public OutputHelperWrapper (
             ITestOutputHelper         output
           , [ CallerFilePath ] string filePath = ""
         )
         {
             _output   = output ;
-            _filePath = filePath ;
             _logger = LogManager.LogFactory.GetLogger < Logger > (
                                                                   Path.GetFileNameWithoutExtension (
                                                                                                     filePath
@@ -469,8 +492,21 @@ namespace CommonTests
         }
     }
 
+    /// <summary></summary>
+    /// <autogeneratedoc />
+    /// TODO Edit XML Comment Template for Result
     public class Result
     {
+        public bool Success ;
+
+        /// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
+        public Result ( bool success ) { Success = success ; }
+
+        public Result ( AutomationElement autoElem ) { AutoElem = autoElem ; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public AutomationElement AutoElem { get ; set ; }
     }
 }

@@ -18,7 +18,7 @@
         <DataTemplate DataType="{x:Type system:Type}" x:Key="CellTemplateType">
             <controls:TypeControl MinWidth="200" Target="{Binding ElementName=frame}">
                 <appShared:App.RenderedType>
-                    <Binding Path="."/>
+                    <Binding Path="." />
                 </appShared:App.RenderedType>
             </controls:TypeControl>
         </DataTemplate>
@@ -30,40 +30,44 @@
                 </appShared:App.LifetimeScope>
             </appShared:ResolveService>
         </types:ResolveServiceList>
-        <DataTemplate x:Key="ResourceValueCell" >
+        <DataTemplate x:Key="ResourceValueCell">
             <controls:TypeControl Target="{Binding ElementName=frame}" TargetDetailed="true">
                 <appShared:App.RenderedType>
-                    <Binding Path="Value" Converter="{StaticResource GetTypeConverter}"/>
+                    <Binding Path="Value" Converter="{StaticResource GetTypeConverter}" />
                 </appShared:App.RenderedType>
             </controls:TypeControl>
         </DataTemplate>
     </Window.Resources>
     <Grid DataContext="{Binding ElementName=mainWindow, Path=(appShared:App.LifetimeScope)}">
-        <Grid.ColumnDefinitions><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" /><RowDefinition Height="*" /><RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
             <TextBlock Text="{Binding Path=Tag}" />
             <TextBlock Text="{Binding Source={appShared:LifetimeScope}, Path=Tag}" />
         </StackPanel>
-        <TabControl  Grid.Column="0" Grid.Row="1"  Style="{StaticResource TabControlStyle1}">
+        <TabControl Grid.Column="0" Grid.Row="1" Style="{StaticResource TabControlStyle1}">
             <TabItem Header="Tab 1">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="15*"/>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="15*" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <ListView ItemsSource="{Binding ElementName=mainWindow,Path=Resources}" Grid.ColumnSpan="2" Margin="0,0,0,0.2">
+                    <ListView ItemsSource="{Binding ElementName=mainWindow,Path=Resources}" Grid.ColumnSpan="2"
+                              Margin="0,0,0,0.2">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Key" Width="200"  DisplayMemberBinding="{Binding Key}"/>
-                                <GridViewColumn Width="150"  Header="Type" CellTemplate="{StaticResource ResourceValueCell}"/>
-                                <GridViewColumn Width="300" Header="Value" DisplayMemberBinding="{Binding Value}"/>
+                                <GridViewColumn Header="Key" Width="200" DisplayMemberBinding="{Binding Key}" />
+                                <GridViewColumn Width="150" Header="Type"
+                                                CellTemplate="{StaticResource ResourceValueCell}" />
+                                <GridViewColumn Width="300" Header="Value" DisplayMemberBinding="{Binding Value}" />
                             </GridView>
                         </ListView.View>
                     </ListView>
@@ -74,7 +78,7 @@
                     <ListView ItemsSource="{Binding Source={StaticResource ResolveServices}}">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn CellTemplate="{StaticResource CellTemplateType}"/>
+                                <GridViewColumn CellTemplate="{StaticResource CellTemplateType}" />
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=ServiceInstance}" />
                             </GridView>
                         </ListView.View>
@@ -99,7 +103,8 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <ListView Name="ResolveServicesList" ItemsSource="{Binding Source={StaticResource ResolveServices}}">
+                    <ListView Name="ResolveServicesList"
+                              ItemsSource="{Binding Source={StaticResource ResolveServices}}">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Object ID"
@@ -115,27 +120,29 @@
                     <ListView Grid.Row="0" ItemsSource="{Binding ElementName=ResolveServicesList,Path=SelectedItem}">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn DisplayMemberBinding="{Binding }"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Instance.Parameters}"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Instance}"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding }" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Instance.Parameters}" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Instance}" />
                             </GridView>
                         </ListView.View>
                     </ListView>
                 </Grid>
             </TabItem>
-            <TabItem Header="Assemblies">
-            </TabItem>
+            <TabItem Header="Assemblies" />
 
-</TabControl>
-            <Frame  Grid.Row="2" Grid.Column="0"
-                BorderBrush="Brown" BorderThickness="3"
-                Navigating="Frame_OnNavigating" 
-                   NavigationFailed="Frame_OnNavigationFailed" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Name="frame" Source="TypePage2.xaml">
-                <Frame.CommandBindings>
-                    <CommandBinding Command="common:MyAppCommands.VisitType" Executed="VisitType"/>
-                </Frame.CommandBindings>
-                <Frame.RenderTransform><ScaleTransform ScaleX="2" ScaleY="2"/></Frame.RenderTransform>
-                </Frame>
+        </TabControl>
+        <Frame Grid.Row="2" Grid.Column="0"
+               BorderBrush="Brown" BorderThickness="3"
+               Navigating="Frame_OnNavigating"
+               NavigationFailed="Frame_OnNavigationFailed" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+               Name="frame" Source="TypePage.xaml">
+            <Frame.CommandBindings>
+                <CommandBinding Command="common:MyAppCommands.VisitType" Executed="VisitType" />
+            </Frame.CommandBindings>
+            <Frame.RenderTransform>
+                <ScaleTransform ScaleX="2" ScaleY="2" />
+            </Frame.RenderTransform>
+        </Frame>
 
-        </Grid>
+    </Grid>
 </Window>

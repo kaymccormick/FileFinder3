@@ -373,7 +373,7 @@
       <Version>6.14.3</Version>
     </PackageReference>
     <PackageReference Include="DynamicLanguageRuntime">
-      <Version>1.2.2</Version>
+      <Version>1.2.3-candidate1</Version>
     </PackageReference>
     <PackageReference Include="Extended.Wpf.Toolkit">
       <Version>3.7.0</Version>
@@ -473,9 +473,6 @@
       <Version>2.4.4</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Xceed.Products.Wpf.Toolkit.AvalonDock">
-      <Version>3.8.19076.18510</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

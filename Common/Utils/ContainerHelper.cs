@@ -17,7 +17,7 @@ using NLog ;
 namespace Common.Utils
 {
     /// <summary>
-    /// static helper class for autofac container
+    ///     static helper class for autofac container
     /// </summary>
     public static class ContainerHelper
     {
@@ -79,8 +79,6 @@ namespace Common.Utils
             // ReSharper disable once RedundantAssignment
             i += 1 ;
 
-            // var obIdGenerator = new ObjectIDGenerator();
-            // builder.Register < ObjectIDGenerator > ( ).InstancePerLifetimeScope ( ) ;
             #region Currently unused?
             //builder.RegisterType<SystemParametersControl> ( ).As<ISettingsPanel> ( );
             #endregion
@@ -95,7 +93,7 @@ namespace Common.Utils
                            }
                           )
                    .AsSelf ( )
-                    //.As<Window> ( )
+                    .As<Window> ( )
                    .OnActivating (
                                   args => {
                                       var argsInstance = args.Instance ;
@@ -288,13 +286,13 @@ namespace Common.Utils
                     Logger.Debug ( rf.LimitType.ToString ( ) ) ;
                     var x = new DelegateActivator (
                                                    rf.LimitType
-                                         , ( context , parameters ) => {
+                                     , ( context , parameters ) => {
                                                        Logger.Debug (
                                                                      "delegate activation of reflection component success."
                                                                     ) ;
                                                        var r = rf.ActivateInstance (
                                                                                     context
-                                                                          , parameters
+                                                                      , parameters
                                                                                    ) ;
                                                        Logger.Debug ( "got " + r ) ;
                                                        if ( r is IHaveLogger haveLogger )
@@ -314,7 +312,7 @@ namespace Common.Utils
                                                                                                                     typeof
                                                                                                                     ( Type
                                                                                                                     )
-                                                                                                          , r
+                                                                                                      , r
                                                                                                                        .GetType ( )
                                                                                                                    )
                                                                                                ) ;
@@ -328,18 +326,18 @@ namespace Common.Utils
                     IComponentRegistration componentRegistration = new ComponentRegistration (
                                                                                               Guid
                                                                                                  .NewGuid ( )
-                                                                                    , x
-                                                                                    , componentRegistryRegistration
+                                                                                , x
+                                                                                , componentRegistryRegistration
                                                                                                  .Lifetime
-                                                                                    , componentRegistryRegistration
+                                                                                , componentRegistryRegistration
                                                                                                  .Sharing
-                                                                                    , componentRegistryRegistration
+                                                                                , componentRegistryRegistration
                                                                                                  .Ownership
-                                                                                    , componentRegistryRegistration
+                                                                                , componentRegistryRegistration
                                                                                                  .Services
-                                                                                    , componentRegistryRegistration
+                                                                                , componentRegistryRegistration
                                                                                                  .Metadata
-                                                                                    , componentRegistryRegistration
+                                                                                , componentRegistryRegistration
                                                                                              ) ;
 
                     Logger.Debug ( "wrapping reflection with delegate" ) ;
@@ -365,11 +363,11 @@ namespace Common.Utils
                         {
                             var x = new DelegateActivator (
                                                            d.LimitType
-                                                 , ( context , parameters ) => {
+                                             , ( context , parameters ) => {
                                                                Logger.Debug ( "activating !!" ) ;
                                                                var r = d.ActivateInstance (
                                                                                            context
-                                                                                 , parameters
+                                                                             , parameters
                                                                                           ) ;
                                                                Logger.Debug ( "got " + r ) ;
                                                                return r ;
@@ -380,13 +378,13 @@ namespace Common.Utils
                             IComponentRegistration componentRegistration =
                                 new ComponentRegistration (
                                                            Guid.NewGuid ( )
-                                                 , x
-                                                 , componentRegistryRegistration.Lifetime
-                                                 , componentRegistryRegistration.Sharing
-                                                 , componentRegistryRegistration.Ownership
-                                                 , componentRegistryRegistration.Services
-                                                 , componentRegistryRegistration.Metadata
-                                                 , componentRegistryRegistration
+                                             , x
+                                             , componentRegistryRegistration.Lifetime
+                                             , componentRegistryRegistration.Sharing
+                                             , componentRegistryRegistration.Ownership
+                                             , componentRegistryRegistration.Services
+                                             , componentRegistryRegistration.Metadata
+                                             , componentRegistryRegistration
                                                           ) ;
 
 
@@ -425,7 +423,7 @@ namespace Common.Utils
             Logger.Debug ( $"{limitTypeAssembly.GetName ( )}" ) ;
             if ( AssemblyName.ReferenceMatchesDefinition (
                                                           limitTypeAssembly.GetName ( )
-                                                , Assembly
+                                            , Assembly
                                                          .GetExecutingAssembly ( )
                                                          .GetName ( )
                                                          ) )
