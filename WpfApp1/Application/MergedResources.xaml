@@ -43,8 +43,7 @@
                 <TextBlock Text="{Binding Description}" />
             </WrapPanel>
         </DataTemplate>
-        <xaml:ComponentLifetimeConverter x:Key="ComponentLifetimeConverter" />
-        <ObjectDataProvider x:Key="designInstanceInfo" ObjectInstance="{x:Static wpfApp1:DesignData.InstanceInfo}" />
+    <ObjectDataProvider x:Key="designInstanceInfo" ObjectInstance="{x:Static wpfApp1:DesignData.InstanceInfo}" />
         <ObjectDataProvider x:Key="designInstanceList" ObjectInstance="{x:Static wpfApp1:DesignData.InstanceList}" />
         <wpfApp1:DesignData x:Key="designData" />
         <Binding x:Key="lifetimescope" Source="{StaticResource designData}" Path="LifetimeScope" />

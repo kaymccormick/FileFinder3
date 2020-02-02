@@ -3,5 +3,4 @@
               xmlns:xaml="clr-namespace:WpfApp1.Xaml">
     <xaml:InstanceRegistrationConverter x:Key="InstanceRegistrationConverter" />
     <xaml:AssemblyConverter x:Key="AssemblyConverter" />
-    <xaml:ComponentLifetimeConverter x:Key="ComponentLifetimeConverter" />
 </ResourceDictionary>

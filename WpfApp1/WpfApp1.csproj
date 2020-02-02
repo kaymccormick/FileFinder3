@@ -157,25 +157,11 @@
     <Compile Include="Windows\Page1.xaml.cs">
       <DependentUpon>Page1.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\RenderedType.xaml.cs">
-      <DependentUpon>RenderedType.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\SampleWindow.xaml.cs">
-      <DependentUpon>SampleWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\TypeWindow.xaml.cs">
-      <DependentUpon>TypeWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Xaml\AssemblyConverter.cs" />
-    <Compile Include="Xaml\ComponentLifetimeConverter.cs" />
     <Compile Include="Xaml\Converter.cs" />
     <Compile Include="Xaml\AppLoggerExtension.cs" />
     <Compile Include="Xaml\InstanceRegistrationConverter.cs" />
-    <Compile Include="Xaml\RegistrationConverter.cs" />
     <Compile Include="Xaml\SmartTypeConverter.cs" />
-    <Compile Include="Xaml\UserControl1.xaml.cs">
-      <DependentUpon>UserControl1.xaml</DependentUpon>
-    </Compile>
     <Page Include="Application\AppResources.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -233,22 +219,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\Page1.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\RenderedType.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\SampleWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\TypeWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Xaml\UserControl1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

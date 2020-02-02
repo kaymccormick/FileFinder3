@@ -89,7 +89,6 @@
   <ItemGroup>
     <Compile Include="Attributes\AppInitializeAttribute.cs" />
     <Compile Include="Attributes\IDGeneratorAttribute.cs" />
-    <Compile Include="Attributes\PushContextAttribute.cs" />
     <Compile Include="Attributes\PushContextAttributeTests.cs" />
     <Compile Include="Collections\AutofacContainerDef.cs" />
     <Compile Include="Collections\LoggingCollection.cs" />
