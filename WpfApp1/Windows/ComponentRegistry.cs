@@ -115,7 +115,14 @@ namespace WpfApp1.Windows
 			throw new NotImplementedException ( ) ;
 		}
 
-		/// <summary>
+        /// <summary>
+        /// Selects all available decorator registrations that can be applied to the specified service.
+        /// </summary>
+        /// <param name="service">The service for which decorator registrations are sought.</param>
+        /// <returns>Decorator registrations applicable to <paramref name="service" />.</returns>
+        public IReadOnlyList < IComponentRegistration > DecoratorsFor ( IServiceWithType service ) { throw new NotImplementedException ( ) ; }
+
+        /// <summary>
 		///     Selects all available decorator registrations that can be applied to the
 		///     specified registration.
 		/// </summary>

@@ -1,5 +1,6 @@
 ﻿using System ;
 using System.Collections.Generic ;
+using System.Threading.Tasks ;
 using Autofac ;
 using Autofac.Core ;
 using Autofac.Core.Lifetime ;
@@ -44,6 +45,15 @@ namespace WpfApp1.Windows
         {
             throw new NotImplementedException ( ) ;
         }
+
+        /// <summary>
+        /// Resolve an instance of the provided registration within the context.
+        /// </summary>
+        /// <param name="request">The resolve request.</param>
+        /// <returns>The component instance.</returns>
+        /// <exception cref="T:Autofac.Core.Registration.ComponentNotRegisteredException" />
+        /// <exception cref="T:Autofac.Core.DependencyResolutionException" />
+        public object ResolveComponent ( ResolveRequest request ) { throw new NotImplementedException ( ) ; }
 
         /// <summary>
         ///     Gets the associated services with the components that provide them.
@@ -164,5 +174,7 @@ namespace WpfApp1.Windows
         ///     Fired when a resolve operation is beginning in this scope.
         /// </summary>
         public event EventHandler < ResolveOperationBeginningEventArgs > ResolveOperationBeginning ;
+
+        public ValueTask DisposeAsync ( ) { throw new NotImplementedException ( ) ; }
     }
 }

@@ -124,9 +124,9 @@ namespace WpfApp1Tests3
         /// <summary>
         /// Test resolution of MainWindow
         /// </summary>
-        [ WpfFact ]
-        [ AppInitialize ]
-        //rait("VS", "false")]
+        //[ WpfFact ]
+        //[ AppInitialize ]
+        //Trait("VS", "false")]
         private void ResolveMainWindow ( )
         {
             var customAttribute = Attribute.GetCustomAttribute (

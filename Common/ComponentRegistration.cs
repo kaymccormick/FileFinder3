@@ -213,6 +213,12 @@ namespace Common
         public IComponentRegistration Target { get ; }
 
         /// <summary>
+        /// Gets a value indicating whether the registration is a 1:1 adapter on top
+        /// of another component (e.g., Meta, Func, or Owned).
+        /// </summary>
+        public bool IsAdapterForIndividualComponent { get ; set ; }
+
+        /// <summary>
         ///     Fired when a new instance is required, prior to activation.
         ///     Can be used to provide Autofac with additional parameters, used during
         ///     activation.

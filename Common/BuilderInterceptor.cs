@@ -2,6 +2,7 @@ using System ;
 using System.Collections.Generic ;
 using Autofac.Builder ;
 using Autofac.Core ;
+using Autofac.Core.Registration ;
 using Castle.DynamicProxy ;
 using NLog ;
 
@@ -72,7 +73,7 @@ namespace Common
         /// TODO Edit XML Comment Template for CreateCallbackProxy
         public static object CreateCallbackProxy (
             ProxyGenerator                proxyGenerator
-          , Action < IComponentRegistry > callback
+          , Action < IComponentRegistryBuilder > callback
            ,
             // ReSharper disable once UnusedParameter.Global
             DeferredCallback defer
