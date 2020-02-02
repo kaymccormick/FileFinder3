@@ -12,7 +12,7 @@ using System.Runtime.InteropServices ;
 [ assembly : AssemblyTitle ( "WpfApp1Tests3" ) ]
 [ assembly : AssemblyDescription ( "" ) ]
 [ assembly : AssemblyConfiguration ( "" ) ]
-[ assembly : AssemblyCompany ( "" ) ]
+[ assembly : AssemblyCompany ( "Kay McCormick") ]
 [ assembly : AssemblyProduct ( "WpfApp1Tests3" ) ]
 [ assembly : AssemblyCopyright ( "Copyright ©  2020" ) ]
 [ assembly : AssemblyTrademark ( "" ) ]

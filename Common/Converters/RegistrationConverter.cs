@@ -6,6 +6,8 @@ using AppShared.Interfaces ;
 using Autofac ;
 using Autofac.Core ;
 using DynamicData.Kernel ;
+using JetBrains.Annotations ;
+using NLog ;
 
 namespace Common.Converters
 {
@@ -37,13 +39,18 @@ namespace Common.Converters
 		/// <param name="culture">The culture to use in the converter.</param>
 		/// <returns>A converted value. If the method returns <see langword="null" />, the valid null value is used.</returns>
 		public object Convert (
-			object      value
+            [ NotNull ] object      value
 		  , Type        targetType
 		  , object      parameter
 		  , CultureInfo culture
 		)
 		{
-			var componentRegistration = value as IComponentRegistration ;
+            if ( value == null )
+            {
+                throw new ArgumentNullException ( nameof ( value ) ) ;
+            }
+
+            var componentRegistration = ( IComponentRegistration ) value ;
 			var instanceInfo =
 				_provider.GetInstanceByComponentRegistration ( componentRegistration ) ;
 			var x = instanceInfo.Select (

@@ -66,5 +66,11 @@ namespace Common
         /// TODO Edit XML Comment Template for Type
         public Type Type { get ; }
 #pragma warning restore 1591
+        /// <summary>Returns a string that represents the current object.</summary>
+        /// <returns>A string that represents the current object.</returns>
+        public override string ToString ( )
+        {
+            return $"{nameof ( Instance )}: {Instance}, {nameof ( ObjectId )}: {ObjectId}, {nameof ( InstanceInfo )}: {InstanceInfo}, {nameof ( Type )}: {Type}" ;
+        }
     }
 }

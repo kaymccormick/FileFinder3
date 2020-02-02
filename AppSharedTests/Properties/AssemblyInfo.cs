@@ -7,7 +7,7 @@ using System.Runtime.InteropServices ;
 [ assembly : AssemblyTitle ( "AppSharedTests" ) ]
 [ assembly : AssemblyDescription ( "" ) ]
 [ assembly : AssemblyConfiguration ( "" ) ]
-[ assembly : AssemblyCompany ( "" ) ]
+[ assembly : AssemblyCompany ( "Kay McCormick") ]
 [ assembly : AssemblyProduct ( "AppSharedTests" ) ]
 [ assembly : AssemblyCopyright ( "Copyright ©  2020" ) ]
 [ assembly : AssemblyTrademark ( "" ) ]

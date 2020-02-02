@@ -9,7 +9,7 @@ using AppShared ;
 [ assembly : AssemblyTitle ( "Common" ) ]
 [ assembly : AssemblyDescription ( "" ) ]
 [ assembly : AssemblyConfiguration ( "" ) ]
-[ assembly : AssemblyCompany ( "" ) ]
+[ assembly : AssemblyCompany ( "Kay McCormick") ]
 [ assembly : AssemblyProduct ( "Common" ) ]
 [ assembly : AssemblyCopyright ( "Copyright ©  2020" ) ]
 [ assembly : AssemblyTrademark ( "" ) ]

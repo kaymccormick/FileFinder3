@@ -7,7 +7,7 @@ using System.Runtime.InteropServices ;
 [ assembly : AssemblyTitle ( "FileFinder3" ) ]
 [ assembly : AssemblyDescription ( "" ) ]
 [ assembly : AssemblyConfiguration ( "" ) ]
-[ assembly : AssemblyCompany ( "" ) ]
+[ assembly : AssemblyCompany ( "Kay McCormick") ]
 [ assembly : AssemblyProduct ( "FileFinder3" ) ]
 [ assembly : AssemblyCopyright ( "Copyright ©  2020" ) ]
 [ assembly : AssemblyTrademark ( "" ) ]

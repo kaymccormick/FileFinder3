@@ -12,7 +12,7 @@ using KayMcCormick.Dev.Test.Metadata ;
 [ assembly : AssemblyTitle ( "WpfApp1" ) ]
 [ assembly : AssemblyDescription ( "" ) ]
 [ assembly : AssemblyConfiguration ( "" ) ]
-[ assembly : AssemblyCompany ( "" ) ]
+[ assembly : AssemblyCompany ( "Kay McCormick") ]
 [ assembly : AssemblyProduct ( "WpfApp1" ) ]
 [ assembly : AssemblyCopyright ( "Copyright ©  2020" ) ]
 [ assembly : AssemblyTrademark ( "" ) ]

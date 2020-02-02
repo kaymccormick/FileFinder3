@@ -7,7 +7,7 @@ using System.Runtime.InteropServices ;
 [ assembly : AssemblyTitle ( "KayMcCormick.Dev.Test.Metadata" ) ]
 [ assembly : AssemblyDescription ( "" ) ]
 [ assembly : AssemblyConfiguration ( "" ) ]
-[ assembly : AssemblyCompany ( "" ) ]
+[ assembly : AssemblyCompany ( "Kay McCormick") ]
 [ assembly : AssemblyProduct ( "KayMcCormick.Dev.Test.Metadata" ) ]
 [ assembly : AssemblyCopyright ( "Copyright ©  2020" ) ]
 [ assembly : AssemblyTrademark ( "" ) ]

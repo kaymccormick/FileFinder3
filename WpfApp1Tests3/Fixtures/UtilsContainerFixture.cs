@@ -29,6 +29,7 @@ namespace WpfApp1Tests3.Fixtures
         public void Dispose()
         {
             _scope?.Dispose();
+            _container.Dispose();
         }
     }
 }
