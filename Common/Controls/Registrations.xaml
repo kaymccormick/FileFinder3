@@ -11,7 +11,7 @@
     <UserControl.Resources>
 
         <CollectionViewSource x:Key="RegistrationsSource" Source="{Binding ComponentRegistry.Registrations}"/>
-        <common:TestO x:Key="T">
+        <common:TestO x:Key="TestObject">
             <StaticResource ResourceKey="RegistrationsSource"/>
         </common:TestO>
     </UserControl.Resources>
@@ -19,8 +19,9 @@
           HorizontalAlignment="Stretch">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
+        </Grid.RowDefinitions>
             <ListView ItemsSource="{Binding Source={StaticResource RegistrationsSource}}" BorderBrush="Violet " BorderThickness="6" Name="ComponentsListView">
                 <ListView.View>
                     <GridView>

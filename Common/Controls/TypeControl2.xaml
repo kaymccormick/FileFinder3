@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:Common.Controls"
              xmlns:appShared="clr-namespace:AppShared;assembly=AppShared"
              xmlns:common="clr-namespace:Common"
              mc:Ignorable="d"
@@ -76,10 +75,11 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <TextBlock FontWeight="Bold" Text="Assembly" />
-                <TextBlock Grid.Column="1" Text="{Binding Assembly.FullName}" />
-                <ListView Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Path=Attributes}">
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Assembly.FullName}" />
+                <ListView Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" ItemsSource="{Binding Path=Attributes}">
                     <ListView.View>
                         <GridView>
+                            <!-- ReSharper disable once Xaml.StaticResourceNotResolved -->
                             <GridViewColumn Header="Attribute"
                                             DisplayMemberBinding="{Binding Converter={StaticResource GetTypeConverter}}" />
                         </GridView>
