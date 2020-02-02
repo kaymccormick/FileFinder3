@@ -6,6 +6,7 @@ using System.Reflection ;
 using AppShared ;
 using AppShared.Interfaces ;
 using Common.Exceptions ;
+using JetBrains.Annotations ;
 using NLog ;
 
 namespace Common.Context
@@ -68,60 +69,60 @@ namespace Common.Context
         ///     This method is called before the test method is executed.
         /// </summary>
         /// <param name="methodUnderTest">The method under test</param>
+        [ UsedImplicitly ]
         public void Before ( MethodInfo methodUnderTest )
         {
-            //
-            // var genProps =
-            //     from prop in instance.GetType().GetProperties()
-            //     let atts = Attribute.GetCustomAttributes(prop, typeof(InfoContextFactoryAttribute))
-            //     from ContextStackInstanceAttribute att in atts
-            //     select new { Prop = prop, Att = att };
-            // Assert.Single(factoryProps);
-            // var entryFactory = factoryProps.First().Prop.GetValue(instance) as InfoContext.Factory;
-
-
-
             var instances =
                 Instances.Where ( o => o.Key.GetType ( ) == methodUnderTest.DeclaringType ) ;
-            // Assert.Single( instances );
+         
             var instance = instances.Last ( ).Key ;
-            //var qq = from prop in instance.GetType().GetProperties() select Attribute.GetCustomAttributes(prop, typeof(ContextStackInstanceAttribute)) 
-
+         
             var factoryProps =
                 from prop in instance.GetType ( ).GetProperties ( )
                 let atts = GetCustomAttributes ( prop , typeof ( InfoContextFactoryAttribute ) )
                 from InfoContextFactoryAttribute att in atts
                 select new { Prop = prop , Att = att } ;
-            // Assert.Single(factoryProps);
-            if ( ! factoryProps.Any ( ) )
+            
+            var fProps = factoryProps.ToList ( ) ;
+            if ( ! fProps.Any ( ) )
             {
                 throw new AttributeNotFoundException ( nameof ( InfoContextFactoryAttribute ) ) ;
             }
-            var entryFactory =
-                factoryProps.First ( ).Prop.GetValue ( instance ) as InfoContext.Factory ;
 
-            Logger.Debug ( "instance is {instance}" ) ;
-            if ( instance is IHasId hasId )
+            var value1 = fProps.First ( ).Prop.GetValue ( instance ) ;
+            if ( value1 == null ) { }
+            else
             {
-                Logger.Debug ( $"id is {hasId.ObjectId}" ) ;
-            }
+                var entryFactory = value1 as InfoContext.Factory ;
+                if ( entryFactory == null )
+                    {
+                        throw new ArgumentNullException ( nameof ( entryFactory ) ) ;
+                    }
 
-            var qq =
-                from prop in instance.GetType ( ).GetProperties ( )
-                let atts = GetCustomAttributes ( prop , typeof ( ContextStackInstanceAttribute ) )
-                from ContextStackInstanceAttribute att in atts
-                select new { Prop = prop , Att = att } ;
-            // Assert.NotEmpty(qq);
-            foreach ( var q in qq )
-            {
-                Logger.Debug ( $"{q.Prop} {q.Att}" ) ;
-                var value = q.Prop.GetValue ( instance ) ;
-                if ( value is ContextStack < InfoContext > stack )
+                Logger.Debug ( "instance is {instance}" ) ;
+                if ( instance is IHasId hasId )
                 {
-                    // thread safe?
-                    _context = entryFactory ( "test1" , Context ) ;
-                    _stack   = stack ;
-                    _stack.Push ( _context ) ;
+                    Logger.Debug ( $"id is {hasId.ObjectId}" ) ;
+                }
+
+                var qq =
+                    from prop in instance.GetType ( ).GetProperties ( )
+                    let atts =
+                        GetCustomAttributes ( prop , typeof ( ContextStackInstanceAttribute ) )
+                    from ContextStackInstanceAttribute att in atts
+                    select new { Prop = prop , Att = att } ;
+                // Assert.NotEmpty(qq);
+                foreach ( var q in qq )
+                {
+                    Logger.Debug ( $"{q.Prop} {q.Att}" ) ;
+                    var value = q.Prop.GetValue ( instance ) ;
+                    if ( value is ContextStack < InfoContext > stack )
+                    {
+                        // thread safe?
+                        _context = entryFactory ( "test1" , Context ) ;
+                        _stack   = stack ;
+                        _stack.Push ( _context ) ;
+                    }
                 }
             }
 

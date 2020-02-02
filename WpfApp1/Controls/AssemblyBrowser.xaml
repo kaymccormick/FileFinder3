@@ -1,10 +1,8 @@
-﻿<UserControl Name="userControl" x:Class="WpfApp1.Controls.AssemblyBrowser"
+﻿<UserControl x:Class="WpfApp1.Controls.AssemblyBrowser"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:WpfApp1.Controls"
-             xmlns:xaml="clr-namespace:WpfApp1.Xaml"
              xmlns:attachedProperties="clr-namespace:AppShared;assembly=AppShared"
              xmlns:reflection="clr-namespace:System.Reflection;assembly=mscorlib"
              xmlns:common="clr-namespace:Common;assembly=Common"
@@ -15,7 +13,7 @@
     <UserControl.Resources>
         <CollectionViewSource Source="{Binding Path=(attachedProperties:App.AssemblyList)}"
                               x:Key="AssemblyCollectionView" />
-        <DataTemplate x:Key="assemblyTemplate" DataType="reflection:Assembly">
+        <DataTemplate x:Key="AssemblyTemplate" DataType="reflection:Assembly">
             <TextBlock Text="{Binding Path=FullName}" />
         </DataTemplate>
     </UserControl.Resources>
@@ -26,6 +24,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -39,14 +38,14 @@
             </ToolBar>
         </ToolBarTray>
         <ListBox Grid.Row="1" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
-                 Name="assemblyListBox" ItemTemplate="{StaticResource assemblyTemplate}"
+                 ItemTemplate="{StaticResource AssemblyTemplate}"
                  ItemsSource="{Binding Source={StaticResource AssemblyCollectionView}}" />
 
-        <ListBox Grid.Row="2" Grid.Column="0" MinHeight="100" Name="typeBox"
+        <ListBox Grid.Row="2" Grid.Column="0" MinHeight="100" Name="TypeBox"
                  ItemsSource="{Binding Source={StaticResource AssemblyCollectionView}, Converter={StaticResource AssemblyConverter}}" />
         <controls:TypeControl Grid.Row="3" Grid.Column="1">
             <attachedProperties:App.RenderedType>
-                <Binding ElementName="typeBox" Path="SelectedItem" />
+                <Binding ElementName="TypeBox" Path="SelectedItem" />
             </attachedProperties:App.RenderedType>
         </controls:TypeControl>
     </Grid>

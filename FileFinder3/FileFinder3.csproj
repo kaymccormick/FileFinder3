@@ -81,7 +81,6 @@
     <Compile Include="DirectoryObjectInfo.cs" />
     <Compile Include="FileFinderImpl3.cs" />
     <Compile Include="FileFinderImpl.cs" />
-    <Compile Include="FileFinderImpl2.cs" />
     <Compile Include="MountReflectImage.cs" />
     <Compile Include="ObjectInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

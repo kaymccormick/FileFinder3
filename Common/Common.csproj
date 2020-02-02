@@ -102,13 +102,12 @@
     <Compile Include="MethodInvocation.cs" />
     <Compile Include="MyAppCommands.cs" />
     <Compile Include="MyCacheTarget.cs" />
-    <Compile Include="MyInterceptor.cs" />
     <Compile Include="NLogTextWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResourceMetadata.cs" />
     <Compile Include="TestO.cs" />
-    <Compile Include="Tracing\AppTraceLisener.cs" />
-    <Compile Include="Tracing\AppTraceLisener2.cs" />
+    <Compile Include="Tracing\AppTraceListener.cs" />
+    <Compile Include="Tracing\AppTraceListener2.cs" />
     <Compile Include="Tracing\Info.cs" />
     <Compile Include="Utils\ContainerHelper.cs" />
   </ItemGroup>

@@ -76,7 +76,7 @@ namespace WpfTestApp
 			                 traceSource => {
 				                 traceSource.Switch.Level = SourceLevels.All ;
 				                 traceSource.Listeners.Add ( nLogTraceListener ) ;
-				                 traceSource.Listeners.Add ( new AppTraceLisener2 ( ) ) ;
+				                 traceSource.Listeners.Add ( new AppTraceListener2 ( ) ) ;
 			                 }
 			                ) ;
 		}

@@ -43,7 +43,7 @@ namespace CommonTests
 			var svc = new ResolveService ( ) ;
 			svc.ServiceType = typeof ( Lazy < IRandom > ) ;
 
-			var random = _fixture.Container.Resolve < Lazy < IRandom > > ( ) ;
+			_fixture.Container.Resolve < Lazy < IRandom > > ( ) ;
 			var objIdProv = _fixture.Container.Resolve < IObjectIdProvider > ( ) ;
 
 			var resolveConv = new ResolveServiceConverter ( ) ;

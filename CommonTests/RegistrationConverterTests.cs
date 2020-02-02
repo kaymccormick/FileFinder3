@@ -41,7 +41,8 @@ namespace CommonTests
 		public void TestConversion1 ( )
 		{
 			// takes IComponentLifetime
-			var random = _fixture.Container.Resolve < IRandom > ( ) ;
+			
+			_fixture.Container.Resolve < IRandom > ( ) ;
 			var objIdProv = _fixture.Container.Resolve < IObjectIdProvider > ( ) ;
 			var converter = new RegistrationConverter ( _fixture.Container , objIdProv ) ;
 

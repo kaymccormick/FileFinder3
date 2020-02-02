@@ -1,5 +1,8 @@
+using System ;
+using Autofac.Core ;
 using Common;
 using Xunit;
+using Moq;
 
 namespace AppSharedTests
 {
@@ -16,12 +19,14 @@ namespace AppSharedTests
         {
             // Arrange
             var menuModule = new MenuModule();
-            menuModule.Configure( null );
+            Assert.Throws < ArgumentNullException > ( ( ) => menuModule.Configure ( null ) ) ;
             // Act
 
 
             // Assert
-            Assert.True ( false );
         }
+
+
+
     }
 }
