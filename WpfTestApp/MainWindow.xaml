@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WpfTestApp"
         xmlns:appShared="clr-namespace:AppShared;assembly=AppShared"
         xmlns:controls="clr-namespace:Common.Controls;assembly=Common"
         xmlns:interfaces="clr-namespace:AppShared.Interfaces;assembly=AppShared"
@@ -23,8 +22,8 @@
                 </appShared:App.RenderedType>
             </controls:TypeControl>
         </DataTemplate>
-        <common:TestO LifetimeScope="{appShared:LifetimeScope}" x:Key="test" />
-        <types:ResolveServiceList x:Key="resolveServices">
+        <common:TestO LifetimeScope="{appShared:LifetimeScope}" x:Key="Test" />
+        <types:ResolveServiceList x:Key="ResolveServices">
             <appShared:ResolveService ServiceType="{x:Type interfaces:IObjectIdProvider}">
                 <appShared:App.LifetimeScope>
                     <Binding ElementName="mainWindow" Path="(appShared:App.LifetimeScope)" />
@@ -72,7 +71,7 @@
             </TabItem>
             <TabItem Header="ResolveServiceList">
                 <Grid>
-                    <ListView ItemsSource="{Binding Source={StaticResource resolveServices}}">
+                    <ListView ItemsSource="{Binding Source={StaticResource ResolveServices}}">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn CellTemplate="{StaticResource CellTemplateType}"/>
@@ -90,7 +89,7 @@
                 </controls:Registrations>
             </TabItem>
             <TabItem Header="Y">
-                <StackPanel DataContext="{StaticResource test}">
+                <StackPanel DataContext="{StaticResource Test}">
                     <TextBlock Text="{Binding Path=LifetimeScope.Tag}" />
                 </StackPanel>
             </TabItem>
@@ -100,7 +99,7 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <ListView Name="resolveServicesList" ItemsSource="{Binding Source={StaticResource resolveServices}}">
+                    <ListView Name="ResolveServicesList" ItemsSource="{Binding Source={StaticResource ResolveServices}}">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Object ID"
@@ -113,7 +112,7 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <ListView ItemsSource="{Binding ElementName=resolveServicesList,Path=SelectedItem}">
+                    <ListView Grid.Row="0" ItemsSource="{Binding ElementName=ResolveServicesList,Path=SelectedItem}">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn DisplayMemberBinding="{Binding }"/>

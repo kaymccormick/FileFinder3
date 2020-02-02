@@ -1,8 +1,6 @@
 using System ;
-using Autofac.Core ;
 using Common;
 using Xunit;
-using Moq;
 
 namespace AppSharedTests
 {
