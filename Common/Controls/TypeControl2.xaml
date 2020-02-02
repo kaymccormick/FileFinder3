@@ -8,8 +8,9 @@
              mc:Ignorable="d"
              d:DesignHeight="150" d:DesignWidth="225">
     <UserControl.Resources>
+        <!-- ReSharper disable once Xaml.RedundantResource -->
         <Style x:Key="ButtonFocusStyle" TargetType="Button">
-            <Setter Property="Control.Template">
+            <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
                         <Border>

@@ -4,6 +4,7 @@ using System.Reflection;
 using AppShared ;
 using AppShared.Interfaces ;
 using Common.Context ;
+using Common.Exceptions ;
 using NLog;
 using WpfApp1.Attributes ;
 using WpfApp1.Util ;

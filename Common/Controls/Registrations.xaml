@@ -1,19 +1,14 @@
-﻿<UserControl Name="userControl" x:Class="Common.Controls.Registrations"
+﻿<UserControl Name="RegistrationControl" x:Class="Common.Controls.Registrations"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:appShared="clr-namespace:AppShared;assembly=AppShared"
-             xmlns:common="clr-namespace:Common"
              mc:Ignorable="d" 
              
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
 
         <CollectionViewSource x:Key="RegistrationsSource" Source="{Binding ComponentRegistry.Registrations}"/>
-        <common:TestO x:Key="TestObject">
-            <StaticResource ResourceKey="RegistrationsSource"/>
-        </common:TestO>
     </UserControl.Resources>
     <Grid VerticalAlignment="Stretch"
           HorizontalAlignment="Stretch">
@@ -22,7 +17,8 @@
             <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-            <ListView ItemsSource="{Binding Source={StaticResource RegistrationsSource}}" BorderBrush="Violet " BorderThickness="6" Name="ComponentsListView">
+        <!-- ReSharper disable once UnusedMember.Global -->
+        <ListView ItemsSource="{Binding Source={StaticResource RegistrationsSource}}" BorderBrush="Violet " BorderThickness="6" Name="ComponentsListView">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Path=Id}" />

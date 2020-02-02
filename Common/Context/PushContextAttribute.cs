@@ -5,6 +5,7 @@ using System.Linq ;
 using System.Reflection ;
 using AppShared ;
 using AppShared.Interfaces ;
+using Common.Exceptions ;
 using NLog ;
 
 namespace Common.Context
@@ -92,6 +93,10 @@ namespace Common.Context
                 from InfoContextFactoryAttribute att in atts
                 select new { Prop = prop , Att = att } ;
             // Assert.Single(factoryProps);
+            if ( ! factoryProps.Any ( ) )
+            {
+                throw new AttributeNotFoundException ( nameof ( InfoContextFactoryAttribute ) ) ;
+            }
             var entryFactory =
                 factoryProps.First ( ).Prop.GetValue ( instance ) as InfoContext.Factory ;
 

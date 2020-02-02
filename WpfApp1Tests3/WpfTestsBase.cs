@@ -19,6 +19,7 @@ using AppShared ;
 using AppShared.Interfaces ;
 using Autofac ;
 using Common.Context ;
+using Common.Exceptions ;
 using JetBrains.Annotations ;
 using NLog ;
 using NLog.Fluent ;

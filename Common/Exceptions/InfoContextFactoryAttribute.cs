@@ -1,6 +1,6 @@
 ﻿using System ;
 
-namespace Common.Context
+namespace Common.Exceptions
 {
 	[ AttributeUsage ( AttributeTargets.Property ) ]
 	public class InfoContextFactoryAttribute : Attribute
