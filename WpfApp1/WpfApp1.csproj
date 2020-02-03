@@ -123,7 +123,6 @@
     <Compile Include="Controls\UserControl1.xaml.cs">
       <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DataSource\MyDS1.cs" />
     <Compile Include="DesignData.cs" />
     <Compile Include="Events\AttachedEvents.cs" />
     <Compile Include="Logging\AppLoggerContainer.cs" />
@@ -133,7 +132,6 @@
     </Compile>
     <Compile Include="Menus\ILoggingEntity.cs" />
     <Compile Include="Menus\MenuHelper.cs" />
-    <Compile Include="Util\AttachedContext.cs" />
     <Compile Include="Util\DebugHelper.cs" />
     <Compile Include="Util\IObjectId.cs" />
     <Compile Include="Util\LongObjectId.cs" />
@@ -242,7 +240,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="ClassDiagram2.cd" />
     <None Include="NLog.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

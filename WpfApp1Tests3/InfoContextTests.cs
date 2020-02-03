@@ -1,5 +1,6 @@
 ﻿using System.Linq ;
 using AppShared ;
+using AppShared.Infos ;
 using Xunit ;
 
 namespace WpfApp1Tests3

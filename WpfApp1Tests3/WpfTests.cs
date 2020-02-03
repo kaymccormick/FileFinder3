@@ -3,10 +3,10 @@ using System.Linq ;
 using System.Windows ;
 using System.Windows.Baml2006 ;
 using System.Windows.Markup ;
-using AppShared ;
 using AppShared.Interfaces ;
 using Autofac ;
 using NLog ;
+using TestLib ;
 using TestLib.Fixtures ;
 using WpfApp1Tests3.Fixtures ;
 using Xunit ;
@@ -85,21 +85,4 @@ namespace WpfApp1Tests3
     }
 
 #pragma warning disable 1591
-    public class MyServicesFixture
-#pragma warning restore 1591
-    {
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="T:System.Object" />
-        ///     class.
-        /// </summary>
-        public MyServicesFixture ( IMyServices myServices ) { MyServices = myServices ; }
-
-        public IMyServices MyServices { get ; set ; }
-    }
-
-    public interface IMyServices
-
-    {
-        InfoContext.Factory InfoContextFactory { get ; }
-    }
 }

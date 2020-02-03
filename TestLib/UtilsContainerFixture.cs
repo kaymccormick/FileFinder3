@@ -1,10 +1,10 @@
-﻿using System;
+﻿using System ;
 using AppShared ;
-using Autofac;
-using Common.Context ;
-using WpfApp1.Util ;
+using AppShared.Infos ;
+using Autofac ;
+using TestLib.Fixtures ;
 
-namespace WpfApp1Tests3.Fixtures
+namespace TestLib
 {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
     public class UtilsContainerFixture : IDisposable
@@ -18,7 +18,7 @@ namespace WpfApp1Tests3.Fixtures
         {
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterType< InfoContext >().AsSelf();
-            containerBuilder.RegisterType < WpfTestsBase.MyServices >().As < IMyServices >();
+            containerBuilder.RegisterType < MyServices >().As < IMyServices >();
             containerBuilder.RegisterType < MyServicesFixture >().AsSelf ();
             _container = containerBuilder.Build();
             _scope = _container.BeginLifetimeScope();

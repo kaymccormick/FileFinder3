@@ -1,18 +1,15 @@
 ﻿using System ;
-using System.Diagnostics ;
 using System.Reflection ;
 using System.Threading ;
 using System.Threading.Tasks ;
 using System.Windows ;
 using System.Windows.Markup ;
-using System.Windows.Media ;
 using System.Windows.Threading ;
 using JetBrains.Annotations ;
 using NLog ;
-using WpfApp1.Application ;
 using Xunit ;
 
-namespace WpfApp1Tests3.WpfUtils
+namespace TestLib.Fixtures
 {
     public class WpfApplicationHelper : IAsyncLifetime
     {

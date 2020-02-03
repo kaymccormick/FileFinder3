@@ -4,7 +4,7 @@ using JetBrains.Annotations ;
 using Xunit.Abstractions ;
 using Xunit.Sdk ;
 
-namespace TestLib
+namespace TestLib.Fixtures
 {
 	[ UsedImplicitly ]
 	public class LoggingFixture

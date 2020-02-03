@@ -2,6 +2,7 @@ using System.ComponentModel ;
 using System.Reflection ;
 using System.Windows ;
 using AppShared ;
+using AppShared.Infos ;
 using NLog ;
 
 namespace WpfApp1Tests3

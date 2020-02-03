@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis ;
 using System.Linq ;
 using System.Reflection ;
 using AppShared ;
+using AppShared.Infos ;
 using AppShared.Interfaces ;
 using Common.Exceptions ;
 using JetBrains.Annotations ;

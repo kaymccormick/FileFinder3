@@ -35,6 +35,7 @@
     <Reference Include="NLog">
       <HintPath>..\..\..\..\NLog\src\NLog\bin\Debug\net45\NLog.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -45,16 +46,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppInitializeAttribute.cs" />
     <Compile Include="Attributes\BeforeAfterLoggerAttribute.cs" />
     <Compile Include="Attributes\LogTestMethodAttribute.cs" />
+    <Compile Include="Collections\LoggingCollection.cs" />
+    <Compile Include="Collections\WpfApplication.cs" />
     <Compile Include="Fixtures\ContainerFixture.cs" />
-    <Compile Include="LoggingFixture.cs" />
+    <Compile Include="Fixtures\LoggingFixture.cs" />
+    <Compile Include="Fixtures\MyServicesFixture.cs" />
+    <Compile Include="Fixtures\ObjectIDFixture.cs" />
+    <Compile Include="Fixtures\WpfApplicationFixture.cs" />
+    <Compile Include="Fixtures\WpfApplicationHelper.cs" />
+    <Compile Include="IMyServices.cs" />
+    <Compile Include="MyServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UtilsContainerFixture.cs" />
+    <Compile Include="WpfTestsBase.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\AppShared\AppShared\AppShared.csproj">
+      <Project>{C4C404AE-0214-481B-AB46-708ABD99AF9C}</Project>
+      <Name>AppShared</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{42288D17-ED17-4F2F-9EA3-C3E64D5302BF}</Project>
       <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KayMcCormick.Dev.Test.Metadata\KayMcCormick.Dev.Test.Metadata.csproj">
+      <Project>{CF1DCCEF-3324-45A2-A194-4A7B768E2291}</Project>
+      <Name>KayMcCormick.Dev.Test.Metadata</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -17,6 +17,7 @@ using System.Windows.Automation ;
 using System.Windows.Threading ;
 using TestLib ;
 using TestLib.Attributes ;
+using TestLib.Fixtures ;
 using Xunit ;
 using Xunit.Abstractions ;
 

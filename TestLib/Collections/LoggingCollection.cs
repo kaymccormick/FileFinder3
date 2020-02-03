@@ -1,7 +1,7 @@
-﻿using TestLib ;
+﻿using TestLib.Fixtures ;
 using Xunit ;
 
-namespace WpfApp1Tests3.Collections
+namespace TestLib.Collections
 {
 	[ CollectionDefinition ( "Logging" ) ]
 	internal class LoggingCollection : ICollectionFixture < LoggingFixture >

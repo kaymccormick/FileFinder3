@@ -2,6 +2,7 @@
 using AppShared.Interfaces ;
 using Autofac ;
 using NLog ;
+using TestLib ;
 using TestLib.Fixtures ;
 using WpfApp1.Menus ;
 using WpfApp1Tests3.Fixtures ;
