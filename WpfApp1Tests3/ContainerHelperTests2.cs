@@ -155,7 +155,10 @@ namespace WpfApp1Tests3
                                                                               )
                                                               , typeof ( AppInitializeAttribute )
                                                                ) as AppInitializeAttribute ;
-            customAttribute.MyApp = WpfApplicationFixture.MyApp as App ;
+            if ( customAttribute != null )
+            {
+                customAttribute.MyApp = WpfApplicationFixture.MyApp as App ;
+            }
 
             Assert.NotNull ( WpfApplicationFixture ) ;
             // Assert.NotNull ( WpfApplicationFixture.BasePackUri ) ;
@@ -167,8 +170,7 @@ namespace WpfApp1Tests3
             // 	Logger.Info ( $"{resource.Key}" ) ;
             // }
 
-            IContainer container ;
-            var c = ContainerHelper.SetupContainer ( out container ) ;
+            var c = ContainerHelper.SetupContainer ( out _ ) ;
             var mainWindow = c.Resolve < MainWindow > ( ) ;
             Assert.NotNull ( mainWindow ) ;
         }

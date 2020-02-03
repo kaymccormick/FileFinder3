@@ -11,6 +11,9 @@ using Xunit.Abstractions ;
 
 namespace WpfApp1Tests3
 {
+	/// <summary>
+	/// 
+	/// </summary>
 	[ Collection ( "WpfApp" ) ]
 	public class MenuHelperTests : WpfTestsBase
 	{

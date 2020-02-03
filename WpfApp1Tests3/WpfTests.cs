@@ -14,8 +14,11 @@ using Xunit.Abstractions ;
 
 namespace WpfApp1Tests3
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [ Collection ( "WpfApp" ) ]
-    public class WpfTests : WpfTestsBase
+    public class WpfTests : TestLib.WpfTestsBase
     {
         public WpfTests (
             WpfApplicationFixture fixture

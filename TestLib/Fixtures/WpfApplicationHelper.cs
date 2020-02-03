@@ -4,6 +4,7 @@ using System.Threading ;
 using System.Threading.Tasks ;
 using System.Windows ;
 using System.Windows.Markup ;
+using System.Windows.Media ;
 using System.Windows.Threading ;
 using JetBrains.Annotations ;
 using NLog ;
@@ -94,80 +95,80 @@ namespace TestLib.Fixtures
 
             return Task.CompletedTask ;
         }
-
-        private Task CreateApplication ( Assembly theAssembly )
-        {
-            Application theApp ;
-            App myApp = null ;
-            if ( LoadRealApp )
-            {
-                Logger?.Debug ( "Creating real app" ) ;
-                try
-                {
-                    void doApp ( )
-                    {
-                        theApp              = myApp = new App ( ) ;
-                        MyApp               = myApp ;
-                        theApp.ShutdownMode = ShutdownMode.OnExplicitShutdown ;
-                        theApp.Run ( ) ;
-                    }
-
-                    myApp = new App ( ) ;
-                    myApp.DoOnStartup ( Array.Empty<string> ( ) ) ;
-                    return Task.CompletedTask ;
-                }
-                catch ( Exception ex )
-                {
-                    Logger?.Error ( ex , ex.Message ) ;
-
-                    throw ex ;
-                }
-
-#if XX
-                Action < Application > runAction = application => application.Run ( ) ;
-                var dispatcherOperation =
-                    myApp.Dispatcher.BeginInvoke ( DispatcherPriority.Send , runAction , myApp ) ;
-                Op = dispatcherOperation ;
-#endif
-
-                //myApp.AppInitialize();
-                // var thread = new Thread (
-                // o => {
-                // ( ( Application ) o ).Run ( ) ;
-                // }
-                // ) ;
-                // thread.Start(myApp);
-            }
-            else
-            {
-                MyApp = new Application ( ) ;
-                return Task.CompletedTask ;
-            }
-        }
-        //
-        //
-        // CurAssembly =
-        // 		theAssembly ?? throw new ArgumentNullException ( nameof ( theAssembly ) ) ;
-        //
-        // 	var assemblyFullName = CurAssembly.FullName ;
-        // 	var assPart = Uri.EscapeUriString ( CurAssembly.GetName ( ).Name ) ;
-        // 	var uri = new Uri (
-        // 	                   $"pack://application:,,,/{assPart};component/"
-        // 	                 , UriKind.RelativeOrAbsolute
-        // 	                  ) ;
-        // 	BasePackUri = uri ;
-        // 	Debug.WriteLine ( "basepackuri is " + BasePackUri ) ;
-        // 	MyApp = theApp ;
-        // 	return null ;
-        // }
+//
+//         private Task CreateApplication ( Assembly theAssembly )
+//         {
+//             Application theApp ;
+//             App myApp = null ;
+//             if ( LoadRealApp )
+//             {
+//                 Logger?.Debug ( "Creating real app" ) ;
+//                 try
+//                 {
+//                     void doApp ( )
+//                     {
+//                         theApp              = myApp = new App ( ) ;
+//                         MyApp               = myApp ;
+//                         theApp.ShutdownMode = ShutdownMode.OnExplicitShutdown ;
+//                         theApp.Run ( ) ;
+//                     }
+//
+//                     myApp = new App ( ) ;
+//                     myApp.DoOnStartup ( Array.Empty<string> ( ) ) ;
+//                     return Task.CompletedTask ;
+//                 }
+//                 catch ( Exception ex )
+//                 {
+//                     Logger?.Error ( ex , ex.Message ) ;
+//
+//                     throw ex ;
+//                 }
+//
+// #if XX
+//                 Action < Application > runAction = application => application.Run ( ) ;
+//                 var dispatcherOperation =
+//                     myApp.Dispatcher.BeginInvoke ( DispatcherPriority.Send , runAction , myApp ) ;
+//                 Op = dispatcherOperation ;
+// #endif
+//
+//                 //myApp.AppInitialize();
+//                 // var thread = new Thread (
+//                 // o => {
+//                 // ( ( Application ) o ).Run ( ) ;
+//                 // }
+//                 // ) ;
+//                 // thread.Start(myApp);
+//             }
+//             else
+//             {
+//                 MyApp = new Application ( ) ;
+//                 return Task.CompletedTask ;
+//             }
+//         }
+//         //
+//         //
+//         // CurAssembly =
+//         // 		theAssembly ?? throw new ArgumentNullException ( nameof ( theAssembly ) ) ;
+//         //
+//         // 	var assemblyFullName = CurAssembly.FullName ;
+//         // 	var assPart = Uri.EscapeUriString ( CurAssembly.GetName ( ).Name ) ;
+//         // 	var uri = new Uri (
+//         // 	                   $"pack://application:,,,/{assPart};component/"
+//         // 	                 , UriKind.RelativeOrAbsolute
+//         // 	                  ) ;
+//         // 	BasePackUri = uri ;
+//         // 	Debug.WriteLine ( "basepackuri is " + BasePackUri ) ;
+//         // 	MyApp = theApp ;
+//         // 	return null ;
+//         // }
 
         private Application LoadApplication ( )
         {
-            if ( LoadRealApp )
-            {
-                Application app = new App ( ) ;
-                return app ;
-            }
+            // if ( LoadRealApp )
+            // {
+            //     Application app = new App ( ) ;
+            //     return app ;
+            // }
 
             return new Application ( ) ;
         }

@@ -10,6 +10,7 @@ using Autofac.Core.Activators.Reflection ;
 using Common.Logging ;
 using Common.Utils ;
 using JetBrains.Annotations ;
+using KayMcCormick.Dev.Test.Metadata ;
 using NLog ;
 using NLog.Config ;
 using NLog.Layouts ;
@@ -32,7 +33,7 @@ namespace CommonTests
     [ BeforeAfterLogger ]
     public class ContainerHelperTests // : IClassFixture <LoggingFixture>
     {
-        static ContainerHelperTests ( ) { Debug.WriteLine ( "Initializtion" ) ; }
+        static ContainerHelperTests ( ) { Debug.WriteLine ( "Initialization" ) ; }
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="T:System.Object" />
