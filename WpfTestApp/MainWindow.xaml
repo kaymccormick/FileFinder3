@@ -14,7 +14,7 @@
         mc:Ignorable="d" FontSize="20"
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
-
+        <CollectionViewSource x:Key="ResourcesList" Source="{Binding ElementName=mainWindow,Path=ResourcesCollection}"></CollectionViewSource>
         <DataTemplate DataType="{x:Type system:Type}" x:Key="CellTemplateType">
             <controls:TypeControl MinWidth="200" Target="{Binding ElementName=frame}">
                 <appShared:App.RenderedType>
@@ -50,6 +50,9 @@
             <TextBlock Text="{Binding Source={appShared:LifetimeScope}, Path=Tag}" />
         </StackPanel>
         <TabControl Grid.Column="0" Grid.Row="1" Style="{StaticResource TabControlStyle1}">
+            <TabItem Header="0">
+                
+            </TabItem>
             <TabItem Header="Tab 1">
                 <Grid>
                     <Grid.ColumnDefinitions>

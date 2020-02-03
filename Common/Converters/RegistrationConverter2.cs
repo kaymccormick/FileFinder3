@@ -16,6 +16,7 @@ using System.Globalization ;
 using System.Linq ;
 using System.Windows.Data ;
 using AppShared ;
+using AppShared.Infos ;
 using Autofac.Core ;
 using Castle.DynamicProxy.Internal ;
 using NLog ;

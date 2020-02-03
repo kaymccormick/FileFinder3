@@ -11,6 +11,7 @@
 #endregion
 using System ;
 using AppShared ;
+using AppShared.Infos ;
 
 namespace Common
 {

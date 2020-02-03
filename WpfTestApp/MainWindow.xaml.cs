@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections ;
+using System.Collections.Generic ;
+using System.Collections.ObjectModel ;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Markup ;
 using System.Windows.Navigation;
 using AppShared.Types ;
 using Common.Controls ;
@@ -51,7 +55,10 @@ namespace WpfTestApp
             {
                 // ignored
             }
+          
         }
+     
+      
 
 
         /// <summary>Gets the type frame.</summary>
@@ -86,4 +93,6 @@ namespace WpfTestApp
             }
         }
     }
+
+
 }

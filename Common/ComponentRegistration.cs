@@ -14,6 +14,7 @@ using System.Collections.Generic ;
 using System.Linq ;
 using System.Windows.Markup ;
 using AppShared ;
+using AppShared.Infos ;
 using Autofac ;
 using Autofac.Core ;
 
