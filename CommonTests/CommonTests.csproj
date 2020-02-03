@@ -50,6 +50,7 @@
     <Reference Include="UIAutomationTypes" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CacheUtils.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="ContainerHelperTests.cs" />
     <Compile Include="Converters\TestConverterEnumeration.cs" />

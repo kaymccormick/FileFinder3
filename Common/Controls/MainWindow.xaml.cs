@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections ;
-using System.Collections.Generic ;
-using System.Collections.ObjectModel ;
-using System.Windows;
-using System.Windows.Input;
-using System.Windows.Markup ;
-using System.Windows.Navigation;
+﻿using System ;
+using System.Windows ;
+using System.Windows.Input ;
+using System.Windows.Navigation ;
 using AppShared.Types ;
-using Common.Controls ;
 using NLog ;
 
-namespace WpfTestApp
+namespace Common.Controls
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

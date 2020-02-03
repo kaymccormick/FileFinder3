@@ -30,6 +30,7 @@ namespace CommonTests
     {
         private readonly ITestOutputHelper _originalOutput ;
         private readonly ITestOutputHelper _output ;
+        
 
         /// <summary>
         ///     Constructor for test class
@@ -50,7 +51,7 @@ namespace CommonTests
         [ Trait ( "UITest" , "true" ) ]
         protected void TestTypeControl ( )
         {
-            SetupCacheSubscriber ( ) ;
+            CacheUtils.SetupCacheSubscriber ( ) ;
             var controlName = SetupTypeControl ( out var control ) ;
             control.SetValue ( App.RenderedTypeProperty , typeof ( string ) ) ;
             control.Detailed = true ;
@@ -153,7 +154,7 @@ namespace CommonTests
         [ Trait ( "UITest" , "true" ) ]
         private void TestTypeNavigator ( )
         {
-            SetupCacheSubscriber ( ) ;
+            CacheUtils.SetupCacheSubscriber();
 
             var controlName = SetupTypeNavControl ( out var control ) ;
             var window = MakeWindow ( control , out var r ) ;
@@ -341,26 +342,6 @@ namespace CommonTests
         }
 
         // ReSharper disable once InternalOrPrivateMemberNotDocumented
-        private void SetupCacheSubscriber ( )
-        {
-            var myCacheTarget = MyCacheTarget.GetInstance ( 1000 ) ;
-            _output.WriteLine ( $"{nameof ( myCacheTarget )} is {myCacheTarget.Name}" ) ;
-            myCacheTarget.Cache.SubscribeOn ( Scheduler.Default )
-                         .Buffer ( TimeSpan.FromMilliseconds ( 100 ) )
-                         .Where ( x => x.Any ( ) )
-                         .ObserveOnDispatcher ( DispatcherPriority.Background )
-                         .Subscribe (
-                                     infos => {
-                                         foreach ( var logEventInfo in infos )
-                                         {
-                                             _originalOutput.WriteLine (
-                                                                        logEventInfo
-                                                                           .FormattedMessage
-                                                                       ) ;
-                                         }
-                                     }
-                                    ) ;
-        }
 
         // ReSharper disable once InternalOrPrivateMemberNotDocumented
         // ReSharper disable once UnusedMember.Local

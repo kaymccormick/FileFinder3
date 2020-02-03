@@ -25,7 +25,7 @@ namespace Common.Utils
         internal static readonly ProxyGenerator ProxyGenerator = new ProxyGenerator ( ) ;
 
         private static readonly Logger Logger =
-            LogManager.GetLogger ( "Autofac container builder helper" ) ;
+            LogManager.GetLogger ( "ContainerHelper" ) ;
 
         /// <summary>Setups the container.</summary>
         /// <param name="container">The container.</param>
@@ -142,7 +142,9 @@ namespace Common.Utils
             //        .As < TraceListener > ( )
             //        .InstancePerLifetimeScope ( ) ;
             #region Interceptors
+            if(DoProxyBuilder) {
             builder.RegisterType < LoggingInterceptor > ( ).AsSelf ( ) ;
+}
             #endregion
 
             #region Logging
