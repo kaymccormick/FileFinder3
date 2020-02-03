@@ -1,9 +1,11 @@
 ﻿using Common.Context ;
 using NLog ;
+using TestLib.Attributes ;
 using Xunit ;
 
 namespace WpfApp1Tests3.Attributes
 {
+    [LogTestMethod, BeforeAfterLogger]
 	public class PushContextAttributeTests
 	{
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger ( ) ;

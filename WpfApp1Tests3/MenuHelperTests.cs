@@ -3,6 +3,7 @@ using AppShared.Interfaces ;
 using Autofac ;
 using NLog ;
 using TestLib ;
+using TestLib.Attributes ;
 using TestLib.Fixtures ;
 using WpfApp1.Menus ;
 using Xunit ;
@@ -12,6 +13,7 @@ namespace WpfApp1Tests3
 {
     /// <summary></summary>
     [Collection ( "WpfApp" ) ]
+    [LogTestMethod, BeforeAfterLogger]
     public class MenuHelperTests : WpfTestsBase
     {
         // ReSharper disable once UnusedMember.Local

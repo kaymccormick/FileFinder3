@@ -25,7 +25,7 @@ namespace CommonTests
     /// <summary>
     ///     Test class for tests of <see cref="TypeControl" />
     /// </summary>
-    [ LogTestMethod ]
+    [ LogTestMethod, BeforeAfterLogger]
     public class TypeControlTests : IClassFixture < LoggingFixture >
     {
         private readonly ITestOutputHelper _originalOutput ;

@@ -1,10 +1,12 @@
 ﻿using System.Linq ;
 using AppShared ;
 using AppShared.Infos ;
+using TestLib.Attributes ;
 using Xunit ;
 
 namespace WpfApp1Tests3
 {
+    [LogTestMethod, BeforeAfterLogger]
 	public class InfoContextTests
 	{
 		[ Fact ]

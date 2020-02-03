@@ -2,6 +2,7 @@
 using Autofac.Core ;
 using Common ;
 using Common.Model ;
+using TestLib.Attributes ;
 using WpfApp1.Windows ;
 using Xunit ;
 
@@ -10,6 +11,7 @@ namespace WpfApp1Tests3
 	/// <summary>
 	///     Summary description for UnitTest1
 	/// </summary>
+    [LogTestMethod, BeforeAfterLogger]
 	public class UnitTest1
 	{
 		[ Fact ]

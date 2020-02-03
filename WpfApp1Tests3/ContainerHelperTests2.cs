@@ -43,7 +43,7 @@ namespace WpfApp1Tests3
     /// TODO Edit XML Comment Template for ContainerHelperTests2
     [ WpfTestApplication ]
     [ Collection ( "WpfApp" ) ]
-    [ BeforeAfterLogger ]
+    [LogTestMethod, BeforeAfterLogger]
     public class ContainerHelperTests2 // : IClassFixture <LoggingFixture>
     {
         static ContainerHelperTests2 ( ) { Debug.WriteLine ( "Initialization" ) ; }

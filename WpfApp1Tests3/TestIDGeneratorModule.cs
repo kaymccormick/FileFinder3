@@ -1,11 +1,13 @@
 ﻿using AppShared.Interfaces ;
 using AppShared.Modules ;
 using Autofac ;
+using TestLib.Attributes ;
 using Xunit ;
 using Xunit.Abstractions ;
 
 namespace WpfApp1Tests3
 {
+    [LogTestMethod, BeforeAfterLogger]
 	public class TestIDGeneratorModule
 	{
 		/// <summary>

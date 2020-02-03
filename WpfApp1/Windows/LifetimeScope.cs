@@ -53,6 +53,15 @@ namespace WpfApp1.Windows
         /// <returns>The component instance.</returns>
         /// <exception cref="T:Autofac.Core.Registration.ComponentNotRegisteredException" />
         /// <exception cref="T:Autofac.Core.DependencyResolutionException" />
+        // public object ResolveComponent ( ResolveRequest request ) { throw new NotImplementedException ( ) ; }
+
+        /// <summary>
+        /// Resolve an instance of the provided registration within the context.
+        /// </summary>
+        /// <param name="request">The resolve request.</param>
+        /// <returns>The component instance.</returns>
+        /// <exception cref="T:Autofac.Core.Registration.ComponentNotRegisteredException" />
+        /// <exception cref="T:Autofac.Core.DependencyResolutionException" />
         public object ResolveComponent ( ResolveRequest request ) { throw new NotImplementedException ( ) ; }
 
         /// <summary>

@@ -1,8 +1,10 @@
 ﻿using CommonTests.Fixtures ;
+using TestLib.Attributes ;
 using Xunit ;
 
 namespace CommonTests
 {
+	[BeforeAfterLogger, LogTestMethod]
 	public class Class1 : IClassFixture < ContainerFixture >
 	{
 		/// <summary>

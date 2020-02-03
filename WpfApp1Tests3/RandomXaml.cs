@@ -9,7 +9,7 @@ namespace WpfApp1Tests3
 {
 	[ WpfTestApplication ]
 	[ Collection ( "WpfApp" ) ]
-	[ BeforeAfterLogger ]
+    [LogTestMethod, BeforeAfterLogger]
 	public class RandomXaml // : IClassFixture <LoggingFixture>
 	{
 		private static readonly Logger Logger = LoggerProxyHelper.GetCurrentClassLogger ( ) ;

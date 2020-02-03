@@ -7,6 +7,7 @@ using AppShared.Interfaces ;
 using Autofac ;
 using NLog ;
 using TestLib ;
+using TestLib.Attributes ;
 using TestLib.Fixtures ;
 using WpfApp1Tests3.Fixtures ;
 using Xunit ;
@@ -18,6 +19,7 @@ namespace WpfApp1Tests3
     /// 
     /// </summary>
     [ Collection ( "WpfApp" ) ]
+    [LogTestMethod, BeforeAfterLogger]
     public class WpfTests : WpfTestsBase
     {
         public WpfTests (

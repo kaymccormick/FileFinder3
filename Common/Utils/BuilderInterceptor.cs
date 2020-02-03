@@ -1,6 +1,7 @@
 using System ;
 using System.Collections.Generic ;
 using Autofac.Builder ;
+using Autofac.Core ;
 using Autofac.Core.Registration ;
 using Castle.DynamicProxy ;
 using Common.Model ;
