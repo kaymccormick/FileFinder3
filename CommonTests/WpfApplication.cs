@@ -1,8 +1,20 @@
-﻿using JetBrains.Annotations ;
+﻿#region header
+// Kay McCormick (mccor)
+// 
+// FileFinder3
+// TestLib
+// WpfApplication1.cs
+// 
+// 2020-02-02-7:41 PM
+// 
+// ---
+#endregion
+using JetBrains.Annotations ;
+using TestLib ;
 using TestLib.Fixtures ;
 using Xunit ;
 
-namespace TestLib.Collections
+namespace CommonTests
 {
     /// <summary></summary>
     /// <seealso cref="WpfApplicationFixture" />
@@ -12,8 +24,8 @@ namespace TestLib.Collections
     /// TODO Edit XML Comment Template for WpfApplication
     [ CollectionDefinition ( "WpfApp" ) , UsedImplicitly ] 
     public class WpfApplication : ICollectionFixture < WpfApplicationFixture >
-                  , ICollectionFixture < UtilsContainerFixture >
-          , ICollectionFixture < LoggingFixture >
+      , ICollectionFixture < UtilsContainerFixture >
+      , ICollectionFixture < LoggingFixture >
 
     {
     }

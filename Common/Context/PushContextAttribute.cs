@@ -105,8 +105,7 @@ namespace Common.Context
             if ( value1 == null ) { }
             else
             {
-                var entryFactory = value1 as InfoContext.Factory ;
-                if ( entryFactory == null )
+                if ( ! ( value1 is InfoContext.Factory entryFactory ) )
                 {
                     throw new ArgumentNullException ( nameof ( entryFactory ) ) ;
                 }

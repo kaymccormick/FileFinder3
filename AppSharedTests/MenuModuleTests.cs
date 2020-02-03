@@ -1,5 +1,6 @@
 using System ;
 using Common;
+using Common.Menus ;
 using Xunit;
 
 namespace AppSharedTests

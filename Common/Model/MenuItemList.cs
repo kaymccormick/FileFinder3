@@ -6,7 +6,7 @@ using AppShared.Interfaces ;
 using Common.Logging ;
 using NLog ;
 
-namespace Common
+namespace Common.Model
 {
 
     /// <summary></summary>

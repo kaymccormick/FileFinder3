@@ -2,12 +2,11 @@
 using System.Linq ;
 using System.Reactive.Linq ;
 using System.Reactive.Subjects ;
-using Common.Logging ;
 using NLog ;
 using NLog.Config ;
 using NLog.Targets ;
 
-namespace Common
+namespace Common.Logging
 {
 	[ Target ( nameof ( MyCacheTarget ) ) ]
 	public class MyCacheTarget : Target

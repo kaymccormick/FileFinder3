@@ -37,11 +37,12 @@ namespace TestLib.Fixtures
         public Task InitializeAsync ( )
         {
             Logger?.Debug ( $"{nameof ( InitializeAsync )}" ) ;
-            return Task.Run (
-                             ( ) => {
-                                 CreateApplication ( TheAssembly ) ;
-                             }
-                            ) ;
+            // return Task.Run (
+                             // ( ) => {
+                                 // CreateApplication ( TheAssembly ) ;
+                             // }
+                            // ) ;
+                            return Task.CompletedTask ;
         }
 
         /// <summary>

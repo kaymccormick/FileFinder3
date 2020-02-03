@@ -8,7 +8,8 @@
               xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:autofac="clr-namespace:Autofac;assembly=Autofac"
              xmlns:common="clr-namespace:Common;assembly=Common"
-             xmlns:controls1="clr-namespace:Common.Controls;assembly=Common">
+             xmlns:controls1="clr-namespace:Common.Controls;assembly=Common"
+             xmlns:model="clr-namespace:Common.Model;assembly=Common">
     <!--Control colors.-->
     <Color x:Key="WindowColor">#FFE8EDF9</Color>
     <Color x:Key="ContentAreaColorLight">#FFC5CBF9</Color>
@@ -170,9 +171,9 @@
         <ObjectDataProvider.ConstructorParameters>
             <system:String>tag1</system:String>
             <windows:ComponentRegistry>
-                <common:ComponentRegistration>
+                <model:ComponentRegistration>
                     <controls:TypedService Desc="MyService" />
-                </common:ComponentRegistration>
+                </model:ComponentRegistration>
             </windows:ComponentRegistry>
         </ObjectDataProvider.ConstructorParameters>
     </ObjectDataProvider>

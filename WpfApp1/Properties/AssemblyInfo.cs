@@ -2,6 +2,7 @@
 using System.Runtime.InteropServices ;
 using System.Windows ;
 using AppShared ;
+using AppShared.Attributes ;
 using KayMcCormick.Dev.Test.Metadata ;
 
 // General Information about an assembly is controlled through the following

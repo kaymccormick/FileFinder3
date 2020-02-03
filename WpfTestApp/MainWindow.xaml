@@ -9,6 +9,7 @@
         xmlns:types="clr-namespace:AppShared.Types;assembly=AppShared"
         xmlns:common="clr-namespace:Common;assembly=Common"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
+        xmlns:xaml="clr-namespace:AppShared.Xaml;assembly=AppShared"
         MinWidth="800"
         MinHeight="600"
         mc:Ignorable="d" FontSize="20"
@@ -22,7 +23,7 @@
                 </appShared:App.RenderedType>
             </controls:TypeControl>
         </DataTemplate>
-        <common:TestO LifetimeScope="{appShared:LifetimeScope}" x:Key="Test" />
+        <common:TestO LifetimeScope="{xaml:LifetimeScope}" x:Key="Test" />
         <types:ResolveServiceList x:Key="ResolveServices">
             <appShared:ResolveService ServiceType="{x:Type interfaces:IObjectIdProvider}">
                 <appShared:App.LifetimeScope>
@@ -47,7 +48,7 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
             <TextBlock Text="{Binding Path=Tag}" />
-            <TextBlock Text="{Binding Source={appShared:LifetimeScope}, Path=Tag}" />
+            <TextBlock Text="{Binding Source={xaml:LifetimeScope}, Path=Tag}" />
         </StackPanel>
         <TabControl Grid.Column="0" Grid.Row="1" Style="{StaticResource TabControlStyle1}">
             <TabItem Header="0">
@@ -111,12 +112,12 @@
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Object ID"
-                                                DisplayMemberBinding="{Binding Source={appShared:ObjectId
-                                LifetimeScope={appShared:LifetimeScope}}}" />
+                                                DisplayMemberBinding="{Binding Source={xaml:ObjectId
+                                LifetimeScope={xaml:LifetimeScope}}}" />
                                 <GridViewColumn Header="Service Type" DisplayMemberBinding="{Binding Path=ServiceType}" />
                                 <GridViewColumn Header="Tag" DisplayMemberBinding="{Binding Path=LifetimeScope.Tag}" />
                                 <GridViewColumn Header="Service Instance"
-                                                DisplayMemberBinding="{Binding ConverterParameter={appShared:LifetimeScope}, Converter={StaticResource MyConverter}}" />
+                                                DisplayMemberBinding="{Binding ConverterParameter={xaml:LifetimeScope}, Converter={StaticResource MyConverter}}" />
                             </GridView>
                         </ListView.View>
                     </ListView>

@@ -4,6 +4,7 @@ using System.Linq ;
 using System.Reflection ;
 using System.Windows ;
 using AppShared ;
+using AppShared.Attributes ;
 using AppShared.Interfaces ;
 using AppShared.Modules ;
 using Autofac ;
@@ -12,6 +13,7 @@ using Autofac.Core.Lifetime ;
 using Autofac.Extras.AttributeMetadata ;
 using Castle.DynamicProxy ;
 using Common.Logging ;
+using Common.Menus ;
 using NLog ;
 
 namespace Common.Utils

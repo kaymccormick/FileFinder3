@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:appShared="clr-namespace:AppShared;assembly=AppShared"
              xmlns:common="clr-namespace:Common"
+             xmlns:model="clr-namespace:Common.Model"
              mc:Ignorable="d"
              d:DesignHeight="150" d:DesignWidth="225">
     <UserControl.Resources>
@@ -47,7 +48,7 @@
         </Style>
     </UserControl.Resources>
     <Grid
-        DataContext="{Binding Path=(appShared:App.RenderedType),ElementName=userControl,FallbackValue={x:Type common:MenuItemList}}"
+        DataContext="{Binding Path=(appShared:App.RenderedType),ElementName=userControl,FallbackValue={x:Type model:MenuItemList}}"
         ShowGridLines="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />

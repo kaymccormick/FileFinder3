@@ -59,16 +59,13 @@ namespace TestLib
         /// </summary>
         public WpfTestsBase (
             WpfApplicationFixture fixture
-          , ContainerFixture      containerFixture
-          , ObjectIDFixture       objectIdFixture
+          , ContainerFixture containerFixture
           , UtilsContainerFixture utilsContainerFixture
-          , ITestOutputHelper     outputHelper
+          , ITestOutputHelper outputHelper
         )
         {
             _myServicesFixture = utilsContainerFixture.Container.Resolve < MyServicesFixture > ( ) ;
             Fixture            = fixture ?? throw new ArgumentNullException ( nameof ( fixture ) ) ;
-            ObjectIdFixture = objectIdFixture
-                              ?? throw new ArgumentNullException ( nameof ( objectIdFixture ) ) ;
             OutputHelper = outputHelper
                            ?? throw new ArgumentNullException ( nameof ( outputHelper ) ) ;
             _containerFixture = containerFixture
@@ -81,7 +78,7 @@ namespace TestLib
                                                                         ) ;
             // MyStack = InstanceFactory.CreateContextStack < InfoContext > ( ) ;
             bool firstTime ;
-            ObjectId = Generator.GetId ( this , out firstTime ) ;
+            // ObjectId = Generator.GetId ( this , out firstTime ) ;
             if ( Instances == null )
             {
                 Logger.Trace ( "Creating instances" ) ;
@@ -100,15 +97,13 @@ namespace TestLib
                 x.Name = $"Testing thread {GetType ( )}[{ObjectId:0,8x}]" ;
             }
 
-            Assert.True ( firstTime ) ;
         }
 
         public ILifetimeScope containerScope { get ; set ; }
 
         public WpfApplicationFixture Fixture { get ; }
 
-        public ObjectIDFixture ObjectIdFixture { get ; }
-
+        
         public ITestOutputHelper OutputHelper { get ; }
 
         [ ContextStackInstance ] public ContextStack < InfoContext > MyStack { get ; }
@@ -117,15 +112,12 @@ namespace TestLib
         [ UsedImplicitly ]
         public InfoContext.Factory InfoContextFactory => myServices.InfoContextFactory ;
 
-        public ObjectIDFixture.GetObjectIdDelegate GetObjIdFunc => ObjectIdFixture.GetObjectId ;
-
-        public ObjectIDGenerator Generator => ObjectIdFixture.Generator ;
-
+        
         private IComponentContext UtilsContainer => _utilsContainerFixture.Container ;
 
         protected IMyServices myServices => _myServicesFixture.MyServices ;
 
-        public InfoContext.Factory InstanceFactory => ObjectIdFixture.InstanceFactory ;
+        // public InfoContext.Factory InstanceFactory => ObjectIdFixture.InstanceFactory ;
 
         /// <summary>
         ///     Called immediately after the class has been created, before it is used.

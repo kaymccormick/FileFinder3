@@ -60,6 +60,7 @@
     <Compile Include="Converters\RegistrationConverterTests.cs" />
     <Compile Include="Converters\TestResolveServiceConverter.cs" />
     <Compile Include="TypeControlTests.cs" />
+    <Compile Include="WpfApplication.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac">

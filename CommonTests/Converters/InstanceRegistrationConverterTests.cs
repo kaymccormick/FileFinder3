@@ -6,14 +6,13 @@ using System.Linq ;
 using AppShared.Interfaces ;
 using Autofac ;
 using Autofac.Core ;
-using Common ;
 using Common.Converters ;
+using Common.Model ;
 using CommonTests.Fixtures ;
-using NLog ;
 using Xunit ;
 using Xunit.Abstractions ;
 
-namespace CommonTests
+namespace CommonTests.Converters
 {
     /// <summary>Test class for <see cref="InstanceRegistrationConverter"/></summary>
     /// <seealso cref="Xunit.IClassFixture{T}" />

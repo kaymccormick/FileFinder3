@@ -1,12 +1,12 @@
 using System ;
 using System.Collections.Generic ;
 using Autofac.Builder ;
-using Autofac.Core ;
 using Autofac.Core.Registration ;
 using Castle.DynamicProxy ;
+using Common.Model ;
 using NLog ;
 
-namespace Common
+namespace Common.Utils
 {
     /// <summary>Interceptor for Autofac container builder. Used for diagnostics.
     /// <seealso cref="Castle.DynamicProxy.IInterceptor" />

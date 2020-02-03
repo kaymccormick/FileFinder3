@@ -52,11 +52,13 @@ namespace TestLib.Fixtures
                                                                 )
                                                                )
                                      ) ;
-            var assembly = Application.Current.GetType().Assembly ;
-            Assert.True (
-                         Attribute.IsDefined ( assembly , typeof ( WpfTestApplicationAttribute ) )
-                        ) ;
-            _wpfApplicationHelper = new WpfApplicationHelper ( assembly ) ;
+            if ( Application.Current != null ) {
+                var assembly = Application.Current.GetType().Assembly ;
+                Assert.True (
+                             Attribute.IsDefined ( assembly , typeof ( WpfTestApplicationAttribute ) )
+                            ) ;
+                _wpfApplicationHelper = new WpfApplicationHelper ( assembly ) ;
+            }
         }
 
         /// <summary>Called immediately after the class has been created, before it is used.</summary>
@@ -66,7 +68,14 @@ namespace TestLib.Fixtures
         public Task InitializeAsync ( )
         {
             //Logger.Debug($"{nameof(InitializeAsync)}"  );
-            return _wpfApplicationHelper.InitializeAsync ( ) ;
+            if ( _wpfApplicationHelper != null )
+            {
+                return _wpfApplicationHelper.InitializeAsync ( ) ;
+            } else
+            {
+                return Task.CompletedTask ;
+
+            }
         }
 
         /// <summary>
@@ -77,7 +86,12 @@ namespace TestLib.Fixtures
         public Task DisposeAsync ( )
         {
             //Logger.Debug($"{nameof(InitializeAsync)}");
-            return _wpfApplicationHelper.DisposeAsync ( ) ;
+            if ( _wpfApplicationHelper != null )
+            {
+                return _wpfApplicationHelper.DisposeAsync ( ) ;
+            }
+
+            return Task.CompletedTask ;
         }
     }
 }

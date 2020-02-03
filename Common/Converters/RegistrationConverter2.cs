@@ -19,6 +19,7 @@ using AppShared ;
 using AppShared.Infos ;
 using Autofac.Core ;
 using Castle.DynamicProxy.Internal ;
+using Common.Model ;
 using NLog ;
 
 namespace Common.Converters

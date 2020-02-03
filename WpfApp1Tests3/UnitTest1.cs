@@ -1,6 +1,7 @@
 ﻿using System.Collections ;
 using Autofac.Core ;
 using Common ;
+using Common.Model ;
 using WpfApp1.Windows ;
 using Xunit ;
 

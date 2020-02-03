@@ -18,7 +18,7 @@ using CommonTests.Fixtures ;
 using Xunit ;
 using Xunit.Abstractions ;
 
-namespace CommonTests
+namespace CommonTests.Converters
 {
     /// <summary></summary>
     /// <seealso cref="Xunit.IClassFixture{CommonTests.Fixtures.ContainerFixture}" />

@@ -5,6 +5,7 @@ using System.Windows.Data ;
 using AppShared.Interfaces ;
 using Autofac ;
 using Autofac.Core ;
+using Common.Model ;
 using DynamicData.Kernel ;
 using JetBrains.Annotations ;
 using NLog ;

@@ -13,10 +13,10 @@ using AppShared.Interfaces ;
 using Autofac ;
 using Autofac.Extras.DynamicProxy ;
 using Common.Logging ;
-using Common.Menus ;
+using Common.Model ;
 using Module = Autofac.Module ;
 
-namespace Common
+namespace Common.Menus
 {
 	/// <summary>Autofac module supporting menu system.</summary>
 	/// <seealso cref="Autofac.Module" />

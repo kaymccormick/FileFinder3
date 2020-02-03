@@ -1,14 +1,8 @@
-﻿using Xunit;
-using WpfApp1.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Common.Context ;
+﻿using Common.Context ;
 using NLog ;
+using Xunit ;
 
-namespace WpfApp1.AttributesTests3
+namespace WpfApp1Tests3.Attributes
 {
 	public class PushContextAttributeTests
 	{

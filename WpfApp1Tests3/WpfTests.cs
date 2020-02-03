@@ -18,18 +18,16 @@ namespace WpfApp1Tests3
     /// 
     /// </summary>
     [ Collection ( "WpfApp" ) ]
-    public class WpfTests : TestLib.WpfTestsBase
+    public class WpfTests : WpfTestsBase
     {
         public WpfTests (
             WpfApplicationFixture fixture
-          , ContainerFixture      containerFixture
-          , ObjectIDFixture       objectIdFixture
+          , ContainerFixture containerFixture
           , UtilsContainerFixture utilsContainerFixture
-          , ITestOutputHelper     outputHelper
+          , ITestOutputHelper outputHelper
         ) : base (
                   fixture
                 , containerFixture
-                , objectIdFixture
                 , utilsContainerFixture
                 , outputHelper
                  )

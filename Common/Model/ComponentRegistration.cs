@@ -17,7 +17,7 @@ using AppShared.Infos ;
 using Autofac ;
 using Autofac.Core ;
 
-namespace Common
+namespace Common.Model
 {
     /// <summary></summary>
     /// <seealso cref="Autofac.Core.IComponentRegistration" />
