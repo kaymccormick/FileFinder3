@@ -97,7 +97,7 @@
     <Compile Include="Registrations.xaml.cs">
       <DependentUpon>Registrations.xaml</DependentUpon>
     </Compile>
-  <Compile Include="ResourcesView.xaml.cs">
+    <Compile Include="ResourcesView.xaml.cs">
       <DependentUpon>ResourcesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="TypeControl.xaml.cs">
@@ -149,11 +149,10 @@
       <Project>{42288D17-ED17-4F2F-9EA3-C3E64D5302BF}</Project>
       <Name>Common</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Autofac">
-      <Version>5.0.0</Version>
-    </PackageReference>
+    <ProjectReference Include="..\Logging\Logging.csproj">
+      <Project>{b90266cb-3f2c-496b-8975-174c4bfab39f}</Project>
+      <Name>Logging</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

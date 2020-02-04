@@ -45,9 +45,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Autofac">
-      <Version>5.0.0</Version>
-    </PackageReference>
+    <ProjectReference Include="..\..\..\..\NLog\src\NLog\NLog.csproj">
+      <Project>{a0bff0db-ed9a-4639-ae86-8e709a1efc66}</Project>
+      <Name>NLog</Name>
+    </ProjectReference>
   </ItemGroup>
   <Target Name="test" DependsOnTargets="build">
   </Target>

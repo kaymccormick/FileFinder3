@@ -15,7 +15,7 @@
     </DataTemplate>
     <ControlTemplate x:Key="MenuItemWithChildrenHeaderTemplate">
     </ControlTemplate>
-    <DataTemplate x:Key="Menu_ItemTemplateNoChildren" DataType="{x:Type interfaces:IMenuItem}">
+    <DataTemplate x:Key="Menu_ItemTemplateNoChildren" DataType="{x:Type menus1:XMenuItem}">
         <MenuItem Header="{Binding Header}" Command="{Binding Command}"
                   CommandParameter="{Binding CommandParameter}"
                   CommandTarget="{Binding CommandTarget}" />
