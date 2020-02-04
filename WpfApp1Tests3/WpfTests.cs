@@ -24,7 +24,7 @@ namespace WpfApp1Tests3
     {
         public WpfTests (
             WpfApplicationFixture fixture
-          , ContainerFixture containerFixture
+          , AppContainerFixture containerFixture
           , UtilsContainerFixture utilsContainerFixture
           , ITestOutputHelper outputHelper
         ) : base (
@@ -51,13 +51,17 @@ namespace WpfApp1Tests3
             var menuItemList = containerScope.Resolve < IMenuItemList > ( ) ;
             Assert.NotNull ( menuItemList ) ;
             Assert.NotEmpty ( menuItemList ) ;
-            Fixture.MyApp.Resources[ "MyMenuItemList" ] = menuItemList ;
-            var found = Fixture.MyApp.FindResource ( "MyMenuItemList" ) ;
-            Assert.NotNull ( found ) ;
-            var x = string.Join ( ", " , menuItemList.First ( ).Children ) ;
-            Logger.Debug ( $"found {found}, {x}" ) ;
 
-            var uri = new Uri ( Fixture.BasePackUri , Resources.MenuResourcesPath ) ;
+            if ( Fixture.MyApp != null )
+            {
+                Fixture.MyApp.Resources[ "MyMenuItemList" ] = menuItemList ;
+                var found = Fixture.MyApp.FindResource ( "MyMenuItemList" ) ;
+                Assert.NotNull ( found ) ;
+                var x = string.Join ( ", " , menuItemList.First ( ).Children ) ;
+                Logger.Debug ( $"found {found}, {x}" ) ;
+            }
+
+            var uri = new Uri ( Fixture.BasePackUri , ResourcesPaths.MenuResourcesPath ) ;
             Logger.Debug ( $"{uri}" ) ;
 
             var stream = Application.GetResourceStream ( uri ) ;

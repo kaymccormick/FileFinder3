@@ -2,6 +2,7 @@
 using System.Text ;
 using System.Windows.Markup ;
 using Common.Logging ;
+using Logging ;
 using Xunit ;
 
 namespace AppSharedTests

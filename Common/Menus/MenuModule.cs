@@ -9,11 +9,16 @@
 // 
 // ---
 #endregion
+using System.Collections.Generic ;
+using System.Linq ;
+using System.Reflection ;
 using AppShared.Interfaces ;
 using Autofac ;
+using Autofac.Builder ;
 using Autofac.Extras.DynamicProxy ;
 using Common.Logging ;
 using Common.Model ;
+using Common.Utils ;
 using Module = Autofac.Module ;
 
 namespace Common.Menus
@@ -32,24 +37,33 @@ namespace Common.Menus
         /// registered.</param>
         protected override void Load ( ContainerBuilder builder )
         {
-            builder.RegisterAssemblyTypes ( ThisAssembly )
+            bool intercept = ( bool ) builder.Properties[ ContainerHelper.InterceptProperty ] ;
+            var ass =
+                builder.Properties[ ContainerHelper.AssembliesForScanningProperty ] as
+                    ICollection<Assembly > ;
+            builder.RegisterAssemblyTypes ( ass.ToArray())
                    .Where ( predicate : t => typeof ( ITopLevelMenu ).IsAssignableFrom ( c : t ) )
         
-           .As < ITopLevelMenu > ( ) ;
+                   .As < ITopLevelMenu > ( ) ;
             #region Menu Item Lists
-            builder.RegisterType < MenuItemList > ( )
+            
+            
+            var q = builder.RegisterType < MenuItemList > ( )
                    //.AsImplementedInterfaces ( )
                    .WithMetadata < 
                         ResourceMetadata
                     > ( configurationAction : m => m.For ( propertyAccessor : rn => rn.ResourceName , value : "MenuItemList" ) )
                    .PreserveExistingDefaults ( )
-                  .As<IMenuItemList>()
-                   .EnableInterfaceInterceptors ( )
+                  .As<IMenuItemList>();
+            if(intercept)
+                q.EnableInterfaceInterceptors ( )
                    .InterceptedBy ( typeof ( LoggingInterceptor ) ) ;
-            builder.RegisterType < XMenuItem > ( )
+            var y = builder.RegisterType < XMenuItem > ( )
                    .As<IMenuItem> (  )
-//			       .AsImplementedInterfaces ( )
-                   .PreserveExistingDefaults ( )
+			       .AsImplementedInterfaces ( )
+                   .PreserveExistingDefaults ( );
+                if(intercept)
+                    y
                    .EnableInterfaceInterceptors ( )
                    .InterceptedBy ( typeof ( LoggingInterceptor ) ) ;
             #endregion

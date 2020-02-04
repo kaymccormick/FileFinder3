@@ -34,8 +34,22 @@ namespace TestLib.Fixtures
         /// TODO Edit XML Comment Template for MyApp
         public Application MyApp
         {
-            get => _wpfApplicationHelper.MyApp ;
-            set => _wpfApplicationHelper.MyApp = value ;
+            get
+            {
+                if ( _wpfApplicationHelper != null )
+                {
+                    return _wpfApplicationHelper.MyApp;
+                }
+
+                return null ;
+            }
+            set
+            {
+                if ( _wpfApplicationHelper != null )
+                {
+                    _wpfApplicationHelper.MyApp = value ;
+                }
+            }
         }
 
         /// <summary>

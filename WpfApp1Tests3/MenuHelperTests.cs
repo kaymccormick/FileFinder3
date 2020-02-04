@@ -27,7 +27,7 @@ namespace WpfApp1Tests3
         /// </summary>
         public MenuHelperTests (
             WpfApplicationFixture fixture
-          , ContainerFixture containerFixture
+          , AppContainerFixture containerFixture
           , UtilsContainerFixture utilsContainerFixture
           , ITestOutputHelper outputHelper
         ) : base (

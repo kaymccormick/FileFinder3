@@ -82,11 +82,7 @@
     </LinearGradientBrush>
     <DataTemplate DataType="autofac:TypedParameter">
         <WrapPanel>
-            <controls1:TypeControl BorderBrush="BlueViolet" BorderThickness="3">
-                <appShared:App.RenderedType>
-                    <Binding Path="Type" />
-                </appShared:App.RenderedType>
-            </controls1:TypeControl>
+            
             <Label Content="{Binding Value}" />
         </WrapPanel>
     </DataTemplate>

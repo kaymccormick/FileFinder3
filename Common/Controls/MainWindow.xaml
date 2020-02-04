@@ -4,12 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:appShared="clr-namespace:AppShared;assembly=AppShared"
-        xmlns:controls="clr-namespace:Common.Controls;assembly=Common"
         xmlns:interfaces="clr-namespace:AppShared.Interfaces;assembly=AppShared"
         xmlns:types="clr-namespace:AppShared.Types;assembly=AppShared"
         xmlns:common="clr-namespace:Common;assembly=Common"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:xaml="clr-namespace:AppShared.Xaml;assembly=AppShared"
+        xmlns:controls="clr-namespace:Common.Controls"
         MinWidth="800"
         MinHeight="600"
         mc:Ignorable="d" FontSize="20"
@@ -23,7 +23,7 @@
                 </appShared:App.RenderedType>
             </controls:TypeControl>
         </DataTemplate>
-        <common:TestO LifetimeScope="{xaml:LifetimeScope}" x:Key="Test" />
+        
         <types:ResolveServiceList x:Key="ResolveServices">
             <appShared:ResolveService ServiceType="{x:Type interfaces:IObjectIdProvider}">
                 <appShared:App.LifetimeScope>

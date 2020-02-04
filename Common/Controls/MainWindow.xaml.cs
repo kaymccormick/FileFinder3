@@ -23,10 +23,10 @@ namespace Common.Controls
         {
             InitializeComponent ( );
 
-            SetValue (
-                      AppShared.App.LifetimeScopeProperty
-                    , ( Application.Current as App )?.LifetimeScope
-                     ) ;
+            // SetValue (
+                      // AppShared.App.LifetimeScopeProperty
+                    // , ( Application.Current as App )?.LifetimeScope
+                     // ) ;
             try
             {
                 if ( TryFindResource ( "ResolveServices" ) is ResolveServiceList resolveServiceList )

@@ -11,13 +11,13 @@
 #endregion
 using Castle.DynamicProxy ;
 
-namespace Common.Logging
+namespace Logging
 {
     public class LogFactoryInterceptor : IInterceptor
     {
         public LogFactoryInterceptor (
             ProxyGenerator              generator
-          , LoggerProxyHelper.LogMethod useLogMethod
+          , LogDelegates.LogMethod useLogMethod
         )
         {
             Generator    = generator ;
@@ -26,7 +26,7 @@ namespace Common.Logging
 
         public ProxyGenerator Generator { get ; }
 
-        public LoggerProxyHelper.LogMethod UseLogMethod { get ; }
+        public LogDelegates.LogMethod UseLogMethod { get ; }
 
         /// <summary>Intercepts the specified invocation.</summary>
         /// <param name="invocation">The invocation.</param>

@@ -1,7 +1,7 @@
 ﻿using NLog ;
 using NLog.Config ;
 
-namespace Common.Logging
+namespace Logging
 {
 	public class CodeConfiguration : LoggingConfiguration
 	{

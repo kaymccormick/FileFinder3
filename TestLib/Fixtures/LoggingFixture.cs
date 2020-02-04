@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics ;
 using Common.Logging ;
 using JetBrains.Annotations ;
+using Logging ;
 using Xunit.Abstractions ;
 using Xunit.Sdk ;
 

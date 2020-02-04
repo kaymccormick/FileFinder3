@@ -1,3 +1,4 @@
+#if LOG
 using System ;
 using System.Collections.Generic ;
 using System.Diagnostics ;
@@ -75,7 +76,7 @@ namespace Common.Logging
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		internal static LoggingConfiguration ConfigureLogging (
-			LoggerProxyHelper.LogMethod logMethod,
+			LogDelegates.LogMethod logMethod,
 			bool proxyLogging = false
 		)
 		{
@@ -231,7 +232,7 @@ namespace Common.Logging
 
 		public static void EnsureLoggingConfigured (
 			bool                        b
-		  , LoggerProxyHelper.LogMethod logMethod
+		  , LogDelegates.LogMethod logMethod
 		  , [ CallerFilePath ] string   callerFilePath = null
 		)
 		{
@@ -416,3 +417,4 @@ namespace Common.Logging
 		// public static  Func < bool > EnsureLoggingConfigured = () => true ;
 	}
 }
+#endif

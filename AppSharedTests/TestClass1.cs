@@ -2,6 +2,7 @@
 using AppShared.Infos ;
 using Common.Context ;
 using Common.Logging ;
+using Logging ;
 using NLog ;
 using NLog.Fluent ;
 using Xunit ;

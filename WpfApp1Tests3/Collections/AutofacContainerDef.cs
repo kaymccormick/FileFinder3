@@ -5,7 +5,7 @@ using Xunit ;
 namespace WpfApp1Tests3.Collections
 {
 	[ CollectionDefinition ( "AutofacContainer" ) ]
-	internal class AutofacContainerDef : ICollectionFixture < ContainerFixture >
+	internal class AutofacContainerDef : ICollectionFixture < AppContainerFixture >
 	  , ICollectionFixture < LoggingFixture >
 	{
 	}

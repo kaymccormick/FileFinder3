@@ -67,7 +67,7 @@ namespace WpfApp1.Application
 
         public ILogger Logger { get ; set ; }
 
-        public LoggerProxyHelper.LogMethod DoLogMethod { get ; set ; }
+        public LogDelegates.LogMethod DoLogMethod { get ; set ; }
 
 
         public TaskCompletionSource < int > TCS { get ; set ; }

@@ -54,6 +54,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppContainerFixture.cs" />
     <Compile Include="Controls\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -93,13 +94,9 @@
     <Compile Include="Exceptions\InfoContextFactoryAttribute.cs" />
     <Compile Include="Model\InstanceRegistration.cs" />
     <Compile Include="Logging\AppLogger.cs" />
-    <Compile Include="Logging\LogFactoryInterceptor.cs" />
-    <Compile Include="Logging\LoggerInterceptor.cs" />
-    <Compile Include="Logging\LoggerProxyHelper.cs" />
     <Compile Include="Logging\LoggingEntityMetadataAttribute.cs" />
     <Compile Include="Logging\LoggingInterceptor.cs" />
     <Compile Include="Logging\AppLoggingConfigHelper.cs" />
-    <Compile Include="Logging\CodeConfiguration.cs" />
     <Compile Include="Logging\LoggerTracker.cs" />
     <Compile Include="Model\MenuItemList.cs" />
     <Compile Include="Menus\MenuModule.cs" />
@@ -186,6 +183,10 @@
     <ProjectReference Include="..\..\AppShared\AppShared\AppShared.csproj">
       <Project>{c4c404ae-0214-481b-ab46-708abd99af9c}</Project>
       <Name>AppShared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Logging\Logging.csproj">
+      <Project>{B90266CB-3F2C-496B-8975-174C4BFAB39F}</Project>
+      <Name>Logging</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

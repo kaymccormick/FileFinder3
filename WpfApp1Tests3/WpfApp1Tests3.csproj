@@ -100,7 +100,7 @@
     <Compile Include="MyService.cs" />
     <Compile Include="ProvideValueTarget.cs" />
     <Compile Include="RandomXaml.cs" />
-    <Compile Include="Resources.cs" />
+    <Compile Include="ResourcesPaths.cs" />
     <Compile Include="ServiceProviderProxy.cs" />
     <Compile Include="TestIDGeneratorModule.cs" />
     <Compile Include="TestResources.Designer.cs">
@@ -131,6 +131,10 @@
     <ProjectReference Include="..\KayMcCormick.Dev.Test.Metadata\KayMcCormick.Dev.Test.Metadata.csproj">
       <Project>{CF1DCCEF-3324-45A2-A194-4A7B768E2291}</Project>
       <Name>KayMcCormick.Dev.Test.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Logging\Logging.csproj">
+      <Project>{B90266CB-3F2C-496B-8975-174C4BFAB39F}</Project>
+      <Name>Logging</Name>
     </ProjectReference>
     <ProjectReference Include="..\TestLib\TestLib.csproj">
       <Project>{87EAA0AA-C33B-4F8E-9B7A-C01204A22C44}</Project>
