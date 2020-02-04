@@ -97,7 +97,7 @@
                 </controls:Registrations>
             </TabItem>
             <TabItem Header="Y">
-                <StackPanel DataContext="{StaticResource Test}">
+                <StackPanel>
                     <TextBlock Text="{Binding Path=LifetimeScope.Tag}" />
                 </StackPanel>
             </TabItem>

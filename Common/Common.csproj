@@ -58,6 +58,9 @@
     <Compile Include="Controls\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\TypePage.xaml.cs">
+      <DependentUpon>TypePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utils\BuilderInterceptor.cs" />
     <Compile Include="Model\ComponentRegistration.cs" />
     <Compile Include="Context\ContextStackInstanceAttribute.cs" />
@@ -148,6 +151,10 @@
     <Page Include="Controls\TypeNavigator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\TypePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Resources\Templates.xaml">
       <Generator>MSBuild:Compile</Generator>
