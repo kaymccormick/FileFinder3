@@ -266,6 +266,10 @@
       <Project>{cf1dccef-3324-45a2-a194-4a7b768e2291}</Project>
       <Name>KayMcCormick.Dev.Test.Metadata</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Logging\Logging.csproj">
+      <Project>{B90266CB-3F2C-496B-8975-174C4BFAB39F}</Project>
+      <Name>Logging</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\explorer_252.ico" />

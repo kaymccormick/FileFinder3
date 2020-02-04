@@ -144,20 +144,20 @@ namespace WpfApp1Tests3
         // [ WpfFact , AppInitialize , Trait ( "VS" , "false" ) ]
         public void ResolveMainWindow ( )
         {
-            if ( Attribute.GetCustomAttribute (
-                                               GetType ( )
-                                                  .GetMethod (
-                                                              nameof (
-                                                                  ResolveMainWindow
-                                                              )
-                                                             ) ?? throw new InvalidOperationException ( )
-                                             , typeof ( AppInitializeAttribute )
-                                              ) is AppInitializeAttribute customAttribute )
-            {
-                customAttribute.MyApp = WpfApplicationFixture.MyApp as App ;
-            }
+            // if ( Attribute.GetCustomAttribute (
+            //                                    GetType ( )
+            //                                       .GetMethod (
+            //                                                   nameof (
+            //                                                       ResolveMainWindow
+            //                                                   )
+                                                             // ) ?? throw new InvalidOperationException ( )
+            //                                  , typeof ( AppInitializeAttribute )
+            //                                   ) is AppInitializeAttribute customAttribute )
+            // {
+            //     customAttribute.MyApp = WpfApplicationFixture.MyApp as App ;
+            // }
 
-            Assert.NotNull ( WpfApplicationFixture ) ;
+            // Assert.NotNull ( WpfApplicationFixture ) ;
             // Assert.NotNull ( WpfApplicationFixture.BasePackUri ) ;
             // var uri = new Uri ( WpfApplicationFixture.BasePackUri , "Application/App.xaml" ) ;
             // Logger.Info ( uri ) ;
@@ -165,7 +165,7 @@ namespace WpfApp1Tests3
             // foreach ( DictionaryEntry resource in ( WpfApplicationFixture.MyApp as App ).Resources )
             // {
             // 	Logger.Info ( $"{resource.Key}" ) ;
-            // }
+            // } 
 
             var c = ContainerHelper.SetupContainer ( out _ ) ;
             var mainWindow = c.Resolve < MainWindow > ( ) ;

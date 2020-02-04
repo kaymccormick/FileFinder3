@@ -1,5 +1,6 @@
 ﻿using System.Linq ;
 using Common.Logging ;
+using Logging ;
 using NLog.Config ;
 using LogManager = NLog.LogManager ;
 

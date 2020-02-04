@@ -2,6 +2,7 @@
 using System.Windows.Markup ;
 using System.Xaml ;
 using Common.Logging ;
+using Logging ;
 using NLog ;
 using LogManager = NLog.LogManager ;
 

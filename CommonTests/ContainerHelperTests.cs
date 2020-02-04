@@ -133,15 +133,15 @@ namespace CommonTests
         //Trait("VS", "false")]
         private void ResolveMainWindow ( )
         {
-            var customAttribute = Attribute.GetCustomAttribute (
-                                                                GetType ( )
-                                                                   .GetMethod (
-                                                                               nameof (
-                                                                                   ResolveMainWindow
-                                                                               )
-                                                                              )
-                                                              , typeof ( AppInitializeAttribute )
-                                                               ) as AppInitializeAttribute ;
+            // var customAttribute = Attribute.GetCustomAttribute (
+            //                                                     GetType ( )
+            //                                                        .GetMethod (
+            //                                                                    nameof (
+            //                                                                        ResolveMainWindow
+            //                                                                    )
+            //                                                                   )
+            //                                                   , typeof ( AppInitializeAttribute )
+            //                                                    ) as AppInitializeAttribute ;
 
             // customAttribute.MyApp = WpfApplicationFixture.MyApp as App ;
 

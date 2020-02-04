@@ -1,6 +1,7 @@
 ﻿using AppShared.Modules ;
 using Autofac ;
 using Common.Logging ;
+using Logging ;
 
 namespace CommonTests.Fixtures
 {

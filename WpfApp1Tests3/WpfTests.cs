@@ -5,6 +5,7 @@ using System.Windows.Baml2006 ;
 using System.Windows.Markup ;
 using AppShared.Interfaces ;
 using Autofac ;
+using AutoFixture ;
 using NLog ;
 using TestLib ;
 using TestLib.Attributes ;
@@ -41,7 +42,7 @@ namespace WpfApp1Tests3
 
         private void DoLog ( string test )
         {
-            LB ( ).Level ( LogLevel.Trace ).Message ( test ).Write ( ) ;
+            // LB ( ).Level ( LogLevel.Trace ).Message ( test ).Write ( ) ;
         }
 
         [ Fact ]
@@ -89,6 +90,7 @@ namespace WpfApp1Tests3
                 stack.Pop ( ) ;
             }
         }
+
     }
 
 #pragma warning disable 1591

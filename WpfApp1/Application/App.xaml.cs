@@ -20,6 +20,7 @@ using Common.Converters ;
 using Common.Logging ;
 using Common.Utils ;
 using DynamicData.Annotations ;
+using Logging ;
 using NLog ;
 using Vanara.Extensions.Reflection ;
 using WpfApp1.Windows ;

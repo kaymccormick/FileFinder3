@@ -54,7 +54,6 @@
     <Compile Include="Class1.cs" />
     <Compile Include="ContainerHelperTests.cs" />
     <Compile Include="Converters\TestConverterEnumeration.cs" />
-    <Compile Include="Fixtures\MyServicesFixture.cs" />
     <Compile Include="Fixtures\testContainerFixture.cs" />
     <Compile Include="IMyServices.cs" />
     <Compile Include="LogConfigTest.cs" />

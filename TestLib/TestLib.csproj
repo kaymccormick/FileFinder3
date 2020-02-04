@@ -55,6 +55,7 @@
     <Compile Include="Fixtures\LoggingFixture.cs" />
     <Compile Include="Fixtures\WpfApplicationFixture.cs" />
     <Compile Include="Fixtures\WpfApplicationHelper.cs" />
+    <Compile Include="Fixture\MyServicesFixture.cs" />
     <Compile Include="IMyServices.cs" />
     <Compile Include="MyServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

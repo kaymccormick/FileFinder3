@@ -2,6 +2,7 @@
 using AppShared ;
 using AppShared.Infos ;
 using Autofac ;
+using TestLib.Fixture ;
 using TestLib.Fixtures ;
 
 namespace TestLib
