@@ -1,4 +1,4 @@
-﻿<UserControl Name="userControl" x:Class="Common.Controls.TypeNavigator"
+﻿<UserControl Name="userControl" x:Class="WpfControlLibrary1.TypeNavigator"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,12 +6,14 @@
              xmlns:local="clr-namespace:Common.Controls"
              xmlns:appShared="clr-namespace:AppShared;assembly=AppShared"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:controls="clr-namespace:Controls"
+             xmlns:wpfControlLibrary1="clr-namespace:WpfControlLibrary1"
              mc:Ignorable="d" 
              d:DesignHeight="180" d:DesignWidth="300">
     <DockPanel>
-        <local:TypeControl Detailed="False" Target="{Binding ElementName=TypeNavigationFrame}"  DockPanel.Dock="Top">
+        <wpfControlLibrary1:TypeControl Detailed="False" Target="{Binding ElementName=TypeNavigationFrame}"  DockPanel.Dock="Top">
             <appShared:App.RenderedType><Binding ElementName="userControl" Path="(appShared:App.RenderedType)" FallbackValue="{x:Type system:String}"/></appShared:App.RenderedType>
-        </local:TypeControl>
-        <Frame Name="TypeNavigationFrame" Source="DefaultPage.xaml"></Frame>
+        </wpfControlLibrary1:TypeControl>
+        <Frame Name="TypeNavigationFrame" Source="../Controls/DefaultPage.xaml"></Frame>
     </DockPanel>
 </UserControl>

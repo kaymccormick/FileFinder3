@@ -90,7 +90,6 @@
   <ItemGroup>
     <Compile Include="Attributes\IDGeneratorAttribute.cs" />
     <Compile Include="Attributes\PushContextAttributeTests.cs" />
-    <Compile Include="Collections\AutofacContainerDef.cs" />
     <Compile Include="ContainerHelperTests2.cs" />
     <Compile Include="DumpHelper.cs" />
     <Compile Include="Fixtures\CombinedFixture.cs" />

@@ -1,4 +1,6 @@
-﻿using System.Reflection ;
+﻿using System ;
+using System.Diagnostics ;
+using System.Reflection ;
 using NLog ;
 using Xunit.Sdk ;
 
@@ -31,8 +33,15 @@ namespace TestLib.Attributes
         {
             if ( methodUnderTest.DeclaringType != null )
             {
-                LogManager.GetLogger ( methodUnderTest.DeclaringType.ToString ( ) )
-                          .Info ( $"{nameof ( Before )} test method {methodUnderTest.Name}" ) ;
+                try
+                {
+                    LogManager.GetLogger ( methodUnderTest.DeclaringType.ToString ( ) )
+                              .Info ( $"{nameof ( Before )} test method {methodUnderTest.Name}" ) ;
+                } catch(Exception ex)
+                {
+                    Debug.WriteLine ( ex.ToString ( ) ) ;
+                    
+                }
             }
         }
     }

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls ;
 
-namespace Common.Controls
+namespace WpfControlLibrary1
 {
 	/// <summary>
 	///     Interaction logic for TypeControl2.xaml

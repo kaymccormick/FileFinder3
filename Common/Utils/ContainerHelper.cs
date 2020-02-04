@@ -23,10 +23,15 @@ namespace Common.Utils
     /// </summary>
     public static class ContainerHelper
     {
-        public const string AssembliesForScanningProperty = "AssembliesForScanning";
-        internal static readonly ProxyGenerator ProxyGenerator = new ProxyGenerator ( ) ;
+        public const string AssembliesForScanningProperty =
+            "AssembliesForScanning" ;
 
-        private static readonly Logger Logger = LogManager.GetLogger ( "ContainerHelper" ) ;
+        internal static readonly ProxyGenerator ProxyGenerator =
+            new ProxyGenerator ( ) ;
+
+        private static readonly Logger Logger =
+            LogManager.GetLogger ( "ContainerHelper" ) ;
+
         public const string InterceptProperty = "Intercept" ;
 
         /// <summary>Setups the container.</summary>
@@ -74,7 +79,7 @@ namespace Common.Utils
             var toScan = assembliesToScan as Assembly[] ?? assembliesToScan.ToArray ( ) ;
 
 
-            builder.Properties[AssembliesForScanningProperty] = GetAssembliesForScanning ( ) ;
+            builder.Properties[ AssembliesForScanningProperty ] = GetAssembliesForScanning ( ) ;
             #region Autofac Modules
             builder.RegisterModule < AttributedMetadataModule > ( ) ;
             builder.RegisterModule < MenuModule > ( ) ;
@@ -104,6 +109,9 @@ namespace Common.Utils
             #endregion
 
             #region Assembly scanning
+            builder.RegisterAssemblyTypes ( toScan )
+                   .Where ( MainScanningPredicate )
+                   .AsImplementedInterfaces ( ) ;
             builder.RegisterAssemblyTypes ( toScan.ToArray ( ) )
                    .Where (
                            delegate ( Type t ) {
@@ -225,6 +233,11 @@ namespace Common.Utils
             //return CreateChildLifetimeContext ( setupContainer ) ;
         }
 
+        private static bool MainScanningPredicate ( Type arg )
+        {
+            return typeof ( ITabGuest ).IsAssignableFrom ( arg ) ;
+        }
+
         public static bool DoInterception { get ; set ; }
 
         private static void TraceConditionalRegistration (
@@ -263,16 +276,14 @@ namespace Common.Utils
         // ReSharper disable once AutoPropertyCanBeMadeGetOnly.Global
         public static bool DoProxyBuilder { get ; set ; } = false ;
 
-        public static ICollection< Assembly > GetAssembliesForScanning ( )
+        public static ICollection < Assembly > GetAssembliesForScanning ( )
         {
             if ( GetAssembliesViaReferences )
             {
                 return GetAssembliesForScanningByReferences ( ) ;
-            } else
-            {
-                return GetAssembliesForScanningViaTypes ( ) ;
-
             }
+
+            return GetAssembliesForScanningViaTypes ( ) ;
         }
 
         public static bool GetAssembliesViaReferences { get ; set ; }
@@ -413,13 +424,13 @@ namespace Common.Utils
                     Logger.Debug ( rf.LimitType.ToString ( ) ) ;
                     var x = new DelegateActivator (
                                                    rf.LimitType
-                             , ( context , parameters ) => {
+                         , ( context , parameters ) => {
                                                        Logger.Debug (
                                                                      "delegate activation of reflection component success."
                                                                     ) ;
                                                        var r = rf.ActivateInstance (
                                                                                     context
-                                                              , parameters
+                                                          , parameters
                                                                                    ) ;
                                                        Logger.Debug ( "got " + r ) ;
                                                        if ( r is IHaveLogger haveLogger )
@@ -439,7 +450,7 @@ namespace Common.Utils
                                                                                                                     typeof
                                                                                                                     ( Type
                                                                                                                     )
-                                                                                              , r
+                                                                                          , r
                                                                                                                        .GetType ( )
                                                                                                                    )
                                                                                                ) ;
@@ -453,18 +464,18 @@ namespace Common.Utils
                     IComponentRegistration componentRegistration = new ComponentRegistration (
                                                                                               Guid
                                                                                                  .NewGuid ( )
-                                                                        , x
-                                                                        , componentRegistryRegistration
+                                                                    , x
+                                                                    , componentRegistryRegistration
                                                                                                  .Lifetime
-                                                                        , componentRegistryRegistration
+                                                                    , componentRegistryRegistration
                                                                                                  .Sharing
-                                                                        , componentRegistryRegistration
+                                                                    , componentRegistryRegistration
                                                                                                  .Ownership
-                                                                        , componentRegistryRegistration
+                                                                    , componentRegistryRegistration
                                                                                                  .Services
-                                                                        , componentRegistryRegistration
+                                                                    , componentRegistryRegistration
                                                                                                  .Metadata
-                                                                        , componentRegistryRegistration
+                                                                    , componentRegistryRegistration
                                                                                              ) ;
 
                     Logger.Debug ( "wrapping reflection with delegate" ) ;
@@ -490,11 +501,11 @@ namespace Common.Utils
                         {
                             var x = new DelegateActivator (
                                                            d.LimitType
-                                     , ( context , parameters ) => {
+                                 , ( context , parameters ) => {
                                                                Logger.Debug ( "activating !!" ) ;
                                                                var r = d.ActivateInstance (
                                                                                            context
-                                                                     , parameters
+                                                                 , parameters
                                                                                           ) ;
                                                                Logger.Debug ( "got " + r ) ;
                                                                return r ;
@@ -505,13 +516,13 @@ namespace Common.Utils
                             IComponentRegistration componentRegistration =
                                 new ComponentRegistration (
                                                            Guid.NewGuid ( )
-                                     , x
-                                     , componentRegistryRegistration.Lifetime
-                                     , componentRegistryRegistration.Sharing
-                                     , componentRegistryRegistration.Ownership
-                                     , componentRegistryRegistration.Services
-                                     , componentRegistryRegistration.Metadata
-                                     , componentRegistryRegistration
+                                 , x
+                                 , componentRegistryRegistration.Lifetime
+                                 , componentRegistryRegistration.Sharing
+                                 , componentRegistryRegistration.Ownership
+                                 , componentRegistryRegistration.Services
+                                 , componentRegistryRegistration.Metadata
+                                 , componentRegistryRegistration
                                                           ) ;
 
 
@@ -550,7 +561,7 @@ namespace Common.Utils
             Logger.Debug ( $"{limitTypeAssembly.GetName ( )}" ) ;
             if ( AssemblyName.ReferenceMatchesDefinition (
                                                           limitTypeAssembly.GetName ( )
-                                    , Assembly
+                                , Assembly
                                                          .GetExecutingAssembly ( )
                                                          .GetName ( )
                                                          ) )

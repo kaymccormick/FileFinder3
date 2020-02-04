@@ -14,9 +14,11 @@ using System.Windows.Threading ;
 using AppShared ;
 using Common.Controls ;
 using Common.Logging ;
+using Controls ;
 using NLog ;
 using TestLib.Attributes ;
 using TestLib.Fixtures ;
+using WpfControlLibrary1 ;
 using Xunit ;
 using Xunit.Abstractions ;
 

@@ -109,6 +109,10 @@
       <Project>{87EAA0AA-C33B-4F8E-9B7A-C01204A22C44}</Project>
       <Name>TestLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WpfControlLibrary1\WpfControlLibrary1.csproj">
+      <Project>{A97863F6-A13C-4538-ADBC-159FB4C4BEB2}</Project>
+      <Name>WpfControlLibrary1</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

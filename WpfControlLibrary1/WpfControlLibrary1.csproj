@@ -4,20 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4C14D792-55EF-4233-8E80-77DDA370985F}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
-    <RootNamespace>WpfTestApp</RootNamespace>
-    <AssemblyName>WpfTestApp</AssemblyName>
+    <ProjectGuid>{A97863F6-A13C-4538-ADBC-159FB4C4BEB2}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <RootNamespace>WpfControlLibrary1</RootNamespace>
+    <AssemblyName>WpfControlLibrary1</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -25,10 +22,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\WpfTestApp.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -56,28 +51,71 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <Page Include="AssemblyBrowser.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Page>
+    <Page Include="DefaultPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Registrations.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ResourcesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TypeControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TypeControl2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TypeNavigator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TypePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControl1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="AssemblyBrowser.xaml.cs">
+      <DependentUpon>AssemblyBrowser.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TypeNavWindow.xaml.cs">
-      <DependentUpon>TypeNavWindow.xaml</DependentUpon>
+    <Compile Include="DefaultPage.xaml.cs">
+      <DependentUpon>DefaultPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
+    <Compile Include="ITabGuest.cs" />
+    <Compile Include="Registrations.xaml.cs">
+      <DependentUpon>Registrations.xaml</DependentUpon>
+    </Compile>
+  <Compile Include="ResourcesView.xaml.cs">
+      <DependentUpon>ResourcesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TypeControl.xaml.cs">
+      <DependentUpon>TypeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TypeControl2.xaml.cs">
+      <DependentUpon>TypeControl2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TypeNavigator.xaml.cs">
+      <DependentUpon>TypeNavigator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TypePage.xaml.cs">
+      <DependentUpon>TypePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl1.xaml.cs">
+      <DependentUpon>UserControl1.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <AdditionalFiles Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </AdditionalFiles>
-    <Page Include="TypeNavWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -97,29 +135,19 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="NLog.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\AppShared\AppShared\AppShared.csproj">
-      <Project>{c4c404ae-0214-481b-ab46-708abd99af9c}</Project>
+      <Project>{C4C404AE-0214-481B-AB46-708ABD99AF9C}</Project>
       <Name>AppShared</Name>
     </ProjectReference>
     <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{42288d17-ed17-4f2f-9ea3-c3e64d5302bf}</Project>
+      <Project>{42288D17-ED17-4F2F-9EA3-C3E64D5302BF}</Project>
       <Name>Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WpfControlLibrary1\WpfControlLibrary1.csproj">
-      <Project>{A97863F6-A13C-4538-ADBC-159FB4C4BEB2}</Project>
-      <Name>WpfControlLibrary1</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

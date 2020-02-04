@@ -113,9 +113,6 @@
     <Compile Include="Application\IHaveAppLogger.cs" />
     <Compile Include="Attributes\LoggingEntityMetadata.cs" />
     <Compile Include="Attributes\WindowMetadataAttribute.cs" />
-    <Compile Include="Controls\AssemblyBrowser.xaml.cs">
-      <DependentUpon>AssemblyBrowser.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\Container.xaml.cs">
       <DependentUpon>Container.xaml</DependentUpon>
     </Compile>
@@ -173,10 +170,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Application\MergedResources.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\AssemblyBrowser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -269,6 +262,10 @@
     <ProjectReference Include="..\Logging\Logging.csproj">
       <Project>{B90266CB-3F2C-496B-8975-174C4BFAB39F}</Project>
       <Name>Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WpfControlLibrary1\WpfControlLibrary1.csproj">
+      <Project>{A97863F6-A13C-4538-ADBC-159FB4C4BEB2}</Project>
+      <Name>WpfControlLibrary1</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

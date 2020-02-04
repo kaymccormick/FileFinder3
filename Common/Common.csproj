@@ -55,34 +55,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppContainerFixture.cs" />
-    <Compile Include="Controls\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="Controls\UserControl1.xaml.cs">
+      <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\TypePage.xaml.cs">
-      <DependentUpon>TypePage.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="MainVie.cs" />
     <Compile Include="Utils\BuilderInterceptor.cs" />
     <Compile Include="Model\ComponentRegistration.cs" />
     <Compile Include="Context\ContextStackInstanceAttribute.cs" />
     <Compile Include="Context\PushContextAttribute.cs" />
-    <Compile Include="Controls\DefaultPage.xaml.cs">
-      <DependentUpon>DefaultPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Registrations.xaml.cs">
-      <DependentUpon>Registrations.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ResourcesView.xaml.cs">
-      <DependentUpon>ResourcesView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\TypeControl.xaml.cs">
-      <DependentUpon>TypeControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\TypeControl2.xaml.cs">
-      <DependentUpon>TypeControl2.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\TypeNavigator.xaml.cs">
-      <DependentUpon>TypeNavigator.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Converters\AssemblyConverter.cs" />
     <Compile Include="Converters\ComponentLifetimeConverter.cs" />
     <Compile Include="Converters\GetTypeConverter.cs" />
@@ -124,37 +104,9 @@
     <Compile Include="Utils\ContainerHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Controls\DefaultPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\Registrations.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\ResourcesView.xaml">
+    <Page Include="Controls\UserControl1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\TypeControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\TypeControl2.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\TypeNavigator.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\TypePage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Resources\Templates.xaml">
       <Generator>MSBuild:Compile</Generator>

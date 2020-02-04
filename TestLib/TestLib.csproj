@@ -49,13 +49,14 @@
   <ItemGroup>
     <Compile Include="Attributes\BeforeAfterLoggerAttribute.cs" />
     <Compile Include="Attributes\LogTestMethodAttribute.cs" />
+    <Compile Include="AutofacContainerDef.cs" />
     <Compile Include="Collections\LoggingCollection.cs" />
     <Compile Include="Collections\WpfApplication.cs" />
     <Compile Include="Fixtures\AppContainerFixture.cs" />
     <Compile Include="Fixtures\LoggingFixture.cs" />
     <Compile Include="Fixtures\WpfApplicationFixture.cs" />
     <Compile Include="Fixtures\WpfApplicationHelper.cs" />
-    <Compile Include="Fixture\MyServicesFixture.cs" />
+    <Compile Include="Fixtures\MyServicesFixture.cs" />
     <Compile Include="IMyServices.cs" />
     <Compile Include="MyServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

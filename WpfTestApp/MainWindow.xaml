@@ -1,4 +1,4 @@
-﻿<Window Name="mainWindow" x:Class="Common.Controls.MainWindow"
+﻿<Window Name="mainWindow" x:Class="WpfTestApp.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -9,7 +9,6 @@
         xmlns:common="clr-namespace:Common;assembly=Common"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:xaml="clr-namespace:AppShared.Xaml;assembly=AppShared"
-        xmlns:controls="clr-namespace:Common.Controls"
         MinWidth="800"
         MinHeight="600"
         mc:Ignorable="d" FontSize="20"
@@ -17,11 +16,11 @@
     <Window.Resources>
         <CollectionViewSource x:Key="ResourcesList" Source="{Binding ElementName=mainWindow,Path=ResourcesCollection}"></CollectionViewSource>
         <DataTemplate DataType="{x:Type system:Type}" x:Key="CellTemplateType">
-            <controls:TypeControl MinWidth="200" Target="{Binding ElementName=frame}">
+            <controls1:TypeControl MinWidth="200" Target="{Binding ElementName=frame}">
                 <appShared:App.RenderedType>
                     <Binding Path="." />
                 </appShared:App.RenderedType>
-            </controls:TypeControl>
+            </controls1:TypeControl>
         </DataTemplate>
         
         <types:ResolveServiceList x:Key="ResolveServices">
@@ -32,11 +31,11 @@
             </appShared:ResolveService>
         </types:ResolveServiceList>
         <DataTemplate x:Key="ResourceValueCell">
-            <controls:TypeControl Target="{Binding ElementName=frame}" TargetDetailed="true">
+            <controls1:TypeControl Target="{Binding ElementName=frame}" TargetDetailed="true">
                 <appShared:App.RenderedType>
                     <Binding Path="Value" Converter="{StaticResource GetTypeConverter}" />
                 </appShared:App.RenderedType>
-            </controls:TypeControl>
+            </controls1:TypeControl>
         </DataTemplate>
     </Window.Resources>
     <Grid DataContext="{Binding ElementName=mainWindow, Path=(appShared:App.LifetimeScope)}">
@@ -50,11 +49,14 @@
             <TextBlock Text="{Binding Path=Tag}" />
             <TextBlock Text="{Binding Source={xaml:LifetimeScope}, Path=Tag}" />
         </StackPanel>
-        <TabControl Grid.Column="0" Grid.Row="1" Style="{StaticResource TabControlStyle1}">
+        <TabControl Name="mainTabControl" Grid.Column="0" Grid.Row="1">
+
+        </TabControl>
+        <TabControl Visibility="Hidden" Grid.Column="0" Grid.Row="1" Style="{StaticResource TabControlStyle1}">
             <TabItem Header="0">
                 
             </TabItem>
-            <TabItem Header="Tab 1">
+            <TabItem Header="Tab 1" HorizontalAlignment="Right" Margin="-2.4,-2,-2.2,0.4" Width="63">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
@@ -90,11 +92,11 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Registrations">
-                <controls:Registrations>
+                <controls2:Registrations>
                     <appShared:App.LifetimeScope>
                         <Binding ElementName="mainWindow" Path="(appShared:App.LifetimeScope)" />
                     </appShared:App.LifetimeScope>
-                </controls:Registrations>
+                </controls2:Registrations>
             </TabItem>
             <TabItem Header="Y">
                 <StackPanel>

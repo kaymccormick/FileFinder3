@@ -8,8 +8,9 @@
               xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:autofac="clr-namespace:Autofac;assembly=Autofac"
              xmlns:common="clr-namespace:Common;assembly=Common"
-             xmlns:controls1="clr-namespace:Common.Controls;assembly=Common"
-             xmlns:model="clr-namespace:Common.Model;assembly=Common">
+              xmlns:model="clr-namespace:Common.Model;assembly=Common"
+             xmlns:controls2="clr-namespace:Controls;assembly=WpfControlLibrary1"
+             xmlns:wpfControlLibrary1="clr-namespace:WpfControlLibrary1;assembly=WpfControlLibrary1">
     <!--Control colors.-->
     <Color x:Key="WindowColor">#FFE8EDF9</Color>
     <Color x:Key="ContentAreaColorLight">#FFC5CBF9</Color>
@@ -92,7 +93,7 @@
 
     <DataTemplate DataType="core:TypedService">
         <WrapPanel>
-          <controls1:TypeControl RenderedType="{Binding ServiceType}" />
+          <wpfControlLibrary1:TypeControl RenderedType="{Binding ServiceType}" />
             <TextBlock Text="{Binding ServiceType}" />
         </WrapPanel>
     </DataTemplate>

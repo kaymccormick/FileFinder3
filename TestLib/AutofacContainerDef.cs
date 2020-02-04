@@ -1,8 +1,7 @@
-﻿using TestLib ;
-using TestLib.Fixtures ;
+﻿using TestLib.Fixtures ;
 using Xunit ;
 
-namespace WpfApp1Tests3.Collections
+namespace TestLib
 {
 	[ CollectionDefinition ( "AutofacContainer" ) ]
 	internal class AutofacContainerDef : ICollectionFixture < AppContainerFixture >
