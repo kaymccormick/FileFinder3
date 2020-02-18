@@ -255,7 +255,7 @@ namespace Common.Controls
 		{
 			if ( UsePageFunction )
 			{
-				
+				var p = new PageFunction1 ( ) ;
 			}
 			Logger.Debug ( $"{nameof ( HyperLinkOnRequestNavigate )}: Uri={e.Uri}" ) ;
 			var uie = ( ContentElement ) sender ;

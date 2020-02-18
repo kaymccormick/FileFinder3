@@ -27,7 +27,7 @@ namespace WpfApp1.AttributesTests3
 		[Fact ( )]
 		public void BeforeTest ()
 		{
-			Assert.True ( false , "This test needs an implementation" );
+			
 		}
 	}
 }

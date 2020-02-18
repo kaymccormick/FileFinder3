@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,22 +12,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WpfTestApp
+namespace Common.Controls
 {
 	/// <summary>
 	/// Interaction logic for PageFunction1.xaml
 	/// </summary>
-	public partial class PageFunction1 : PageFunction<TypeNavigation>
+	public partial class PageFunction1 : PageFunction < TypeNavigation >
 	{
 		public TypeNavigation NavInfo { get ; set ; }
-		public PageFunction1 ()
+		public PageFunction1 ()	
 		{
 			InitializeComponent ( );
 		}
-	}
-
-	public class TypeNavigation
-	{
-		public Type RenderedType ;
 	}
 }
